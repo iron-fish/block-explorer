@@ -1,5 +1,5 @@
-import { FC } from "react";
-import Image from "next/image";
+import { FC } from 'react';
+import Image from 'next/image';
 import {
   Flex,
   Link,
@@ -9,9 +9,9 @@ import {
   NAMED_COLORS,
   Center,
   HStack,
-} from "@ironfish/ui-kit";
-import { OuterReferenceIcon, IronFishLogo } from "svgx";
-import { SearchInput } from "components";
+} from '@ironfish/ui-kit';
+import { OuterReferenceIcon, IronFishLogo } from 'svgx';
+import { SearchInput } from 'components';
 
 const Navbar: FC = () => {
   const { colorMode } = useColorMode();
@@ -33,7 +33,7 @@ const Navbar: FC = () => {
       zIndex={1}
     >
       <IronFishLogo />
-      <Box w={"26.625rem"} h={"2.875rem"} ml="auto">
+      <Box w="26.625rem" h="2.875rem" ml="auto">
         <SearchInput
           variant="nav_search"
           placeholder="Search by block height, hash or transaction"

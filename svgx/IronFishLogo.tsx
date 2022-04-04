@@ -1,4 +1,4 @@
-import { useColorMode, NAMED_COLORS, Icon } from "@ironfish/ui-kit";
+import { useColorMode, NAMED_COLORS, Icon } from '@ironfish/ui-kit';
 
 export function IronFishLogo() {
   const { colorMode } = useColorMode();

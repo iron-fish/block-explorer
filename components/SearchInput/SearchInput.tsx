@@ -1,6 +1,6 @@
-import { FC } from "react";
-import { InputGroup, InputLeftElement, Input, InputProps } from "@ironfish/ui-kit";
-import { SearchIcon } from "svgx";
+import { FC } from 'react';
+import { InputGroup, InputLeftElement, Input, InputProps } from '@ironfish/ui-kit';
+import { SearchIcon } from 'svgx';
 
 const SearchInput: FC<InputProps> = (props) => {
   return (

@@ -1,5 +1,5 @@
-import { FC } from "react";
-import Image from "next/image";
+import { FC } from 'react';
+import Image from 'next/image';
 import {
   Flex,
   Box,
@@ -10,7 +10,7 @@ import {
   Button,
   useColorMode,
   NAMED_COLORS,
-} from "@ironfish/ui-kit";
+} from '@ironfish/ui-kit';
 import {
   TelegramIcon,
   GitHubIcon,
@@ -18,7 +18,7 @@ import {
   DiscordIcon,
   TwitterIcon,
   IronFishLogo,
-} from "svgx";
+} from 'svgx';
 
 const Footer: FC = () => {
   const { colorMode } = useColorMode();
