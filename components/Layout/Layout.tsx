@@ -8,7 +8,6 @@ const Layout: FC<ReactNode> = ({ children }) => {
     <>
       <Head>
         <title>Iron Fish</title>
-        <link rel="icon" href="/iron-fish.png"></link>
       </Head>
       <Navbar />
       {children}
