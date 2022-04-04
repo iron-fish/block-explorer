@@ -55,6 +55,7 @@ export default function Home() {
             <HStack>
               <Button variant="secondary" size="medium" >View All Blocks</Button>
               <Button variant="secondary" size="medium" >View Chain Explorer</Button>
+              {/* ColorModeSwitcher added while no layout available need to be removed in final version */}
               <ColorModeSwitcher />
             </HStack>
           </Flex>
