@@ -65,7 +65,7 @@ const Navbar: FC = () => {
         </Box>
         <Flex
           order={3}
-          flex={{ base: "0.5 1 50%", sm: "0.5", lg: "1" }}
+          flex={{ base: "0.5 1 40%", sm: "0.5", lg: "1" }}
           justifyContent="flex-end"
           align="center"
           ml="1.5rem"
