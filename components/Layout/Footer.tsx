@@ -1,16 +1,16 @@
-import { FC } from 'react';
-import Image from 'next/image';
+import { FC } from "react";
+import Image from "next/image";
 import {
   Flex,
   Box,
-  Input,
   Link,
   VStack,
   HStack,
   Button,
   useColorMode,
   NAMED_COLORS,
-} from '@ironfish/ui-kit';
+  Text,
+} from "@ironfish/ui-kit";
 import {
   TelegramIcon,
   GitHubIcon,
@@ -18,7 +18,7 @@ import {
   DiscordIcon,
   TwitterIcon,
   IronFishLogo,
-} from 'svgx';
+} from "svgx";
 
 const Footer: FC = () => {
   const { colorMode } = useColorMode();
@@ -31,7 +31,8 @@ const Footer: FC = () => {
       bgColor={isDarkMode ? "#101010" : NAMED_COLORS.WHITE}
       borderTop="0.0625rem solid"
       borderColor={isDarkMode ? NAMED_COLORS.DARK_GREY : "#E1E1E1"}
-      p="64px 7.6875rem 0rem 7.6875rem"
+      p="4rem 7.6875rem 0rem 7.6875rem"
+      display={{ base: "none", lg: "block" }}
     >
       <Flex direction="column">
         <Flex justify="space-between" w="100%" mb="4rem">
@@ -39,7 +40,13 @@ const Footer: FC = () => {
             <Box mb="1.1875rem">
               <IronFishLogo />
             </Box>
-            <div style={{ fontSize: "0.6875rem", width: "13.125rem", inlineSize: "11.5625rem" }}>
+            <div
+              style={{
+                fontSize: "0.6875rem",
+                width: "13.125rem",
+                inlineSize: "11.5625rem",
+              }}
+            >
               Iron Fish is a novel cryptocurrency focused on privacy and
               accessibility
             </div>
@@ -70,25 +77,30 @@ const Footer: FC = () => {
             Drop us a line!
           </Button>
         </Flex>
-        <Flex
-          align={"center"}
-          h="4.0625rem"
-          w="100%"
-          borderTop="0.0625rem solid"
-          borderColor={isDarkMode ? NAMED_COLORS.DARK_GREY : "#E1E1E1"}
-          color={isDarkMode ? NAMED_COLORS.PALE_GREY : NAMED_COLORS.DEEP_BLUE}
+      </Flex>
+      <Flex
+        align={"center"}
+        h="4.0625rem"
+        w="100%"
+        borderTop="0.0625rem solid"
+        borderColor={isDarkMode ? NAMED_COLORS.DARK_GREY : "#E1E1E1"}
+        color={isDarkMode ? NAMED_COLORS.PALE_GREY : NAMED_COLORS.DEEP_BLUE}
+        direction="row"
+      >
+        <Text fontSize="0.75rem" pl="0.8125rem">
+          2021 Iron Fish. All rights reserved.
+        </Text>
+        <HStack
+          spacing={"1.375rem"}
+          justifyContent="flex-end"
+          flex={1}
         >
-          <span style={{ fontSize: "0.75rem", paddingLeft: '0.8125rem' }}>
-            2021 Iron Fish. All rights reserved.
-          </span>
-          <HStack ml="auto" spacing={"1.375rem"}>
-            <TelegramIcon />
-            <GitHubIcon />
-            <RedditIcon />
-            <TwitterIcon />
-            <DiscordIcon />
-          </HStack>
-        </Flex>
+          <TelegramIcon />
+          <GitHubIcon />
+          <RedditIcon />
+          <TwitterIcon />
+          <DiscordIcon />
+        </HStack>
       </Flex>
     </Box>
   );
