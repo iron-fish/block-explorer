@@ -92,6 +92,15 @@ const Navbar: FC = () => {
             className={`${styles.menu_btn__burger} ${
               showMenu ? styles.open : ""
             }`}
+            sx={{
+              _before: {
+                backgroundColor: isDarkMode ? NAMED_COLORS.WHITE : NAMED_COLORS.DEEP_BLUE
+              },
+              _after: {
+                backgroundColor: isDarkMode ? NAMED_COLORS.WHITE : NAMED_COLORS.DEEP_BLUE
+              },
+              backgroundColor: isDarkMode ? NAMED_COLORS.WHITE : NAMED_COLORS.DEEP_BLUE
+            }}
           />
           <Box ml="2rem">
             <ColorModeSwitcher />

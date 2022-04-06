@@ -1,5 +1,4 @@
 .menu_btn__burger {
-  background: black;
   width: 2.0625rem;
   height: 0.1719rem;
   transition: all .3s ease-in-out;
@@ -11,7 +10,6 @@
   position: absolute;
   width: 2.0625rem;
   height: 0.1719rem;
-  background: black;
   transition: all .3s ease-in-out;
 }
 
