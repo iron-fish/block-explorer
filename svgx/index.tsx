@@ -1,4 +1,3 @@
-// while no icon library used required icons/svg can be added here
 export { default as IronFishLogo } from './IronFishLogo';
 export { default as DiscordIcon } from './DiscordIcon';
 export { default as GitHubIcon } from './GitHubIcon';
