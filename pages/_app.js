@@ -1,4 +1,3 @@
-import '../styles/globals.css'
 import { Layout } from 'components'
 import { IronFishUIProvider } from '@ironfish/ui-kit'
 
