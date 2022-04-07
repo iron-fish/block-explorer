@@ -28,7 +28,7 @@ const Footer: FC = () => {
     <Box
       w="100%"
       h="20rem"
-      bgColor={isDarkMode ? "#101010" : NAMED_COLORS.WHITE}
+      bgColor={isDarkMode ? NAMED_COLORS.LIGHT_BLACK : NAMED_COLORS.WHITE}
       borderTop="0.0625rem solid"
       borderColor={isDarkMode ? NAMED_COLORS.DARK_GREY : "#E1E1E1"}
       p="4rem 7.6875rem 0rem 7.6875rem"
