@@ -21,8 +21,9 @@ const NavListOfLinks: FC = () => {
         display: { base: "flex", lg: "none" },
         flexDirection: "column",
         w: "100%",
+        h: "100vh",
         p: "2.5rem 0rem 2.5rem 2rem",
-        bgColor: isDarkMode ? NAMED_COLORS.DARK_GREY : NAMED_COLORS.WHITE,
+        bgColor: isDarkMode ? NAMED_COLORS.LIGHT_BLACK : NAMED_COLORS.WHITE,
       },
     },
     lg: {
