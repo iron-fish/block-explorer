@@ -24,7 +24,8 @@ const Card: FC<CardProps> = ({
       borderColor={isDarkMode ? NAMED_COLORS.DARK_GREY : NAMED_COLORS.LIGHT_GREY}
       borderRadius="0.125rem"
       h="7.5rem"
-      w="18.75rem"
+      w={{base: 'auto', sm: "100%"}}
+      m="0.2rem"
       boxShadow={`0.25rem 0.25rem 0 -0.063rem ${isDarkMode ? NAMED_COLORS.DARKER_GREY : NAMED_COLORS.WHITE}, 0.25rem 0.25rem ${isDarkMode ? NAMED_COLORS.DARK_GREY : NAMED_COLORS.LIGHT_GREY}`}
       p="2rem"
       {...rest}

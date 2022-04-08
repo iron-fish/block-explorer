@@ -1,1 +1,1 @@
-export * from './Card/Card'
+export {default as Card} from './Card/Card'
