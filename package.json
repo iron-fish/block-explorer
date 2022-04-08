@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ironfish/ui-kit": "0.0.1",
     "next": "12.1.1",
     "ramda": "^0.28.0",
     "react": "17.0.2",
