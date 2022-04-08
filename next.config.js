@@ -1,6 +1,8 @@
 const { resolve } = require('path')
 
 /** @type {import('next').NextConfig} */
+const { resolve } = require('path')
+
 const nextConfig = {
   reactStrictMode: true,
   webpack(config) {
