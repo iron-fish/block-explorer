@@ -1,5 +1,3 @@
-const { resolve } = require('path')
-
 /** @type {import('next').NextConfig} */
 const { resolve } = require('path')
 
