@@ -19,7 +19,7 @@ const Navbar: FC = () => {
   const isDarkMode = colorMode === "dark";
   const listOfLinksRef = useRef(null);
   const content = useBreakpointValue({
-    base: <NavMenu linksListBlockRef={listOfLinksRef} />,
+    base: <NavMenu listOfLinksRef={listOfLinksRef} />,
     lg: <NavListOfLinks />,
   });
 

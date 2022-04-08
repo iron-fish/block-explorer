@@ -11,10 +11,10 @@ import NavListOfLinks from "./NavListOfLinks";
 import styles from "./navMenu.module.scss";
 
 interface NavMenuProps {
-  linksListBlockRef: RefObject<FC | null>
+  listOfLinksRef: RefObject<FC | null>
 }
 
-const NavMenu: FC<NavMenuProps> = ({ linksListBlockRef }) => {
+const NavMenu: FC<NavMenuProps> = ({ listOfLinksRef }) => {
   const { colorMode } = useColorMode();
   const isDarkMode = colorMode === "dark";
   const [showMenu, setShowMenu] = useState<boolean>(false);
@@ -40,7 +40,7 @@ const NavMenu: FC<NavMenuProps> = ({ linksListBlockRef }) => {
             : NAMED_COLORS.DEEP_BLUE,
         }}
       />
-      <Portal containerRef={linksListBlockRef}>
+      <Portal containerRef={listOfLinksRef}>
         {showMenu ? <NavListOfLinks /> : null}
       </Portal>
     </>
