@@ -1,52 +1,22 @@
 import { FC } from "react";
-import {
-  Flex,
-  Link,
-  useColorMode,
-  NAMED_COLORS,
-  Center,
-  useBreakpointValue,
-} from "@ironfish/ui-kit";
+import { Flex, Link, Center, useConst, FlexProps } from "@ironfish/ui-kit";
 import { OuterReferenceIcon } from "svgx";
 
-const NavListOfLinks: FC = () => {
-  const { colorMode } = useColorMode();
-  const isDarkMode = colorMode === "dark";
-  const style = useBreakpointValue({
-    base: {
-      link: {
-        fontSize: "2.3125rem",
-      },
-      container: {
-        display: { base: "flex", lg: "none" },
-        flexDirection: "column",
-        w: "100%",
-        h: "100vh",
-        p: "2.5rem 0rem 2.5rem 2rem",
-        bgColor: isDarkMode ? NAMED_COLORS.LIGHT_BLACK : NAMED_COLORS.WHITE,
-      },
-    },
-    lg: {
-      link: {
-        fontSize: "0.875rem",
-        mr: "2rem",
-        whiteSpace: "nowrap",
-      },
-      container: {
-        display: { base: "none", lg: "flex" },
-      },
-    },
+const NavListOfLinks: FC<FlexProps> = (props) => {
+  const linkStyle = useConst({
+    mr: "2rem",
+    whiteSpace: "nowrap",
   });
 
   return (
-    <Flex sx={style.container}>
-      <Link sx={style.link} href="#">
+    <Flex {...props}>
+      <Link sx={linkStyle} href="#">
         All blocks
       </Link>
-      <Link sx={style.link} href="#">
+      <Link sx={linkStyle} href="#">
         Charts
       </Link>
-      <Link sx={style.link} href="#">
+      <Link sx={linkStyle} href="#">
         <Flex>
           Developer Docs
           <Center ml="0.5rem">

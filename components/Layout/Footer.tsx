@@ -7,9 +7,9 @@ import {
   VStack,
   HStack,
   Button,
-  useColorMode,
   NAMED_COLORS,
   Text,
+  useColorModeValue
 } from "@ironfish/ui-kit";
 import {
   TelegramIcon,
@@ -21,18 +21,28 @@ import {
 } from "svgx";
 
 const Footer: FC = () => {
-  const { colorMode } = useColorMode();
-  const isDarkMode = colorMode === "dark";
+  const colors = useColorModeValue(
+    {
+      bg: NAMED_COLORS.WHITE,
+      border: "#E1E1E1",
+      color: NAMED_COLORS.DEEP_BLUE
+    },
+    {
+      bg: NAMED_COLORS.LIGHT_BLACK,
+      border: NAMED_COLORS.DARK_GREY,
+      color: NAMED_COLORS.PALE_GREY
+    },
+  )
 
   return (
     <Box
       w="100%"
       h="20rem"
-      bgColor={isDarkMode ? NAMED_COLORS.LIGHT_BLACK : NAMED_COLORS.WHITE}
+      bgColor={colors.bg}
       borderTop="0.0625rem solid"
-      borderColor={isDarkMode ? NAMED_COLORS.DARK_GREY : "#E1E1E1"}
+      borderColor={colors.border}
       p="4rem 7.6875rem 0rem 7.6875rem"
-      display={{ base: "none", lg: "block" }}
+      display={{ base: "none", xl: "block" }}
     >
       <Flex direction="column">
         <Flex justify="space-between" w="100%" mb="4rem">
@@ -73,7 +83,7 @@ const Footer: FC = () => {
             <Link fontSize="1rem">Whitepaper</Link>
             <Link fontSize="1rem">FAQ</Link>
           </VStack>
-          <Button variant="secondary" size="medium">
+          <Button variant="primary" size="medium">
             Drop us a line!
           </Button>
         </Flex>
@@ -83,8 +93,8 @@ const Footer: FC = () => {
         h="4.0625rem"
         w="100%"
         borderTop="0.0625rem solid"
-        borderColor={isDarkMode ? NAMED_COLORS.DARK_GREY : "#E1E1E1"}
-        color={isDarkMode ? NAMED_COLORS.PALE_GREY : NAMED_COLORS.DEEP_BLUE}
+        borderColor={colors.border}
+        color={colors.color}
         direction="row"
       >
         <Text fontSize="0.75rem" pl="0.8125rem">

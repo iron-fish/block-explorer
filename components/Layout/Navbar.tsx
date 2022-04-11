@@ -3,7 +3,7 @@ import {
   Flex,
   Box,
   ColorModeSwitcher,
-  useColorMode,
+  useColorModeValue,
   NAMED_COLORS,
   useBreakpointValue,
   Portal,
@@ -15,12 +15,32 @@ import NavMenu from "./NavMenu";
 import NavListOfLinks from "./NavListOfLinks";
 
 const Navbar: FC = () => {
-  const { colorMode } = useColorMode();
-  const isDarkMode = colorMode === "dark";
-  const listOfLinksRef = useRef(null);
+  const menuRef = useRef(null);
+  const colors = useColorModeValue(
+    {
+      bg: NAMED_COLORS.WHITE,
+      border: NAMED_COLORS.LIGHT_GREY,
+    },
+    {
+      bg: NAMED_COLORS.LIGHT_BLACK,
+      border: NAMED_COLORS.DARK_GREY,
+    }
+  );
   const content = useBreakpointValue({
-    base: <NavMenu listOfLinksRef={listOfLinksRef} />,
-    lg: <NavListOfLinks />,
+    base: (
+      <NavMenu menuRef={menuRef}>
+        <NavListOfLinks
+          sx={{
+            flexDirection: "column",
+            w: "100%",
+            h: "100vh",
+            p: "2.5rem 0rem 2.5rem 2rem",
+            fontSize: "2.3125rem",
+          }}
+        />
+      </NavMenu>
+    ),
+    lg: <NavListOfLinks sx={{ fontSize: "0.875rem" }} />,
   });
 
   return (
@@ -31,11 +51,9 @@ const Navbar: FC = () => {
         flexWrap="wrap"
         border="0.0625rem solid"
         p={{ base: "2.125rem 2rem 0.5rem", sm: "0rem 2rem", md: "0rem 4rem" }}
-        bgColor={isDarkMode ? "#101010" : NAMED_COLORS.WHITE}
+        bgColor={colors.bg}
         boxShadow="0rem 0.25rem 0.6875rem rgba(0, 0, 0, 0.04)"
-        borderColor={
-          isDarkMode ? NAMED_COLORS.DARK_GREY : NAMED_COLORS.LIGHT_GREY
-        }
+        borderColor={colors.border}
       >
         <Box
           order={1}
@@ -63,7 +81,7 @@ const Navbar: FC = () => {
           <ColorModeSwitcher />
         </Flex>
       </Flex>
-      <Box ref={listOfLinksRef} />
+      <Box ref={menuRef} />
     </Flex>
   );
 };

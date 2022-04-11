@@ -1,48 +1,55 @@
 import { FC, useState } from "react";
 import {
   Box,
-  useColorMode,
+  useColorModeValue,
   NAMED_COLORS,
-  useBreakpointValue,
   Portal,
+  useConst,
 } from "@ironfish/ui-kit";
 
 import NavListOfLinks from "./NavListOfLinks";
-import styles from "./navMenu.module.scss";
 
 interface NavMenuProps {
-  listOfLinksRef: RefObject<FC | null>
+  menuRef: RefObject<FC | null>;
+  children: ReactNode;
 }
 
-const NavMenu: FC<NavMenuProps> = ({ listOfLinksRef }) => {
-  const { colorMode } = useColorMode();
-  const isDarkMode = colorMode === "dark";
-  const [showMenu, setShowMenu] = useState<boolean>(false);
+const NavMenu: FC<NavMenuProps> = ({ menuRef, children }) => {
+  const colors = useColorModeValue(
+    { bg: NAMED_COLORS.DEEP_BLUE },
+    { bg: NAMED_COLORS.WHITE }
+  );
+  const burgerLineStyle = useConst({
+    width: "2.0625rem",
+    height: "0.1719rem",
+    transition: "all .3s ease-in-out",
+  });
 
+  const [showMenu, setShowMenu] = useState<boolean>(false);
   return (
     <>
       <Box
         onClick={() => setShowMenu(!showMenu)}
-        className={`${styles.menu_btn__burger} ${showMenu ? styles.open : ""}`}
+        _before={{
+          content: `""`,
+          position: "absolute",
+          ...burgerLineStyle,
+          bgColor: colors.bg,
+          transform: showMenu ? "rotate(45deg)" : "translateY(0.2575rem)",
+        }}
+        _after={{
+          content: `""`,
+          position: "absolute",
+          ...burgerLineStyle,
+          bgColor: colors.bg,
+          transform: showMenu ? "rotate(-45deg)" : "translateY(-0.2575rem)",
+        }}
         sx={{
-          _before: {
-            backgroundColor: isDarkMode
-              ? NAMED_COLORS.WHITE
-              : NAMED_COLORS.DEEP_BLUE,
-          },
-          _after: {
-            backgroundColor: isDarkMode
-              ? NAMED_COLORS.WHITE
-              : NAMED_COLORS.DEEP_BLUE,
-          },
-          backgroundColor: isDarkMode
-            ? NAMED_COLORS.WHITE
-            : NAMED_COLORS.DEEP_BLUE,
+          ...burgerLineStyle,
+          bg: showMenu ? "transparent" : colors.bg,
         }}
       />
-      <Portal containerRef={listOfLinksRef}>
-        {showMenu ? <NavListOfLinks /> : null}
-      </Portal>
+      <Portal containerRef={menuRef}>{showMenu ? children : null}</Portal>
     </>
   );
 };
