@@ -34,7 +34,7 @@ const Navbar: FC = () => {
             flexDirection: "column",
             w: "100%",
             h: "100vh",
-            p: "2.5rem 0rem 2.5rem 2rem",
+            p: "2.5rem 0rem 2rem",
             fontSize: "2.3125rem",
             bgColor: colors.bg,
           }}
@@ -51,7 +51,7 @@ const Navbar: FC = () => {
         w="100%"
         flexWrap="wrap"
         border="0.0625rem solid"
-        p={{ base: "2.125rem 2rem 0.5rem", sm: "0rem 2rem", md: "0rem 4rem" }}
+        p={{ base: "1.125rem 2rem 0rem", sm: "0rem 2rem", md: "0rem 4rem" }}
         bgColor={colors.bg}
         boxShadow="0rem 0.25rem 0.6875rem rgba(0, 0, 0, 0.04)"
         borderColor={colors.border}

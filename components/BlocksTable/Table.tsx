@@ -37,9 +37,8 @@ const COLUMNS = [
       <>
         <Box mr="1rem">
           <BlockIcon pb="0.1rem" h="1.875rem" w="1.625rem" />
-        </Box><Box color={NAMED_COLORS.LIGHT_BLUE}>
-          {block.sequence}
         </Box>
+        <Box color={NAMED_COLORS.LIGHT_BLUE}>{block.sequence}</Box>
       </>
     )
   },
@@ -92,8 +91,8 @@ const BlocksTable: FC<BlocksTableProps> = ({
           <RowData
             key={block.id}
             items={COLUMNS.map(column => (
-              <RowItem 
-                key={column.key} 
+              <RowItem
+                key={column.key}
                 label={column.label}
               >
                 {column.render(block)}
