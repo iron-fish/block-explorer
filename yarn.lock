@@ -788,7 +788,7 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@ironfish/ui-kit@^0.0.1":
+"@ironfish/ui-kit@0.0.1":
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@ironfish/ui-kit/-/ui-kit-0.0.1.tgz#7c422115c4a62ea4cc34a54123b38ef7e92fd3e7"
   integrity sha512-2+3xX5dz/cjTolHMpKw4NUJdw73ypj5q7KDL3ILYlq6th8HSygC9VYUPsBidLH3ytMy9mXrBYzfysSOJaRH37Q==
@@ -1227,6 +1227,11 @@ braces@^3.0.2:
   integrity sha512-b8um+L1RzM3WDSzvhm6gIz1yfTbBt6YTlcEKAvsmqCZZFw46z626lVj9j1yEPW33H5H+lBQpZMP1k8l+78Ha0A==
   dependencies:
     fill-range "^7.0.1"
+
+byte-size@^8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/byte-size/-/byte-size-8.1.0.tgz#6353d0bc14ab7a69abcefbf11f8db0145a862cb5"
+  integrity sha512-FkgMTAg44I0JtEaUAvuZTtU2a2YDmBRbQxdsQNSMtLCjhG0hMcF5b1IMN9UjSCJaU4nvlj/GER7B9sI4nKdCgA==
 
 call-bind@^1.0.0, call-bind@^1.0.2:
   version "1.0.2"
