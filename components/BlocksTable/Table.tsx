@@ -29,6 +29,42 @@ interface BlocksTableProps extends TableProps {
   isLoading?: boolean,
 }
 
+const COLUMNS = [
+  {
+    key: "block-height",
+    label: "Block Height",
+    render: (block) => (
+      <>
+        <Box mr="1rem">
+          <BlockIcon pb="0.1rem" h="1.875rem" w="1.625rem" />
+        </Box><Box color={NAMED_COLORS.LIGHT_BLUE}>
+          {block.sequence}
+        </Box>
+      </>
+    )
+  },
+  {
+    key: "block-size",
+    label: "Size",
+    render: (block) => size(block.size).toString()
+  },
+  {
+    key: "block-transactions",
+    label: "TXN",
+    render: (block) => block.transactions_count
+  },
+  {
+    key: "block-hash",
+    label: "Block Hash",
+    render: (block) => truncateHash(block.hash)
+  },
+  {
+    key: "block-timestamp",
+    label: "Timestamp",
+    render: (block) => block.timestamp
+  }
+]
+
 const BlocksTable: FC<BlocksTableProps> = ({
   data = null,
   isLoading,
@@ -46,54 +82,23 @@ const BlocksTable: FC<BlocksTableProps> = ({
     >
       <Thead display={{ base: 'none', lg: 'table-header-group' }}>
         <Tr>
-          <Th>Block Height</Th>
-          <Th>Size</Th>
-          <Th>TXN</Th>
-          <Th>Block Hash</Th>
-          <Th>Timestamp</Th>
+          {COLUMNS.map(column => (
+            <Th key={column.key}>{column.label}</Th>
+          ))}
         </Tr>
       </Thead>
       <Tbody>
         {data?.map(block => (
           <RowData
             key={block.id}
-            items={[
-              <RowItem
-                key="block-height"
-                label="Block Height"
+            items={COLUMNS.map(column => (
+              <RowItem 
+                key={column.key} 
+                label={column.label}
               >
-                <Box mr="1rem">
-                  <BlockIcon pb="0.1rem" h="1.875rem" w="1.625rem" />
-                </Box>
-                <Box color={NAMED_COLORS.LIGHT_BLUE}>
-                  {block.sequence}
-                </Box>
-              </RowItem>,
-              <RowItem
-                key="block-size"
-                label="Size"
-              >
-                {size(block.size).toString()}
-              </RowItem>,
-              <RowItem
-                key="block-transactions"
-                label="TXN"
-              >
-                {block.transactions_count}
-              </RowItem>,
-              <RowItem
-                key="block-hash"
-                label="Block Hash"
-              >
-                {truncateHash(block.hash)}
-              </RowItem>,
-              <RowItem
-                key="block-timestamp"
-                label="Timestamp"
-              >
-                {block.timestamp}
+                {column.render(block)}
               </RowItem>
-            ]}
+            ))}
           />
         ))}
       </Tbody>
