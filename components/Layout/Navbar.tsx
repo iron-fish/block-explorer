@@ -36,6 +36,7 @@ const Navbar: FC = () => {
             h: "100vh",
             p: "2.5rem 0rem 2.5rem 2rem",
             fontSize: "2.3125rem",
+            bgColor: colors.bg,
           }}
         />
       </NavMenu>
