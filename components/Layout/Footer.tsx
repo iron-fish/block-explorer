@@ -41,7 +41,7 @@ const Footer: FC = () => {
       bgColor={colors.bg}
       borderTop="0.0625rem solid"
       borderColor={colors.border}
-      p="4rem 7.6875rem 0rem 7.6875rem"
+      p="4rem 7.6875rem 0rem"
       display={{ base: "none", xl: "block" }}
     >
       <Flex direction="column">
