@@ -1,10 +1,14 @@
-import '../styles/globals.css'
 import { IronFishUIProvider } from '@ironfish/ui-kit'
+import Contexts from 'contexts/Contexts'
+
+import 'styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
   return (
     <IronFishUIProvider>
-      <Component {...pageProps} />
+      <Contexts>
+        <Component {...pageProps} />
+      </Contexts>
     </IronFishUIProvider>
   )
 }
