@@ -8,7 +8,8 @@ import {
   Center,
   NAMED_COLORS,
   Text,
-  useColorModeValue
+  useColorModeValue,
+  useBreakpointValue,
 } from '@ironfish/ui-kit';
 import {
   HeightIcon,
@@ -44,6 +45,7 @@ export default function Home() {
       mainBg: NAMED_COLORS.LIGHT_BLACK
     }
   )
+  const cardWidth = useBreakpointValue({ base: '100%', sm: 'calc(50% - 1rem)', md: 'calc(33% - 1rem)' })
 
   const { loaded, data } = useBlocks();
 
@@ -53,20 +55,19 @@ export default function Home() {
         <title>Iron Fish: Home</title>
       </Head>
       <Box
-        h={{ base: "568px", sm: "33.75rem" }}
-        w="100%"
-        bgColor={colorModeStyles.imageBg}
-        bgImage={{ base: null, sm: colorModeStyles.bgImage }}
-        bgRepeat="no-repeat"
-        pos="absolute"
-        mt={{ base: "154px", sm: "94px" }}
         sx={{
+          h: { base: "568px", sm: "33.75rem" },
+          w: "100%",
+          bgColor: colorModeStyles.imageBg,
+          bgImage: { base: null, sm: colorModeStyles.bgImage },
+          bgRepeat: "no-repeat",
+          pos: "absolute",
           backgroundPositionX: 'right',
           backgroundSize: '55.9375rem'
         }} />
       <Flex
         justify={'center'}
-        pt={{ base: '250px', sm: '11.875rem', md: '13.4375rem' }}
+        pt={{ base: '96px', sm: '120px' }}
         pb="6rem"
         bgColor={colorModeStyles.mainBg}
       >
@@ -74,18 +75,11 @@ export default function Home() {
           <Flex direction="column" mb="5.3125rem">
             <Text
               fontSize="3.25rem"
-              lineHeight={{ base: '3.7188rem', sm: '3.8675rem' }}
+              lineHeight={"3.8675rem"}
               color={NAMED_COLORS.WHITE}
+              mb="18px"
             >
-              Welcome to the
-            </Text>
-            <Text
-              fontSize="3.25rem"
-              lineHeight={{ base: '3.7188rem', sm: '3.8675rem' }}
-              mb='1.125rem'
-              color={NAMED_COLORS.WHITE}
-            >
-              Iron Fish Block Explorer
+              Welcome to the<br />Iron Fish Block Explorer
             </Text>
             <Text
               fontSize="1.5rem"
@@ -99,45 +93,45 @@ export default function Home() {
               <Button variant="secondary" size="medium" >View Chain Explorer</Button>
             </HStack>
           </Flex>
-          <Flex maxW="60rem" w="100%" wrap="wrap" mb="2.25rem">
+          <Flex w="100%" wrap="wrap" mb="2.25rem">
             <Card
               m="0.5rem"
-              w={{ base: '100%', sm: 'calc(50% - 1rem)', md: 'calc(33% - 1rem)' }}
+              w={cardWidth}
               label="Difficulty"
               value="1542554"
               icon={<DifficultyIcon />}
             />
             <Card
               m="0.5rem"
-              w={{ base: '100%', sm: 'calc(50% - 1rem)', md: 'calc(33% - 1rem)' }}
+              w={cardWidth}
               label="Height"
               value="2824804814"
               icon={<HeightIcon />}
             />
             <Card
               m="0.5rem"
-              w={{ base: '100%', sm: 'calc(50% - 1rem)', md: 'calc(33% - 1rem)' }}
+              w={cardWidth}
               label="Latest block hash"
               value="65 Seconds"
               icon={<LatestBlockHashIcon />}
             />
             <Card
               m="0.5rem"
-              w={{ base: '100%', sm: 'calc(50% - 1rem)', md: 'calc(33% - 1rem)' }}
+              w={cardWidth}
               label="Latest Block txn"
               value="1,433,566"
               icon={<LatestBlockTXNIcon />}
             />
             <Card
               m="0.5rem"
-              w={{ base: '100%', sm: 'calc(50% - 1rem)', md: 'calc(33% - 1rem)' }}
+              w={cardWidth}
               label="Seconds to block"
               value="23"
               icon={<SecondsToBlockIcon />}
             />
             <Card
               m="0.5rem"
-              w={{ base: '100%', sm: 'calc(50% - 1rem)', md: 'calc(33% - 1rem)' }}
+              w={cardWidth}
               label="Total Supply"
               value="24,245,221"
               icon={<TotalSupplyIcon />}
