@@ -1,5 +1,5 @@
 import { Card, BlocksTable } from 'components'
-import Head from 'next/Head'
+import Head from 'next/head'
 import {
   Flex,
   Box,
