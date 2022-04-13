@@ -1,4 +1,4 @@
-export interface Response<T> {
+export interface ResponseType<T> {
   data: T,
   metadata?: {
     has_next: boolean
@@ -7,4 +7,4 @@ export interface Response<T> {
   object: string
 }
 
-export default Response
+export default ResponseType

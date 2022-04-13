@@ -1,12 +1,12 @@
 import { useContext, useEffect } from "react"
 
 import { BlockContext } from "contexts/ServiceContexts"
-import { BlockType, Response } from "types"
+import { BlockType } from "types"
 import useAsyncDataWrapper from "./useAsyncDataWrapper"
 
 const useBlockBySeq = (seq: number) => {
   const service = useContext(BlockContext)
-  const [result, wrapper] = useAsyncDataWrapper<Response<BlockType[]>>()
+  const [result, wrapper] = useAsyncDataWrapper<BlockType>()
 
   useEffect(() => {
     wrapper(service.find({ sequence: seq }))

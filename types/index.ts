@@ -1,4 +1,4 @@
 export * from './common/AsyncDataType'
-export * from './BlockType'
-export * from './common/Response'
+export * from './domain/BlockType'
+export * from './common/ResponseType'
 export * from './parameters/BlocksApi'

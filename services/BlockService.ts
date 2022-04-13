@@ -1,4 +1,4 @@
-import { BlocksParameters, BlocksStatisticParameters, BlockType, FindBlockParameters, Response } from "types";
+import { BlocksParameters, BlocksStatisticParameters, BlockType, FindBlockParameters, ResponseType } from "types";
 import Service from "./Service";
 
 class BlockService extends Service {
@@ -6,19 +6,19 @@ class BlockService extends Service {
     super('/blocks')
   }
 
-  blocks(query: BlocksParameters): Promise<Response<BlockType[]>> {
+  blocks(query: BlocksParameters): Promise<ResponseType<BlockType[]>> {
     return this.fetcher.get('', {
       params: query
     }).then(({ data }) => data)
   }
 
-  find(query: FindBlockParameters) {
+  find(query: FindBlockParameters): Promise<BlockType> {
     return this.fetcher.get('/find', {
       params: query
     }).then(({ data }) => data)
   }
 
-  head() {
+  head(): Promise<BlockType> {
     return this.fetcher.get('/head').then(({ data }) => data)
   }
 
