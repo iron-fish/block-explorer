@@ -34,7 +34,7 @@ const Navbar: FC = () => {
             flexDirection: "column",
             w: "100%",
             h: "100vh",
-            p: "2.5rem 0rem 2rem",
+            p: "2.5rem",
             fontSize: "2.3125rem",
             bgColor: colors.bg,
           }}
@@ -45,7 +45,7 @@ const Navbar: FC = () => {
   });
 
   return (
-    <Flex w="100%" position="fixed" zIndex={10} direction="column">
+    <Flex w="100%" position="sticky" top={0} zIndex={10} direction="column">
       <Flex
         align="center"
         w="100%"
