@@ -66,7 +66,7 @@ export default function Home() {
           backgroundSize: '55.9375rem'
         }} />
       <Flex
-        justify={'center'}
+        justify='center'
         pt={{ base: '96px', sm: '120px' }}
         pb="6rem"
         bgColor={colorModeStyles.mainBg}
@@ -75,7 +75,7 @@ export default function Home() {
           <Flex direction="column" mb="5.3125rem">
             <Text
               fontSize="3.25rem"
-              lineHeight={"3.8675rem"}
+              lineHeight="3.8675rem"
               color={NAMED_COLORS.WHITE}
               mb="18px"
             >
