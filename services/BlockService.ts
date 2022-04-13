@@ -1,4 +1,3 @@
-import { AxiosInstance } from "axios";
 import { BlocksParameters, BlocksStatisticParameters, BlockType, FindBlockParameters, Response } from "types";
 import Service from "./Service";
 
