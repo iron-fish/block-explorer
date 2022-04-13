@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, RefObject, ReactNode, useState } from "react";
 import { Box, useColorModeValue, NAMED_COLORS, Portal } from "@ironfish/ui-kit";
 
 import NavListOfLinks from "./NavListOfLinks";
@@ -10,7 +10,7 @@ const burgerLineStyle = {
 };
 
 interface NavMenuProps {
-  menuRef: RefObject<FC | null>;
+  menuRef: RefObject<HTMLElement>;
   children: ReactNode;
 }
 
