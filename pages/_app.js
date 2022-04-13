@@ -1,18 +1,18 @@
 import { IronFishUIProvider } from '@ironfish/ui-kit'
 
 import { Layout } from 'components'
-import Contexts from 'contexts/Contexts'
+import ServiceContexts from 'contexts/ServiceContexts'
 
 import 'styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
   return (
     <IronFishUIProvider>
-      <Contexts>
+      <ServiceContexts>
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      </Contexts>
+      </ServiceContexts>
     </IronFishUIProvider>
   )
 }

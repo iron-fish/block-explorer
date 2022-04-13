@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react"
 
-import { BlockContext } from "contexts/Contexts"
+import { BlockContext } from "contexts/ServiceContexts"
 import { BlockType, Response } from "types"
 import useAsyncDataWrapper from "./useAsyncDataWrapper"
 
