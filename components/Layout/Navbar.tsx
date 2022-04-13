@@ -55,11 +55,12 @@ const Navbar: FC = () => {
         bgColor={colors.bg}
         boxShadow="0rem 0.25rem 0.6875rem rgba(0, 0, 0, 0.04)"
         borderColor={colors.border}
+        justifyContent="space-between"
       >
         <Box
           order={1}
           justifySelf="flex-start"
-          flex={{ base: "0 0 50%", sm: 1 }}
+          flex={{ base: null, sm: 1 }}
           mr={{ base: 0, sm: "1.5rem" }}
         >
           <IronFishLogo />
@@ -73,7 +74,7 @@ const Navbar: FC = () => {
         </Box>
         <Flex
           order={3}
-          flex={{ base: "0 0 50%", sm: 1 }}
+          flex={{ base: null, sm: 1 }}
           justifyContent="flex-end"
           align="center"
           ml={{ base: 0, sm: "1.5rem" }}

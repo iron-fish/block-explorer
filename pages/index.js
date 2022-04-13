@@ -56,7 +56,7 @@ export default function Home() {
       </Head>
       <Box
         sx={{
-          h: { base: "568px", sm: "33.75rem" },
+          h: { base: "35.5rem", sm: "33.75rem" },
           w: "100%",
           bgColor: colorModeStyles.imageBg,
           bgImage: { base: null, sm: colorModeStyles.bgImage },
@@ -67,7 +67,7 @@ export default function Home() {
         }} />
       <Flex
         justify='center'
-        pt={{ base: '96px', sm: '120px' }}
+        pt={{ base: '6rem', sm: '7.5rem' }}
         pb="6rem"
         bgColor={colorModeStyles.mainBg}
       >
@@ -77,9 +77,9 @@ export default function Home() {
               fontSize="3.25rem"
               lineHeight="3.8675rem"
               color={NAMED_COLORS.WHITE}
-              mb="18px"
+              mb="1.125rem"
             >
-              Welcome to the<br />Iron Fish Block Explorer
+              Welcome&nbsp;to&nbsp;the<br />Iron&nbsp;Fish&nbsp;Block Explorer
             </Text>
             <Text
               fontSize="1.5rem"
