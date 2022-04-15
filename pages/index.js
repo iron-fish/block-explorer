@@ -91,7 +91,8 @@ const LastBlockInfo = () => {
 
 const LatestBlocks = () => {
   const { loaded, data } = useBlocks({
-    limit: 10
+    limit: 10,
+    main: true
   });
 
   return (
