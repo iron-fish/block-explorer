@@ -5,7 +5,7 @@ import { AsyncDataProps, BlocksParameters, BlockType, ResponseType } from "types
 
 import useAsyncDataWrapper from "./useAsyncDataWrapper"
 
-const useBlocks = (query: BlocksParameters): AsyncDataProps<ResponseType<BlockType[]>> => {
+const useBlocks = (query: BlocksParameters = {}): AsyncDataProps<ResponseType<BlockType[]>> => {
   const service = useContext(BlockContext)
   const [result, wrapper] = useAsyncDataWrapper<ResponseType<BlockType[]>>()
 

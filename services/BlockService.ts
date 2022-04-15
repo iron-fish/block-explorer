@@ -22,6 +22,10 @@ class BlockService extends Service {
     return this.fetcher.get('/head').then(({ data }) => data)
   }
 
+  status(): Promise<BlockType> {
+    return this.fetcher.get('/status').then(({ data }) => data)
+  }
+
   statistic(query: BlocksStatisticParameters) {
     return this.fetcher.get('/metrics', {
       params: {
