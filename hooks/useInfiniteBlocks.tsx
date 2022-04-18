@@ -1,41 +1,41 @@
 import { useContext, useEffect, useCallback, useState } from "react";
 
 import { BlockContext } from "contexts/ServiceContexts";
-import {
-  AsyncDataProps,
-  BlocksParameters,
-  BlockType,
-  ResponseType,
-} from "types";
-
-import useAsyncDataWrapper from "./useAsyncDataWrapper";
+import { AsyncDataProps, BlockType, ResponseType } from "types";
 
 const useInfiniteBlocks = (
   limit: number = 20,
-  with_transactions: boolean =  false
+  with_transactions: boolean = false
 ): [AsyncDataProps<ResponseType<BlockType[]>>, VoidFunction, boolean] => {
   const service = useContext(BlockContext);
-  const [result, wrapper] = useAsyncDataWrapper<ResponseType<BlockType[]>>();
-  const { data: { data } = {}, loaded, error } = result;
-  const [loadedBlocks, setLoadedBlocks] = useState<BlockType[]>([]);
-  const loadBlocks = useCallback(
-    (params) => wrapper(service.blocks(params)),
-    [service, wrapper]
-  );
+  const [loaded, setLoaded] = useState<boolean>(false);
+  const [error, setError] = useState<Error>();
+  const [data, setData] = useState<ResponseType<BlockType[]>>({ data: [], object: '',  });
 
-  useEffect(() => {
-    if (loaded) {
-      setLoadedBlocks((prev) => prev.concat(data));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loaded]);
+  const loadBlocks: Function = useCallback(
+    (params) => {
+      setLoaded(false);
+      setError(undefined);
+      service
+        .blocks(params)
+        .then((data) =>
+          setData((prevData) => ({
+            ...data,
+            data: prevData.data.concat(data.data),
+          }))
+        )
+        .catch(setError)
+        .finally(() => setLoaded(true));
+    },
+    [service]
+  );
 
   const loadNext: VoidFunction = (): void => {
     loadBlocks({
       limit,
       with_transactions,
       main: true,
-      after: loadedBlocks[loadedBlocks.length - 1].id,
+      after: data.data[data.data.length - 1].id,
     });
   };
 
@@ -45,15 +45,12 @@ const useInfiniteBlocks = (
 
   return [
     {
-      data: {
-        ...result.data,
-        data: loadedBlocks,
-      },
+      data,
       loaded,
       error,
     },
     loadNext,
-    loadedBlocks.length < limit,
+    data.data.length < limit,
   ];
 };
 
