@@ -1,34 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Block Explorer v.2
+
+This repo is the website for the Iron Fish Block Explorer version 2. The first version of the Block Explorer can be found in iron-fish/block-explorer
+
+This is a Next.js project bootstrapped with `create-next-app`.
 
 ## Getting Started
 
-First, run the development server:
+Create an `.env.local` file. You can copy the existing template (`cp .env.template .env.local`)
 
-```bash
-npm run dev
-# or
-yarn dev
+```
+NEXT_PUBLIC_API_URL=https://api.ironfish.network
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then, run the development server:
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+`npm run dev`
+_or_
+`yarn dev`
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Open http://localhost:3000 with your browser to see the result.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Development
 
-## Learn More
+_Optional_  - Run `npx husky install` in order to set up your git hooks locally.
 
-To learn more about Next.js, take a look at the following resources:
+## Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    Add `nps` using either `yarn global add nps` or `npm i nps -g`
+    Run `nps` for a list of scripts to run in the repo.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Commit Hooks
 
-## Deploy on Vercel
+By default we run a precommit hook which runs nps care. If needed, you can avoid this hook by adding a --no-verify flag, e.g. `git commit -m "cool" --no-verify`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Alternate Port
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Run `npm run dev -- -p 4040` or `yarn dev -p 4040` to run the server locally on a different port than 3000 (the default)
+
+## Review Process
+
+1. New PRs should point at `staging`.
+2. When we want to do a release to production, we should open a PR to merge `staging` into `master`.
+   - For these PRs, please add a [Needs Design Review Label](https://github.com/iron-fish/block-explorer-v2/labels/%F0%9F%94%8D%20Needs%20Design%20Review) and tag `@skylarrichard123` for review.
+3. Once the release branch has been reviewed, either:
+   a. There are fixes needed - open new PRs and point them at the release branch
+   b. There are no fixes needed - Remove the *Needs Design Review* label and add the [Designer Approved Label](https://github.com/iron-fish/block-explorer-v2/labels/%E2%9C%94%EF%B8%8FDesigner%20Approved)
+
