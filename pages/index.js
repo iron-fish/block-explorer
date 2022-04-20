@@ -117,7 +117,7 @@ const LatestBlocks = () => {
           color="red"
           icon={
             <Box 
-              border="2px solid red"
+              border="0.125rem solid red"
               fontSize="1.5rem"
               fontWeight="bold"
               borderRadius="50%"
