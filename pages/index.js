@@ -47,6 +47,7 @@ const LastBlockInfo = () => {
         label="Difficulty"
         value={getValue('difficulty')}
         icon={<DifficultyIcon />}
+        isLoading={!headBlock.loaded}
       />
       <Card
         m="0.5rem"
@@ -54,6 +55,7 @@ const LastBlockInfo = () => {
         label="Height"
         value={getValue('sequence')}
         icon={<HeightIcon />}
+        isLoading={!headBlock.loaded}
       />
       <Card
         m="0.5rem"
@@ -61,6 +63,7 @@ const LastBlockInfo = () => {
         label="Latest block hash"
         value={getValue('hash', truncateHash)}
         icon={<LatestBlockHashIcon />}
+        isLoading={!headBlock.loaded}
       />
       <Card
         m="0.5rem"
@@ -68,6 +71,7 @@ const LastBlockInfo = () => {
         label="Latest Block txn"
         value={getValue('transactions_count')}
         icon={<LatestBlockTXNIcon />}
+        isLoading={!headBlock.loaded}
       />
       <Card
         m="0.5rem"
@@ -77,22 +81,24 @@ const LastBlockInfo = () => {
           Math.floor(value / 1000),
         )}
         icon={<SecondsToBlockIcon />}
+        isLoading={!headBlock.loaded}
       />
       <Card
         m="0.5rem"
         w={cardWidth}
         label="Total Supply"
-        value="???"
+        value="-"
         icon={<TotalSupplyIcon />}
+        isLoading={!headBlock.loaded}
       />
     </Flex>
   );
 };
 
 const LatestBlocks = () => {
-  const { loaded, data } = useBlocks({
+  const { loaded, data, error } = useBlocks({
     limit: 10,
-    main: true
+    main: true,
   });
 
   return (
@@ -100,7 +106,27 @@ const LatestBlocks = () => {
       <Text fontSize="1.5rem" mb="0.625rem">
         Latest Blocks
       </Text>
-      <BlocksTable isLoading={!loaded} data={data ? data.data : null} />
+      {!error ? (
+        <BlocksTable
+          data={loaded ? data.data : Array.from({ length: 10 }, () => null)}
+        />
+      ) : (
+        <Card
+          w="100%"
+          label={<h4>Something went wrong.</h4>}
+          color="red"
+          icon={
+            <Box 
+              border="2px solid red"
+              fontSize="1.5rem"
+              fontWeight="bold"
+              borderRadius="50%"
+              w="2.5rem"
+              h="2.5rem"
+              textAlign="center"
+            >!</Box>}
+        />
+      )}
     </Flex>
   );
 };

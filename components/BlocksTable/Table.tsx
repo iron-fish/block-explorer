@@ -19,6 +19,7 @@ import { truncateHash } from "utils/hash"
 import DataRowSmall from "./DataRowSmall"
 import DataRowLarge from "./DataRowLarge"
 import RowItem from "./RowItem"
+import RowItemSpin from "./RowItemSpin"
 
 size.defaultOptions({
   precision: 2,
@@ -26,7 +27,6 @@ size.defaultOptions({
 
 interface BlocksTableProps extends TableProps {
   data?: BlockType[],
-  isLoading?: boolean,
 }
 
 const COLUMNS = [
@@ -69,27 +69,12 @@ const COLUMNS = [
 
 const BlocksTable: FC<BlocksTableProps> = ({
   data = null,
-  isLoading,
   ...rest
 }) => {
   const RowData = useBreakpointValue({
     base: DataRowSmall,
     lg: DataRowLarge
   })
-
-  const content = isLoading ? null : data?.map(block => (
-    <RowData
-      key={block.id}
-      items={COLUMNS.map(column => (
-        <RowItem
-          key={column.key}
-          label={column.label}
-        >
-          {column.render(block)}
-        </RowItem>
-      ))}
-    />
-  ))
 
   return (
     <Table
@@ -104,7 +89,19 @@ const BlocksTable: FC<BlocksTableProps> = ({
         </Tr>
       </Thead>
       <Tbody>
-        {content}
+        {data?.map(block => (
+          <RowData
+            key={block?.id}
+            items={COLUMNS.map(column => (
+              <RowItem
+                key={column.key}
+                label={column.label}
+              >
+                {block ? column.render(block) : <RowItemSpin minW="4rem" />}
+              </RowItem>
+            ))}
+          />
+        ))}
       </Tbody>
     </Table>
   )
