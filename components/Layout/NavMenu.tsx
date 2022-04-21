@@ -1,4 +1,4 @@
-import { FC, ReactNode, RefObject, useState } from "react";
+import { FC, RefObject, ReactNode, useState } from "react";
 import { Box, useColorModeValue, NAMED_COLORS, Portal } from "@ironfish/ui-kit";
 
 const burgerLineStyle = {

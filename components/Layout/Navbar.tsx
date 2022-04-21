@@ -34,7 +34,7 @@ const Navbar: FC = () => {
             flexDirection: "column",
             w: "100%",
             h: "100vh",
-            p: "2.5rem 0rem 2.5rem 2rem",
+            p: "2.5rem",
             fontSize: "2.3125rem",
             bgColor: colors.bg,
           }}
@@ -45,21 +45,22 @@ const Navbar: FC = () => {
   });
 
   return (
-    <Flex w="100%" position="fixed" zIndex={10} direction="column">
+    <Flex w="100%" position="sticky" top={0} zIndex={10} direction="column">
       <Flex
         align="center"
         w="100%"
         flexWrap="wrap"
         border="0.0625rem solid"
-        p={{ base: "2.125rem 2rem 0.5rem", sm: "0rem 2rem", md: "0rem 4rem" }}
+        p={{ base: "1.125rem 2rem 0rem", sm: "0rem 2rem", md: "0rem 4rem" }}
         bgColor={colors.bg}
         boxShadow="0rem 0.25rem 0.6875rem rgba(0, 0, 0, 0.04)"
         borderColor={colors.border}
+        justifyContent="space-between"
       >
         <Box
           order={1}
           justifySelf="flex-start"
-          flex={{ base: "0 0 50%", sm: 1 }}
+          flex={{ base: null, sm: 1 }}
           mr={{ base: 0, sm: "1.5rem" }}
         >
           <IronFishLogo />
@@ -73,7 +74,7 @@ const Navbar: FC = () => {
         </Box>
         <Flex
           order={3}
-          flex={{ base: "0 0 50%", sm: 1 }}
+          flex={{ base: null, sm: 1 }}
           justifyContent="flex-end"
           align="center"
           ml={{ base: 0, sm: "1.5rem" }}

@@ -18,7 +18,7 @@ const DataRowSmall: FC<DataRowProps> = ({ items }) => {
       p="1rem"
     >
       {items.map((item, index) => (
-        <Box key={item.toString()} px="2rem" py="1rem">
+        <Box key={`item-${index}`} px="2rem" py="1rem">
           {item}
         </Box>
       ))}

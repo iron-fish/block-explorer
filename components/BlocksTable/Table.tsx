@@ -13,20 +13,20 @@ import {
 } from '@ironfish/ui-kit'
 import size from "byte-size"
 
-import { Block } from "types"
+import { BlockType } from "types"
 import BlockIcon from "icons/BlockIcon"
 import { truncateHash } from "utils/hash"
 import DataRowSmall from "./DataRowSmall"
 import DataRowLarge from "./DataRowLarge"
 import RowItem from "./RowItem"
+import RowItemSpin from "./RowItemSpin"
 
 size.defaultOptions({
   precision: 2,
 })
 
 interface BlocksTableProps extends TableProps {
-  data?: Block[],
-  isLoading?: boolean,
+  data?: BlockType[],
 }
 
 const COLUMNS = [
@@ -37,9 +37,8 @@ const COLUMNS = [
       <>
         <Box mr="1rem">
           <BlockIcon pb="0.1rem" h="1.875rem" w="1.625rem" />
-        </Box><Box color={NAMED_COLORS.LIGHT_BLUE}>
-          {block.sequence}
         </Box>
+        <Box color={NAMED_COLORS.LIGHT_BLUE}>{block.sequence}</Box>
       </>
     )
   },
@@ -61,13 +60,15 @@ const COLUMNS = [
   {
     key: "block-timestamp",
     label: "Timestamp",
-    render: (block) => block.timestamp
+    render: (block) => {
+      const date = new Date(block.timestamp)
+      return date.toLocaleDateString() + ' ' + date.toLocaleTimeString()
+    }
   }
 ]
 
 const BlocksTable: FC<BlocksTableProps> = ({
   data = null,
-  isLoading,
   ...rest
 }) => {
   const RowData = useBreakpointValue({
@@ -90,13 +91,13 @@ const BlocksTable: FC<BlocksTableProps> = ({
       <Tbody>
         {data?.map(block => (
           <RowData
-            key={block.id}
+            key={block?.id}
             items={COLUMNS.map(column => (
-              <RowItem 
-                key={column.key} 
+              <RowItem
+                key={column.key}
                 label={column.label}
               >
-                {column.render(block)}
+                {block ? column.render(block) : <RowItemSpin minW="4rem" />}
               </RowItem>
             ))}
           />

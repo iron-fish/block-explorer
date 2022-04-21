@@ -1,4 +1,4 @@
-export interface Block {
+export interface BlockType {
   id: number | string,
   hash: string,
   main: boolean,
@@ -12,3 +12,5 @@ export interface Block {
   timestamp: string,
   transactions_count: number
 }
+
+export default BlockType
