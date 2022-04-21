@@ -3,6 +3,7 @@ import useBlockHead from 'hooks/useBlockHead';
 import useBlocks from 'hooks/useBlocks';
 import { truncateHash } from 'utils/hash';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import {
   Flex,
   Box,
@@ -144,6 +145,7 @@ export default function Home() {
       mainBg: NAMED_COLORS.LIGHT_BLACK,
     },
   );
+  const router = useRouter();
 
   return (
     <main style={{ width: '100%', height: '100%' }}>
@@ -189,7 +191,7 @@ export default function Home() {
               Blockchain statistics for $IRON
             </Text>
             <HStack>
-              <Button variant="secondary" size="medium">
+              <Button variant="secondary" size="medium" onClick={() => router.push('/explorer')}>
                 View All Blocks
               </Button>
               <Button variant="secondary" size="medium">
@@ -203,7 +205,7 @@ export default function Home() {
           </Button>
           <LatestBlocks />
           <Center>
-            <Button variant="secondary" size="medium">
+            <Button variant="secondary" size="medium" onClick={() => router.push('/explorer')}>
               View All Blocks
             </Button>
           </Center>
