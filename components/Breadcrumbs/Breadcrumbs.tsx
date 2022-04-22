@@ -9,9 +9,9 @@ import BreadcrumbLink from "./BreadcrumbLink";
 const resolvePath = (path: string) => {
   switch (path) {
     case RoutePaths.Home: return [
-      { 
-        key: "breadcrumb-home", 
-        link: <BreadcrumbLink.Home isCurrent={true} /> 
+      {
+        key: "breadcrumb-home",
+        link: <BreadcrumbLink.Home isCurrent={true} />
       }]
     case RoutePaths.Explorer: return [
       {
@@ -31,7 +31,15 @@ const Breadcrumbs: FC = (props) => {
   const separatorColor = useColorModeValue(NAMED_COLORS.GREY, NAMED_COLORS.PALE_GREY)
 
   return (
-    <Breadcrumb separator={<h5 color={separatorColor}>/</h5>} spacing='1rem' py="1rem">
+    <Breadcrumb
+      separator={
+        <h5
+          style={{ cursor: 'default', color: separatorColor }}
+        >/</h5>
+      }
+      spacing='1rem'
+      py="1rem"
+    >
       {resolvePath(router.route).map(breadcrumb => (
         <BreadcrumbItem key={breadcrumb.key}>
           {breadcrumb.link}

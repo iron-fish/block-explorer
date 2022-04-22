@@ -6,7 +6,7 @@ import { AsyncDataProps, BlockType, ResponseType } from "types";
 const useInfiniteBlocks = (
   limit: number = 20,
   with_transactions: boolean = false
-): [AsyncDataProps<ResponseType<BlockType[]>>, VoidFunction, boolean] => {
+): [AsyncDataProps<ResponseType<BlockType[]>>, VoidFunction] => {
   const service = useContext(BlockContext);
   const [loaded, setLoaded] = useState<boolean>(false);
   const [error, setError] = useState<Error>();
@@ -27,7 +27,8 @@ const useInfiniteBlocks = (
         .catch(setError)
         .finally(() => setLoaded(true));
     },
-    [service]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
   );
 
   const loadNext: VoidFunction = (): void => {
@@ -41,7 +42,8 @@ const useInfiniteBlocks = (
 
   useEffect(() => {
     loadBlocks({ limit, with_transactions, main: true });
-  }, [limit, with_transactions, loadBlocks]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [limit, with_transactions]);
 
   return [
     {
@@ -49,8 +51,7 @@ const useInfiniteBlocks = (
       loaded,
       error,
     },
-    loadNext,
-    data.data.length < limit,
+    loadNext
   ];
 };
 

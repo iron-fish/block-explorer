@@ -4,12 +4,23 @@ import { Box, BreadcrumbLink as Link, Flex, NAMED_COLORS, useColorModeValue } fr
 import RoutePaths from "constants/RoutePaths"
 import HomeIcon from "icons/HomeIcon"
 import BlockIcon from "icons/BlockIcon"
+import NextLink from "next/link"
 
 interface BaseBreadcrumbLinkProps {
   icon: ReactNode
   label: ReactNode
   isCurrent?: boolean
   to?: string
+}
+
+const LinkWrapper = ({ to, isCurrent, children }) => {
+  return isCurrent ? children : (
+    <NextLink href={to} passHref>
+      <Link>
+        {children}
+      </Link>
+    </NextLink>
+  )
 }
 
 const BaseBreadcrumbLink: FC<BaseBreadcrumbLinkProps> = ({
@@ -30,8 +41,8 @@ const BaseBreadcrumbLink: FC<BaseBreadcrumbLinkProps> = ({
   )
 
   return (
-    <Link href={to} isCurrentPage={isCurrent}>
-      <Flex alignItems="center">
+    <LinkWrapper to={to} isCurrent={isCurrent}>
+      <Flex alignItems="center" cursor={isCurrent ? 'default' : 'pointer'}>
         <Box mr="0.75rem" pb="0.4rem" color={isCurrent ? currentColor.icon : NAMED_COLORS.LIGHT_BLUE}>
           {icon}
         </Box>
@@ -39,14 +50,14 @@ const BaseBreadcrumbLink: FC<BaseBreadcrumbLinkProps> = ({
           <h5>{label}</h5>
         </Box>
       </Flex>
-    </Link>
+    </LinkWrapper>
   )
 }
 
 const Home: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>> = ({ isCurrent }) => (
   <BaseBreadcrumbLink
     to={RoutePaths.Home}
-    icon={<HomeIcon h="1.25rem" w="1.25rem" color="inherit"/>}
+    icon={<HomeIcon h="1.25rem" w="1.25rem" color="inherit" />}
     label="Home"
     isCurrent={isCurrent}
   />
@@ -55,7 +66,7 @@ const Home: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>> = ({ isCurrent }) => 
 const Explorer: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>> = ({ isCurrent = false }) => (
   <BaseBreadcrumbLink
     to={RoutePaths.Explorer}
-    icon={<BlockIcon h="1.25rem" w="1.25rem" color="inherit"/>}
+    icon={<BlockIcon h="1.25rem" w="1.25rem" color="inherit" />}
     label="All Blocks"
     isCurrent={isCurrent}
   />

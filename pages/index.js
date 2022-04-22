@@ -3,7 +3,6 @@ import useBlockHead from 'hooks/useBlockHead';
 import useBlocks from 'hooks/useBlocks';
 import { truncateHash } from 'utils/hash';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import {
   Flex,
   Box,
@@ -23,6 +22,7 @@ import {
   SecondsToBlockIcon,
   TotalSupplyIcon,
 } from 'svgx';
+import Link from 'next/link';
 
 const LastBlockInfo = () => {
   const cardWidth = useBreakpointValue({
@@ -117,7 +117,7 @@ const LatestBlocks = () => {
           label={<h4>Something went wrong.</h4>}
           color="red"
           icon={
-            <Box 
+            <Box
               border="0.125rem solid red"
               fontSize="1.5rem"
               fontWeight="bold"
@@ -125,7 +125,10 @@ const LatestBlocks = () => {
               w="2.5rem"
               h="2.5rem"
               textAlign="center"
-            >!</Box>}
+            >
+              !
+            </Box>
+          }
         />
       )}
     </Flex>
@@ -145,7 +148,6 @@ export default function Home() {
       mainBg: NAMED_COLORS.LIGHT_BLACK,
     },
   );
-  const router = useRouter();
 
   return (
     <main style={{ width: '100%', height: '100%' }}>
@@ -170,12 +172,7 @@ export default function Home() {
         pb="6rem"
         bgColor={colorModeStyles.mainBg}
       >
-        <Box
-          mr={{ base: '2rem', lg: '15%' }}
-          ml={{ base: '2rem', lg: '15%' }}
-          w="100%"
-          zIndex={1}
-        >
+        <Box mx={{ base: '2rem', lg: '15%' }} w="100%" zIndex={1}>
           <Flex direction="column" mb="5.3125rem">
             <Text
               fontSize="3.25rem"
@@ -191,9 +188,11 @@ export default function Home() {
               Blockchain statistics for $IRON
             </Text>
             <HStack>
-              <Button variant="secondary" size="medium" onClick={() => router.push('/explorer')}>
-                View All Blocks
-              </Button>
+              <Link href="/explorer" passHref>
+                <Button variant="secondary" size="medium">
+                  View All Blocks
+                </Button>
+              </Link>
               <Button variant="secondary" size="medium">
                 View Chain Explorer
               </Button>
@@ -205,9 +204,14 @@ export default function Home() {
           </Button>
           <LatestBlocks />
           <Center>
-            <Button variant="secondary" size="medium" onClick={() => router.push('/explorer')}>
-              View All Blocks
-            </Button>
+            <Link href="/explorer" passHref>
+              <Button
+                variant="secondary"
+                size="medium"
+              >
+                View All Blocks
+              </Button>
+            </Link>
           </Center>
         </Box>
       </Flex>
