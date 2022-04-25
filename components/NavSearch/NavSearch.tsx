@@ -88,6 +88,7 @@ const SearchInput: FC<InputProps> = () => {
         object: getOptionObject(item),
       }))}
       renderOption={(option) => <Option {...option} />}
+      onSelectOption={() => setSearch('')}
     />
   );
 };
