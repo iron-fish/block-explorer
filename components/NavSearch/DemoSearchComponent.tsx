@@ -21,10 +21,9 @@ import {
   InputGroup,
   InputLeftElement,
   Text,
-  useMergeRefs,
   useOutsideClick,
   useColorModeValue,
-  NAMED_COLORS
+  NAMED_COLORS,
 } from "@ironfish/ui-kit";
 import { groupBy } from "ramda";
 
@@ -91,7 +90,7 @@ const SearchAutocomplete: FC<SearchAutocompleteProps> = ({
   );
 
   useOutsideClick({
-    ref: useMergeRefs(inputRef, popoverRef),
+    ref: inputRef,
     handler: onClose,
   });
 
