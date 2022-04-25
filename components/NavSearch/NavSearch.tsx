@@ -9,15 +9,22 @@ import {
   Box,
   NAMED_COLORS,
 } from "@ironfish/ui-kit";
-import DemoSearchComponent from "./DemoSearchComponent";
+/** ---------------------------------------------------------------------------
+ * This component is a mock up of implementation in UI kit and must be replaced
+ * ----------------------------------------------------------------------------
+ */
+import DemoSearchComponent, { SearchOptionType } from "./DemoSearchComponent";
+/** ---------------------------------------------------------------------------
+ * ----------------------------------------------------------------------------*/
 import { truncateHash } from "utils/hash";
 import { SearchIcon, RedditIcon } from "svgx";
 import useBlocksSearch from "hooks/useBlocksSearch";
+import { BlockType, TransactionType } from "types";
 
-const Option: FC<OptionType> = ({ id, value }) => {
+const Option: FC<SearchOptionType> = ({ id, value }) => {
   const hashValue = useBreakpointValue({
-    base: truncateHash(value, 2),
-    sm: truncateHash(value, 4),
+    base: truncateHash(value.toString(), 2),
+    sm: truncateHash(value.toString(), 4),
     md: value,
   });
   return (
@@ -37,11 +44,11 @@ const Option: FC<OptionType> = ({ id, value }) => {
   );
 };
 
-function isBlock(x: unknown): x is Block {
-  return typeof x === 'object' && !!x && 'transactions' in x && !('block' in x)
+function isBlock(x: unknown): x is BlockType {
+  return typeof x === "object" && !!x && "transactions" in x && !("block" in x);
 }
 
-const groupOptionsBy = (option) => {
+const getOptionObject = (option: BlockType | TransactionType): string => {
   if (!option) {
     return "";
   }
@@ -62,21 +69,25 @@ const SearchInput: FC<InputProps> = () => {
     xl: longSearchPlaceHolder,
   });
 
-  const [search, setSearch] = useState();
+  const [search, setSearch] = useState<string>();
 
-  const { data } = useBlocksSearch({ search });
+  const { data } = useBlocksSearch(search);
 
   return (
     <DemoSearchComponent
       variant="nav_search"
       InputProps={{
         placeholder,
-        onChange: e => setSearch(e.target.value),
+        onChange: (e) => setSearch(e.target.value),
       }}
       inputLeftElement={<SearchIcon />}
-      options={data?.data.map(item => ({ label: `${item.id} - ${item.hash}`, value: item.hash, ...item }))}
+      options={data?.data.map((item: BlockType | TransactionType) => ({
+        label: `${item.id} - ${item.hash}`,
+        value: item.hash,
+        id: item.id,
+        object: getOptionObject(item)
+      }))}
       renderOption={(option) => <Option {...option} />}
-      groupOptionsBy={groupOptionsBy}
     />
   );
 };

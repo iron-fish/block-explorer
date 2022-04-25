@@ -1,4 +1,4 @@
-import { BlocksParameters, BlocksStatisticParameters, BlockType, FindBlockParameters, ResponseType } from "types";
+import { TransactionsParameters, TransactionType, FindTransactionParameters, ResponseType } from "types";
 import Service from "./Service";
 
 class TransactionService extends Service {
@@ -6,13 +6,13 @@ class TransactionService extends Service {
     super('/transactions')
   }
 
-  transactions(query: BlocksParameters): Promise<ResponseType<BlockType[]>> {
+  transactions(query: TransactionsParameters): Promise<ResponseType<TransactionType[]>> {
     return this.fetcher.get('', {
       params: query
     }).then(({ data }) => data)
   }
 
-  find(query: FindBlockParameters): Promise<BlockType> {
+  find(query: FindTransactionParameters): Promise<TransactionType> {
     return this.fetcher.get('/find', {
       params: query
     }).then(({ data }) => data)

@@ -1,4 +1,6 @@
 export * from './common/AsyncDataType'
 export * from './domain/BlockType'
 export * from './common/ResponseType'
+export * from './domain/TransactionType'
 export * from './parameters/BlocksApi'
+export * from './parameters/TransactionsApi'

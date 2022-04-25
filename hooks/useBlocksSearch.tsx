@@ -6,34 +6,37 @@ import {
   BlocksParameters,
   BlockType,
   ResponseType,
+  TransactionType,
 } from "types";
 
 import useAsyncDataWrapper from "./useAsyncDataWrapper";
 
 const useBlocksSearch = (
-  query: BlocksParameters = {}
-): AsyncDataProps<ResponseType<BlockType[]>> => {
+  search: string = ""
+): AsyncDataProps<ResponseType<(BlockType | TransactionType)[]>> => {
   const blockService = useContext(BlockContext);
   const transactionService = useContext(TransactionContext);
-  const [result, wrapper] = useAsyncDataWrapper<ResponseType<BlockType[]>>();
+  const [result, wrapper] = useAsyncDataWrapper<ResponseType<(BlockType | TransactionType)[]>>();
 
   useEffect(() => {
-    if (query.search?.trim()) {
+    if (search?.trim()) {
       wrapper(
         Promise.all([
           blockService.blocks({
-            ...query,
+            search,
             with_transactions: true,
             main: true,
           }),
-          transactionService.transactions({ ...query, with_blocks: true }),
+          transactionService.transactions({ search, with_blocks: true }),
         ]).then(([blocks, transactions]) => {
-          return { data: [...blocks.data, ...transactions.data] };
+          return { data: [...blocks.data, ...transactions.data], object: 'list' };
         })
       );
+    } else {
+      wrapper(Promise.resolve({ data: [], object: 'list' }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query.search]);
+  }, [search]);
 
   return result;
 };

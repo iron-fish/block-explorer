@@ -26,22 +26,35 @@ import {
 } from "@ironfish/ui-kit";
 import { groupBy } from "ramda";
 
-export type OptionType = {
-  value: string | number;
-  label: string | ReactNode;
+export type SearchOptionType = {
+  id: string | number
+  value: string | number
+  label: string
+  object: string
 };
 
+/**
+ * ------------------------------------------------------------------------------------------
+ * ------------------------------------------------------------------------------------------
+ * ------------------------------------------------------------------------------------------
+ * This component is a mock up of implementation in UI kit and must be replaced
+ * ------------------------------------------------------------------------------------------
+ * ------------------------------------------------------------------------------------------
+ * ------------------------------------------------------------------------------------------
+ * ------------------------------------------------------------------------------------------
+ */
+
 interface SearchAutocompleteProps {
-  value?: OptionType;
+  value?: SearchOptionType;
   InputProps?: IProps;
-  options?: OptionType[];
+  options?: SearchOptionType[];
   emptyOption?: ReactNode;
-  renderOption?: (option: OptionType) => ReactNode;
-  onSelectOption?: (option: OptionType) => void;
-  groupOptionsBy: () => string;
+  renderOption?: (option: SearchOptionType) => ReactNode;
+  onSelectOption?: (option: SearchOptionType) => void;
+  groupOptionsBy?: (option: SearchOptionType) => string;
   inputLeftElement?: ReactNode;
   variant?: string;
-  renderGroupTitle?: ReactNode;
+  renderGroupTitle?: (title: string) => ReactNode;
 }
 
 const SearchAutocomplete: FC<SearchAutocompleteProps> = ({
@@ -56,7 +69,7 @@ const SearchAutocomplete: FC<SearchAutocompleteProps> = ({
   inputLeftElement,
   ...props
 }) => {
-  const [val, setVal] = useState<OptionType | null>(value);
+  const [val, setVal] = useState<SearchOptionType | null>(value);
   const [search, setSearch] = useState<string>("");
   const styles = useMultiStyleConfig("SearchAutocomplete", props);
   const inputRef = useRef<HTMLInputElement>();
@@ -64,7 +77,7 @@ const SearchAutocomplete: FC<SearchAutocompleteProps> = ({
   const { onOpen, onClose, isOpen } = useDisclosure();
 
   useOutsideClick({
-    ref: useMergeRefs(inputRef, popoverRef),
+    ref: inputRef,
     handler: onClose,
   });
 
@@ -72,9 +85,9 @@ const SearchAutocomplete: FC<SearchAutocompleteProps> = ({
     setVal(value);
   }, [value]);
 
-  const groupedOptions = groupBy(groupOptionsBy)(options);
+  const groupedOptions = groupBy(groupOptionsBy)(options) || [];
   const hasOptions = Object.values(groupedOptions).some(
-    (groupOptions) => groupOptions.length
+    (groupOptions: SearchOptionType[]) => groupOptions?.length
   );
 
   const renderGroup = (groupName, groupOptions) => {
