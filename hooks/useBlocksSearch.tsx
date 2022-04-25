@@ -12,7 +12,8 @@ import {
 import useAsyncDataWrapper from "./useAsyncDataWrapper";
 
 const useBlocksSearch = (
-  search: string = ""
+  search: string = "",
+  limit: number = 5
 ): AsyncDataProps<ResponseType<(BlockType | TransactionType)[]>> => {
   const blockService = useContext(BlockContext);
   const transactionService = useContext(TransactionContext);
@@ -26,8 +27,9 @@ const useBlocksSearch = (
             search,
             with_transactions: true,
             main: true,
+            limit
           }),
-          transactionService.transactions({ search, with_blocks: true }),
+          transactionService.transactions({ search, with_blocks: true, limit }),
         ]).then(([blocks, transactions]) => {
           return { data: [...blocks.data, ...transactions.data], object: 'list' };
         })
@@ -36,7 +38,7 @@ const useBlocksSearch = (
       wrapper(Promise.resolve({ data: [], object: 'list' }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search]);
+  }, [search, limit]);
 
   return result;
 };

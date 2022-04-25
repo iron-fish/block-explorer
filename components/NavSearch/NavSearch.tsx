@@ -17,20 +17,20 @@ import DemoSearchComponent, { SearchOptionType } from "./DemoSearchComponent";
 /** ---------------------------------------------------------------------------
  * ----------------------------------------------------------------------------*/
 import { truncateHash } from "utils/hash";
-import { SearchIcon, RedditIcon } from "svgx";
+import { SearchIcon } from "svgx";
 import useBlocksSearch from "hooks/useBlocksSearch";
 import { BlockType, TransactionType } from "types";
+import BlockIcon from "icons/BlockIcon";
 
 const Option: FC<SearchOptionType> = ({ id, value }) => {
   const hashValue = useBreakpointValue({
     base: truncateHash(value.toString(), 2),
-    sm: truncateHash(value.toString(), 4),
     md: value,
   });
   return (
     <Flex minH="30px" alignItems="center">
       <Box mr="16px">
-        <RedditIcon />
+        <BlockIcon w="1.625rem" h="1.875rem" />
       </Box>
       <Box
         overflow="hidden"
@@ -71,7 +71,7 @@ const SearchInput: FC<InputProps> = () => {
 
   const [search, setSearch] = useState<string>();
 
-  const { data } = useBlocksSearch(search);
+  const { data } = useBlocksSearch(search, 5);
 
   return (
     <DemoSearchComponent
@@ -85,7 +85,7 @@ const SearchInput: FC<InputProps> = () => {
         label: `${item.id} - ${item.hash}`,
         value: item.hash,
         id: item.id,
-        object: getOptionObject(item)
+        object: getOptionObject(item),
       }))}
       renderOption={(option) => <Option {...option} />}
     />

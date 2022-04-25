@@ -23,14 +23,16 @@ import {
   Text,
   useMergeRefs,
   useOutsideClick,
+  useColorModeValue,
+  NAMED_COLORS
 } from "@ironfish/ui-kit";
 import { groupBy } from "ramda";
 
 export type SearchOptionType = {
-  id: string | number
-  value: string | number
-  label: string
-  object: string
+  id: string | number;
+  value: string | number;
+  label: string;
+  object: string;
 };
 
 /**
@@ -75,9 +77,21 @@ const SearchAutocomplete: FC<SearchAutocompleteProps> = ({
   const inputRef = useRef<HTMLInputElement>();
   const popoverRef = useRef<HTMLDivElement>();
   const { onOpen, onClose, isOpen } = useDisclosure();
+  const colors = useColorModeValue(
+    {
+      popover: NAMED_COLORS.WHITE,
+      emptyOption: NAMED_COLORS.GREY,
+      optionHover: NAMED_COLORS.LIGHTER_GREY,
+    },
+    {
+      popover: NAMED_COLORS.DARKER_GREY,
+      emptyOption: NAMED_COLORS.PALE_GREY,
+      optionHover: NAMED_COLORS.DARK_GREY,
+    }
+  );
 
   useOutsideClick({
-    ref: inputRef,
+    ref: useMergeRefs(inputRef, popoverRef),
     handler: onClose,
   });
 
@@ -94,7 +108,16 @@ const SearchAutocomplete: FC<SearchAutocompleteProps> = ({
     return (
       <>
         {groupName ? (
-          <Box w="100%" sx={styles?.groupTitleWrapper}>
+          <Box
+            w="100%"
+            sx={{
+              padding: "1rem 2rem 0.6875rem",
+              fontSize: "0.875rem",
+              fontWeight: "400",
+              lineHeight: "160%",
+              fontFamily: "ABC Favorit Trial",
+            }}
+          >
             {renderGroupTitle(groupName)}
           </Box>
         ) : null}
@@ -102,7 +125,16 @@ const SearchAutocomplete: FC<SearchAutocompleteProps> = ({
           <Box
             w="100%"
             key={option.value}
-            sx={styles?.groupOptionWrapper}
+            sx={{
+              padding: "0.5rem 2rem",
+              _hover: {
+                bg: colors.optionHover,
+                transition: "all 300ms ease-in",
+              },
+              _last: {
+                marginBottom: "1rem",
+              },
+            }}
             onClick={() => {
               if (val !== option) {
                 setVal(option);
@@ -153,17 +185,34 @@ const SearchAutocomplete: FC<SearchAutocompleteProps> = ({
         </InputGroup>
       </PopoverTrigger>
       <PopoverContent
-        w="100%"
-        sx={styles?.popover}
+        w="inherit"
+        sx={{
+          borderRadius: "1.875rem",
+          bg: colors.popover,
+          _focus: {
+            boxShadow: "none",
+          },
+        }}
         ref={popoverRef as RefObject<HTMLDivElement>}
       >
-        <PopoverBody sx={styles?.popoverBody}>
+        <PopoverBody sx={{ padding: "1rem 0" }}>
           {hasOptions ? (
             Object.entries(groupedOptions).map((groupData) =>
               renderGroup(...groupData)
             )
           ) : (
-            <Box w="100%" key="empty-option" sx={styles?.emptyOption}>
+            <Box
+              w="100%"
+              key="empty-option"
+              sx={{
+                padding: "0 2rem",
+                fontSize: "1rem",
+                lineHeight: "1.5",
+                fontWeight: "400",
+                fontFamily: "ABC Favorit Trial",
+                color: colors.emptyOption,
+              }}
+            >
               {emptyOption}
             </Box>
           )}
