@@ -5,9 +5,10 @@ import { RowItemProps } from "./types";
 
 const RowItem: FC<RowItemProps> = ({
   label = null,
-  children
+  children,
+  ...rest
 }) => (
-  <Flex direction="column">
+  <Flex direction="column" {...rest}>
     <Box
       display={{ base: 'block', lg: 'none' }}
     >

@@ -72,14 +72,25 @@ const Explorer: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>> = ({ isCurrent = 
   />
 )
 
+const BlockInfo: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>> = ({ isCurrent = false }) => (
+  <BaseBreadcrumbLink
+    to={RoutePaths.BlockInfo}
+    icon={<BlockIcon h="1.25rem" w="1.25rem" color="inherit" />}
+    label="Block Info"
+    isCurrent={isCurrent}
+  />
+)
+
 interface BreadcrumbLinkProps {
   Home: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>>
   Explorer: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>>
+  BlockInfo: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>>
 }
 
 const BreadcrumbLink: FC<BaseBreadcrumbLinkProps> & BreadcrumbLinkProps = (props) => (<BaseBreadcrumbLink {...props} />)
 
 BreadcrumbLink.Home = Home
 BreadcrumbLink.Explorer = Explorer
+BreadcrumbLink.BlockInfo = BlockInfo
 
 export default BreadcrumbLink

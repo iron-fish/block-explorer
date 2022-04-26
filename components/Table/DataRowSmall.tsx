@@ -17,11 +17,7 @@ const DataRowSmall: FC<DataRowProps> = ({ items }) => {
       wrap="wrap"
       p="1rem"
     >
-      {items.map((item, index) => (
-        <Box key={`item-${index}`} px="2rem" py="1rem">
-          {item}
-        </Box>
-      ))}
+      {items.map((item) => item)}
     </Flex>
   )
 }

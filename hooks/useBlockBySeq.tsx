@@ -9,7 +9,7 @@ const useBlockBySeq = (seq: number) => {
   const [result, wrapper] = useAsyncDataWrapper<BlockType>()
 
   useEffect(() => {
-    wrapper(service.find({ sequence: seq }))
+    seq && wrapper(service.find({ sequence: seq, with_transactions: true }))
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seq])
   return result

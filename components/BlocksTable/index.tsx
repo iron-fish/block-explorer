@@ -1,1 +1,1 @@
-export {default as BlocksTable} from './Table'
+export {default as BlocksTable} from './BlocksTable'
