@@ -153,7 +153,7 @@ const SearchAutocomplete: FC<SearchAutocompleteProps> = ({
   return (
     <Popover
       matchWidth
-      isOpen={isOpen && search}
+      isOpen={isOpen && !!search}
       onOpen={onOpen}
       onClose={onClose}
       closeOnBlur={false}
