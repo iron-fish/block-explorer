@@ -1,3 +1,5 @@
+import BlockType from "./BlockType"
+
 export interface NoteType {
   commitment: string
 }
@@ -14,6 +16,7 @@ export interface TransactionType {
   object: string,
   size: number,
   spends: SpendType[]
+  blocks?: BlockType[]
 }
 
 export default TransactionType
