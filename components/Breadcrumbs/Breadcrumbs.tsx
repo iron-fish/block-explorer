@@ -34,6 +34,21 @@ const resolvePath = (path: string) => {
         link: <BreadcrumbLink.BlockInfo isCurrent={true} />
       }
     ]
+    case RoutePaths.TransactionInfo: return [
+      {
+        key: "breadcrumb-home",
+        link: <BreadcrumbLink.Home />
+      }, {
+        key: "breadcrumb-explorer",
+        link: <BreadcrumbLink.Explorer />
+      }, {
+        key: "breadcrumb-block-details",
+        link: <BreadcrumbLink.BlockInfo />
+      }, {
+        key: "breadcrumb-transaction-details",
+        link: <BreadcrumbLink.TransactionInfo isCurrent={true}/>
+      }
+    ]
   }
 }
 

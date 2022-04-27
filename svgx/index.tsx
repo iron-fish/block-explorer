@@ -12,3 +12,8 @@ export { default as LatestBlockHashIcon } from "./LatestBlockHashIcon";
 export { default as LatestBlockTXNIcon } from "./LatestBlockTXNIcon";
 export { default as SecondsToBlockIcon } from "./SecondsToBlockIcon";
 export { default as TotalSupplyIcon } from "./TotalSupplyIcon";
+export { default as InOutPutsIcon } from "./InOutPutsIcon";
+export { default as LargeArrowLeftDown } from "./LargeArrowLeftDown";
+export { default as LargeArrowRightUp } from "./LargeArrowRightUp";
+export { default as SizeIcon } from "./SizeIcon";
+export { default as CompassIcon } from "./CompassIcon";

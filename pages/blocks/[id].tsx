@@ -26,7 +26,7 @@ const BlockInfo = ({ id }) => {
 
   const getValue = (field, transform = (value) => value) => {
     return block.loaded ? (
-      transform(block.data[field])
+      transform(block?.data && block?.data[field] || '')
     ) : (
       <span>&nbsp;</span>
     );

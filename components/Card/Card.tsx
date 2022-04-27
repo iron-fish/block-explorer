@@ -4,7 +4,7 @@ import { Box, Flex, useColorMode, NAMED_COLORS, BoxProps, keyframes, useColorMod
 
 interface CardProps extends BoxProps {
   label: string,
-  value: string,
+  value: string | ReactNode,
   icon: ReactNode,
   isLoading: boolean
 }
