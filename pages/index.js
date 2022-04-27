@@ -1,4 +1,5 @@
 import { Card, BlocksTable } from 'components';
+import RoutePaths from 'constants/RoutePaths'
 import useBlockHead from 'hooks/useBlockHead';
 import useBlocks from 'hooks/useBlocks';
 import { truncateHash } from 'utils/hash';
@@ -188,7 +189,7 @@ export default function Home() {
               Blockchain statistics for $IRON
             </Text>
             <HStack>
-              <Link href="/explorer" passHref>
+              <Link href={RoutePaths.Explorer} passHref>
                 <Button variant="secondary" size="medium">
                   View All Blocks
                 </Button>
@@ -204,7 +205,7 @@ export default function Home() {
           </Button>
           <LatestBlocks />
           <Center>
-            <Link href="/explorer" passHref>
+            <Link href={RoutePaths.Explorer} passHref>
               <Button
                 variant="secondary"
                 size="medium"
