@@ -1,4 +1,4 @@
-import { Box, NAMED_COLORS } from "@ironfish/ui-kit"
+import { Box, Link, LinkBox, NAMED_COLORS } from "@ironfish/ui-kit"
 import BlockIcon from "icons/BlockIcon"
 import { truncateHash } from "utils/hash"
 
@@ -7,6 +7,9 @@ import { CommonTable } from "../Table"
 import { FC } from "react"
 import { ColumnProps, CommonTableProps } from "../Table/types"
 import { BlockType } from "types"
+import RoutePaths from "constants/RoutePaths"
+import NextLink from "next/link"
+import { useRouter } from "next/router"
 
 size.defaultOptions({
   precision: 2,
@@ -52,11 +55,18 @@ const COLUMNS: ColumnProps<BlockType>[] = [
 
 type BlocksTableProps = Omit<CommonTableProps<BlockType>, 'columns'>
 
-const BlocksTable: FC<BlocksTableProps> = (props) => (
-  <CommonTable
-    {...props}
-    columns={COLUMNS}
-  />
-)
+const BlocksTable: FC<BlocksTableProps> = (props) => {
+  const router = useRouter()
+
+  return (
+    <CommonTable
+      {...props}
+      columns={COLUMNS}
+      onRowClick={(block: BlockType) => 
+        router.push(RoutePaths.BlockInfo.replace('[id]', block?.sequence.toString()))
+      }
+    />
+  )
+}
 
 export default BlocksTable

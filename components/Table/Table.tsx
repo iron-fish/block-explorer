@@ -25,6 +25,7 @@ size.defaultOptions({
 export const CommonTable: FC<CommonTableProps<any>> = ({
   data = null,
   columns = [],
+  onRowClick = () => {},
   ...rest
 }) => {
   const Row = useBreakpointValue({
@@ -64,6 +65,7 @@ export const CommonTable: FC<CommonTableProps<any>> = ({
                 </RowItem>
               </Row.ItemWrapper>
             ))}
+            onClick={() => block && onRowClick(block)}
           />
         ))}
       </Tbody>

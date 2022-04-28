@@ -2,7 +2,7 @@ import { Box, Flex, NAMED_COLORS, useColorMode } from "@ironfish/ui-kit"
 import { FC } from "react"
 import { DataRowProps } from "./types"
 
-const DataRowSmall: FC<DataRowProps> = ({ items }) => {
+const DataRowSmall: FC<DataRowProps> = ({ items, onClick }) => {
   const { colorMode } = useColorMode()
   const isDarkMode = colorMode === 'dark'
 
@@ -16,6 +16,8 @@ const DataRowSmall: FC<DataRowProps> = ({ items }) => {
       bg={isDarkMode ? NAMED_COLORS.DARKER_GREY : NAMED_COLORS.WHITE}
       wrap="wrap"
       p="1rem"
+      onClick={onClick}
+      cursor={onClick ? 'pointer' : 'default'}
     >
       {items.map((item) => item)}
     </Flex>

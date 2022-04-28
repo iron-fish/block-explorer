@@ -6,7 +6,8 @@ export interface RowItemProps extends FlexProps {
 }
 
 export interface DataRowProps {
-  items: ReactNode[]
+  items: ReactNode[],
+  onClick?: (e) => void
 }
 
 export interface ColumnProps<T> {
@@ -20,4 +21,5 @@ export interface ColumnProps<T> {
 export interface CommonTableProps<T> extends TableProps {
   data?: T[],
   columns?: ColumnProps<T>[]
+  onRowClick?: (data: T) => void
 }
