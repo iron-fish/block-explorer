@@ -13,20 +13,20 @@ import {
 } from '@ironfish/ui-kit'
 import size from "byte-size"
 
-import { Block } from "types"
+import { BlockType } from "types"
 import BlockIcon from "icons/BlockIcon"
 import { truncateHash } from "utils/hash"
 import DataRowSmall from "./DataRowSmall"
 import DataRowLarge from "./DataRowLarge"
 import RowItem from "./RowItem"
+import RowItemSpin from "./RowItemSpin"
 
 size.defaultOptions({
   precision: 2,
 })
 
 interface BlocksTableProps extends TableProps {
-  data?: Block[],
-  isLoading?: boolean,
+  data?: BlockType[],
 }
 
 const COLUMNS = [
@@ -60,13 +60,15 @@ const COLUMNS = [
   {
     key: "block-timestamp",
     label: "Timestamp",
-    render: (block) => block.timestamp
+    render: (block) => {
+      const date = new Date(block.timestamp)
+      return date.toLocaleDateString() + ' ' + date.toLocaleTimeString()
+    }
   }
 ]
 
 const BlocksTable: FC<BlocksTableProps> = ({
   data = null,
-  isLoading,
   ...rest
 }) => {
   const RowData = useBreakpointValue({
@@ -87,15 +89,15 @@ const BlocksTable: FC<BlocksTableProps> = ({
         </Tr>
       </Thead>
       <Tbody>
-        {data?.map(block => (
+        {data?.map((block, index) => (
           <RowData
-            key={block.id}
+            key={block?.id || `load-${index}`}
             items={COLUMNS.map(column => (
               <RowItem
                 key={column.key}
                 label={column.label}
               >
-                {column.render(block)}
+                {block ? column.render(block) : <RowItemSpin minW="4rem" />}
               </RowItem>
             ))}
           />
