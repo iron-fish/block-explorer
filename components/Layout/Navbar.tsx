@@ -62,6 +62,7 @@ const Navbar: FC = () => {
           justifySelf="flex-start"
           flex={{ base: null, sm: 1 }}
           mr={{ base: 0, sm: "1.5rem" }}
+          w="50%"
         >
           <IronFishLogo />
         </Box>
@@ -78,6 +79,7 @@ const Navbar: FC = () => {
           justifyContent="flex-end"
           align="center"
           ml={{ base: 0, sm: "1.5rem" }}
+          w="50%"
         >
           <Box mr={{ base: "2rem", lg: 0 }}>{$content}</Box>
           <ColorModeSwitcher />

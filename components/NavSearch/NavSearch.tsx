@@ -23,7 +23,7 @@ import { BlockType, TransactionType } from "types";
 import BlockIcon from "icons/BlockIcon";
 
 const Option: FC<SearchOptionType> = ({ id, value }) => {
-  const hashValue = useBreakpointValue({
+  const $hashValue = useBreakpointValue({
     base: truncateHash(value.toString(), 2),
     md: value,
   });
@@ -38,7 +38,7 @@ const Option: FC<SearchOptionType> = ({ id, value }) => {
         whiteSpace="nowrap"
         color={NAMED_COLORS.LIGHT_BLUE}
       >
-        {id} - {hashValue}
+        {id} - {$hashValue}
       </Box>
     </Flex>
   );
@@ -63,22 +63,22 @@ const getOptionObject = (option: BlockType | TransactionType): string => {
 const SearchInput: FC<InputProps> = () => {
   const shortSearchPlaceHolder = "Search";
   const longSearchPlaceHolder = "Search by block height, hash or transaction";
-  const placeholder = useBreakpointValue({
+  const $placeholder = useBreakpointValue({
     base: longSearchPlaceHolder,
     sm: shortSearchPlaceHolder,
     xl: longSearchPlaceHolder,
   });
 
-  const [search, setSearch] = useState<string>();
+  const [$search, $setSearch] = useState<string>();
 
-  const { data } = useBlocksSearch(search, 5);
+  const { data } = useBlocksSearch($search, 5);
 
   return (
     <DemoSearchComponent
       variant="nav_search"
       InputProps={{
-        placeholder,
-        onChange: (e) => setSearch(e.target.value),
+        placeholder: $placeholder,
+        onChange: (e) => $setSearch(e.target.value),
       }}
       inputLeftElement={<SearchIcon />}
       options={data?.data.map((item: BlockType | TransactionType) => ({
@@ -88,7 +88,7 @@ const SearchInput: FC<InputProps> = () => {
         object: getOptionObject(item),
       }))}
       renderOption={(option) => <Option {...option} />}
-      onSelectOption={() => setSearch('')}
+      onSelectOption={() => $setSearch('')}
     />
   );
 };
