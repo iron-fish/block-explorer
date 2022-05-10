@@ -50,7 +50,7 @@ const Navbar: FC = () => {
         align="center"
         w="100%"
         flexWrap="wrap"
-        border="0.0625rem solid"
+        borderBottom="0.0625rem solid"
         p={{ base: "1.125rem 2rem 0rem", sm: "0rem 2rem", md: "0rem 4rem" }}
         bgColor={$colors.bg}
         boxShadow="0rem 0.25rem 0.6875rem rgba(0, 0, 0, 0.04)"
@@ -63,6 +63,7 @@ const Navbar: FC = () => {
           flex={{ base: null, sm: 1 }}
           mr={{ base: 0, sm: "1.5rem" }}
           w="50%"
+          mb="0.125rem"
         >
           <IronFishLogo />
         </Box>

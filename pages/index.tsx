@@ -73,7 +73,7 @@ const LastBlockInfo = () => {
   const $headBlock = useBlockHead();
 
   return (
-    <Flex w="100%" wrap="wrap" mb="2.25rem">
+    <Flex w="100%" wrap="wrap" mb="2.25rem" ml="-0.5rem">
       {LAST_BLOCK_INFO_CARDS.map(data => (
         <Card
           key={data.key}
@@ -183,7 +183,7 @@ export default function Home() {
             <Text fontSize="1.5rem" mb="2.25rem" color={NAMED_COLORS.WHITE}>
               Blockchain statistics for $IRON
             </Text>
-            <HStack>
+            <HStack spacing="1rem">
               <Button variant="secondary" size="medium">
                 View All Blocks
               </Button>

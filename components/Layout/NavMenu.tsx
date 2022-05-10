@@ -8,8 +8,8 @@ import {
 } from "@ironfish/ui-kit";
 
 const burgerLineStyle = {
-  width: "2.0625rem",
-  height: "0.1719rem",
+  width: "2rem",
+  height: "0.1875rem",
   transition: "all .3s ease-in-out",
 };
 
@@ -40,11 +40,11 @@ const NavMenu: FC<NavMenuProps> = ({ menuRef, children }) => {
       <Box
         _before={{
           ...burgerSubLinesStyle,
-          transform: $showMenu ? "rotate(45deg)" : "translateY(0.2575rem)",
+          transform: $showMenu ? "rotate(45deg)" : "translateY(0.4375rem)",
         }}
         _after={{
           ...burgerSubLinesStyle,
-          transform: $showMenu ? "rotate(-45deg)" : "translateY(-0.2575rem)",
+          transform: $showMenu ? "rotate(-45deg)" : "translateY(-0.4375rem)",
         }}
         sx={{
           ...burgerLineStyle,
