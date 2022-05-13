@@ -1,4 +1,5 @@
 import { BlocksParameters, BlocksStatisticParameters, BlockType, FindBlockParameters, ResponseType } from "types";
+import Metric from "types/domain/Metric";
 import Service from "./Service";
 
 class BlockService extends Service {
@@ -26,7 +27,7 @@ class BlockService extends Service {
     return this.fetcher.get('/status').then(({ data }) => data)
   }
 
-  statistic(query: BlocksStatisticParameters) {
+  statistic(query: BlocksStatisticParameters): Promise<ResponseType<Metric[]>> {
     return this.fetcher.get('/metrics', {
       params: {
         start: query.start.toISOString(),
