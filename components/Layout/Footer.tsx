@@ -21,7 +21,7 @@ import {
 } from "svgx";
 
 const Footer: FC = () => {
-  const colors = useColorModeValue(
+  const $colors = useColorModeValue(
     {
       bg: NAMED_COLORS.WHITE,
       border: "#E1E1E1",
@@ -38,9 +38,9 @@ const Footer: FC = () => {
     <Box
       w="100%"
       h="20rem"
-      bgColor={colors.bg}
+      bgColor={$colors.bg}
       borderTop="0.0625rem solid"
-      borderColor={colors.border}
+      borderColor={$colors.border}
       p="4rem 7.6875rem 0rem"
       display={{ base: "none", xl: "block" }}
     >
@@ -93,8 +93,8 @@ const Footer: FC = () => {
         h="4.0625rem"
         w="100%"
         borderTop="0.0625rem solid"
-        borderColor={colors.border}
-        color={colors.color}
+        borderColor={$colors.border}
+        color={$colors.color}
         direction="row"
       >
         <Text fontSize="0.75rem" pl="0.8125rem">

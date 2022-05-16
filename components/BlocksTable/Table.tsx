@@ -89,9 +89,9 @@ const BlocksTable: FC<BlocksTableProps> = ({
         </Tr>
       </Thead>
       <Tbody>
-        {data?.map(block => (
+        {data?.map((block, index) => (
           <RowData
-            key={block?.id}
+            key={block?.id || `load-${index}`}
             items={COLUMNS.map(column => (
               <RowItem
                 key={column.key}

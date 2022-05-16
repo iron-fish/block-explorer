@@ -22,82 +22,76 @@ import {
   SecondsToBlockIcon,
   TotalSupplyIcon,
 } from 'svgx';
+import { BlockType } from 'types';
+
+const BLOCKS_LIMIT = 10
+const LAST_BLOCK_INFO_CARDS = [
+  {
+    key: 'difficulty-card',
+    label: 'Difficulty',
+    value: (block: BlockType | null) => block?.difficulty,
+    icon: <DifficultyIcon />
+  },
+  {
+    key: 'height-card',
+    label: 'Height',
+    value: (block: BlockType | null) => block?.sequence,
+    icon: <HeightIcon />
+  },
+  {
+    key: 'hash-card',
+    label: 'Latest block hash',
+    value: (block: BlockType | null) => truncateHash(block?.hash),
+    icon: <LatestBlockHashIcon />
+  },
+  {
+    key: 'txn-card',
+    label: 'Latest Block txn',
+    value: (block: BlockType | null) => block?.transactions_count,
+    icon: <LatestBlockTXNIcon />
+  },
+  {
+    key: 'interval-card',
+    label: 'Seconds to block',
+    value: (block: BlockType | null) => Math.floor(block?.time_since_last_block_ms / 1000),
+    icon: <SecondsToBlockIcon />
+  },
+  {
+    key: 'supply-card',
+    label: 'Total Supply',
+    value: (block: BlockType | null) => '-',
+    icon: <TotalSupplyIcon />
+  },
+]
 
 const LastBlockInfo = () => {
-  const cardWidth = useBreakpointValue({
+  const $cardWidth = useBreakpointValue({
     base: '100%',
     sm: 'calc(50% - 1rem)',
     md: 'calc(33% - 1rem)',
   });
-  const headBlock = useBlockHead();
-
-  const getValue = (field, transform = (value) => value) => {
-    return headBlock.loaded ? (
-      transform(headBlock.data[field])
-    ) : (
-      <span>&nbsp;</span>
-    );
-  };
+  const $headBlock = useBlockHead();
 
   return (
-    <Flex w="100%" wrap="wrap" mb="2.25rem">
-      <Card
-        m="0.5rem"
-        w={cardWidth}
-        label="Difficulty"
-        value={getValue('difficulty')}
-        icon={<DifficultyIcon />}
-        isLoading={!headBlock.loaded}
-      />
-      <Card
-        m="0.5rem"
-        w={cardWidth}
-        label="Height"
-        value={getValue('sequence')}
-        icon={<HeightIcon />}
-        isLoading={!headBlock.loaded}
-      />
-      <Card
-        m="0.5rem"
-        w={cardWidth}
-        label="Latest block hash"
-        value={getValue('hash', truncateHash)}
-        icon={<LatestBlockHashIcon />}
-        isLoading={!headBlock.loaded}
-      />
-      <Card
-        m="0.5rem"
-        w={cardWidth}
-        label="Latest Block txn"
-        value={getValue('transactions_count')}
-        icon={<LatestBlockTXNIcon />}
-        isLoading={!headBlock.loaded}
-      />
-      <Card
-        m="0.5rem"
-        w={cardWidth}
-        label="Seconds to block"
-        value={getValue('time_since_last_block_ms', (value) =>
-          Math.floor(value / 1000),
-        )}
-        icon={<SecondsToBlockIcon />}
-        isLoading={!headBlock.loaded}
-      />
-      <Card
-        m="0.5rem"
-        w={cardWidth}
-        label="Total Supply"
-        value="-"
-        icon={<TotalSupplyIcon />}
-        isLoading={!headBlock.loaded}
-      />
+    <Flex w="100%" wrap="wrap" mb="2.25rem" ml="-0.5rem">
+      {LAST_BLOCK_INFO_CARDS.map(data => (
+        <Card
+          key={data.key}
+          m="0.5rem"
+          w={$cardWidth}
+          label={data.label}
+          value={data.value($headBlock.data)}
+          icon={data.icon}
+          isLoading={!$headBlock.loaded}
+        />
+      ))}
     </Flex>
   );
 };
 
 const LatestBlocks = () => {
-  const { loaded, data, error } = useBlocks({
-    limit: 10,
+  const $blocks = useBlocks({
+    limit: BLOCKS_LIMIT,
     main: true,
   });
 
@@ -106,17 +100,17 @@ const LatestBlocks = () => {
       <Text fontSize="1.5rem" mb="0.625rem">
         Latest Blocks
       </Text>
-      {!error ? (
+      {!$blocks.error ? (
         <BlocksTable
-          data={loaded ? data.data : Array.from({ length: 10 }, () => null)}
+          data={$blocks.loaded ? $blocks.data.data : new Array(BLOCKS_LIMIT).fill(null)}
         />
       ) : (
         <Card
           w="100%"
-          label={<h4>Something went wrong.</h4>}
+          label="Something went wrong."
           color="red"
           icon={
-            <Box 
+            <Box
               border="0.125rem solid red"
               fontSize="1.5rem"
               fontWeight="bold"
@@ -124,7 +118,8 @@ const LatestBlocks = () => {
               w="2.5rem"
               h="2.5rem"
               textAlign="center"
-            >!</Box>}
+            >!</Box>
+          }
         />
       )}
     </Flex>
@@ -132,7 +127,7 @@ const LatestBlocks = () => {
 };
 
 export default function Home() {
-  const colorModeStyles = useColorModeValue(
+  const $colors = useColorModeValue(
     {
       imageBg: '#1b006a',
       bgImage: `url('/images/home_page_logo_purple.png')`,
@@ -154,8 +149,8 @@ export default function Home() {
         sx={{
           h: { base: '35.5rem', sm: '33.75rem' },
           w: '100%',
-          bgColor: colorModeStyles.imageBg,
-          bgImage: { base: null, sm: colorModeStyles.bgImage },
+          bgColor: $colors.imageBg,
+          bgImage: { base: null, sm: $colors.bgImage },
           bgRepeat: 'no-repeat',
           pos: 'absolute',
           backgroundPositionX: 'right',
@@ -166,7 +161,7 @@ export default function Home() {
         justify="center"
         pt={{ base: '6rem', sm: '7.5rem' }}
         pb="6rem"
-        bgColor={colorModeStyles.mainBg}
+        bgColor={$colors.mainBg}
       >
         <Box
           mr={{ base: '2rem', lg: '15%' }}
@@ -181,14 +176,14 @@ export default function Home() {
               color={NAMED_COLORS.WHITE}
               mb="1.125rem"
             >
-              Welcome&nbsp;to&nbsp;the
+              Welcome to the
               <br />
-              Iron&nbsp;Fish&nbsp;Block Explorer
+              Iron Fish Block Explorer
             </Text>
             <Text fontSize="1.5rem" mb="2.25rem" color={NAMED_COLORS.WHITE}>
               Blockchain statistics for $IRON
             </Text>
-            <HStack>
+            <HStack spacing="1rem">
               <Button variant="secondary" size="medium">
                 View All Blocks
               </Button>
