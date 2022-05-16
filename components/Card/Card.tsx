@@ -1,12 +1,20 @@
-import { FC, ReactNode, useMemo } from 'react'
+import { FC, ReactNode } from 'react'
 
-import { Box, Flex, useColorMode, NAMED_COLORS, BoxProps, keyframes, useColorModeValue } from '@ironfish/ui-kit'
+import {
+  Box,
+  Flex,
+  NAMED_COLORS,
+  BoxProps,
+  keyframes,
+  useColorModeValue,
+  chakra,
+} from "@ironfish/ui-kit";
 
 interface CardProps extends BoxProps {
-  label: string,
-  value: string,
+  label: ReactNode,
+  value?: ReactNode,
   icon: ReactNode,
-  isLoading: boolean
+  isLoading?: boolean
 }
 
 const Card: FC<CardProps> = ({
@@ -16,7 +24,7 @@ const Card: FC<CardProps> = ({
   isLoading = false,
   ...rest
 }) => {
-  const colors = useColorModeValue({
+  const $colors = useColorModeValue({
     bg: NAMED_COLORS.WHITE,
     border: NAMED_COLORS.LIGHT_GREY,
     label: NAMED_COLORS.GREY,
@@ -35,29 +43,29 @@ const Card: FC<CardProps> = ({
   })
 
   const valueContent = isLoading ?
-    <Box minWidth="6rem" minHeight="1.4rem" borderRadius='0.3rem' animation={`${colors.spin} infinite 0.7s alternate`} /> :
+    <Box minWidth="6rem" minHeight="1.4rem" borderRadius='0.3rem' animation={`${$colors.spin} infinite 0.7s alternate`} /> :
     <Box >
-      <h4>
+      <chakra.h4 wordBreak="break-word">
         {value}
-      </h4>
+      </chakra.h4>
     </Box>
   return (
     <Box
-      bg={colors.bg}
+      bg={$colors.bg}
       border="0.063rem solid"
-      borderColor={colors.border}
+      borderColor={$colors.border}
       borderRadius="0.125rem"
       h="7.5rem"
       w={{ base: 'auto', sm: "100%" }}
       m="0.2rem"
-      boxShadow={`0.25rem 0.25rem 0 -0.063rem ${colors.bg}, 0.25rem 0.25rem ${colors.border}`}
+      boxShadow={`0.25rem 0.25rem 0 -0.063rem ${$colors.bg}, 0.25rem 0.25rem ${$colors.border}`}
       p="2rem"
       {...rest}
     >
       <Flex justifyContent="space-between" alignItems="center" w="100%" h="100%">
         <Flex flexDirection="column">
           <Box
-            color={colors.label}
+            color={$colors.label}
           >
             <h4>
               {label}
