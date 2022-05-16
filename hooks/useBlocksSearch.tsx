@@ -28,10 +28,10 @@ const useBlocksSearch = (
             with_transactions: true,
             main: true,
             limit
-          }),
+          }).then(({ data }) => data),
           transactionService.transactions({ search, with_blocks: true, limit }),
         ]).then(([blocks, transactions]) => {
-          return { data: [...blocks.data, ...transactions.data], object: 'list' };
+          return { data: [...blocks, ...transactions], object: 'list' };
         })
       );
     } else {

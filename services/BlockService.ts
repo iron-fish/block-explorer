@@ -9,7 +9,7 @@ class BlockService extends Service {
   blocks(query: BlocksParameters): Promise<ResponseType<BlockType[]>> {
     return this.fetcher.get('', {
       params: query
-    }).then(({ data }) => data)
+    })
   }
 
   find(query: FindBlockParameters): Promise<BlockType> {

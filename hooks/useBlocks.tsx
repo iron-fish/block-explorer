@@ -10,7 +10,7 @@ const useBlocks = (query: BlocksParameters = {}): AsyncDataProps<ResponseType<Bl
   const [result, wrapper] = useAsyncDataWrapper<ResponseType<BlockType[]>>()
 
   useEffect(() => {
-    wrapper(service.blocks(query))
+    wrapper(service.blocks(query).then(({ data }) => data))
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     query.after,

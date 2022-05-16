@@ -9,13 +9,13 @@ class TransactionService extends Service {
   transactions(query: TransactionsParameters): Promise<ResponseType<TransactionType[]>> {
     return this.fetcher.get('', {
       params: query
-    })
+    }).then(({ data }) => data)
   }
 
   find(query: FindTransactionParameters): Promise<TransactionType> {
     return this.fetcher.get('/find', {
       params: query
-    })
+    }).then(({ data }) => data)
   }
 
   toString(): string {
