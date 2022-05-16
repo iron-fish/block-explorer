@@ -102,7 +102,7 @@ const LatestBlocks = () => {
       </Text>
       {!$blocks.error ? (
         <BlocksTable
-          data={$blocks.loaded ? $blocks.data.data : new Array(BLOCKS_LIMIT).fill(null)}
+          data={$blocks.loaded ? $blocks.data : new Array(BLOCKS_LIMIT).fill(null)}
         />
       ) : (
         <Card
