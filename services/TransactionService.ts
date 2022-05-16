@@ -6,7 +6,7 @@ class TransactionService extends Service {
     super('/transactions')
   }
 
-  transactions(query: TransactionsParameters): Promise<ResponseType<TransactionType[]>> {
+  transactions(query: TransactionsParameters): Promise<TransactionType[]> {
     return this.fetcher.get('', {
       params: query
     }).then(({ data }) => data)
