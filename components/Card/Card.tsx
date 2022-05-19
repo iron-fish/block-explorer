@@ -1,6 +1,14 @@
 import { FC, ReactNode } from 'react'
 
-import { Box, Flex, NAMED_COLORS, BoxProps, keyframes, useColorModeValue } from '@ironfish/ui-kit'
+import {
+  Box,
+  Flex,
+  NAMED_COLORS,
+  BoxProps,
+  keyframes,
+  useColorModeValue,
+  chakra,
+} from "@ironfish/ui-kit";
 
 interface CardProps extends BoxProps {
   label: ReactNode,
@@ -37,9 +45,9 @@ const Card: FC<CardProps> = ({
   const valueContent = isLoading ?
     <Box minWidth="6rem" minHeight="1.4rem" borderRadius='0.3rem' animation={`${$colors.spin} infinite 0.7s alternate`} /> :
     <Box >
-      <h4>
+      <chakra.h4 wordBreak="break-word">
         {value}
-      </h4>
+      </chakra.h4>
     </Box>
   return (
     <Box

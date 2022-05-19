@@ -5,7 +5,7 @@ import { AsyncDataProps, BlocksParameters, BlockType, ResponseType } from "types
 
 import useAsyncDataWrapper from "./useAsyncDataWrapper"
 
-const useBlocks = (query: BlocksParameters = {}): AsyncDataProps<ResponseType<BlockType[]>> => {
+const useBlocks = (query: BlocksParameters = {}): AsyncDataProps<BlockType[]> => {
   const service = useContext(BlockContext)
   const [result, wrapper] = useAsyncDataWrapper<ResponseType<BlockType[]>>()
 
@@ -24,7 +24,10 @@ const useBlocks = (query: BlocksParameters = {}): AsyncDataProps<ResponseType<Bl
     query.with_transactions
   ])
 
-  return result
+  return ({
+    ...result,
+    ...result.data,
+  })
 }
 
 export default useBlocks

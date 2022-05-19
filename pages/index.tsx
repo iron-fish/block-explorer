@@ -23,8 +23,8 @@ import {
   SecondsToBlockIcon,
   TotalSupplyIcon,
 } from 'svgx';
-import { BlockType } from 'types';
 import Link from 'next/link';
+import { BlockType } from 'types';
 
 const BLOCKS_LIMIT = 10
 const LAST_BLOCK_INFO_CARDS = [
@@ -75,7 +75,7 @@ const LastBlockInfo = () => {
   const $headBlock = useBlockHead();
 
   return (
-    <Flex w="100%" wrap="wrap" mb="2.25rem">
+    <Flex w="100%" wrap="wrap" mb="2.25rem" ml="-0.5rem">
       {LAST_BLOCK_INFO_CARDS.map(data => (
         <Card
           key={data.key}
@@ -104,7 +104,7 @@ const LatestBlocks = () => {
       </Text>
       {!$blocks.error ? (
         <BlocksTable
-          data={$blocks.loaded ? $blocks.data.data : new Array(BLOCKS_LIMIT).fill(null)}
+          data={$blocks.loaded ? $blocks.data : new Array(BLOCKS_LIMIT).fill(null)}
         />
       ) : (
         <Card
