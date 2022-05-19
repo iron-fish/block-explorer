@@ -15,15 +15,15 @@ class BlockService extends Service {
   find(query: FindBlockParameters): Promise<BlockType> {
     return this.fetcher.get('/find', {
       params: query
-    })
+    }).then(({ data }) => data)
   }
 
   head(): Promise<BlockType> {
-    return this.fetcher.get('/head')
+    return this.fetcher.get('/head').then(({ data }) => data)
   }
 
   status(): Promise<BlockType> {
-    return this.fetcher.get('/status')
+    return this.fetcher.get('/status').then(({ data }) => data)
   }
 
   statistic(query: BlocksStatisticParameters) {
@@ -33,7 +33,7 @@ class BlockService extends Service {
         end: query.end.toISOString(),
         granularity: query.granularity
       }
-    })
+    }).then(({ data }) => data)
   }
 
   toString(): string {

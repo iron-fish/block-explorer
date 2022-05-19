@@ -1,4 +1,5 @@
 import { Card, BlocksTable } from 'components';
+import RoutePaths from 'constants/RoutePaths'
 import useBlockHead from 'hooks/useBlockHead';
 import useBlocks from 'hooks/useBlocks';
 import { truncateHash } from 'utils/hash';
@@ -22,6 +23,7 @@ import {
   SecondsToBlockIcon,
   TotalSupplyIcon,
 } from 'svgx';
+import Link from 'next/link';
 import { BlockType } from 'types';
 
 const BLOCKS_LIMIT = 10
@@ -102,7 +104,7 @@ const LatestBlocks = () => {
       </Text>
       {!$blocks.error ? (
         <BlocksTable
-          data={$blocks.loaded ? $blocks.data.data : new Array(BLOCKS_LIMIT).fill(null)}
+          data={$blocks.loaded ? $blocks.data : new Array(BLOCKS_LIMIT).fill(null)}
         />
       ) : (
         <Card
@@ -163,12 +165,7 @@ export default function Home() {
         pb="6rem"
         bgColor={$colors.mainBg}
       >
-        <Box
-          mr={{ base: '2rem', lg: '15%' }}
-          ml={{ base: '2rem', lg: '15%' }}
-          w="100%"
-          zIndex={1}
-        >
+        <Box mx={{ base: '2rem', lg: '15%' }} w="100%" zIndex={1}>
           <Flex direction="column" mb="5.3125rem">
             <Text
               fontSize="3.25rem"
@@ -183,10 +180,12 @@ export default function Home() {
             <Text fontSize="1.5rem" mb="2.25rem" color={NAMED_COLORS.WHITE}>
               Blockchain statistics for $IRON
             </Text>
-            <HStack spacing="1rem">
-              <Button variant="secondary" size="medium">
-                View All Blocks
-              </Button>
+            <HStack>
+              <Link href={RoutePaths.Explorer} passHref>
+                <Button variant="secondary" size="medium">
+                  View All Blocks
+                </Button>
+              </Link>
               <Button variant="secondary" size="medium">
                 View Chain Explorer
               </Button>
@@ -198,9 +197,14 @@ export default function Home() {
           </Button>
           <LatestBlocks />
           <Center>
-            <Button variant="secondary" size="medium">
-              View All Blocks
-            </Button>
+            <Link href={RoutePaths.Explorer} passHref>
+              <Button
+                variant="secondary"
+                size="medium"
+              >
+                View All Blocks
+              </Button>
+            </Link>
           </Center>
         </Box>
       </Flex>

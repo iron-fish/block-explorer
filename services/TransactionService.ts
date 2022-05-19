@@ -6,16 +6,16 @@ class TransactionService extends Service {
     super('/transactions')
   }
 
-  transactions(query: TransactionsParameters): Promise<ResponseType<TransactionType[]>> {
+  transactions(query: TransactionsParameters): Promise<TransactionType[]> {
     return this.fetcher.get('', {
       params: query
-    })
+    }).then(({ data }) => data)
   }
 
   find(query: FindTransactionParameters): Promise<TransactionType> {
     return this.fetcher.get('/find', {
       params: query
-    })
+    }).then(({ data }) => data)
   }
 
   toString(): string {

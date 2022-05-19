@@ -8,7 +8,7 @@ class Service {
       baseURL: '/api' + baseUrl
     })
     this.fetcher.interceptors.response.use(
-      response => response.data, 
+      response => response.data,
       error => Promise.reject(error)
     )
   }
