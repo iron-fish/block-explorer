@@ -1,12 +1,12 @@
 export interface BlockType {
-  id: number | string,
+  id: number,
   hash: string,
   main: boolean,
   object: string, // ??
-  graffity: string, // ??
+  graffiti: string, // ??
   difficulty: number | string,
   previous_block_hash: string,
-  sequence: number | string,
+  sequence: number,
   size: number,
   time_since_last_block_ms: number,
   timestamp: string,
