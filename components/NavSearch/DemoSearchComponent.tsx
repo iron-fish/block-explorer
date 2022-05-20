@@ -114,7 +114,6 @@ const SearchAutocomplete: FC<SearchAutocompleteProps> = ({
               fontSize: "0.875rem",
               fontWeight: "400",
               lineHeight: "160%",
-              fontFamily: "ABC Favorit Trial",
             }}
           >
             {renderGroupTitle(groupName)}
@@ -209,7 +208,6 @@ const SearchAutocomplete: FC<SearchAutocompleteProps> = ({
                 fontSize: "1rem",
                 lineHeight: "1.5",
                 fontWeight: "400",
-                fontFamily: "ABC Favorit Trial",
                 color: colors.emptyOption,
               }}
             >

@@ -24,7 +24,6 @@ const RowItem: FC<RowItemProps> = ({
         fontStyle: 'normal',
         lineHeight: '1.625rem',
         fontWeight: '400',
-        fontFamily: 'ABC Favorit Trial',
       }}
     >
       {children}
