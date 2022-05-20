@@ -6,7 +6,6 @@ import {
   useColorModeValue,
   NAMED_COLORS,
   useBreakpointValue,
-  Portal,
 } from '@ironfish/ui-kit'
 
 import { IronFishLogo } from 'svgx'

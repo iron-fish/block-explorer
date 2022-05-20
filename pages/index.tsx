@@ -62,7 +62,7 @@ const LAST_BLOCK_INFO_CARDS = [
   {
     key: 'supply-card',
     label: 'Total Supply',
-    value: (block: BlockType | null) => '-',
+    value: () => '-',
     icon: <TotalSupplyIcon />,
   },
 ]

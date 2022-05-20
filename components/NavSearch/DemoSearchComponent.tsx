@@ -1,12 +1,4 @@
-import {
-  FC,
-  useState,
-  useEffect,
-  useRef,
-  ReactNode,
-  MutableRefObject,
-  RefObject,
-} from 'react'
+import { FC, useState, useEffect, useRef, ReactNode, RefObject } from 'react'
 
 import {
   Box,
@@ -17,7 +9,6 @@ import {
   PopoverContent,
   PopoverTrigger,
   useDisclosure,
-  useMultiStyleConfig,
   InputGroup,
   InputLeftElement,
   Text,
@@ -72,7 +63,6 @@ const SearchAutocomplete: FC<SearchAutocompleteProps> = ({
 }) => {
   const [val, setVal] = useState<SearchOptionType | null>(value)
   const [search, setSearch] = useState<string>('')
-  const styles = useMultiStyleConfig('SearchAutocomplete', props)
   const inputRef = useRef<HTMLInputElement>()
   const popoverRef = useRef<HTMLDivElement>()
   const { onOpen, onClose, isOpen } = useDisclosure()

@@ -1,4 +1,4 @@
-import { Td, Tr } from '@ironfish/ui-kit'
+import { Tr } from '@ironfish/ui-kit'
 import { FC } from 'react'
 import { DataRowProps } from './types'
 

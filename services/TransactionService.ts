@@ -2,7 +2,6 @@ import {
   TransactionsParameters,
   TransactionType,
   FindTransactionParameters,
-  ResponseType,
 } from 'types'
 import Service from './Service'
 

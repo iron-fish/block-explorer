@@ -15,7 +15,7 @@ const useInfiniteBlocks = (
     object: '',
   })
 
-  const loadBlocks: Function = useCallback(
+  const loadBlocks = useCallback(
     params => {
       setLoaded(false)
       setError(undefined)
@@ -34,7 +34,7 @@ const useInfiniteBlocks = (
     []
   )
 
-  const loadNext: VoidFunction = (): void => {
+  const loadNext = () => {
     loadBlocks({
       limit,
       with_transactions,

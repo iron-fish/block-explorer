@@ -22,9 +22,12 @@ size.defaultOptions({
   precision: 2,
 })
 
-export const CommonTable: FC<CommonTableProps<any>> = ({
+export const CommonTable: FC<
+  CommonTableProps<Record<string, string | number>>
+> = ({
   data = null,
   columns = [],
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onRowClick = () => {},
   ...rest
 }) => {

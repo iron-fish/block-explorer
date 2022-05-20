@@ -1,8 +1,5 @@
 import { FC, useState } from 'react'
 import {
-  InputGroup,
-  InputLeftElement,
-  Input,
   InputProps,
   useBreakpointValue,
   Flex,

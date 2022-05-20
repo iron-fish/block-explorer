@@ -74,10 +74,6 @@ const BlockInfo = ({ id }) => {
   })
   const block = useBlockBySeq(id)
 
-  const getValue = (field, transform = value => value) => {
-    return block.loaded ? transform(block.data[field]) : <span>&nbsp;</span>
-  }
-
   return (
     <>
       <Box mt="0.5rem" mb="2rem">

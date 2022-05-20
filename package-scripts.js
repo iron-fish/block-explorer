@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { rimraf, concurrent } = require('nps-utils')
 const PORT = process.env.PORT || 5000
 
@@ -6,6 +7,7 @@ const folders = ['components', 'hooks', 'public', 'styles', 'svg', 'utils']
 module.exports = {
   scripts: {
     dev: {
+      custom: `nps 'dev -p ${PORT}`,
       script: 'next dev',
     },
     bureaucracy: {

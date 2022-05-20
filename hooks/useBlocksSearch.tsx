@@ -1,13 +1,7 @@
 import { useContext, useEffect } from 'react'
 
 import { BlockContext, TransactionContext } from 'contexts/ServiceContexts'
-import {
-  AsyncDataProps,
-  BlocksParameters,
-  BlockType,
-  ResponseType,
-  TransactionType,
-} from 'types'
+import { AsyncDataProps, BlockType, ResponseType, TransactionType } from 'types'
 
 import useAsyncDataWrapper from './useAsyncDataWrapper'
 

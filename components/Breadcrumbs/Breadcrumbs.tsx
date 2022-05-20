@@ -49,7 +49,7 @@ const resolvePath = (path: string) => {
   }
 }
 
-const Breadcrumbs: FC = props => {
+const Breadcrumbs: FC = () => {
   const router = useRouter()
 
   const separatorColor = useColorModeValue(
