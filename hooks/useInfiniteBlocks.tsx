@@ -2,7 +2,7 @@ import { useContext, useEffect, useCallback, useState } from "react";
 
 import { BlockContext } from "contexts/ServiceContexts";
 import { AsyncDataProps, BlockType, ResponseType } from "types";
-import { uniqBy } from 'ramda'
+import { uniqBy, sort } from 'ramda'
 
 const useInfiniteBlocks = (
   limit: number = 20,
@@ -12,7 +12,7 @@ const useInfiniteBlocks = (
   const service = useContext(BlockContext);
   const [loaded, setLoaded] = useState<boolean>(false);
   const [error, setError] = useState<Error>();
-  const [data, setData] = useState<ResponseType<BlockType[]>>({ data: [], object: '',  });
+  const [blocksData, setBlocksData] = useState<ResponseType<BlockType[]>>({ data: [], object: '',  });
 
   const loadBlocks: Function = useCallback(
     (params) => {
@@ -21,9 +21,12 @@ const useInfiniteBlocks = (
       service
         .blocks(params)
         .then((data) =>
-          setData((prevData) => ({
+          setBlocksData((prevData) => ({
             ...data,
-            data: uniqBy(block => block.id, prevData.data.concat(data.data)),
+            data: sort(
+              (blockA: BlockType, blockB: BlockType) => blockB.sequence - blockA.sequence, 
+              uniqBy(block => block.id, prevData.data.concat(data.data))
+            ),
           }))
         )
         .catch(setError)
@@ -37,9 +40,8 @@ const useInfiniteBlocks = (
     loadBlocks({
       limit,
       with_transactions,
-      main: only_main,
-      after: data.data[data.data.length - 1].id,
-      // before: data.data[data.data.length - 1].id - limit,
+      main: true,
+      after: blocksData.data[blocksData.data.length - 1].id,
     });
   };
 
@@ -53,9 +55,9 @@ const useInfiniteBlocks = (
       loaded,
       error,
       data: {
-        ...data,
+        ...blocksData,
         metadata: {
-          has_next: data.data[data.data.length - 1]?.id > 0,
+          has_next: blocksData.data[blocksData.data.length - 1]?.id > 0,
           has_previous: true
         }
       },

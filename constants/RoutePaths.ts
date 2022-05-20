@@ -1,8 +1,9 @@
 enum RoutePaths {
   Home = '/',
   Explorer = '/explorer',
-  TransactionDetail = '/transaction/:id',
-  BlockDetail = '/blocks/:id',
+  ChainExplorer = '/chain-explorer',
+  TransactionInfo = '/transaction/[id]',
+  BlockInfo = '/blocks/[id]',
   Charts = '/charts',
 }
 

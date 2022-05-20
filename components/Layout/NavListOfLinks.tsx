@@ -1,6 +1,8 @@
 import { FC } from "react";
 import { Flex, Link, Center, useConst, FlexProps } from "@ironfish/ui-kit";
 import { OuterReferenceIcon } from "svgx";
+import NextLink from 'next/link'
+import RoutePaths from "constants/RoutePaths";
 
 const NavListOfLinks: FC<FlexProps> = (props) => {
   const linkStyle = useConst({
@@ -10,9 +12,11 @@ const NavListOfLinks: FC<FlexProps> = (props) => {
 
   return (
     <Flex {...props}>
-      <Link sx={linkStyle} href="#">
-        All blocks
-      </Link>
+      <NextLink href={RoutePaths.Explorer} passHref>
+        <Link sx={linkStyle}>
+          All blocks
+        </Link>
+      </NextLink>
       <Link sx={linkStyle} href="#">
         Charts
       </Link>

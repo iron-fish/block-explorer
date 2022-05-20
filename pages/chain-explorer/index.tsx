@@ -1,9 +1,10 @@
-import { Box } from '@ironfish/ui-kit'
+import { Box, Flex, Skeleton } from '@ironfish/ui-kit'
 
 import Head from 'next/head';
 import useInfiniteBlocks from 'hooks/useInfiniteBlocks';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import { ChainTree } from 'components/ChainTree';
+import BlocksViewButtons from 'components/BlocksViewButtons';
 
 const ChainExplorer = () => {
   const [{
@@ -20,7 +21,7 @@ const ChainExplorer = () => {
   });
 
   if ((!loaded && (!data || data.length === 0)) || error) {
-    return null
+    return <Skeleton h="calc(100vh - 6rem)" w="100%"/>
   }
 
   return (
@@ -42,6 +43,11 @@ export default function ChainExplorerPage() {
         <title>Iron Fish: Chain Explorer</title>
       </Head>
       <Box mx={{ base: '2rem', lg: '15%' }}>
+        <Flex w="100%" justifyContent="end">
+          <Box position="fixed" mt="2.5rem">
+            <BlocksViewButtons />
+          </Box>
+        </Flex>
         <ChainExplorer />
       </Box>
     </main>

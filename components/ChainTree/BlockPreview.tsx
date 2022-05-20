@@ -4,6 +4,8 @@ import { BlockType } from "types"
 import { truncateHash } from "utils/hash"
 import size from "byte-size"
 import { CloseDetailsIcon } from "svgx/CloseDetailsIcon"
+import Link from "next/link"
+import RoutePaths from "constants/RoutePaths"
 
 const PREVIEW_BLOCKS = [
   {
@@ -72,13 +74,13 @@ const BlockPreview = ({
         cursor="pointer"
         onClick={onClose}
       />
-      <Flex wrap="wrap" w="100%" h="100%">
-        <Flex wrap="wrap" p="2.5rem" w="calc(100% - 150px)" minWidth="70%" justifyContent="space-between">
+      <Flex wrap="wrap" w="100%" h="100%" p="2.5rem">
+        <Flex wrap="wrap" w={{lg: "calc(100% - 180px)", base: '100%'}}>
           {PREVIEW_BLOCKS.map((infoblock, i) => (
             <Box 
               key={`${block?.hash}-infoblock-${i}`} 
               m="1rem"
-              minW="6rem"
+              minW="9rem"
             >
               <Box color={$colors.label}>
                 {infoblock.label}
@@ -89,9 +91,13 @@ const BlockPreview = ({
             </Box>
           ))}
         </Flex>
-        <Box w="150px">
-
-        </Box>
+        <Flex w="180px" my={{base: "0", lg: "2.3rem"}} alignSelf="end">
+          <Link href={RoutePaths.BlockInfo.replace('[id]', block?.sequence.toString())} passHref>
+            <a style={{ color: NAMED_COLORS.LIGHT_BLUE }}>
+              View details &gt;
+            </a>
+          </Link>
+        </Flex>
       </Flex>
     </Box>
   )

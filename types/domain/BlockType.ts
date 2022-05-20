@@ -1,3 +1,5 @@
+import TransactionType from "./TransactionType"
+
 export interface BlockType {
   id: number,
   hash: string,
@@ -11,6 +13,7 @@ export interface BlockType {
   time_since_last_block_ms: number,
   timestamp: string,
   transactions_count: number
+  transactions?: TransactionType[]
 }
 
 export default BlockType
