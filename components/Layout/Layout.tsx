@@ -1,6 +1,6 @@
-import { FC, ReactNode } from 'react';
-import Navbar from './Navbar';
-import Footer from './Footer';
+import { FC, ReactNode } from 'react'
+import Navbar from './Navbar'
+import Footer from './Footer'
 
 const Layout: FC<ReactNode> = ({ children }) => (
   <>
@@ -8,6 +8,6 @@ const Layout: FC<ReactNode> = ({ children }) => (
     {children}
     <Footer />
   </>
-);
+)
 
-export default Layout;
+export default Layout

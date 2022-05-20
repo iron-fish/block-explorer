@@ -1,4 +1,4 @@
-import { Icon } from "@ironfish/ui-kit";
+import { Icon } from '@ironfish/ui-kit'
 
 export function SecondsToBlockIcon() {
   return (
@@ -23,7 +23,7 @@ export function SecondsToBlockIcon() {
         fill="#0D0C22"
       />
     </Icon>
-  );
+  )
 }
 
-export default SecondsToBlockIcon;
+export default SecondsToBlockIcon

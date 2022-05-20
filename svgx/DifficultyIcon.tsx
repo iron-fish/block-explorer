@@ -1,4 +1,4 @@
-import { Icon } from "@ironfish/ui-kit";
+import { Icon } from '@ironfish/ui-kit'
 
 export function DifficultyIcon() {
   return (
@@ -43,7 +43,7 @@ export function DifficultyIcon() {
         fill="#0D0C22"
       />
     </Icon>
-  );
+  )
 }
 
-export default DifficultyIcon;
+export default DifficultyIcon

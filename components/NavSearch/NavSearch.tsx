@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState } from 'react'
 import {
   InputGroup,
   InputLeftElement,
@@ -8,25 +8,25 @@ import {
   Flex,
   Box,
   NAMED_COLORS,
-} from "@ironfish/ui-kit";
+} from '@ironfish/ui-kit'
 /** ---------------------------------------------------------------------------
  * This component is a mock up of implementation in UI kit and must be replaced
  * ----------------------------------------------------------------------------
  */
-import DemoSearchComponent, { SearchOptionType } from "./DemoSearchComponent";
+import DemoSearchComponent, { SearchOptionType } from './DemoSearchComponent'
 /** ---------------------------------------------------------------------------
  * ----------------------------------------------------------------------------*/
-import { truncateHash } from "utils/hash";
-import { SearchIcon } from "svgx";
-import useBlocksSearch from "hooks/useBlocksSearch";
-import { BlockType, TransactionType } from "types";
-import BlockIcon from "icons/BlockIcon";
+import { truncateHash } from 'utils/hash'
+import { SearchIcon } from 'svgx'
+import useBlocksSearch from 'hooks/useBlocksSearch'
+import { BlockType, TransactionType } from 'types'
+import BlockIcon from 'icons/BlockIcon'
 
 const Option: FC<SearchOptionType> = ({ id, value }) => {
   const $hashValue = useBreakpointValue({
     base: truncateHash(value.toString(), 2),
     md: value,
-  });
+  })
   return (
     <Flex minH="30px" alignItems="center">
       <Box mr="16px">
@@ -41,44 +41,44 @@ const Option: FC<SearchOptionType> = ({ id, value }) => {
         {id} - {$hashValue}
       </Box>
     </Flex>
-  );
-};
+  )
+}
 
 function isBlock(x: unknown): x is BlockType {
-  return typeof x === "object" && !!x && "transactions" in x && !("block" in x);
+  return typeof x === 'object' && !!x && 'transactions' in x && !('block' in x)
 }
 
 const getOptionObject = (option: BlockType | TransactionType): string => {
   if (!option) {
-    return "";
+    return ''
   }
 
   if (isBlock(option)) {
-    return "Blocks";
+    return 'Blocks'
   }
 
-  return "Transactions";
-};
+  return 'Transactions'
+}
 
 const SearchInput: FC<InputProps> = () => {
-  const shortSearchPlaceHolder = "Search";
-  const longSearchPlaceHolder = "Search by block height, hash or transaction";
+  const shortSearchPlaceHolder = 'Search'
+  const longSearchPlaceHolder = 'Search by block height, hash or transaction'
   const $placeholder = useBreakpointValue({
     base: longSearchPlaceHolder,
     sm: shortSearchPlaceHolder,
     xl: longSearchPlaceHolder,
-  });
+  })
 
-  const [$search, $setSearch] = useState<string>();
+  const [$search, $setSearch] = useState<string>()
 
-  const { data } = useBlocksSearch($search, 5);
+  const { data } = useBlocksSearch($search, 5)
 
   return (
     <DemoSearchComponent
       variant="nav_search"
       InputProps={{
         placeholder: $placeholder,
-        onChange: (e) => $setSearch(e.target.value),
+        onChange: e => $setSearch(e.target.value),
       }}
       inputLeftElement={<SearchIcon />}
       options={data?.data.map((item: BlockType | TransactionType) => ({
@@ -87,10 +87,10 @@ const SearchInput: FC<InputProps> = () => {
         id: item.id,
         object: getOptionObject(item),
       }))}
-      renderOption={(option) => <Option {...option} />}
+      renderOption={option => <Option {...option} />}
       onSelectOption={() => $setSearch('')}
     />
-  );
-};
+  )
+}
 
-export default SearchInput;
+export default SearchInput

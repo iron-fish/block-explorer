@@ -1,9 +1,9 @@
-import { Box, Flex, useBreakpointValue } from "@ironfish/ui-kit"
-import { Card } from "components";
-import Breadcrumbs from "components/Breadcrumbs/Breadcrumbs"
-import useBlockBySeq from "hooks/useBlockBySeq";
-import Head from "next/head"
-import { useRouter } from "next/router"
+import { Box, Flex, useBreakpointValue } from '@ironfish/ui-kit'
+import { Card } from 'components'
+import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
+import useBlockBySeq from 'hooks/useBlockBySeq'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
 import {
   DifficultyIcon,
   BlockInfoHeightIcon,
@@ -11,43 +11,43 @@ import {
   BlockInfoDifficultyIcon,
   BlockInfoTxnIcon,
   BlockInfoTimestampIcon,
-  BlockInfoGraffitiIcon
-} from "svgx";
-import { truncateHash } from "utils/hash";
-import size from "byte-size"
-import { TransactionsTable } from "components/TransactionsTable";
-import { BlockType } from "types";
+  BlockInfoGraffitiIcon,
+} from 'svgx'
+import { truncateHash } from 'utils/hash'
+import size from 'byte-size'
+import { TransactionsTable } from 'components/TransactionsTable'
+import { BlockType } from 'types'
 
 const BLOCK_CARDS = [
   {
     key: 'height-card',
     label: 'Height',
     value: (block: BlockType | null) => block?.sequence,
-    icon: <BlockInfoHeightIcon height={47} width={47}/>
+    icon: <BlockInfoHeightIcon height={47} width={47} />,
   },
   {
     key: 'hash-card',
     label: 'Block hash',
     value: (block: BlockType | null) => truncateHash(block?.hash, 2, 4),
-    icon: <DifficultyIcon />
+    icon: <DifficultyIcon />,
   },
   {
     key: 'size-card',
     label: 'Size',
     value: (block: BlockType | null) => size(block?.size).toString(),
-    icon: <BlockInfoSizeIcon />
+    icon: <BlockInfoSizeIcon />,
   },
   {
     key: 'difficulty-card',
     label: 'Difficulty',
     value: (block: BlockType | null) => block?.difficulty,
-    icon: <BlockInfoDifficultyIcon />
+    icon: <BlockInfoDifficultyIcon />,
   },
   {
     key: 'txn-card',
     label: 'Transactions Count',
     value: (block: BlockType | null) => block?.transactions_count,
-    icon: <BlockInfoTxnIcon />
+    icon: <BlockInfoTxnIcon />,
   },
   {
     key: 'timestamp-card',
@@ -56,13 +56,13 @@ const BLOCK_CARDS = [
       const date = new Date(block?.timestamp)
       return date.toLocaleDateString() + ' ' + date.toLocaleTimeString()
     },
-    icon: <BlockInfoTimestampIcon />
+    icon: <BlockInfoTimestampIcon />,
   },
   {
     key: 'graffiti-card',
     label: 'Graffiti',
     value: (block: BlockType | null) => block?.graffiti,
-    icon: <BlockInfoGraffitiIcon />
+    icon: <BlockInfoGraffitiIcon />,
   },
 ]
 
@@ -71,16 +71,12 @@ const BlockInfo = ({ id }) => {
     base: '100%',
     sm: 'calc(50% - 1rem)',
     md: 'calc(33% - 1rem)',
-  });
-  const block = useBlockBySeq(id);
+  })
+  const block = useBlockBySeq(id)
 
-  const getValue = (field, transform = (value) => value) => {
-    return block.loaded ? (
-      transform(block.data[field])
-    ) : (
-      <span>&nbsp;</span>
-    );
-  };
+  const getValue = (field, transform = value => value) => {
+    return block.loaded ? transform(block.data[field]) : <span>&nbsp;</span>
+  }
 
   return (
     <>
@@ -105,17 +101,17 @@ const BlockInfo = ({ id }) => {
       </Box>
       <TransactionsTable
         data={
-          block.loaded ? 
-          block.data?.transactions.map(transaction => (
-            {
-              ...transaction,
-              blocks: [block.data]
-            }
-          )) : [null]
-        } />
+          block.loaded
+            ? block.data?.transactions.map(transaction => ({
+                ...transaction,
+                blocks: [block.data],
+              }))
+            : [null]
+        }
+      />
     </>
-  );
-};
+  )
+}
 
 export default function BlockInformationPage() {
   const router = useRouter()
