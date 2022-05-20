@@ -5,7 +5,7 @@ export interface BlockType {
   hash: string,
   main: boolean,
   object: string, // ??
-  graffity: string, // ??
+  graffiti: string, // ??
   difficulty: number | string,
   previous_block_hash: string,
   sequence: number | string,

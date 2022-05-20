@@ -6,15 +6,65 @@ import Head from "next/head"
 import { useRouter } from "next/router"
 import {
   DifficultyIcon,
-  HeightIcon,
-  LatestBlockHashIcon,
-  LatestBlockTXNIcon,
-  SecondsToBlockIcon,
-  TotalSupplyIcon
+  BlockInfoHeightIcon,
+  BlockInfoSizeIcon,
+  BlockInfoDifficultyIcon,
+  BlockInfoTxnIcon,
+  BlockInfoTimestampIcon,
+  BlockInfoGraffitiIcon
 } from "svgx";
 import { truncateHash } from "utils/hash";
 import size from "byte-size"
 import { TransactionsTable } from "components/TransactionsTable";
+import { BlockType } from "types";
+
+const BLOCK_CARDS = [
+  {
+    key: 'height-card',
+    label: 'Height',
+    value: (block: BlockType | null) => block?.sequence,
+    icon: <BlockInfoHeightIcon height={47} width={47}/>
+  },
+  {
+    key: 'hash-card',
+    label: 'Block hash',
+    value: (block: BlockType | null) => truncateHash(block?.hash, 2, 4),
+    icon: <DifficultyIcon />
+  },
+  {
+    key: 'size-card',
+    label: 'Size',
+    value: (block: BlockType | null) => size(block?.size).toString(),
+    icon: <BlockInfoSizeIcon />
+  },
+  {
+    key: 'difficulty-card',
+    label: 'Difficulty',
+    value: (block: BlockType | null) => block?.difficulty,
+    icon: <BlockInfoDifficultyIcon />
+  },
+  {
+    key: 'txn-card',
+    label: 'Transactions Count',
+    value: (block: BlockType | null) => block?.transactions_count,
+    icon: <BlockInfoTxnIcon />
+  },
+  {
+    key: 'timestamp-card',
+    label: 'Timestamp',
+    value: (block: BlockType | null) => {
+      const date = new Date(block?.timestamp)
+      return date.toLocaleDateString() + ' ' + date.toLocaleTimeString()
+    },
+    icon: <BlockInfoTimestampIcon />
+  },
+  {
+    key: 'graffiti-card',
+    label: 'Graffiti',
+    value: (block: BlockType | null) => block?.graffiti,
+    icon: <BlockInfoGraffitiIcon />
+  },
+]
 
 const BlockInfo = ({ id }) => {
   const cardWidth = useBreakpointValue({
@@ -38,76 +88,31 @@ const BlockInfo = ({ id }) => {
         <h3>Block Information</h3>
       </Box>
       <Flex w="100%" wrap="wrap" mb="3.5rem" mx="-0.5rem">
-        <Card
-          m="0.5rem"
-          w={cardWidth}
-          label="Height"
-          value={getValue('sequence')}
-          icon={<HeightIcon />}
-          isLoading={!block.loaded}
-        />
-        <Card
-          m="0.5rem"
-          w={cardWidth}
-          label="Block hash"
-          value={getValue('hash', truncateHash)}
-          icon={<DifficultyIcon />}
-          isLoading={!block.loaded}
-        />
-        <Card
-          m="0.5rem"
-          w={cardWidth}
-          label="Size"
-          value={getValue('size', size).toString()}
-          icon={<LatestBlockHashIcon />}
-          isLoading={!block.loaded}
-        />
-        <Card
-          m="0.5rem"
-          w={cardWidth}
-          label="Difficulty"
-          value={getValue('difficulty')}
-          icon={<DifficultyIcon />}
-          isLoading={!block.loaded}
-        />
-
-        <Card
-          m="0.5rem"
-          w={cardWidth}
-          label="Transactions Count"
-          value={getValue('transactions_count')}
-          icon={<LatestBlockTXNIcon />}
-          isLoading={!block.loaded}
-        />
-        <Card
-          m="0.5rem"
-          w={cardWidth}
-          label="Timestamp"
-          value={getValue('timestamp', (value) => {
-            const date = new Date(value)
-            return date.toLocaleDateString() + ' ' + date.toLocaleTimeString()
-          })}
-          icon={<SecondsToBlockIcon />}
-          isLoading={!block.loaded}
-        />
-        <Card
-          m="0.5rem"
-          w={cardWidth}
-          label="Graffiti"
-          value={getValue('graffiti', value => value)}
-          icon={<TotalSupplyIcon />}
-          isLoading={!block.loaded}
-        />
+        {BLOCK_CARDS.map(card => (
+          <Card
+            key={card.key}
+            m="0.5rem"
+            w={cardWidth}
+            label={card.label}
+            value={card.value(block.data)}
+            icon={card.icon}
+            isLoading={!block.loaded}
+          />
+        ))}
       </Flex>
       <Box my="0.5rem">
         <h3>Transactions</h3>
       </Box>
-      <TransactionsTable data={block.loaded ? block.data?.transactions.map(transaction => (
-        {
-          ...transaction,
-          blocks: [block.data]
-        }
-      )) : [null]} />
+      <TransactionsTable
+        data={
+          block.loaded ? 
+          block.data?.transactions.map(transaction => (
+            {
+              ...transaction,
+              blocks: [block.data]
+            }
+          )) : [null]
+        } />
     </>
   );
 };
