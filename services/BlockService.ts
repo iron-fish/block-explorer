@@ -1,5 +1,5 @@
 import { BlocksParameters, BlocksStatisticParameters, BlockType, FindBlockParameters, ResponseType } from "types";
-import Metric from "types/domain/Metric";
+import { Metric } from "types";
 import Service from "./Service";
 
 class BlockService extends Service {
