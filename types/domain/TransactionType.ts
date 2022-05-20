@@ -1,22 +1,22 @@
 import BlockType from "./BlockType"
 
-export interface TransactionType {
-  id: number | string
-  hash: string
-  fee: string
-  size: number
-  notes: TransactionNoteType[]
-  spends: TransactionSpendType[]
-  blocks?: BlockType[]
-  object: string
-}
-
-interface TransactionNoteType {
+export interface NoteType {
   commitment: string
 }
 
-interface TransactionSpendType {
+export interface SpendType {
   nullifier: string
+}
+
+export interface TransactionType {
+  fee: string,
+  hash: string,
+  id: number,
+  notes: NoteType[],
+  object: string,
+  size: number,
+  spends: SpendType[]
+  blocks?: BlockType[]
 }
 
 export default TransactionType

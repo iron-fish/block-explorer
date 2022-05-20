@@ -16,7 +16,7 @@ import NavListOfLinks from "./NavListOfLinks";
 
 const Navbar: FC = () => {
   const menuRef = useRef(null);
-  const colors = useColorModeValue(
+  const $colors = useColorModeValue(
     {
       bg: NAMED_COLORS.WHITE,
       border: NAMED_COLORS.LIGHT_GREY,
@@ -26,7 +26,7 @@ const Navbar: FC = () => {
       border: NAMED_COLORS.DARK_GREY,
     }
   );
-  const content = useBreakpointValue({
+  const $content = useBreakpointValue({
     base: (
       <NavMenu menuRef={menuRef}>
         <NavListOfLinks
@@ -36,7 +36,7 @@ const Navbar: FC = () => {
             h: "100vh",
             p: "2.5rem",
             fontSize: "2.3125rem",
-            bgColor: colors.bg,
+            bgColor: $colors.bg,
           }}
         />
       </NavMenu>
@@ -50,11 +50,11 @@ const Navbar: FC = () => {
         align="center"
         w="100%"
         flexWrap="wrap"
-        border="0.0625rem solid"
+        borderBottom="0.0625rem solid"
         p={{ base: "1.125rem 2rem 0rem", sm: "0rem 2rem", md: "0rem 4rem" }}
-        bgColor={colors.bg}
+        bgColor={$colors.bg}
         boxShadow="0rem 0.25rem 0.6875rem rgba(0, 0, 0, 0.04)"
-        borderColor={colors.border}
+        borderColor={$colors.border}
         justifyContent="space-between"
       >
         <Box
@@ -62,6 +62,8 @@ const Navbar: FC = () => {
           justifySelf="flex-start"
           flex={{ base: null, sm: 1 }}
           mr={{ base: 0, sm: "1.5rem" }}
+          w="50%"
+          mb="0.125rem"
         >
           <IronFishLogo />
         </Box>
@@ -78,8 +80,9 @@ const Navbar: FC = () => {
           justifyContent="flex-end"
           align="center"
           ml={{ base: 0, sm: "1.5rem" }}
+          w="50%"
         >
-          <Box mr={{ base: "2rem", lg: 0 }}>{content}</Box>
+          <Box mr={{ base: "2rem", lg: 0 }}>{$content}</Box>
           <ColorModeSwitcher />
         </Flex>
       </Flex>

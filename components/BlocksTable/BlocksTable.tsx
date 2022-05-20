@@ -1,4 +1,4 @@
-import { Box, Link, LinkBox, NAMED_COLORS } from "@ironfish/ui-kit"
+import { Box, NAMED_COLORS } from "@ironfish/ui-kit"
 import BlockIcon from "icons/BlockIcon"
 import { truncateHash } from "utils/hash"
 
@@ -8,7 +8,6 @@ import { FC } from "react"
 import { ColumnProps, CommonTableProps } from "../Table/types"
 import { BlockType } from "types"
 import RoutePaths from "constants/RoutePaths"
-import NextLink from "next/link"
 import { useRouter } from "next/router"
 
 size.defaultOptions({

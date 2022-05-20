@@ -5,12 +5,14 @@ import useInfiniteBlocks from 'hooks/useInfiniteBlocks'
 import Head from 'next/head'
 import useInfiniteScroll from "react-infinite-scroll-hook";
 
+const BLOCK_CHUNK_SIZE = 20
+
 const InfiniteBlocks = () => {
   const [{
     loaded,
     data: { data, metadata },
     error
-  }, loadNext] = useInfiniteBlocks(20)
+  }, loadNext] = useInfiniteBlocks(BLOCK_CHUNK_SIZE)
   const [observerRef] = useInfiniteScroll({
     loading: !loaded,
     hasNextPage: metadata?.has_next,
@@ -21,13 +23,13 @@ const InfiniteBlocks = () => {
 
   return (
     <>
-      <BlocksTable data={loaded ? data : data.concat(Array.from({ length: 20 }, () => null))} />
+      <BlocksTable data={loaded ? data : data.concat(new Array(BLOCK_CHUNK_SIZE).fill(null))} />
       <span ref={observerRef} style={{ background: 'transparent', border: 'none', height: '0', width: '100%' }} />
     </>
   )
 }
 
-export default function Home() {
+export default function Explorer() {
   return (
     <main style={{ width: '100%', height: '100%' }}>
       <Head>
