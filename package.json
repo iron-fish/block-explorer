@@ -16,7 +16,7 @@
     "react-infinite-scroll-hook": "4.0.3"
   },
   "devDependencies": {
-    "@ironfish/ui-kit": "0.0.1",
+    "@ironfish/ui-kit": "0.0.2",
     "@types/node": "^17.0.23",
     "@types/react": "^17.0.43",
     "axios": "0.26.1",
