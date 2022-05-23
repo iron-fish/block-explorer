@@ -4,6 +4,7 @@ import mean from "ramda/src/mean";
 import GeneralChart, { GeneralChartProps } from "./GeneralChart";
 import ChartBox from "./ChartBox";
 import { Metric } from "types";
+import { getAverageWithAccessor } from "utils/getAverageWithAccessor";
 
 const BlockTime: FC<Pick<GeneralChartProps, "data">> = ({ data }) => {
   const valueAccessor = (d: Metric) =>
@@ -12,7 +13,7 @@ const BlockTime: FC<Pick<GeneralChartProps, "data">> = ({ data }) => {
   return (
     <ChartBox
       header="Average Block Time"
-      average={`${Math.ceil(mean(data.map(valueAccessor)))} seconds`}
+      average={`${getAverageWithAccessor(valueAccessor)(data)} seconds`}
     >
       <GeneralChart yAccessor={valueAccessor} data={data} />
     </ChartBox>

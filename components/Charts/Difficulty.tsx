@@ -4,6 +4,7 @@ import mean from "ramda/src/mean";
 import GeneralChart, { GeneralChartProps }  from "./GeneralChart";
 import ChartBox from "./ChartBox";
 import Metric from "types/domain/Metric";
+import { getAverageWithAccessor } from "utils/getAverageWithAccessor";
 
 const Difficulty: FC<Pick<GeneralChartProps, "data">> = ({ data }) => {
   const valueAccessor = (d: Metric) => d.average_difficulty / 1e12;
@@ -11,7 +12,7 @@ const Difficulty: FC<Pick<GeneralChartProps, "data">> = ({ data }) => {
   return (
     <ChartBox
       header="Difficulty (in trillions)"
-      average={Math.ceil(mean(data.map(valueAccessor)))}
+      average={getAverageWithAccessor(valueAccessor)(data)}
     >
       <GeneralChart
         yAccessor={valueAccessor}

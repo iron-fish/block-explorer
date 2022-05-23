@@ -54,7 +54,9 @@ const BaseBreadcrumbLink: FC<BaseBreadcrumbLinkProps> = ({
   )
 }
 
-const Home: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>> = ({ isCurrent }) => (
+type CurrentBreadcrumb = Pick<BaseBreadcrumbLinkProps, 'isCurrent'>
+
+const Home: FC<CurrentBreadcrumb> = ({ isCurrent }) => (
   <BaseBreadcrumbLink
     to={RoutePaths.Home}
     icon={<HomeIcon h="1.25rem" w="1.25rem" color="inherit" />}
@@ -63,7 +65,7 @@ const Home: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>> = ({ isCurrent }) => 
   />
 )
 
-const Explorer: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>> = ({ isCurrent = false }) => (
+const Explorer: FC<CurrentBreadcrumb> = ({ isCurrent = false }) => (
   <BaseBreadcrumbLink
     to={RoutePaths.Explorer}
     icon={<BlockIcon h="1.25rem" w="1.25rem" color="inherit" />}
@@ -72,7 +74,7 @@ const Explorer: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>> = ({ isCurrent = 
   />
 )
 
-const Charts: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>> = ({ isCurrent = false }) => (
+const Charts: FC<CurrentBreadcrumb> = ({ isCurrent = false }) => (
   <BaseBreadcrumbLink
     to={RoutePaths.Charts}
     icon={<BlockIcon h="1.25rem" w="1.25rem" color="inherit" />}
@@ -82,9 +84,9 @@ const Charts: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>> = ({ isCurrent = fa
 )
 
 interface BreadcrumbLinkProps {
-  Home: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>>
-  Explorer: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>>
-  Charts: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>>
+  Home: FC<CurrentBreadcrumb>
+  Explorer: FC<CurrentBreadcrumb>
+  Charts: FC<CurrentBreadcrumb>
 }
 
 const BreadcrumbLink: FC<BaseBreadcrumbLinkProps> & BreadcrumbLinkProps = (props) => (<BaseBreadcrumbLink {...props} />)

@@ -1,17 +1,17 @@
 import { FC } from "react";
-import mean from "ramda/src/mean";
+import prop from "ramda/src/prop";
 
 import GeneralChart, { GeneralChartProps } from "./GeneralChart";
 import ChartBox from "./ChartBox";
-import Metric from "types/domain/Metric";
+import { getAverageWithAccessor } from "utils/getAverageWithAccessor";
 
 const UniqueGraffiti: FC<Pick<GeneralChartProps, "data">> = ({ data }) => {
-  const valueAccessor = (d: Metric) => d.unique_graffiti_count;
+  const valueAccessor = prop('unique_graffiti_count');
 
   return (
     <ChartBox
       header="Number of Unique Graffiti"
-      average={Math.ceil(mean(data.map(valueAccessor)))}
+      average={getAverageWithAccessor(valueAccessor)(data)}
     >
       <GeneralChart yAccessor={valueAccessor} data={data} />
     </ChartBox>

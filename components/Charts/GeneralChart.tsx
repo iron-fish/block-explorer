@@ -16,6 +16,8 @@ import {
   NAMED_COLORS,
   useBreakpointValue,
 } from "@ironfish/ui-kit";
+import format from "date-fns/format";
+import getDate from "date-fns/get_date";
 
 import { Metric } from "types";
 
@@ -110,16 +112,13 @@ const GeneralChart: FC<GeneralChartProps> = ({
         })}
         tickTransform="translate(0, 18)"
         hideAxisLine
-        tickFormat={(d) => {
-          const day = d.getDate() > 1 ? `. ${d.getDate()}` : "";
-          return `${d.toLocaleString("default", { month: "short" })}${day}`;
-        }}
+        tickFormat={(d, i) => format(d, getDate(d) > 1 ? "MMM.D" : "MMM")}
       />
       <Tooltip<Metric>
         showVerticalCrosshair
         snapTooltipToDatumX
         renderTooltip={({ tooltipData }) => {
-          if (tooltipData?.nearestDatum === undefined) {
+          if (!tooltipData?.nearestDatum) {
             return null;
           }
           const d = xAccessor(tooltipData.nearestDatum.datum);

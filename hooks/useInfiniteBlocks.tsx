@@ -10,7 +10,10 @@ const useInfiniteBlocks = (
   const service = useContext(BlockContext);
   const [loaded, setLoaded] = useState<boolean>(false);
   const [error, setError] = useState<Error>();
-  const [data, setData] = useState<ResponseType<BlockType[]>>({ data: [], object: '',  });
+  const [blocksData, setBlocksData] = useState<ResponseType<BlockType[]>>({
+    data: [],
+    object: "",
+  });
 
   const loadBlocks: Function = useCallback(
     (params) => {
@@ -19,7 +22,7 @@ const useInfiniteBlocks = (
       service
         .blocks(params)
         .then((data) =>
-          setData((prevData) => ({
+          setBlocksData((prevData) => ({
             ...data,
             data: prevData.data.concat(data.data),
           }))
@@ -36,22 +39,22 @@ const useInfiniteBlocks = (
       limit,
       with_transactions,
       main: true,
-      after: data.data[data.data.length - 1].id,
+      after: blocksData.data[blocksData.data.length - 1].id,
     });
   };
 
   useEffect(() => {
     loadBlocks({ limit, with_transactions, main: true });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [limit, with_transactions]);
 
   return [
     {
-      data,
+      data: blocksData,
       loaded,
       error,
     },
-    loadNext
+    loadNext,
   ];
 };
 
