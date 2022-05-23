@@ -2,19 +2,12 @@ import size from 'byte-size'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { Box, Flex, useBreakpointValue } from '@ironfish/ui-kit'
-import { parseISO, intlFormat } from 'date-fns'
-import { trace } from 'xtrace'
 
-import K from 'ramda/src/always'
-import curry from 'ramda/src/curry'
-import defaultTo from 'ramda/src/defaultTo'
-import ifElse from 'ramda/src/ifElse'
 import unless from 'ramda/src/unless'
 import equals from 'ramda/src/equals'
 import pipe from 'ramda/src/pipe'
-import prop from 'ramda/src/prop'
-import propOr from 'ramda/src/propOr'
 
+import { formatBlockTimestamp } from 'utils/format'
 import { Card } from 'components'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import useBlockBySeq from 'hooks/useBlockBySeq'
@@ -28,12 +21,9 @@ import {
   BlockInfoGraffitiIcon,
 } from 'svgx'
 import { truncateHash } from 'utils/hash'
+import safeProp from 'utils/safeProp'
 import { TransactionsTable } from 'components/TransactionsTable'
 // import { BlockType } from 'types'
-
-const safeProp = curry((property, x) =>
-  pipe(defaultTo({}), propOr('', property))(x)
-)
 
 const BLOCK_CARDS = [
   {
@@ -72,19 +62,7 @@ const BLOCK_CARDS = [
   {
     key: 'timestamp-card',
     label: 'Timestamp',
-    value: pipe(
-      trace('raw data'),
-      ifElse(
-        propOr(false, 'timestamp'),
-        pipe(
-          prop('timestamp'),
-          parseISO,
-          intlFormat,
-          trace('formatted timestamp')
-        ),
-        K('')
-      )
-    ),
+    value: formatBlockTimestamp,
     icon: <BlockInfoTimestampIcon />,
   },
   {

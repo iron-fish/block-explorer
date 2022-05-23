@@ -1,14 +1,18 @@
+import { FC } from 'react'
 import { Box, NAMED_COLORS } from '@ironfish/ui-kit'
+import size from 'byte-size'
+import { useRouter } from 'next/router'
+import pipe from 'ramda/src/pipe'
+
 import BlockIcon from 'icons/BlockIcon'
 import { truncateHash } from 'utils/hash'
-
-import size from 'byte-size'
-import { CommonTable } from '../Table'
-import { FC } from 'react'
-import { ColumnProps, CommonTableProps } from '../Table/types'
+import { safeProp } from 'utils/safeProp'
+import { formatBlockTimestamp } from 'utils/format'
 import { BlockType } from 'types'
 import RoutePaths from 'constants/RoutePaths'
-import { useRouter } from 'next/router'
+
+import { CommonTable } from '../Table'
+import { ColumnProps, CommonTableProps } from '../Table/types'
 
 size.defaultOptions({
   precision: 2,
@@ -30,25 +34,22 @@ const COLUMNS: ColumnProps<BlockType>[] = [
   {
     key: 'block-size',
     label: 'Size',
-    render: block => size(block.size).toString(),
+    render: pipe(safeProp('size'), x => x.toString()),
   },
   {
     key: 'block-transactions',
     label: 'TXN',
-    render: block => block.transactions_count,
+    render: safeProp('transactions_count'),
   },
   {
     key: 'block-hash',
     label: 'Block Hash',
-    render: block => truncateHash(block.hash),
+    render: pipe(safeProp('hash'), truncateHash),
   },
   {
     key: 'block-timestamp',
     label: 'Timestamp',
-    render: block => {
-      const date = new Date(block.timestamp)
-      return date.toLocaleDateString() + ' ' + date.toLocaleTimeString()
-    },
+    render: formatBlockTimestamp,
   },
 ]
 

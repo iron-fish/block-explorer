@@ -1,12 +1,17 @@
+import { FC } from 'react'
+import size from 'byte-size'
 import { Badge, Box, NAMED_COLORS, useBreakpointValue } from '@ironfish/ui-kit'
+import { parseISO, formatWithOptions } from 'date-fns/fp'
+import { enUS } from 'date-fns/locale'
+import pipe from 'ramda/src/pipe'
+import pathOr from 'ramda/src/pathOr'
+
 import BlockIcon from 'icons/BlockIcon'
 import { truncateHash } from 'utils/hash'
-
-import size from 'byte-size'
-import { CommonTable } from '../Table'
-import { FC } from 'react'
-import { ColumnProps, CommonTableProps } from '../Table/types'
 import TransactionType from 'types/domain/TransactionType'
+
+import { CommonTable } from '../Table'
+import { ColumnProps, CommonTableProps } from '../Table/types'
 
 size.defaultOptions({
   precision: 2,
@@ -49,10 +54,12 @@ const HASH_COLUMN: ColumnProps<TransactionType> = {
 const DATE_COLUMN = {
   key: 'transaction-timestamp',
   label: 'Timestamp',
-  render: transaction => {
-    const date = new Date(transaction.blocks[0].timestamp)
-    return date.toLocaleDateString() + ' ' + date.toLocaleTimeString()
-  },
+  render: pipe(
+    pathOr('', ['blocks', 0, 'timestamp']),
+    parseISO,
+    // TODO: figure out a way to deal with this when we do i18n
+    formatWithOptions({ locale: enUS })
+  ),
 }
 
 type TransactionsTableProps = Omit<CommonTableProps<TransactionType>, 'columns'>
