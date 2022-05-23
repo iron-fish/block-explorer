@@ -1,4 +1,5 @@
 import { BlocksParameters, BlocksStatisticParameters, BlockType, FindBlockParameters, ResponseType } from "types";
+import { Metric } from "types";
 import Service from "./Service";
 
 class BlockService extends Service {
@@ -15,25 +16,25 @@ class BlockService extends Service {
   find(query: FindBlockParameters): Promise<BlockType> {
     return this.fetcher.get('/find', {
       params: query
-    }).then(({ data }) => data)
+    })
   }
 
   head(): Promise<BlockType> {
-    return this.fetcher.get('/head').then(({ data }) => data)
+    return this.fetcher.get('/head')
   }
 
   status(): Promise<BlockType> {
-    return this.fetcher.get('/status').then(({ data }) => data)
+    return this.fetcher.get('/status')
   }
 
-  statistic(query: BlocksStatisticParameters) {
+  statistic(query: BlocksStatisticParameters): Promise<ResponseType<Metric[]>> {
     return this.fetcher.get('/metrics', {
       params: {
         start: query.start.toISOString(),
         end: query.end.toISOString(),
         granularity: query.granularity
       }
-    }).then(({ data }) => data)
+    })
   }
 
   toString(): string {

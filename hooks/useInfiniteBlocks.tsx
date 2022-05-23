@@ -10,7 +10,10 @@ const useInfiniteBlocks = (
   const service = useContext(BlockContext);
   const [loaded, setLoaded] = useState<boolean>(false);
   const [error, setError] = useState<Error>();
-  const [blocksData, setBlocksData] = useState<ResponseType<BlockType[]>>({ data: [], object: '',  });
+  const [blocksData, setBlocksData] = useState<ResponseType<BlockType[]>>({
+    data: [],
+    object: "",
+  });
 
   const loadBlocks: Function = useCallback(
     (params) => {
@@ -42,7 +45,7 @@ const useInfiniteBlocks = (
 
   useEffect(() => {
     loadBlocks({ limit, with_transactions, main: true });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [limit, with_transactions]);
 
   return [
@@ -51,7 +54,7 @@ const useInfiniteBlocks = (
       loaded,
       error,
     },
-    loadNext
+    loadNext,
   ];
 };
 
