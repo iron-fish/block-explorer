@@ -1,9 +1,12 @@
+import size from 'byte-size'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { Box, Flex, useBreakpointValue } from '@ironfish/ui-kit'
+import { parseISO, intlFormat } from 'date-fns'
+
 import { Card } from 'components'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import useBlockBySeq from 'hooks/useBlockBySeq'
-import Head from 'next/head'
-import { useRouter } from 'next/router'
 import {
   DifficultyIcon,
   BlockInfoHeightIcon,
@@ -14,7 +17,6 @@ import {
   BlockInfoGraffitiIcon,
 } from 'svgx'
 import { truncateHash } from 'utils/hash'
-import size from 'byte-size'
 import { TransactionsTable } from 'components/TransactionsTable'
 import { BlockType } from 'types'
 
@@ -53,8 +55,12 @@ const BLOCK_CARDS = [
     key: 'timestamp-card',
     label: 'Timestamp',
     value: (block: BlockType | null) => {
-      const date = new Date(block?.timestamp)
-      return date.toLocaleDateString() + ' ' + date.toLocaleTimeString()
+      // eslint-disable-next-line no-console
+      console.log({ block })
+      const date = parseISO(block?.timestamp ?? '')
+      // eslint-disable-next-line no-console
+      console.log({ date })
+      return intlFormat(date)
     },
     icon: <BlockInfoTimestampIcon />,
   },
