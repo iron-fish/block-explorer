@@ -55,9 +55,10 @@ const BLOCK_CARDS = [
     key: 'timestamp-card',
     label: 'Timestamp',
     value: (block: BlockType | null) => {
+      if (!block?.timestamp) return ''
       // eslint-disable-next-line no-console
       console.log({ block })
-      const date = parseISO(block?.timestamp ?? '')
+      const date = parseISO(block.timestamp)
       // eslint-disable-next-line no-console
       console.log({ date })
       return intlFormat(date)
