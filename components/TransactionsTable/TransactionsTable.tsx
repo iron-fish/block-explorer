@@ -61,7 +61,7 @@ const DATE_COLUMN = {
     parseISO,
     trace('iso'),
     // TODO: figure out a way to deal with this when we do i18n
-    formatWithOptions({ locale: enUS }, `dd'/'MM'/'yyyy kk':'mm':'ss`),
+    formatWithOptions({ locale: enUS }, `dd'/'MM'/'yyyy hh':'mm':'ss aa`),
     trace('dated')
   ),
 }
