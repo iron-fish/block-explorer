@@ -4,6 +4,16 @@ import { useRouter } from 'next/router'
 import { Box, Flex, useBreakpointValue } from '@ironfish/ui-kit'
 import { parseISO, intlFormat } from 'date-fns'
 
+import K from 'ramda/src/always'
+import curry from 'ramda/src/curry'
+import defaultTo from 'ramda/src/defaultTo'
+import ifElse from 'ramda/src/ifElse'
+import unless from 'ramda/src/unless'
+import equals from 'ramda/src/equals'
+import pipe from 'ramda/src/pipe'
+import prop from 'ramda/src/prop'
+import propOr from 'ramda/src/propOr'
+
 import { Card } from 'components'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import useBlockBySeq from 'hooks/useBlockBySeq'
@@ -18,57 +28,60 @@ import {
 } from 'svgx'
 import { truncateHash } from 'utils/hash'
 import { TransactionsTable } from 'components/TransactionsTable'
-import { BlockType } from 'types'
+// import { BlockType } from 'types'
+
+const safeProp = curry((property, x) =>
+  pipe(defaultTo({}), propOr('', property))(x)
+)
 
 const BLOCK_CARDS = [
   {
     key: 'height-card',
     label: 'Height',
-    value: (block: BlockType | null) => block?.sequence,
+    value: safeProp('sequence'),
     icon: <BlockInfoHeightIcon height={47} width={47} />,
   },
   {
     key: 'hash-card',
     label: 'Block hash',
-    value: (block: BlockType | null) => truncateHash(block?.hash, 2, 4),
+    value: pipe(
+      safeProp('hash'),
+      unless(equals(''), hash => truncateHash(hash, 2, 4))
+    ),
     icon: <DifficultyIcon />,
   },
   {
     key: 'size-card',
     label: 'Size',
-    value: (block: BlockType | null) => size(block?.size).toString(),
+    value: pipe(safeProp('size'), size, z => z.toString()),
     icon: <BlockInfoSizeIcon />,
   },
   {
     key: 'difficulty-card',
     label: 'Difficulty',
-    value: (block: BlockType | null) => block?.difficulty,
+    value: safeProp('difficulty'),
     icon: <BlockInfoDifficultyIcon />,
   },
   {
     key: 'txn-card',
     label: 'Transactions Count',
-    value: (block: BlockType | null) => block?.transactions_count,
+    value: safeProp('transactions_count'),
     icon: <BlockInfoTxnIcon />,
   },
   {
     key: 'timestamp-card',
     label: 'Timestamp',
-    value: (block: BlockType | null) => {
-      if (!block?.timestamp) return ''
-      // eslint-disable-next-line no-console
-      console.log({ block })
-      const date = parseISO(block.timestamp)
-      // eslint-disable-next-line no-console
-      console.log({ date })
-      return intlFormat(date)
-    },
+    value: ifElse(
+      propOr(false, 'timestamp'),
+      pipe(prop('timestamp'), parseISO, intlFormat),
+      K('')
+    ),
     icon: <BlockInfoTimestampIcon />,
   },
   {
     key: 'graffiti-card',
     label: 'Graffiti',
-    value: (block: BlockType | null) => block?.graffiti,
+    value: safeProp('graffiti'),
     icon: <BlockInfoGraffitiIcon />,
   },
 ]
