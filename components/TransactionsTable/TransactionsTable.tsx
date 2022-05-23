@@ -51,14 +51,18 @@ const HASH_COLUMN: ColumnProps<TransactionType> = {
   label: 'Block Hash',
   render: transaction => truncateHash(transaction.blocks[0].hash),
 }
+import { trace } from 'xtrace'
 const DATE_COLUMN = {
   key: 'transaction-timestamp',
   label: 'Timestamp',
   render: pipe(
     pathOr('', ['blocks', 0, 'timestamp']),
+    trace('ok'),
     parseISO,
+    trace('iso'),
     // TODO: figure out a way to deal with this when we do i18n
-    formatWithOptions({ locale: enUS })
+    formatWithOptions({ locale: enUS }, `dd'/'MM'/'yyyy kk':'mm':'ss`),
+    trace('dated')
   ),
 }
 
