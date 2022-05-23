@@ -14,7 +14,8 @@
     "ramda": "^0.28.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-infinite-scroll-hook": "4.0.3"
+    "react-infinite-scroll-hook": "4.0.3",
+    "xtrace": "^0.3.0"
   },
   "devDependencies": {
     "@ironfish/ui-kit": "0.0.2",

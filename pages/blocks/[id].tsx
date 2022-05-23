@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { Box, Flex, useBreakpointValue } from '@ironfish/ui-kit'
 import { parseISO, intlFormat } from 'date-fns'
+import { trace } from 'xtrace'
 
 import K from 'ramda/src/always'
 import curry from 'ramda/src/curry'
@@ -71,10 +72,18 @@ const BLOCK_CARDS = [
   {
     key: 'timestamp-card',
     label: 'Timestamp',
-    value: ifElse(
-      propOr(false, 'timestamp'),
-      pipe(prop('timestamp'), parseISO, intlFormat),
-      K('')
+    value: pipe(
+      trace('raw data'),
+      ifElse(
+        propOr(false, 'timestamp'),
+        pipe(
+          prop('timestamp'),
+          parseISO,
+          intlFormat,
+          trace('formatted timestamp')
+        ),
+        K('')
+      )
     ),
     icon: <BlockInfoTimestampIcon />,
   },

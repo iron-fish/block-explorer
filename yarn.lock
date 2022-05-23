@@ -1987,6 +1987,11 @@ fast-memoize@^2.5.1:
   resolved "https://registry.yarnpkg.com/fast-memoize/-/fast-memoize-2.5.2.tgz#79e3bb6a4ec867ea40ba0e7146816f6cdce9b57e"
   integrity sha512-Ue0LwpDYErFbmNnZSF0UH6eImUwDmogUO1jyE+JbN2gsQz/jICm1Ve7t9QT0rNSsfJt+Hs4/S3GnsDVjL4HVrw==
 
+fast.js@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/fast.js/-/fast.js-0.1.1.tgz#7c024d55ae144882fbcee44b79005fe2dcabd9fe"
+  integrity sha1-fAJNVa4USIL7zuRLeQBf4tyr2f4=
+
 fastq@^1.6.0:
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/fastq/-/fastq-1.13.0.tgz#616760f88a7526bdfc596b7cab8c18938c36b98c"
@@ -2571,6 +2576,13 @@ json5@^1.0.1:
   dependencies:
     array-includes "^3.1.4"
     object.assign "^4.1.2"
+
+katsu-curry@^0.7.8:
+  version "0.7.8"
+  resolved "https://registry.yarnpkg.com/katsu-curry/-/katsu-curry-0.7.8.tgz#6ce827c63cef1b4d86867916c61764e23f132e40"
+  integrity sha512-4RBb2jEzw6q/cjJbGn1uhcQpqOCAizXTK++5dzNJUabLfqvy91EnqKds0ZBl/GcTH9Azq8VguLKcSns0RiSOHQ==
+  dependencies:
+    fast.js "^0.1.1"
 
 language-subtag-registry@~0.3.2:
   version "0.3.21"
@@ -3948,6 +3960,13 @@ wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
   integrity sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
+
+xtrace@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/xtrace/-/xtrace-0.3.0.tgz#64a1d50c0b06b6ae0eebb75047add130ffde559c"
+  integrity sha512-jtJy5OA3Qmoq1jSIAnWb61KE8TZ6Fdpa5b0vFTZxV2mozVor4k1Pti1za9+NPsAzp9ULF6m38gsnRjhxwMF42Q==
+  dependencies:
+    katsu-curry "^0.7.8"
 
 y18n@^4.0.0:
   version "4.0.3"
