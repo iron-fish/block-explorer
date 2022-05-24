@@ -1,4 +1,4 @@
-import { Card, BlocksTable } from 'components'
+import { Card, CardContainer, BlocksTable } from 'components'
 import RoutePaths from 'constants/RoutePaths'
 import useBlockHead from 'hooks/useBlockHead'
 import useBlocks from 'hooks/useBlocks'
@@ -76,13 +76,7 @@ const LastBlockInfo = () => {
   const $headBlock = useBlockHead()
 
   return (
-    <Flex
-      w="100%"
-      wrap="wrap"
-      mb="2.25rem"
-      alignItems="space-between"
-      justifyContent="space-between"
-    >
+    <CardContainer>
       {LAST_BLOCK_INFO_CARDS.map(data => (
         <Card
           key={data.key}
@@ -95,7 +89,7 @@ const LastBlockInfo = () => {
           isLoading={!$headBlock.loaded}
         />
       ))}
-    </Flex>
+    </CardContainer>
   )
 }
 

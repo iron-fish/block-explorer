@@ -1,14 +1,14 @@
 import size from 'byte-size'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { Box, Flex, useBreakpointValue } from '@ironfish/ui-kit'
+import { Box, useBreakpointValue } from '@ironfish/ui-kit'
 
 import unless from 'ramda/src/unless'
 import equals from 'ramda/src/equals'
 import pipe from 'ramda/src/pipe'
 
 import { formatBlockTimestamp } from 'utils/format'
-import { Card } from 'components'
+import { CardContainer, Card } from 'components'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import useBlockBySeq from 'hooks/useBlockBySeq'
 import {
@@ -86,13 +86,7 @@ const BlockInfo = ({ id }) => {
       <Box mt="0.5rem" mb="2rem">
         <h3>Block Information</h3>
       </Box>
-      <Flex
-        w="100%"
-        wrap="wrap"
-        mb="2.25rem"
-        alignItems="space-between"
-        justifyContent="space-between"
-      >
+      <CardContainer>
         {BLOCK_CARDS.map(card => (
           <Card
             key={card.key}
@@ -104,7 +98,7 @@ const BlockInfo = ({ id }) => {
             isLoading={!block.loaded}
           />
         ))}
-      </Flex>
+      </CardContainer>
       <Box my="0.5rem">
         <h3>Transactions</h3>
       </Box>
