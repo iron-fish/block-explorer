@@ -86,7 +86,13 @@ const BlockInfo = ({ id }) => {
       <Box mt="0.5rem" mb="2rem">
         <h3>Block Information</h3>
       </Box>
-      <Flex w="100%" wrap="wrap" mb="3.5rem" mx="-0.5rem">
+      <Flex
+        w="100%"
+        wrap="wrap"
+        mb="2.25rem"
+        alignItems="space-between"
+        justifyContent="space-between"
+      >
         {BLOCK_CARDS.map(card => (
           <Card
             key={card.key}
