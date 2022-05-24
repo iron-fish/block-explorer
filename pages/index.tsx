@@ -1,9 +1,9 @@
-import { Card, BlocksTable } from 'components';
+import { Card, BlocksTable } from 'components'
 import RoutePaths from 'constants/RoutePaths'
-import useBlockHead from 'hooks/useBlockHead';
-import useBlocks from 'hooks/useBlocks';
-import { truncateHash } from 'utils/hash';
-import Head from 'next/head';
+import useBlockHead from 'hooks/useBlockHead'
+import useBlocks from 'hooks/useBlocks'
+import { truncateHash } from 'utils/hash'
+import Head from 'next/head'
 import {
   Flex,
   Box,
@@ -14,7 +14,7 @@ import {
   Text,
   useColorModeValue,
   useBreakpointValue,
-} from '@ironfish/ui-kit';
+} from '@ironfish/ui-kit'
 import {
   HeightIcon,
   DifficultyIcon,
@@ -22,9 +22,9 @@ import {
   LatestBlockTXNIcon,
   SecondsToBlockIcon,
   TotalSupplyIcon,
-} from 'svgx';
-import Link from 'next/link';
-import { BlockType } from 'types';
+} from 'svgx'
+import Link from 'next/link'
+import { BlockType } from 'types'
 
 const BLOCKS_LIMIT = 10
 const LAST_BLOCK_INFO_CARDS = [
@@ -32,37 +32,38 @@ const LAST_BLOCK_INFO_CARDS = [
     key: 'difficulty-card',
     label: 'Difficulty',
     value: (block: BlockType | null) => block?.difficulty,
-    icon: <DifficultyIcon />
+    icon: <DifficultyIcon />,
   },
   {
     key: 'height-card',
     label: 'Height',
     value: (block: BlockType | null) => block?.sequence,
-    icon: <HeightIcon />
+    icon: <HeightIcon />,
   },
   {
     key: 'hash-card',
     label: 'Latest block hash',
     value: (block: BlockType | null) => truncateHash(block?.hash),
-    icon: <LatestBlockHashIcon />
+    icon: <LatestBlockHashIcon />,
   },
   {
     key: 'txn-card',
     label: 'Latest Block txn',
     value: (block: BlockType | null) => block?.transactions_count,
-    icon: <LatestBlockTXNIcon />
+    icon: <LatestBlockTXNIcon />,
   },
   {
     key: 'interval-card',
     label: 'Seconds to block',
-    value: (block: BlockType | null) => Math.floor(block?.time_since_last_block_ms / 1000),
-    icon: <SecondsToBlockIcon />
+    value: (block: BlockType | null) =>
+      Math.floor(block?.time_since_last_block_ms / 1000),
+    icon: <SecondsToBlockIcon />,
   },
   {
     key: 'supply-card',
     label: 'Total Supply',
-    value: (block: BlockType | null) => '-',
-    icon: <TotalSupplyIcon />
+    value: () => '-',
+    icon: <TotalSupplyIcon />,
   },
 ]
 
@@ -71,8 +72,8 @@ const LastBlockInfo = () => {
     base: '100%',
     sm: 'calc(50% - 1rem)',
     md: 'calc(33% - 1rem)',
-  });
-  const $headBlock = useBlockHead();
+  })
+  const $headBlock = useBlockHead()
 
   return (
     <Flex w="100%" wrap="wrap" mb="2.25rem" ml="-0.5rem">
@@ -88,14 +89,14 @@ const LastBlockInfo = () => {
         />
       ))}
     </Flex>
-  );
-};
+  )
+}
 
 const LatestBlocks = () => {
   const $blocks = useBlocks({
     limit: BLOCKS_LIMIT,
     main: true,
-  });
+  })
 
   return (
     <Flex direction="column" mb="2rem">
@@ -104,7 +105,9 @@ const LatestBlocks = () => {
       </Text>
       {!$blocks.error ? (
         <BlocksTable
-          data={$blocks.loaded ? $blocks.data : new Array(BLOCKS_LIMIT).fill(null)}
+          data={
+            $blocks.loaded ? $blocks.data : new Array(BLOCKS_LIMIT).fill(null)
+          }
         />
       ) : (
         <Card
@@ -120,13 +123,15 @@ const LatestBlocks = () => {
               w="2.5rem"
               h="2.5rem"
               textAlign="center"
-            >!</Box>
+            >
+              !
+            </Box>
           }
         />
       )}
     </Flex>
-  );
-};
+  )
+}
 
 export default function Home() {
   const $colors = useColorModeValue(
@@ -139,8 +144,8 @@ export default function Home() {
       imageBg: NAMED_COLORS.BLACK,
       bgImage: `url('/images/home_page_logo_black.png')`,
       mainBg: NAMED_COLORS.LIGHT_BLACK,
-    },
-  );
+    }
+  )
 
   return (
     <main style={{ width: '100%', height: '100%' }}>
@@ -198,10 +203,7 @@ export default function Home() {
           <LatestBlocks />
           <Center>
             <Link href={RoutePaths.Explorer} passHref>
-              <Button
-                variant="secondary"
-                size="medium"
-              >
+              <Button variant="secondary" size="medium">
                 View All Blocks
               </Button>
             </Link>
@@ -209,5 +211,5 @@ export default function Home() {
         </Box>
       </Flex>
     </main>
-  );
+  )
 }

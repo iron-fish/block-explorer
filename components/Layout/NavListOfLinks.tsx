@@ -1,21 +1,19 @@
-import { FC } from "react";
-import { Flex, Link, Center, useConst, FlexProps } from "@ironfish/ui-kit";
-import { OuterReferenceIcon } from "svgx";
+import { FC } from 'react'
+import { Flex, Link, Center, useConst, FlexProps } from '@ironfish/ui-kit'
+import { OuterReferenceIcon } from 'svgx'
 import NextLink from 'next/link'
-import RoutePaths from "constants/RoutePaths";
+import RoutePaths from 'constants/RoutePaths'
 
-const NavListOfLinks: FC<FlexProps> = (props) => {
+const NavListOfLinks: FC<FlexProps> = props => {
   const linkStyle = useConst({
-    mr: "2rem",
-    whiteSpace: "nowrap",
-  });
+    mr: '2rem',
+    whiteSpace: 'nowrap',
+  })
 
   return (
     <Flex {...props}>
       <NextLink href={RoutePaths.Explorer} passHref>
-        <Link sx={linkStyle}>
-          All blocks
-        </Link>
+        <Link sx={linkStyle}>All blocks</Link>
       </NextLink>
       <Link sx={linkStyle} href="#">
         Charts
@@ -29,7 +27,7 @@ const NavListOfLinks: FC<FlexProps> = (props) => {
         </Flex>
       </Link>
     </Flex>
-  );
-};
+  )
+}
 
-export default NavListOfLinks;
+export default NavListOfLinks
