@@ -15,7 +15,7 @@ const RowItem: FC<RowItemProps> = ({ label = null, children, ...rest }) => (
           <Th p="15px 0">{label}</Th>
         </Box>
       </Box>
-      <Box as='tbody'>
+      <Box as="tbody">
         <Box as="tr" boxShadow="unset !important">
           <Flex
             as="td"
