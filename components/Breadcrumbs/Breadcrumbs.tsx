@@ -46,6 +46,17 @@ const resolvePath = (path: string) => {
           link: <BreadcrumbLink.BlockInfo isCurrent={true} />,
         },
       ]
+    case RoutePaths.Charts:
+      return [
+        {
+          key: 'breadcrumb-home',
+          link: <BreadcrumbLink.Home />,
+        },
+        {
+          key: 'breadcrumb-charts',
+          link: <BreadcrumbLink.Charts isCurrent={true} />,
+        },
+      ]
   }
 }
 

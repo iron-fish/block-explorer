@@ -9,6 +9,7 @@ import {
   useColorModeValue,
   chakra,
 } from '@ironfish/ui-kit'
+import BorderBox from 'components/BorderBox'
 
 interface CardProps extends BoxProps {
   label: ReactNode
@@ -26,8 +27,6 @@ const Card: FC<CardProps> = ({
 }) => {
   const $colors = useColorModeValue(
     {
-      bg: NAMED_COLORS.WHITE,
-      border: NAMED_COLORS.LIGHT_GREY,
       label: NAMED_COLORS.GREY,
       spin: keyframes`
       0% { background-color: ${NAMED_COLORS.PALE_GREY} }
@@ -35,8 +34,6 @@ const Card: FC<CardProps> = ({
     `,
     },
     {
-      bg: NAMED_COLORS.DARKER_GREY,
-      border: NAMED_COLORS.DARK_GREY,
       label: NAMED_COLORS.PALE_GREY,
       spin: keyframes`
       0% { background-color: ${NAMED_COLORS.DARK_GREY} }
@@ -58,18 +55,7 @@ const Card: FC<CardProps> = ({
     </Box>
   )
   return (
-    <Box
-      bg={$colors.bg}
-      border="0.063rem solid"
-      borderColor={$colors.border}
-      borderRadius="0.125rem"
-      h="7.5rem"
-      w={{ base: 'auto', sm: '100%' }}
-      m="0.2rem"
-      boxShadow={`0.25rem 0.25rem 0 -0.063rem ${$colors.bg}, 0.25rem 0.25rem ${$colors.border}`}
-      p="2rem"
-      {...rest}
-    >
+    <BorderBox h="7.5rem" {...rest}>
       <Flex
         justifyContent="space-between"
         alignItems="center"
@@ -84,7 +70,7 @@ const Card: FC<CardProps> = ({
         </Flex>
         <Box>{icon}</Box>
       </Flex>
-    </Box>
+    </BorderBox>
   )
 }
 

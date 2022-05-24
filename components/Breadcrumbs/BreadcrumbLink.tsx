@@ -64,9 +64,9 @@ const BaseBreadcrumbLink: FC<BaseBreadcrumbLinkProps> = ({
   )
 }
 
-const Home: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>> = ({
-  isCurrent,
-}) => (
+type CurrentBreadcrumbLink = Pick<BaseBreadcrumbLinkProps, 'isCurrent'>
+
+const Home: FC<CurrentBreadcrumbLink> = ({ isCurrent }) => (
   <BaseBreadcrumbLink
     to={RoutePaths.Home}
     icon={<HomeIcon h="1.25rem" w="1.25rem" color="inherit" />}
@@ -75,9 +75,7 @@ const Home: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>> = ({
   />
 )
 
-const Explorer: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>> = ({
-  isCurrent = false,
-}) => (
+const Explorer: FC<CurrentBreadcrumbLink> = ({ isCurrent = false }) => (
   <BaseBreadcrumbLink
     to={RoutePaths.Explorer}
     icon={<BlockIcon h="1.25rem" w="1.25rem" color="inherit" />}
@@ -86,9 +84,7 @@ const Explorer: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>> = ({
   />
 )
 
-const BlockInfo: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>> = ({
-  isCurrent = false,
-}) => (
+const BlockInfo: FC<CurrentBreadcrumbLink> = ({ isCurrent = false }) => (
   <BaseBreadcrumbLink
     to={RoutePaths.BlockInfo}
     icon={<BlockIcon h="1.25rem" w="1.25rem" color="inherit" />}
@@ -97,10 +93,20 @@ const BlockInfo: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>> = ({
   />
 )
 
+const Charts: FC<CurrentBreadcrumbLink> = ({ isCurrent = false }) => (
+  <BaseBreadcrumbLink
+    to={RoutePaths.Charts}
+    icon={<BlockIcon h="1.25rem" w="1.25rem" color="inherit" />}
+    label="All Charts"
+    isCurrent={isCurrent}
+  />
+)
+
 interface BreadcrumbLinkProps {
-  Home: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>>
-  Explorer: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>>
-  BlockInfo: FC<Pick<BaseBreadcrumbLinkProps, 'isCurrent'>>
+  Home: FC<CurrentBreadcrumbLink>
+  Explorer: FC<CurrentBreadcrumbLink>
+  BlockInfo: FC<CurrentBreadcrumbLink>
+  Charts: FC<CurrentBreadcrumbLink>
 }
 
 const BreadcrumbLink: FC<BaseBreadcrumbLinkProps> &
@@ -109,5 +115,6 @@ const BreadcrumbLink: FC<BaseBreadcrumbLinkProps> &
 BreadcrumbLink.Home = Home
 BreadcrumbLink.Explorer = Explorer
 BreadcrumbLink.BlockInfo = BlockInfo
+BreadcrumbLink.Charts = Charts
 
 export default BreadcrumbLink

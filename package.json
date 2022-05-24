@@ -22,6 +22,7 @@
     "@types/react": "^17.0.43",
     "@typescript-eslint/eslint-plugin": "^5.25.0",
     "@typescript-eslint/parser": "^5.25.0",
+    "@visx/visx": "2.10.0",
     "axios": "0.26.1",
     "byte-size": "^8.1.0",
     "eslint": "^8.12.0",
@@ -32,6 +33,7 @@
     "nps": "^5.10.0",
     "nps-utils": "^1.7.0",
     "prettier": "^2.6.2",
+    "react-spring": "9.4.5",
     "twly": "^4.0.4",
     "typescript": "^4.6.3",
     "xtrace": "^0.3.0"

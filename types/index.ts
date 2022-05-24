@@ -1,5 +1,6 @@
 export * from './common/AsyncDataType'
 export * from './domain/BlockType'
+export * from './domain/Metric'
 export * from './common/ResponseType'
 export * from './domain/TransactionType'
 export * from './parameters/BlocksApi'

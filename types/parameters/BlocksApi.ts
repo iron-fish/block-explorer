@@ -1,3 +1,5 @@
+import { BlockMetricGranularity } from "constants/BlockMetricGranularity"
+
 export interface BlocksParameters {
   after?: number
   before?: number
@@ -19,5 +21,5 @@ export interface FindBlockParameters {
 export interface BlocksStatisticParameters {
   start: Date
   end: Date
-  granularity: 'day' | 'lifetime' | 'total'
+  granularity: BlockMetricGranularity
 }

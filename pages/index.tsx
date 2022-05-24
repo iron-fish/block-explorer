@@ -23,7 +23,7 @@ import {
   SecondsToBlockIcon,
   TotalSupplyIcon,
 } from 'svgx'
-import Link from 'next/link'
+import NextLink from 'next/link'
 import { BlockType } from 'types'
 
 const BLOCKS_LIMIT = 10
@@ -186,27 +186,29 @@ export default function Home() {
               Blockchain statistics for $IRON
             </Text>
             <HStack>
-              <Link href={RoutePaths.Explorer} passHref>
+              <NextLink href={RoutePaths.Explorer} passHref>
                 <Button variant="secondary" size="medium">
                   View All Blocks
                 </Button>
-              </Link>
+              </NextLink>
               <Button variant="secondary" size="medium">
                 View Chain Explorer
               </Button>
             </HStack>
           </Flex>
           <LastBlockInfo />
-          <Button variant="secondary" size="medium" mb="6rem">
-            View All Charts
-          </Button>
+          <NextLink href={RoutePaths.Charts} passHref>
+            <Button variant="secondary" size="medium" mb="6rem">
+              View All Charts
+            </Button>
+          </NextLink>
           <LatestBlocks />
           <Center>
-            <Link href={RoutePaths.Explorer} passHref>
+            <NextLink href={RoutePaths.Explorer} passHref>
               <Button variant="secondary" size="medium">
                 View All Blocks
               </Button>
-            </Link>
+            </NextLink>
           </Center>
         </Box>
       </Flex>
