@@ -80,7 +80,6 @@ const LastBlockInfo = () => {
       {LAST_BLOCK_INFO_CARDS.map(data => (
         <Card
           key={data.key}
-          // m="0.5rem"
           mb="1rem"
           w={$cardWidth}
           label={data.label}

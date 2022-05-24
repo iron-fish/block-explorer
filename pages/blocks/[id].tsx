@@ -90,7 +90,7 @@ const BlockInfo = ({ id }) => {
         {BLOCK_CARDS.map(card => (
           <Card
             key={card.key}
-            m="0.5rem"
+            mb="1rem"
             w={cardWidth}
             label={card.label}
             value={card.value(block.data)}
