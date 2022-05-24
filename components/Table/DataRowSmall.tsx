@@ -17,6 +17,7 @@ const DataRowSmall: FC<DataRowProps> = ({ items, onClick }) => {
       p="1rem"
       onClick={onClick}
       cursor={onClick ? 'pointer' : 'default'}
+      as="tr"
     >
       {items.map(item => item)}
     </Flex>
