@@ -1,4 +1,4 @@
-import { Icon } from "@ironfish/ui-kit";
+import { Icon } from '@ironfish/ui-kit'
 
 export function GitHubIcon() {
   return (
@@ -8,7 +8,7 @@ export function GitHubIcon() {
         fill="currentColor"
       />
     </Icon>
-  );
+  )
 }
 
-export default GitHubIcon;
+export default GitHubIcon

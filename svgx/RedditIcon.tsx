@@ -1,4 +1,4 @@
-import { Icon } from "@ironfish/ui-kit";
+import { Icon } from '@ironfish/ui-kit'
 
 export function RedditIcon() {
   return (
@@ -8,7 +8,7 @@ export function RedditIcon() {
         fill="currentColor"
       />
     </Icon>
-  );
+  )
 }
 
-export default RedditIcon;
+export default RedditIcon

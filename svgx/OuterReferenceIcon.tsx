@@ -1,4 +1,4 @@
-import { Icon } from "@ironfish/ui-kit";
+import { Icon } from '@ironfish/ui-kit'
 
 export function OuterReferenceIcon() {
   return (
@@ -8,7 +8,7 @@ export function OuterReferenceIcon() {
         fill="currentColor"
       />
     </Icon>
-  );
+  )
 }
 
-export default OuterReferenceIcon;
+export default OuterReferenceIcon

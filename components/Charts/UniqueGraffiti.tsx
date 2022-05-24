@@ -1,12 +1,12 @@
-import { FC } from "react";
-import prop from "ramda/src/prop";
+import { FC } from 'react'
+import prop from 'ramda/src/prop'
 
-import GeneralChart, { GeneralChartProps } from "./GeneralChart";
-import ChartBox from "./ChartBox";
-import { getAverageWithAccessor } from "utils/getAverageWithAccessor";
+import GeneralChart, { GeneralChartProps } from './GeneralChart'
+import ChartBox from './ChartBox'
+import { getAverageWithAccessor } from 'utils/getAverageWithAccessor'
 
-const UniqueGraffiti: FC<Pick<GeneralChartProps, "data">> = ({ data }) => {
-  const valueAccessor = prop('unique_graffiti_count');
+const UniqueGraffiti: FC<Pick<GeneralChartProps, 'data'>> = ({ data }) => {
+  const valueAccessor = prop('unique_graffiti_count')
 
   return (
     <ChartBox
@@ -15,7 +15,7 @@ const UniqueGraffiti: FC<Pick<GeneralChartProps, "data">> = ({ data }) => {
     >
       <GeneralChart yAccessor={valueAccessor} data={data} />
     </ChartBox>
-  );
-};
+  )
+}
 
-export default UniqueGraffiti;
+export default UniqueGraffiti

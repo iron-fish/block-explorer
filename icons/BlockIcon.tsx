@@ -1,7 +1,7 @@
-import { FC } from "react";
-import { Icon, IconProps } from "@ironfish/ui-kit";
+import { FC } from 'react'
+import { Icon, IconProps } from '@ironfish/ui-kit'
 
-const BlockIcon: FC<IconProps> = (props) => (
+const BlockIcon: FC<IconProps> = props => (
   <Icon viewBox="0 0 26 30" color="#2C72FF" {...props}>
     <path
       d="M3.345 22.745h-.053l.128.073-.048-.028-.027-.045ZM3.35 22.745l.048.027.04.023-.088-.05Z"
@@ -17,6 +17,6 @@ const BlockIcon: FC<IconProps> = (props) => (
     />
     <path d="m4.12 6.77-.07.041-.066.041.137-.082Z" fill="#0D0C22" />
   </Icon>
-);
+)
 
-export default BlockIcon;
+export default BlockIcon
