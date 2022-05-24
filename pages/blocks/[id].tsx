@@ -1,9 +1,16 @@
+import size from 'byte-size'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { Box, Flex, useBreakpointValue } from '@ironfish/ui-kit'
+
+import unless from 'ramda/src/unless'
+import equals from 'ramda/src/equals'
+import pipe from 'ramda/src/pipe'
+
+import { formatBlockTimestamp } from 'utils/format'
 import { Card } from 'components'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import useBlockBySeq from 'hooks/useBlockBySeq'
-import Head from 'next/head'
-import { useRouter } from 'next/router'
 import {
   DifficultyIcon,
   BlockInfoHeightIcon,
@@ -14,54 +21,54 @@ import {
   BlockInfoGraffitiIcon,
 } from 'svgx'
 import { truncateHash } from 'utils/hash'
-import size from 'byte-size'
+import safeProp from 'utils/safeProp'
 import { TransactionsTable } from 'components/TransactionsTable'
-import { BlockType } from 'types'
+// import { BlockType } from 'types'
 
 const BLOCK_CARDS = [
   {
     key: 'height-card',
     label: 'Height',
-    value: (block: BlockType | null) => block?.sequence,
+    value: safeProp('sequence'),
     icon: <BlockInfoHeightIcon height={47} width={47} />,
   },
   {
     key: 'hash-card',
     label: 'Block hash',
-    value: (block: BlockType | null) => truncateHash(block?.hash, 2, 4),
+    value: pipe(
+      safeProp('hash'),
+      unless(equals(''), hash => truncateHash(hash, 2, 4))
+    ),
     icon: <DifficultyIcon />,
   },
   {
     key: 'size-card',
     label: 'Size',
-    value: (block: BlockType | null) => size(block?.size).toString(),
+    value: pipe(safeProp('size'), size, z => z.toString()),
     icon: <BlockInfoSizeIcon />,
   },
   {
     key: 'difficulty-card',
     label: 'Difficulty',
-    value: (block: BlockType | null) => block?.difficulty,
+    value: safeProp('difficulty'),
     icon: <BlockInfoDifficultyIcon />,
   },
   {
     key: 'txn-card',
     label: 'Transactions Count',
-    value: (block: BlockType | null) => block?.transactions_count,
+    value: safeProp('transactions_count'),
     icon: <BlockInfoTxnIcon />,
   },
   {
     key: 'timestamp-card',
     label: 'Timestamp',
-    value: (block: BlockType | null) => {
-      const date = new Date(block?.timestamp)
-      return date.toLocaleDateString() + ' ' + date.toLocaleTimeString()
-    },
+    value: formatBlockTimestamp,
     icon: <BlockInfoTimestampIcon />,
   },
   {
     key: 'graffiti-card',
     label: 'Graffiti',
-    value: (block: BlockType | null) => block?.graffiti,
+    value: safeProp('graffiti'),
     icon: <BlockInfoGraffitiIcon />,
   },
 ]

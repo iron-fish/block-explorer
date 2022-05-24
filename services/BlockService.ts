@@ -1,3 +1,5 @@
+import { formatISO } from 'date-fns'
+
 import {
   BlocksParameters,
   BlocksStatisticParameters,
@@ -36,8 +38,8 @@ class BlockService extends Service {
     return this.fetcher
       .get('/metrics', {
         params: {
-          start: query.start.toISOString(),
-          end: query.end.toISOString(),
+          start: formatISO(query.start),
+          end: formatISO(query.end),
           granularity: query.granularity,
         },
       })
