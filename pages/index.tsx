@@ -1,4 +1,4 @@
-import { Card, BlocksTable } from 'components'
+import { Card, CardContainer, BlocksTable } from 'components'
 import RoutePaths from 'constants/RoutePaths'
 import useBlockHead from 'hooks/useBlockHead'
 import useBlocks from 'hooks/useBlocks'
@@ -71,16 +71,16 @@ const LastBlockInfo = () => {
   const $cardWidth = useBreakpointValue({
     base: '100%',
     sm: 'calc(50% - 1rem)',
-    md: 'calc(33% - 1rem)',
+    md: 'calc(33.333333333% - 1rem)',
   })
   const $headBlock = useBlockHead()
 
   return (
-    <Flex w="100%" wrap="wrap" mb="2.25rem" ml="-0.5rem">
+    <CardContainer>
       {LAST_BLOCK_INFO_CARDS.map(data => (
         <Card
           key={data.key}
-          m="0.5rem"
+          mb="1rem"
           w={$cardWidth}
           label={data.label}
           value={data.value($headBlock.data)}
@@ -88,7 +88,7 @@ const LastBlockInfo = () => {
           isLoading={!$headBlock.loaded}
         />
       ))}
-    </Flex>
+    </CardContainer>
   )
 }
 
@@ -177,6 +177,7 @@ export default function Home() {
               lineHeight="3.8675rem"
               color={NAMED_COLORS.WHITE}
               mb="1.125rem"
+              fontFamily="extended-regular"
             >
               Welcome to the
               <br />
