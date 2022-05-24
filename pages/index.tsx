@@ -184,6 +184,7 @@ export default function Home() {
               lineHeight="3.8675rem"
               color={NAMED_COLORS.WHITE}
               mb="1.125rem"
+              fontFamily="extended-regular"
             >
               Welcome to the
               <br />
