@@ -72,7 +72,7 @@ const SearchInput: FC<InputProps> = () => {
 
   return (
     <DemoSearchComponent
-      variant="nav_search"
+      variant="navSearch"
       InputProps={{
         placeholder: $placeholder,
         onChange: e => $setSearch(e.target.value),
