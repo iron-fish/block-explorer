@@ -77,7 +77,7 @@ const BlockInfo = ({ id }) => {
   const cardWidth = useBreakpointValue({
     base: '100%',
     sm: 'calc(50% - 1rem)',
-    md: 'calc(33% - 1rem)',
+    md: 'calc(33.333333% - 1rem)',
   })
   const block = useBlockBySeq(id)
 

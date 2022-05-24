@@ -71,16 +71,23 @@ const LastBlockInfo = () => {
   const $cardWidth = useBreakpointValue({
     base: '100%',
     sm: 'calc(50% - 1rem)',
-    md: 'calc(33% - 1rem)',
+    md: 'calc(33.333333333% - 1rem)',
   })
   const $headBlock = useBlockHead()
 
   return (
-    <Flex w="100%" wrap="wrap" mb="2.25rem" ml="-0.5rem">
+    <Flex
+      w="100%"
+      wrap="wrap"
+      mb="2.25rem"
+      alignItems="space-between"
+      justifyContent="space-between"
+    >
       {LAST_BLOCK_INFO_CARDS.map(data => (
         <Card
           key={data.key}
-          m="0.5rem"
+          // m="0.5rem"
+          mb="1rem"
           w={$cardWidth}
           label={data.label}
           value={data.value($headBlock.data)}
