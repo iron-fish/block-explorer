@@ -33,7 +33,7 @@ const HEIGHT_COLUMN: ColumnProps<TransactionType> = {
 const TAG_COLUMN: ColumnProps<TransactionType> = {
   key: 'transaction-tag',
   label: '',
-  render: transaction =>
+  render: (transaction, t) =>
     transaction?.spends.length === 0 && (
       <Badge
         bg={NAMED_COLORS.LIGHT_YELLOW}
@@ -43,7 +43,7 @@ const TAG_COLUMN: ColumnProps<TransactionType> = {
         px="1rem"
         textTransform="none"
       >
-        <h5>Miner&nbsp;Reward&nbsp;+&nbsp;Fee</h5>
+        <h5>{t('info-miner-fee')}</h5>
       </Badge>
     ),
 }

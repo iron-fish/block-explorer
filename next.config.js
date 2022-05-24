@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 // eslint-disable-next-line @typescript-eslint/no-var-requires
+const { i18n } = require('./next-i18next.config')
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { resolve } = require('path')
 
 const API_PATH = process.env.NEXT_PUBLIC_API_BASE_URL || 'ENV NOT FOUND'
@@ -9,6 +11,7 @@ if (API_PATH === 'ENV NOT FOUND') {
 }
 
 const nextConfig = {
+  i18n,
   async rewrites() {
     //Resolving Cors problem
     return [

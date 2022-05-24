@@ -1,9 +1,3 @@
-import { Card, CardContainer, BlocksTable } from 'components'
-import RoutePaths from 'constants/RoutePaths'
-import useBlockHead from 'hooks/useBlockHead'
-import useBlocks from 'hooks/useBlocks'
-import { truncateHash } from 'utils/hash'
-import Head from 'next/head'
 import {
   Flex,
   Box,
@@ -14,6 +8,16 @@ import {
   Text,
   useColorModeValue,
 } from '@ironfish/ui-kit'
+import Head from 'next/head'
+
+import { Card, CardContainer, BlocksTable } from 'components'
+import RoutePaths from 'constants/RoutePaths'
+import useBlockHead from 'hooks/useBlockHead'
+import { useTranslation } from 'hooks/useTranslation'
+import useBlocks from 'hooks/useBlocks'
+import { truncateHash } from 'utils/hash'
+import { Translator } from 'types/common'
+
 import {
   HeightIcon,
   DifficultyIcon,
@@ -26,52 +30,58 @@ import NextLink from 'next/link'
 import { BlockType } from 'types'
 
 const BLOCKS_LIMIT = 10
-const LAST_BLOCK_INFO_CARDS = [
+const getBlockInfo = (t: Translator) => [
   {
     key: 'difficulty-card',
-    label: 'Difficulty',
+    label: t('info-card-difficulty'),
     value: (block: BlockType | null) => block?.difficulty,
     icon: <DifficultyIcon />,
   },
   {
     key: 'height-card',
-    label: 'Height',
+    label: t('info-card-height'),
     value: (block: BlockType | null) => block?.sequence,
     icon: <HeightIcon />,
   },
   {
     key: 'hash-card',
-    label: 'Latest block hash',
+    label: t('info-card-latest'),
     value: (block: BlockType | null) => truncateHash(block?.hash),
     icon: <LatestBlockHashIcon />,
   },
   {
     key: 'txn-card',
-    label: 'Latest Block txn',
+    label: t('info-card-txn'),
     value: (block: BlockType | null) => block?.transactions_count,
     icon: <LatestBlockTXNIcon />,
   },
   {
     key: 'interval-card',
-    label: 'Seconds to block',
+    label: t('info-card-seconds'),
     value: (block: BlockType | null) =>
       Math.floor(block?.time_since_last_block_ms / 1000),
     icon: <SecondsToBlockIcon />,
   },
   {
     key: 'supply-card',
-    label: 'Total Supply',
+    label: t('info-card-supply'),
     value: () => '-',
     icon: <TotalSupplyIcon />,
   },
 ]
 
 const LastBlockInfo = () => {
+  const { t } = useTranslation(['p-index', 'c-blockstable', 'c-navlistoflinks'])
+  const $cardWidth = useBreakpointValue({
+    base: '100%',
+    sm: 'calc(50% - 1rem)',
+    md: 'calc(33.333333333% - 1rem)',
+  })
   const $headBlock = useBlockHead()
 
   return (
     <CardContainer>
-      {LAST_BLOCK_INFO_CARDS.map(data => (
+      {getBlockInfo(t).map(data => (
         <Card
           key={data.key}
           mb="1rem"
@@ -91,6 +101,7 @@ const LastBlockInfo = () => {
 }
 
 const LatestBlocks = () => {
+  const { t } = useTranslation(['p-index', 'c-blockstable', 'c-navlistoflinks'])
   const $blocks = useBlocks({
     limit: BLOCKS_LIMIT,
     main: true,
@@ -99,7 +110,7 @@ const LatestBlocks = () => {
   return (
     <Flex direction="column" mb="2rem">
       <Text fontSize="1.5rem" mb="0.625rem">
-        Latest Blocks
+        {t('info-subtitle')}
       </Text>
       {!$blocks.error ? (
         <BlocksTable
@@ -132,6 +143,7 @@ const LatestBlocks = () => {
 }
 
 export default function Home() {
+  const { t } = useTranslation(['p-index', 'c-blockstable', 'c-navlistoflinks'])
   const $colors = useColorModeValue(
     {
       imageBg: '#1b006a',
@@ -148,7 +160,7 @@ export default function Home() {
   return (
     <main style={{ width: '100%', height: '100%' }}>
       <Head>
-        <title>Iron Fish: Home</title>
+        <title>{t('meta-title')}</title>
       </Head>
       <Box
         sx={{
@@ -177,35 +189,35 @@ export default function Home() {
               mb="1.125rem"
               fontFamily="extended-regular"
             >
-              Welcome to the
+              {t('info-title__1')}
               <br />
-              Iron Fish Block Explorer
+              {t('info-title__2')}
             </Text>
             <Text fontSize="1.5rem" mb="2.25rem" color={NAMED_COLORS.WHITE}>
-              Blockchain statistics for $IRON
+              {t('info-stats')}
             </Text>
             <HStack>
               <NextLink href={RoutePaths.Explorer} passHref>
                 <Button variant="secondary" size="medium">
-                  View All Blocks
+                  {t('cta-all-blocks')}
                 </Button>
               </NextLink>
               <Button variant="secondary" size="medium">
-                View Chain Explorer
+                {t('cta-chain-explorer')}
               </Button>
             </HStack>
           </Flex>
           <LastBlockInfo />
           <NextLink href={RoutePaths.Charts} passHref>
             <Button variant="secondary" size="medium" mb="6rem">
-              View All Charts
+              {t('cta-charts')}
             </Button>
           </NextLink>
           <LatestBlocks />
           <Center>
             <NextLink href={RoutePaths.Explorer} passHref>
               <Button variant="secondary" size="medium">
-                View All Blocks
+                {t('cta-all-blocks')}
               </Button>
             </NextLink>
           </Center>
@@ -213,4 +225,14 @@ export default function Home() {
       </Flex>
     </main>
   )
+}
+
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale)),
+    },
+  }
 }

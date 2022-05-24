@@ -2,7 +2,7 @@
 const { rimraf, concurrent } = require('nps-utils')
 const PORT = process.env.PORT || 5000
 
-const folders = ['components', 'hooks', 'public', 'styles', 'svg', 'utils']
+const folders = ['components', 'hooks', 'public', 'styles', 'utils']
 
 module.exports = {
   scripts: {

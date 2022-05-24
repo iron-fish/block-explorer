@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import { FlexProps, StyleProps, TableProps } from '@ironfish/ui-kit'
+import { Translator } from 'types/common'
 
 export interface RowItemProps extends FlexProps {
   label: ReactNode
@@ -14,7 +15,7 @@ export interface ColumnProps<T> {
   label: ReactNode
   ItemProps?: FlexProps
   WrapperProps?: StyleProps
-  render: (data: T) => ReactNode
+  render: (data: T, t?: Translator) => ReactNode
 }
 
 export interface CommonTableProps<T> extends TableProps {

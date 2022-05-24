@@ -1,4 +1,5 @@
 import { FC, ReactNode } from 'react'
+import { useTranslation } from 'hooks/useTranslation'
 
 import BorderBox from 'components/BorderBox'
 
@@ -9,10 +10,14 @@ interface ChartBoxProps {
 }
 
 const ChartBox: FC<ChartBoxProps> = ({ header, average, children }) => {
+  const { t } = useTranslation('c-chartbox')
   return (
     <BorderBox>
       <h4>{header}</h4>
-      <h5>Daily Average: {average}</h5>
+      <h5>
+        {t('info-average')}
+        {average}
+      </h5>
       {children}
     </BorderBox>
   )

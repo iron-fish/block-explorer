@@ -1,10 +1,13 @@
 import { Box, Flex } from '@ironfish/ui-kit'
+import { useTranslation } from 'hooks/useTranslation'
 import { BlocksTable } from 'components'
 import BlocksViewButtons from 'components/BlocksViewButtons'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import useInfiniteBlocks from 'hooks/useInfiniteBlocks'
 import Head from 'next/head'
 import useInfiniteScroll from 'react-infinite-scroll-hook'
+
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 const BLOCK_CHUNK_SIZE = 20
 
@@ -46,10 +49,11 @@ const InfiniteBlocks = () => {
 }
 
 export default function Explorer() {
+  const { t } = useTranslation(['p-explorer'])
   return (
     <main style={{ width: '100%', height: '100%' }}>
       <Head>
-        <title>Iron Fish: Explorer</title>
+        <title>{t('meta-title')}</title>
       </Head>
       <Box mx={{ base: '2rem', lg: '15%' }}>
         <Flex
@@ -62,10 +66,18 @@ export default function Explorer() {
           <BlocksViewButtons />
         </Flex>
         <Box my="0.5rem">
-          <h3>All Blocks</h3>
+          <h3>{t('info-subtitle')}</h3>
         </Box>
         <InfiniteBlocks />
       </Box>
     </main>
   )
+}
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale)),
+    },
+  }
 }

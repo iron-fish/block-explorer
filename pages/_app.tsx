@@ -1,4 +1,7 @@
 import { IronFishUIProvider } from '@ironfish/ui-kit'
+import { appWithTranslation } from 'next-i18next'
+
+import i18n from '../next-i18next.config'
 
 import { Layout } from 'components'
 import ServiceContexts from 'contexts/ServiceContexts'
@@ -17,4 +20,4 @@ function MyApp({ Component, pageProps }) {
   )
 }
 
-export default MyApp
+export default appWithTranslation(MyApp, i18n)

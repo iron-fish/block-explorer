@@ -1,5 +1,12 @@
 import { FC } from 'react'
-import { Flex, Link, FlexProps, useBreakpointValue } from '@ironfish/ui-kit'
+import { useTranslation } from 'hooks/useTranslation'
+import {
+  useBreakpointValue,
+  Flex,
+  Link,
+  useConst,
+  FlexProps,
+} from '@ironfish/ui-kit'
 import NextLink from 'next/link'
 
 import { OuterReferenceIcon } from 'svgx'
@@ -8,7 +15,8 @@ import { EXTERNAL_LINKS } from 'constants/ExternalLinks'
 
 const NavListOfLinks: FC<FlexProps> = props => {
   const $spacing = useBreakpointValue({ base: '2rem', lg: 0 })
-  const $linkStyle = {
+  const { t } = useTranslation('c-navlistoflinks')
+  const $linkStyle = useConst({
     mr: '2rem',
     whiteSpace: 'nowrap',
     fontSize: 'inherit',
@@ -16,7 +24,7 @@ const NavListOfLinks: FC<FlexProps> = props => {
     height: '2.3125rem',
     display: 'flex',
     alignItems: 'center',
-  }
+  })
 
   return (
     <Flex {...props}>

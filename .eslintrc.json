@@ -20,6 +20,15 @@
         "argsIgnorePattern": "^_"
       }
     ],
-    "no-restricted-imports": ["error", { "patterns": ["\\.\\./.*"] }]
+    "no-restricted-imports": ["error", { "patterns": ["\\.\\./.*"] }],
+    "react/jsx-no-literals": [
+      2,
+      {
+        "noStrings": true,
+        "allowedStrings": ["/", ":", " - ", "!"],
+        "ignoreProps": true,
+        "noAttributeStrings": false
+      }
+    ]
   }
 }

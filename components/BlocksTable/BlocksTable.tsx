@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { useTranslation } from 'hooks/useTranslation'
 import { Box, NAMED_COLORS } from '@ironfish/ui-kit'
 import size from 'byte-size'
 import { useRouter } from 'next/router'
@@ -13,15 +14,16 @@ import RoutePaths from 'constants/RoutePaths'
 
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
+import { Translator } from 'types/common'
 
 size.defaultOptions({
   precision: 2,
 })
 
-const COLUMNS: ColumnProps<BlockType>[] = [
+const getColumns = (t: Translator): ColumnProps<BlockType>[] => [
   {
     key: 'block-height',
-    label: 'Block Height',
+    label: t('info-block-height'),
     render: block => (
       <>
         <Box mr="1rem">
@@ -33,22 +35,22 @@ const COLUMNS: ColumnProps<BlockType>[] = [
   },
   {
     key: 'block-size',
-    label: 'Size',
+    label: t('info-block-size'),
     render: pipe(safeProp('size'), x => size(x).toString()),
   },
   {
     key: 'block-transactions',
-    label: 'TXN',
+    label: t('info-block-txn'),
     render: safeProp('transactions_count'),
   },
   {
     key: 'block-hash',
-    label: 'Block Hash',
+    label: t('info-block-hash'),
     render: pipe(safeProp('hash'), truncateHash),
   },
   {
     key: 'block-timestamp',
-    label: 'Timestamp',
+    label: t('info-block-ts'),
     render: formatBlockTimestamp,
   },
 ]
@@ -56,12 +58,13 @@ const COLUMNS: ColumnProps<BlockType>[] = [
 type BlocksTableProps = Omit<CommonTableProps<BlockType>, 'columns'>
 
 const BlocksTable: FC<BlocksTableProps> = props => {
+  const { t } = useTranslation('c-blockstable')
   const router = useRouter()
 
   return (
     <CommonTable
       {...props}
-      columns={COLUMNS}
+      columns={getColumns(t)}
       onRowClick={(block: BlockType) =>
         router.push({
           pathname: RoutePaths.BlockInfo,

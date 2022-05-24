@@ -11,12 +11,12 @@ import {
   Badge,
   Center,
 } from '@ironfish/ui-kit'
+import Link from 'next/link'
 
 import { IronFishLogo, OuterReferenceIcon } from 'svgx'
 import { NavSearch } from 'components'
 import NavMenu from './NavMenu'
 import NavListOfLinks from './NavListOfLinks'
-import Link from 'next/link'
 import RoutePaths from 'constants/RoutePaths'
 import useNodeVersion from 'hooks/useNodeVersion'
 

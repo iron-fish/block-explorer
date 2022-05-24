@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { useTranslation } from 'hooks/useTranslation'
 import Head from 'next/head'
 import { Flex, Box, VStack } from '@ironfish/ui-kit'
 
@@ -11,6 +12,7 @@ import BlockTime from 'components/Charts/BlockTime'
 import { BlockMetricGranularity } from 'constants/BlockMetricGranularity'
 
 export default function Charts() {
+  const { t } = useTranslation('p-charts')
   const startDate = useMemo(() => {
     const date = new Date()
     date.setDate(date.getDate() - 88)
@@ -32,14 +34,14 @@ export default function Charts() {
   return (
     <main style={{ width: '100%', height: '100%' }}>
       <Head>
-        <title>Iron Fish: Charts</title>
+        <title>{t('meta-title')}</title>
       </Head>
       <Box mx={{ base: '2rem', lg: '15%' }} mb="9.375rem">
         <Box mt="2.5rem">
           <Breadcrumbs />
         </Box>
         <Box mt="0.5rem" mb="2rem">
-          <h3>All Charts</h3>
+          <h3>{t('info-all-charts')}</h3>
         </Box>
         <Flex align="center">
           {loaded && (
@@ -54,4 +56,14 @@ export default function Charts() {
       </Box>
     </main>
   )
+}
+
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale)),
+    },
+  }
 }

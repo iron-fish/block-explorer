@@ -1,13 +1,14 @@
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import { Box } from '@ironfish/ui-kit'
+import size from 'byte-size'
+import { useTranslation } from 'hooks/useTranslation'
+import { Box, useBreakpointValue } from '@ironfish/ui-kit'
 
 import unless from 'ramda/src/unless'
 import equals from 'ramda/src/equals'
 import pipe from 'ramda/src/pipe'
 
-import { TimeStamp } from 'components'
-import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
+import { formatBlockTimestamp } from 'utils/format'
+import { CardContainer, Card } from 'components'
+import useBlockBySeq from 'hooks/useBlockBySeq'
 import {
   DifficultyIcon,
   BlockInfoHeightIcon,
@@ -19,10 +20,7 @@ import {
 } from 'svgx'
 import { truncateHash } from 'utils/hash'
 import safeProp from 'utils/safeProp'
-import { BlockType } from 'types'
-import { useTranslation } from 'hooks/useTranslation'
-import BlockInfo from 'components/BlockInfo'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { TransactionsTable } from 'components/TransactionsTable'
 
 const BLOCK_CARDS = [
   {
@@ -61,9 +59,7 @@ const BLOCK_CARDS = [
   {
     key: 'timestamp-card',
     label: 'Timestamp',
-    value: (block: BlockType) => (
-      <TimeStamp timestamp={safeProp('timestamp')(block)} />
-    ),
+    value: formatBlockTimestamp,
     icon: <BlockInfoTimestampIcon />,
   },
   {
@@ -74,43 +70,47 @@ const BLOCK_CARDS = [
   },
 ]
 
-export default function BlockInformationPage() {
-  const router = useRouter()
-  const { t } = useTranslation('p-block-id')
-  const { id } = router.query
+export const BlockInfo = ({ id }) => {
+  const { t } = useTranslation('c-blockinfo')
+  const cardWidth = useBreakpointValue({
+    base: '100%',
+    sm: 'calc(50% - 1rem)',
+    md: 'calc(33.333333% - 1rem)',
+  })
+  const block = useBlockBySeq(id)
 
   return (
-    <main style={{ width: '100%', height: '100%' }}>
-      <Head>
-        <title>
-          {t('info-title')}
-          {id}
-        </title>
-      </Head>
-      <Box mx={{ base: '2rem', lg: '15%' }} mb="6rem" zIndex={1}>
-        <Box mt="2.5rem">
-          <Breadcrumbs />
-        </Box>
-        <BlockInfo id={id} />
+    <>
+      <Box mt="0.5rem" mb="2rem">
+        <h3>{t('info-info')}</h3>
       </Box>
-    </main>
+      <CardContainer>
+        {BLOCK_CARDS.map(card => (
+          <Card
+            key={card.key}
+            mb="1rem"
+            w={cardWidth}
+            label={card.label}
+            value={card.value(block.data)}
+            icon={card.icon}
+            isLoading={!block.loaded}
+          />
+        ))}
+      </CardContainer>
+      <Box my="0.5rem">
+        <h3>{t('info-tx')}</h3>
+      </Box>
+      <TransactionsTable
+        data={
+          block.loaded
+            ? block.data?.transactions.map(transaction => ({
+                ...transaction,
+                blocks: [block.data],
+              }))
+            : [null]
+        }
+      />
+    </>
   )
 }
-
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale)),
-    },
-  }
-}
-
-// TODO: Revisit this:
-// Not certain this is how we want to do things but I wasn't able to support a purely
-// client side translation setup
-export async function getStaticPaths() {
-  return {
-    paths: [],
-    fallback: 'blocking',
-  }
-}
+export default BlockInfo

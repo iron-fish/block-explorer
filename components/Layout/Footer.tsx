@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { useTranslation } from 'hooks/useTranslation'
 import {
   Flex,
   Box,
@@ -83,6 +84,7 @@ const CONTACTS = [
 ]
 
 const Footer: FC = () => {
+  const { t } = useTranslation('c-footer')
   const $colors = useColorModeValue(
     {
       bg: NAMED_COLORS.WHITE,
@@ -121,8 +123,7 @@ const Footer: FC = () => {
                 inlineSize: '11.5625rem',
               }}
             >
-              Iron Fish is a novel cryptocurrency focused on privacy and
-              accessibility
+              {t('info-summary')}
             </div>
           </Flex>
           {MENU_LINKS.map(group => (
@@ -160,7 +161,7 @@ const Footer: FC = () => {
         direction="row"
       >
         <Text fontSize="0.75rem" pl="0.8125rem">
-          2021 Iron Fish. All rights reserved.
+          {t('legal-copyright')}
         </Text>
         <HStack spacing={'1.375rem'} justifyContent="flex-end" flex={1}>
           {CONTACTS.map((contact, index) => (

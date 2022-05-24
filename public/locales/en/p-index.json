@@ -1,0 +1,17 @@
+{
+  "meta-title": "Iron Fish : Home",
+  "info-title__1": "Welcome to the",
+  "info-title__2": "Iron Fish Block Explorer",
+  "info-stats": "Blockchain statistics for $IRON",
+  "cta-all-blocks": "View All Blocks",
+  "cta-chain-explorer": "View Chain Explorer",
+  "cta-charts": "View All Charts",
+  "info-latest": "Latest Blocks",
+  "info-card-difficulty": "Difficulty",
+  "info-card-height": "Height",
+  "info-card-latest": "Latest block hash",
+  "info-card-txn": "Latest Block txn",
+  "info-card-seconds": "Seconds to block",
+  "info-card-supply": "Total Supply",
+  "info-subtitle": "All Blocks"
+}

@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { useTranslation } from 'hooks/useTranslation'
 
 import {
   NAMED_COLORS,
@@ -24,13 +25,14 @@ export const CommonTable: FC<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   CommonTableProps<any>
 > = ({
-  data = null,
+  data = [],
   columns = [],
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   onRowClick,
   ...rest
 }) => {
   const $bg = useColorModeValue(NAMED_COLORS.WHITE, NAMED_COLORS.DARKER_GREY)
+  const { t } = useTranslation('c-table')
 
   return (
     <Table {...rest} variant="blocks">
@@ -97,7 +99,11 @@ export const CommonTable: FC<
                 }}
               >
                 <RowItem label={column.label} {...column.ItemProps}>
-                  {block ? column.render(block) : <RowItemSpin minW="4rem" />}
+                  {block ? (
+                    column.render(block, t)
+                  ) : (
+                    <RowItemSpin minW="4rem" />
+                  )}
                 </RowItem>
               </Td>
             ))}

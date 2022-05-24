@@ -1,0 +1,8 @@
+{
+  "info-title": "All Blocks",
+  "info-block-height": "Block Height",
+  "info-block-size": "Size",
+  "info-block-txn": "TXN",
+  "info-block-hash": "Block Hash",
+  "info-block-ts": "Timestamp"
+}

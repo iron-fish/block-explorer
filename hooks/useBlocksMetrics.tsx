@@ -1,4 +1,5 @@
 import { useContext, useEffect } from 'react'
+import { compareDesc } from 'date-fns'
 
 import { BlockContext } from 'contexts/ServiceContexts'
 import useAsyncDataWrapper from './useAsyncDataWrapper'
@@ -18,7 +19,7 @@ const useBlocksMetrics = (startDate, endDate, granularity) => {
               ...metric,
               date: new Date(metric.date),
             }))
-            .sort((a: any, b: any) => a.date - b.date)
+            .sort(compareDesc)
         )
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
