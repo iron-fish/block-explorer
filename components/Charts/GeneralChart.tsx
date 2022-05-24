@@ -112,7 +112,7 @@ const GeneralChart: FC<GeneralChartProps> = ({
         })}
         tickTransform="translate(0, 18)"
         hideAxisLine
-        tickFormat={d => format(d, getDate(d) > 1 ? 'MMM.D' : 'MMM')}
+        tickFormat={d => format(d, getDate(d) > 1 ? 'MMM.d' : 'MMM')}
       />
       <Tooltip<Metric>
         showVerticalCrosshair
