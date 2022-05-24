@@ -7,7 +7,7 @@ const folders = ['components', 'hooks', 'public', 'styles', 'svg', 'utils']
 module.exports = {
   scripts: {
     dev: {
-      custom: `nps 'dev -p ${PORT}`,
+      custom: `nps "dev -p ${PORT}"`,
       script: 'next dev',
     },
     bureaucracy: {
