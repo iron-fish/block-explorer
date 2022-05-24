@@ -1,4 +1,4 @@
-import { Icon } from "@ironfish/ui-kit";
+import { Icon } from '@ironfish/ui-kit'
 
 export function TelegramIcon() {
   return (
@@ -8,7 +8,7 @@ export function TelegramIcon() {
         fill="currentColor"
       />
     </Icon>
-  );
+  )
 }
 
-export default TelegramIcon;
+export default TelegramIcon

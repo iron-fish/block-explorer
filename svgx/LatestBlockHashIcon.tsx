@@ -1,4 +1,4 @@
-import { Icon } from "@ironfish/ui-kit";
+import { Icon } from '@ironfish/ui-kit'
 
 export function LatestBlockHashIcon() {
   return (
@@ -26,7 +26,7 @@ export function LatestBlockHashIcon() {
         fill="#0D0C22"
       />
     </Icon>
-  );
+  )
 }
 
-export default LatestBlockHashIcon;
+export default LatestBlockHashIcon

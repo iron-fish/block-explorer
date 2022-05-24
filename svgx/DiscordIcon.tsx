@@ -1,4 +1,4 @@
-import { Icon } from "@ironfish/ui-kit";
+import { Icon } from '@ironfish/ui-kit'
 
 export function DiscordIcon() {
   return (
@@ -8,7 +8,7 @@ export function DiscordIcon() {
         fill="currentColor"
       />
     </Icon>
-  );
+  )
 }
 
-export default DiscordIcon;
+export default DiscordIcon

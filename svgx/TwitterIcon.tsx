@@ -1,4 +1,4 @@
-import { Icon } from "@ironfish/ui-kit";
+import { Icon } from '@ironfish/ui-kit'
 
 export function TwitterIcon() {
   return (
@@ -8,7 +8,7 @@ export function TwitterIcon() {
         fill="currentColor"
       />
     </Icon>
-  );
+  )
 }
 
-export default TwitterIcon;
+export default TwitterIcon
