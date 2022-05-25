@@ -1,50 +1,59 @@
-import { FC, RefObject, ReactNode, useState } from "react";
-import { Box, useColorModeValue, NAMED_COLORS, Portal } from "@ironfish/ui-kit";
+import { FC, RefObject, ReactNode, useState } from 'react'
+import {
+  Box,
+  Flex,
+  useColorModeValue,
+  NAMED_COLORS,
+  Portal,
+} from '@ironfish/ui-kit'
 
 const burgerLineStyle = {
-  width: "2.0625rem",
-  height: "0.1719rem",
-  transition: "all .3s ease-in-out",
-};
+  width: '2rem',
+  height: '0.1875rem',
+  transition: 'all .3s ease-in-out',
+}
 
 interface NavMenuProps {
-  menuRef: RefObject<HTMLElement>;
-  children: ReactNode;
+  menuRef: RefObject<HTMLElement>
+  children: ReactNode
 }
 
 const NavMenu: FC<NavMenuProps> = ({ menuRef, children }) => {
-  const background = useColorModeValue(
-    NAMED_COLORS.DEEP_BLUE,
-    NAMED_COLORS.WHITE
-  );
+  const $bg = useColorModeValue(NAMED_COLORS.DEEP_BLUE, NAMED_COLORS.WHITE)
 
-  const [showMenu, setShowMenu] = useState<boolean>(false);
+  const [$showMenu, $setShowMenu] = useState<boolean>(false)
+
+  const burgerSubLinesStyle = {
+    content: `""`,
+    position: 'absolute',
+    bgColor: $bg,
+    ...burgerLineStyle,
+  }
+
   return (
-    <>
+    <Flex
+      align="center"
+      w={burgerLineStyle.width}
+      h={burgerLineStyle.width}
+      onClick={() => $setShowMenu(!$showMenu)}
+    >
       <Box
-        onClick={() => setShowMenu(!showMenu)}
         _before={{
-          content: `""`,
-          position: "absolute",
-          ...burgerLineStyle,
-          bgColor: background,
-          transform: showMenu ? "rotate(45deg)" : "translateY(0.2575rem)",
+          ...burgerSubLinesStyle,
+          transform: $showMenu ? 'rotate(45deg)' : 'translateY(0.4375rem)',
         }}
         _after={{
-          content: `""`,
-          position: "absolute",
-          ...burgerLineStyle,
-          bgColor: background,
-          transform: showMenu ? "rotate(-45deg)" : "translateY(-0.2575rem)",
+          ...burgerSubLinesStyle,
+          transform: $showMenu ? 'rotate(-45deg)' : 'translateY(-0.4375rem)',
         }}
         sx={{
           ...burgerLineStyle,
-          bg: showMenu ? "transparent" : background,
+          bg: $showMenu ? 'transparent' : $bg,
         }}
       />
-      <Portal containerRef={menuRef}>{showMenu ? children : null}</Portal>
-    </>
-  );
-};
+      <Portal containerRef={menuRef}>{$showMenu && children}</Portal>
+    </Flex>
+  )
+}
 
-export default NavMenu;
+export default NavMenu

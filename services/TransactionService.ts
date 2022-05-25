@@ -1,21 +1,25 @@
-import { TransactionsParameters, TransactionType, FindTransactionParameters, ResponseType } from "types";
-import Service from "./Service";
+import {
+  TransactionsParameters,
+  TransactionType,
+  FindTransactionParameters,
+} from 'types'
+import Service from './Service'
 
 class TransactionService extends Service {
   constructor() {
     super('/transactions')
   }
 
-  transactions(query: TransactionsParameters): Promise<ResponseType<TransactionType[]>> {
+  transactions(query: TransactionsParameters): Promise<TransactionType[]> {
     return this.fetcher.get('', {
-      params: query
-    }).then(({ data }) => data)
+      params: query,
+    })
   }
 
   find(query: FindTransactionParameters): Promise<TransactionType> {
     return this.fetcher.get('/find', {
-      params: query
-    }).then(({ data }) => data)
+      params: query,
+    })
   }
 
   toString(): string {
