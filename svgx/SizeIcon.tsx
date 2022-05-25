@@ -1,4 +1,4 @@
-import { Icon } from "@ironfish/ui-kit";
+import { Icon } from '@ironfish/ui-kit'
 
 export function SizeIcon() {
   return (
@@ -22,7 +22,7 @@ export function SizeIcon() {
         fill="#0D0C22"
       />
     </Icon>
-  );
+  )
 }
 
-export default SizeIcon;
+export default SizeIcon

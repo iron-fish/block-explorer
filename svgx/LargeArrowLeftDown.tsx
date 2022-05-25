@@ -1,4 +1,4 @@
-import { Icon } from "@ironfish/ui-kit";
+import { Icon } from '@ironfish/ui-kit'
 
 export function LargeArrowLeftDown() {
   return (
@@ -12,7 +12,7 @@ export function LargeArrowLeftDown() {
         fill="#0D0C22"
       />
     </Icon>
-  );
+  )
 }
 
-export default LargeArrowLeftDown;
+export default LargeArrowLeftDown
