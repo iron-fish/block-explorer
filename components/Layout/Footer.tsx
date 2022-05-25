@@ -97,7 +97,7 @@ const Footer: FC = () => {
         direction="row"
       >
         <Text fontSize="0.75rem" pl="0.8125rem">
-          2021 Iron Fish. All rights reserved.
+          {new Date().getFullYear()} Iron Fish. All rights reserved.
         </Text>
         <HStack spacing={'1.375rem'} justifyContent="flex-end" flex={1}>
           <TelegramIcon />
