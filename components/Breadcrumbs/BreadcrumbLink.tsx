@@ -12,11 +12,21 @@ import HomeIcon from 'icons/HomeIcon'
 import BlockIcon from 'icons/BlockIcon'
 import NextLink from 'next/link'
 
+export interface BreadCrumbQueryType {
+  id?: number | string | null | undefined
+  hash?: string | null | undefined
+}
+
+interface BreadCrumbToType {
+  pathname?: RoutePaths | string | null | undefined
+  query?: string | null | BreadCrumbQueryType | undefined
+}
+
 interface BaseBreadcrumbLinkProps {
   icon: ReactNode
   label: ReactNode
   isCurrent?: boolean
-  to?: string
+  to?: BreadCrumbToType | string
 }
 
 const LinkWrapper = ({ to, isCurrent, children }) => {
@@ -66,6 +76,8 @@ const BaseBreadcrumbLink: FC<BaseBreadcrumbLinkProps> = ({
 
 type CurrentBreadcrumbLink = Pick<BaseBreadcrumbLinkProps, 'isCurrent'>
 
+type BlockInfoBreadCrumbLink = Pick<BaseBreadcrumbLinkProps, 'isCurrent' | 'to'>
+
 const Home: FC<CurrentBreadcrumbLink> = ({ isCurrent }) => (
   <BaseBreadcrumbLink
     to={RoutePaths.Home}
@@ -84,9 +96,12 @@ const Explorer: FC<CurrentBreadcrumbLink> = ({ isCurrent = false }) => (
   />
 )
 
-const BlockInfo: FC<CurrentBreadcrumbLink> = ({ isCurrent = false }) => (
+const BlockInfo: FC<BlockInfoBreadCrumbLink> = ({
+  isCurrent = false,
+  to = RoutePaths.BlockInfo,
+}) => (
   <BaseBreadcrumbLink
-    to={RoutePaths.BlockInfo}
+    to={to}
     icon={<BlockIcon h="1.25rem" w="1.25rem" color="inherit" />}
     label="Block Info"
     isCurrent={isCurrent}
@@ -99,8 +114,8 @@ const TransactionInfo: FC<CurrentBreadcrumbLink> = ({ isCurrent = false }) => (
     icon={<BlockIcon h="1.25rem" w="1.25rem" color="inherit" />}
     label="Txn Info"
     isCurrent={isCurrent}
-    />
-  )
+  />
+)
 
 const Charts: FC<CurrentBreadcrumbLink> = ({ isCurrent = false }) => (
   <BaseBreadcrumbLink
@@ -114,7 +129,7 @@ const Charts: FC<CurrentBreadcrumbLink> = ({ isCurrent = false }) => (
 interface BreadcrumbLinkProps {
   Home: FC<CurrentBreadcrumbLink>
   Explorer: FC<CurrentBreadcrumbLink>
-  BlockInfo: FC<CurrentBreadcrumbLink>
+  BlockInfo: FC<BlockInfoBreadCrumbLink>
   Charts: FC<CurrentBreadcrumbLink>
   TransactionInfo: FC<CurrentBreadcrumbLink>
 }
