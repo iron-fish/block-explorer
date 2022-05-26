@@ -1,4 +1,4 @@
-import { Icon } from "@ironfish/ui-kit";
+import { Icon } from '@ironfish/ui-kit'
 
 export function TotalSupplyIcon() {
   return (
@@ -26,7 +26,7 @@ export function TotalSupplyIcon() {
         fill="#0D0C22"
       />
     </Icon>
-  );
+  )
 }
 
-export default TotalSupplyIcon;
+export default TotalSupplyIcon

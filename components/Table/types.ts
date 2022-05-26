@@ -1,12 +1,12 @@
-import { ReactNode } from "react";
-import { FlexProps, StyleProps, TableProps } from "@ironfish/ui-kit";
+import { ReactNode } from 'react'
+import { FlexProps, StyleProps, TableProps } from '@ironfish/ui-kit'
 
 export interface RowItemProps extends FlexProps {
   label: ReactNode
 }
 
 export interface DataRowProps {
-  items: ReactNode[],
+  items: ReactNode[]
   onClick?: (e) => void
 }
 
@@ -19,7 +19,7 @@ export interface ColumnProps<T> {
 }
 
 export interface CommonTableProps<T> extends TableProps {
-  data?: T[],
+  data?: T[]
   columns?: ColumnProps<T>[]
   onRowClick?: (data: T) => void
 }

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useCallback, useState } from "react";
+import { useContext, useEffect, useCallback, useState } from 'react'
 
 import { BlockContext } from "contexts/ServiceContexts";
 import { AsyncDataProps, BlockType, ResponseType } from "types";
@@ -9,19 +9,22 @@ const useInfiniteBlocks = (
   with_transactions: boolean = false,
   only_main: boolean | null = true
 ): [AsyncDataProps<ResponseType<BlockType[]>>, VoidFunction] => {
-  const service = useContext(BlockContext);
-  const [loaded, setLoaded] = useState<boolean>(false);
-  const [error, setError] = useState<Error>();
-  const [blocksData, setBlocksData] = useState<ResponseType<BlockType[]>>({ data: [], object: '',  });
+  const service = useContext(BlockContext)
+  const [loaded, setLoaded] = useState<boolean>(false)
+  const [error, setError] = useState<Error>()
+  const [blocksData, setBlocksData] = useState<ResponseType<BlockType[]>>({
+    data: [],
+    object: '',
+  })
 
-  const loadBlocks: Function = useCallback(
-    (params) => {
-      setLoaded(false);
-      setError(undefined);
+  const loadBlocks = useCallback(
+    params => {
+      setLoaded(false)
+      setError(undefined)
       service
         .blocks(params)
-        .then((data) =>
-          setBlocksData((prevData) => ({
+        .then(data =>
+          setBlocksData(prevData => ({
             ...data,
             data: sort(
               (blockA: BlockType, blockB: BlockType) => blockB.sequence - blockA.sequence, 
@@ -30,20 +33,20 @@ const useInfiniteBlocks = (
           }))
         )
         .catch(setError)
-        .finally(() => setLoaded(true));
+        .finally(() => setLoaded(true))
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
-  );
+  )
 
-  const loadNext: VoidFunction = (): void => {
+  const loadNext = () => {
     loadBlocks({
       limit,
       with_transactions,
       main: true,
       after: blocksData.data[blocksData.data.length - 1].id,
-    });
-  };
+    })
+  }
 
   useEffect(() => {
     loadBlocks({ limit, with_transactions, main: only_main });
@@ -62,8 +65,8 @@ const useInfiniteBlocks = (
         }
       },
     },
-    loadNext
-  ];
-};
+    loadNext,
+  ]
+}
 
-export default useInfiniteBlocks;
+export default useInfiniteBlocks

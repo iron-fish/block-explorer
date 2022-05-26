@@ -1,17 +1,13 @@
-import { ButtonGroup, IconButton } from "@ironfish/ui-kit";
-import RoutePaths from "constants/RoutePaths";
-import { useRouter } from "next/router";
-import ListIcon from "svgx/ListIcon";
-import TreeIcon from "svgx/TreeIcon";
+import { ButtonGroup, IconButton } from '@ironfish/ui-kit'
+import RoutePaths from 'constants/RoutePaths'
+import { useRouter } from 'next/router'
+import ListIcon from 'svgx/ListIcon'
+import TreeIcon from 'svgx/TreeIcon'
 
 const BlocksViewButtons = () => {
-  const router = useRouter();
+  const router = useRouter()
   return (
-    <ButtonGroup
-      size="md"
-      isAttached
-      variant="outline"
-    >
+    <ButtonGroup size="md" isAttached variant="outline">
       <IconButton
         aria-label="list-button"
         icon={<ListIcon height="24px" width="24px" />}

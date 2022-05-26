@@ -1,6 +1,6 @@
-import { HierarchyNode } from "@visx/hierarchy/lib/types"
-import { Tree } from "array-to-tree"
-import { BlockType } from "types"
+import { HierarchyNode } from '@visx/hierarchy/lib/types'
+import { Tree } from 'array-to-tree'
+import { BlockType } from 'types'
 
 export interface Position {
   x: number

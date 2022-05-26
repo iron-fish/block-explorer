@@ -2,9 +2,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  /* width */
+  font-family: "favorit-regular" !important;
 }
 
 ::-webkit-scrollbar {
@@ -14,7 +12,7 @@ body {
 
 /* Track */
 .chakra-ui-light::-webkit-scrollbar-track {
-  background: #DEDFE2;
+  background: #dedfe2;
 }
 
 /* Track */
@@ -28,7 +26,7 @@ body {
   border-radius: 25px;
 }
 .chakra-ui-light::-webkit-scrollbar-thumb {
-  background: #ADAEB4;
+  background: #adaeb4;
   border-radius: 25px;
 }
 
