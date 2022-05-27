@@ -8,28 +8,31 @@ import {
   Flex,
   Box,
   NAMED_COLORS,
+  SearchAutocomplete,
 } from "@ironfish/ui-kit";
-/** ---------------------------------------------------------------------------
- * This component is a mock up of implementation in UI kit and must be replaced
- * ----------------------------------------------------------------------------
- */
-import DemoSearchComponent, { SearchOptionType } from "./DemoSearchComponent";
-/** ---------------------------------------------------------------------------
- * ----------------------------------------------------------------------------*/
+
 import { truncateHash } from "utils/hash";
 import { SearchIcon } from "svgx";
 import useBlocksSearch from "hooks/useBlocksSearch";
-import { BlockType, TransactionType } from "types";
+import { BlockType, TransactionType, isBlock } from "types";
 import BlockIcon from "icons/BlockIcon";
+import RoutePaths from "constants/RoutePaths";
+import { useRouter } from 'next/router'
 
-const Option: FC<SearchOptionType> = ({ id, value }) => {
-  const $hashValue = useBreakpointValue({
-    base: truncateHash(value.toString(), 2),
-    md: value,
-  });
+const makeSearchOption = ({ id, hash, ...rest }) => ({
+  label: `${id} - ${hash}`,
+  value: hash,
+  ...rest
+});
+
+interface OptionProps {
+  label: string;
+}
+
+const Option: FC<OptionProps> = ({ label }) => {
   return (
-    <Flex minH="30px" alignItems="center">
-      <Box mr="16px">
+    <Flex minH="1.875rem" alignItems="center">
+      <Box mr="1rem">
         <BlockIcon w="1.625rem" h="1.875rem" />
       </Box>
       <Box
@@ -38,26 +41,10 @@ const Option: FC<SearchOptionType> = ({ id, value }) => {
         whiteSpace="nowrap"
         color={NAMED_COLORS.LIGHT_BLUE}
       >
-        {id} - {$hashValue}
+        {label}
       </Box>
     </Flex>
   );
-};
-
-function isBlock(x: unknown): x is BlockType {
-  return typeof x === "object" && !!x && "transactions" in x && !("block" in x);
-}
-
-const getOptionObject = (option: BlockType | TransactionType): string => {
-  if (!option) {
-    return "";
-  }
-
-  if (isBlock(option)) {
-    return "Blocks";
-  }
-
-  return "Transactions";
 };
 
 const SearchInput: FC<InputProps> = () => {
@@ -68,27 +55,35 @@ const SearchInput: FC<InputProps> = () => {
     sm: shortSearchPlaceHolder,
     xl: longSearchPlaceHolder,
   });
-
   const [$search, $setSearch] = useState<string>();
+  const router = useRouter()
 
-  const { data } = useBlocksSearch($search, 5);
+  const { data, loaded } = useBlocksSearch($search, 5);
+
+  const options = loaded
+    ? data.data.map(({ label, data }) => ({
+        label,
+        options: data.map(makeSearchOption),
+      }))
+    : [];
 
   return (
-    <DemoSearchComponent
-      variant="nav_search"
+    <SearchAutocomplete
       InputProps={{
         placeholder: $placeholder,
         onChange: (e) => $setSearch(e.target.value),
       }}
-      inputLeftElement={<SearchIcon />}
-      options={data?.data.map((item: BlockType | TransactionType) => ({
-        label: `${item.id} - ${item.hash}`,
-        value: item.hash,
-        id: item.id,
-        object: getOptionObject(item),
-      }))}
+      variant="navSearch"
+      inputLeftElement={() => <SearchIcon />}
+      options={options}
+      onSelectOption={option => {
+        const isBlockOption = isBlock(option)
+        return router.push({
+          pathname: isBlockOption ? RoutePaths.BlockDetail : RoutePaths.TransactionInfo,
+          query: isBlockOption ? { id: option?.sequence } : { hash: option?.hash },
+        })
+      }}
       renderOption={(option) => <Option {...option} />}
-      onSelectOption={() => $setSearch('')}
     />
   );
 };
