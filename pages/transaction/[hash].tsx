@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import {
   Box,
   Flex,
@@ -8,8 +7,6 @@ import {
   NAMED_COLORS,
   chakra,
   Text,
-  Tooltip,
-  IconButton,
 } from '@ironfish/ui-kit'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -19,7 +16,7 @@ import unless from 'ramda/src/unless'
 import equals from 'ramda/src/equals'
 import pipe from 'ramda/src/pipe'
 
-import { Card, CardContainer } from 'components'
+import { Card, CardContainer, CopyToClipboardButton } from 'components'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import useTransactionByHash from 'hooks/useTransactionByHash'
 import {
@@ -31,54 +28,11 @@ import {
   SizeIcon,
   CompassIcon,
 } from 'svgx'
-import CopyIcon from 'icons/CopyIcon'
-import CheckIcon from 'icons/CheckIcon'
 import { getIRFAmountWithCurrency } from 'utils/currency'
 import { TransactionType } from 'types'
 import { truncateHash } from 'utils/hash'
 import safeProp from 'utils/safeProp'
 import { formatBlockTimestamp } from 'utils/format'
-
-const CopyToClipboardButton = value => {
-  const [copied, setCopied] = useState(false)
-
-  useEffect(() => {
-    if (copied) {
-      setTimeout(() => setCopied(false), 1500)
-    }
-  }, [copied])
-
-  return (
-    <Tooltip
-      closeDelay={copied ? 1500 : 0}
-      label={copied ? 'Copied' : 'Copy to clipboard'}
-    >
-      <IconButton
-        aria-label="Copy to clipboard"
-        h="1.25rem"
-        onClick={() => {
-          if (!copied) {
-            navigator.clipboard.writeText(value)
-            setCopied(true)
-          }
-        }}
-        background="none"
-        _focus={{
-          boxShadow: 'none',
-        }}
-        _hover={{
-          background: 'none',
-        }}
-        _active={{
-          background: 'none',
-        }}
-        icon={
-          copied ? <CheckIcon color="green" /> : <CopyIcon w="12px" h="12px" />
-        }
-      />
-    </Tooltip>
-  )
-}
 
 const TransactionDataBlock = ({ label, value, icon }) => (
   <Flex
@@ -114,7 +68,7 @@ const TransactionDataBlock = ({ label, value, icon }) => (
 )
 
 const TransactionsDataList = ({ data = [], isInput = true }) => {
-  const label = isInput ? 'INPUTS' : 'OUTPUTS'
+  const $label = isInput ? 'INPUTS' : 'OUTPUTS'
   return (
     <>
       <Text
@@ -125,13 +79,13 @@ const TransactionsDataList = ({ data = [], isInput = true }) => {
         mb="16px"
         display={{ base: 'none', md: 'block' }}
       >
-        {label}
+        {$label}
       </Text>
       <List w="100%" spacing={'16px'}>
         {data.map((item, index) => (
           <ListItem key={`list-item-${index}`}>
             <TransactionDataBlock
-              label={label}
+              label={$label}
               value={truncateHash(
                 item[isInput ? 'nullifier' : 'commitment'],
                 2,
@@ -203,7 +157,7 @@ const TRANSACTION_INFO_CARDS = [
 ]
 
 const TransactionInfo = ({ data, loaded }) => {
-  const width = useBreakpointValue({
+  const $width = useBreakpointValue({
     base: { cardWidth: '100%', listWidth: '100%' },
     sm: { cardWidth: 'calc(50% - 1rem)', listWidth: '100%' },
     md: { cardWidth: 'calc(33.333333% - 1rem)', listWidth: 'calc(50% - 2rem)' },
@@ -219,7 +173,7 @@ const TransactionInfo = ({ data, loaded }) => {
           <Card
             key={card.key}
             mb="1rem"
-            w={width.cardWidth}
+            w={$width.cardWidth}
             label={card.label}
             value={card.value(data)}
             icon={card.icon}
@@ -231,10 +185,10 @@ const TransactionInfo = ({ data, loaded }) => {
         <h3>Transactions</h3>
       </Box>
       <Flex w="100%" wrap="wrap" mb="3.5rem">
-        <Box w={width.listWidth} mr={{ base: 0, md: '16px' }} mb="16px">
+        <Box w={$width.listWidth} mr={{ base: 0, md: '16px' }} mb="16px">
           <TransactionsDataList data={data?.spends} />
         </Box>
-        <Box w={width.listWidth} ml={{ base: 0, md: '16px' }} mb="16px">
+        <Box w={$width.listWidth} ml={{ base: 0, md: '16px' }} mb="16px">
           <TransactionsDataList data={data?.notes} isInput={false} />
         </Box>
       </Flex>

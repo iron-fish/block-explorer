@@ -7,11 +7,12 @@ import {
   NAMED_COLORS,
 } from '@ironfish/ui-kit'
 import { useRouter } from 'next/router'
+import { ParsedUrlQuery } from 'node:querystring'
 
 import RoutePaths from 'constants/RoutePaths'
-import BreadcrumbLink, { BreadCrumbQueryType } from './BreadcrumbLink'
+import BreadcrumbLink from './BreadcrumbLink'
 
-const resolvePath = (path: string, queryParams: BreadCrumbQueryType) => {
+const resolvePath = (path: string, queryParams: ParsedUrlQuery | null) => {
   switch (path) {
     case RoutePaths.Home:
       return [
@@ -87,7 +88,7 @@ const resolvePath = (path: string, queryParams: BreadCrumbQueryType) => {
 }
 
 interface BreadCrumbProps {
-  queryParams?: BreadCrumbQueryType
+  queryParams?: ParsedUrlQuery
 }
 
 const Breadcrumbs: FC<BreadCrumbProps> = ({ queryParams }) => {

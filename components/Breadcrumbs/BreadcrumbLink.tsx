@@ -1,5 +1,4 @@
 import { FC, ReactNode } from 'react'
-
 import {
   Box,
   BreadcrumbLink as Link,
@@ -7,26 +6,18 @@ import {
   NAMED_COLORS,
   useColorModeValue,
 } from '@ironfish/ui-kit'
+import NextLink from 'next/link'
+import { UrlObject } from 'url'
+
+import BlockIcon from 'icons/BlockIcon'
 import RoutePaths from 'constants/RoutePaths'
 import HomeIcon from 'icons/HomeIcon'
-import BlockIcon from 'icons/BlockIcon'
-import NextLink from 'next/link'
-
-export interface BreadCrumbQueryType {
-  id?: number | string | null | undefined
-  hash?: string | null | undefined
-}
-
-interface BreadCrumbToType {
-  pathname?: RoutePaths | string | null | undefined
-  query?: string | null | BreadCrumbQueryType | undefined
-}
 
 interface BaseBreadcrumbLinkProps {
   icon: ReactNode
   label: ReactNode
   isCurrent?: boolean
-  to?: BreadCrumbToType | string
+  to?: UrlObject | string
 }
 
 const LinkWrapper = ({ to, isCurrent, children }) => {
