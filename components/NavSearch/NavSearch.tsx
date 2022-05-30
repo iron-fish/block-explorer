@@ -76,7 +76,7 @@ const SearchInput: FC<InputProps> = () => {
       onSelectOption={option => {
         const isBlockOption = isBlock(option)
         return router.push({
-          pathname: isBlockOption ? RoutePaths.BlockDetail : RoutePaths.TransactionDetail,
+          pathname: isBlockOption ? RoutePaths.BlockInfo : RoutePaths.TransactionDetail,
           query: isBlockOption ? { id: option?.sequence } : { hash: option?.hash },
         })
       }}
