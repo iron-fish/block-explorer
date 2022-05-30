@@ -2,6 +2,7 @@ import {
   Box,
   Flex,
   useBreakpointValue,
+  useColorModeValue,
   List,
   ListItem,
   NAMED_COLORS,
@@ -34,38 +35,69 @@ import { truncateHash } from 'utils/hash'
 import safeProp from 'utils/safeProp'
 import { formatBlockTimestamp } from 'utils/format'
 
-const TransactionDataBlock = ({ label, value, icon }) => (
-  <Flex
-    padding="30px 32px"
-    border="1px solid"
-    borderColor={NAMED_COLORS.LIGHT_GREY}
-    borderRadius="4px"
-    boxShadow="0px 4px 11px rgba(0, 0, 0, 0.04)"
-    direction="column"
-  >
-    <Text
-      color={NAMED_COLORS.GREY}
-      fontSize="12px"
-      fontFamily="ABC Favorit Trial"
-      display={{ base: 'block', md: 'none' }}
-      mb="16px"
+const TransactionDataBlock = ({ label, value, icon }) => {
+  const $colors = useColorModeValue(
+    { border: NAMED_COLORS.LIGHT_GREY, bg: NAMED_COLORS.WHITE },
+    { border: NAMED_COLORS.DARK_GREY, bg: NAMED_COLORS.DARKER_GREY }
+  )
+
+  return (
+    <Flex
+      padding="30px 32px"
+      border={`1px solid ${$colors.border}`}
+      bg={$colors.bg}
+      borderRadius="4px"
+      boxShadow="0px 4px 11px rgba(0, 0, 0, 0.04)"
+      direction="column"
     >
-      {label}
-    </Text>
-    <Flex align="center">
-      {icon}
-      <chakra.h4
-        ml="16px"
-        color={NAMED_COLORS.LIGHT_BLUE}
-        overflow="hidden"
-        w="100%"
+      <Text
+        color={NAMED_COLORS.GREY}
+        fontSize="12px"
+        fontFamily="ABC Favorit Trial"
+        display={{ base: 'block', md: 'none' }}
+        mb="16px"
       >
-        {value}
-      </chakra.h4>
-      <CopyToClipboardButton value={value} />
+        {label}
+      </Text>
+      <Flex align="center">
+        {icon}
+        <chakra.h4
+          ml="16px"
+          color={NAMED_COLORS.LIGHT_BLUE}
+          overflow="hidden"
+          w="100%"
+        >
+          {value}
+        </chakra.h4>
+        <CopyToClipboardButton value={value} />
+      </Flex>
     </Flex>
-  </Flex>
-)
+  )
+}
+
+const EmptyDataBlock = () => {
+  const $colors = useColorModeValue(
+    { bg: NAMED_COLORS.LIGHT_GREY, text: NAMED_COLORS.GREY },
+    { bg: NAMED_COLORS.DARKER_GREY_1, text: NAMED_COLORS.DARKER_GREY_2 }
+  )
+
+  return (
+    <Flex
+      padding="30px 32px"
+      border={`1px solid ${$colors.bg}`}
+      bg={$colors.bg}
+      borderRadius="4px"
+      direction="column"
+      display={{ base: 'none', md: 'flex' }}
+    >
+      <Flex align="center">
+        <chakra.h4 ml="16px" color={$colors.text} overflow="hidden" w="100%">
+          There are no input in this transaction
+        </chakra.h4>
+      </Flex>
+    </Flex>
+  )
+}
 
 const TransactionsDataList = ({ data = [], isInput = true }) => {
   const $label = isInput ? 'INPUTS' : 'OUTPUTS'
@@ -82,19 +114,23 @@ const TransactionsDataList = ({ data = [], isInput = true }) => {
         {$label}
       </Text>
       <List w="100%" spacing={'16px'}>
-        {data.map((item, index) => (
-          <ListItem key={`list-item-${index}`}>
-            <TransactionDataBlock
-              label={$label}
-              value={truncateHash(
-                item[isInput ? 'nullifier' : 'commitment'],
-                2,
-                16
-              )}
-              icon={isInput ? <LargeArrowLeftDown /> : <LargeArrowRightUp />}
-            />
-          </ListItem>
-        ))}
+        {data.length ? (
+          data.map((item, index) => (
+            <ListItem key={`list-item-${index}`}>
+              <TransactionDataBlock
+                label={$label}
+                value={truncateHash(
+                  item[isInput ? 'nullifier' : 'commitment'],
+                  2,
+                  16
+                )}
+                icon={isInput ? <LargeArrowLeftDown /> : <LargeArrowRightUp />}
+              />
+            </ListItem>
+          ))
+        ) : (
+          <EmptyDataBlock />
+        )}
       </List>
     </>
   )
