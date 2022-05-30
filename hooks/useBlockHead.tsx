@@ -1,8 +1,8 @@
-import { useContext, useEffect } from "react"
+import { useContext, useEffect } from 'react'
 
-import { BlockContext } from "contexts/ServiceContexts"
-import { BlockType } from "types"
-import useAsyncDataWrapper from "./useAsyncDataWrapper"
+import { BlockContext } from 'contexts/ServiceContexts'
+import { BlockType } from 'types'
+import useAsyncDataWrapper from './useAsyncDataWrapper'
 
 const useBlockHead = () => {
   const service = useContext(BlockContext)
@@ -10,7 +10,7 @@ const useBlockHead = () => {
 
   useEffect(() => {
     wrapper(service.head())
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return result
 }

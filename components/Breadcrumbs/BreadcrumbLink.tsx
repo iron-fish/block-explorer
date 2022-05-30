@@ -1,10 +1,16 @@
-import { FC, ReactNode } from "react"
+import { FC, ReactNode } from 'react'
 
-import { Box, BreadcrumbLink as Link, Flex, NAMED_COLORS, useColorModeValue } from "@ironfish/ui-kit"
-import RoutePaths from "constants/RoutePaths"
-import HomeIcon from "icons/HomeIcon"
-import BlockIcon from "icons/BlockIcon"
-import NextLink from "next/link"
+import {
+  Box,
+  BreadcrumbLink as Link,
+  Flex,
+  NAMED_COLORS,
+  useColorModeValue,
+} from '@ironfish/ui-kit'
+import RoutePaths from 'constants/RoutePaths'
+import HomeIcon from 'icons/HomeIcon'
+import BlockIcon from 'icons/BlockIcon'
+import NextLink from 'next/link'
 
 interface BaseBreadcrumbLinkProps {
   icon: ReactNode
@@ -14,11 +20,11 @@ interface BaseBreadcrumbLinkProps {
 }
 
 const LinkWrapper = ({ to, isCurrent, children }) => {
-  return isCurrent ? children : (
+  return isCurrent ? (
+    children
+  ) : (
     <NextLink href={to} passHref>
-      <Link>
-        {children}
-      </Link>
+      <Link>{children}</Link>
     </NextLink>
   )
 }
@@ -27,23 +33,27 @@ const BaseBreadcrumbLink: FC<BaseBreadcrumbLinkProps> = ({
   icon,
   label,
   isCurrent = false,
-  to = '#'
+  to = '#',
 }) => {
   const currentColor = useColorModeValue(
     {
       icon: NAMED_COLORS.LIGHT_GREY,
-      text: NAMED_COLORS.GREY
+      text: NAMED_COLORS.GREY,
     },
     {
       icon: NAMED_COLORS.PALE_GREY,
-      text: NAMED_COLORS.PALE_GREY
+      text: NAMED_COLORS.PALE_GREY,
     }
   )
 
   return (
     <LinkWrapper to={to} isCurrent={isCurrent}>
       <Flex alignItems="center" cursor={isCurrent ? 'default' : 'pointer'}>
-        <Box mr="0.75rem" pb="0.4rem" color={isCurrent ? currentColor.icon : NAMED_COLORS.LIGHT_BLUE}>
+        <Box
+          mr="0.75rem"
+          pb="0.4rem"
+          color={isCurrent ? currentColor.icon : NAMED_COLORS.LIGHT_BLUE}
+        >
           {icon}
         </Box>
         <Box color={isCurrent ? currentColor.text : NAMED_COLORS.LIGHT_BLUE}>
@@ -54,9 +64,9 @@ const BaseBreadcrumbLink: FC<BaseBreadcrumbLinkProps> = ({
   )
 }
 
-type CurrentBreadcrumb = Pick<BaseBreadcrumbLinkProps, 'isCurrent'>
+type CurrentBreadcrumbLink = Pick<BaseBreadcrumbLinkProps, 'isCurrent'>
 
-const Home: FC<CurrentBreadcrumb> = ({ isCurrent }) => (
+const Home: FC<CurrentBreadcrumbLink> = ({ isCurrent }) => (
   <BaseBreadcrumbLink
     to={RoutePaths.Home}
     icon={<HomeIcon h="1.25rem" w="1.25rem" color="inherit" />}
@@ -65,7 +75,7 @@ const Home: FC<CurrentBreadcrumb> = ({ isCurrent }) => (
   />
 )
 
-const Explorer: FC<CurrentBreadcrumb> = ({ isCurrent = false }) => (
+const Explorer: FC<CurrentBreadcrumbLink> = ({ isCurrent = false }) => (
   <BaseBreadcrumbLink
     to={RoutePaths.Explorer}
     icon={<BlockIcon h="1.25rem" w="1.25rem" color="inherit" />}
@@ -74,7 +84,16 @@ const Explorer: FC<CurrentBreadcrumb> = ({ isCurrent = false }) => (
   />
 )
 
-const Charts: FC<CurrentBreadcrumb> = ({ isCurrent = false }) => (
+const BlockInfo: FC<CurrentBreadcrumbLink> = ({ isCurrent = false }) => (
+  <BaseBreadcrumbLink
+    to={RoutePaths.BlockInfo}
+    icon={<BlockIcon h="1.25rem" w="1.25rem" color="inherit" />}
+    label="Block Info"
+    isCurrent={isCurrent}
+  />
+)
+
+const Charts: FC<CurrentBreadcrumbLink> = ({ isCurrent = false }) => (
   <BaseBreadcrumbLink
     to={RoutePaths.Charts}
     icon={<BlockIcon h="1.25rem" w="1.25rem" color="inherit" />}
@@ -84,15 +103,18 @@ const Charts: FC<CurrentBreadcrumb> = ({ isCurrent = false }) => (
 )
 
 interface BreadcrumbLinkProps {
-  Home: FC<CurrentBreadcrumb>
-  Explorer: FC<CurrentBreadcrumb>
-  Charts: FC<CurrentBreadcrumb>
+  Home: FC<CurrentBreadcrumbLink>
+  Explorer: FC<CurrentBreadcrumbLink>
+  BlockInfo: FC<CurrentBreadcrumbLink>
+  Charts: FC<CurrentBreadcrumbLink>
 }
 
-const BreadcrumbLink: FC<BaseBreadcrumbLinkProps> & BreadcrumbLinkProps = (props) => (<BaseBreadcrumbLink {...props} />)
+const BreadcrumbLink: FC<BaseBreadcrumbLinkProps> &
+  BreadcrumbLinkProps = props => <BaseBreadcrumbLink {...props} />
 
 BreadcrumbLink.Home = Home
 BreadcrumbLink.Explorer = Explorer
+BreadcrumbLink.BlockInfo = BlockInfo
 BreadcrumbLink.Charts = Charts
 
 export default BreadcrumbLink

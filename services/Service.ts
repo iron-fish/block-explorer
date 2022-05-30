@@ -5,7 +5,7 @@ class Service {
 
   constructor(baseUrl) {
     this.fetcher = axios.create({
-      baseURL: '/api' + baseUrl
+      baseURL: '/api' + baseUrl,
     })
     this.fetcher.interceptors.response.use(
       response => response.data,

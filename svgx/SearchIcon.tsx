@@ -1,4 +1,4 @@
-import { Icon } from "@ironfish/ui-kit";
+import { Icon } from '@ironfish/ui-kit'
 
 export function SearchIcon() {
   return (
@@ -12,7 +12,7 @@ export function SearchIcon() {
       />
       <path d="M10.182 10.182 14 14" stroke="currentColor" strokeWidth="1.5" />
     </Icon>
-  );
+  )
 }
 
-export default SearchIcon;
+export default SearchIcon

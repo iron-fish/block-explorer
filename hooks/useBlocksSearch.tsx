@@ -1,15 +1,9 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect } from 'react'
 
-import { BlockContext, TransactionContext } from "contexts/ServiceContexts";
-import {
-  AsyncDataProps,
-  BlocksParameters,
-  BlockType,
-  ResponseType,
-  TransactionType,
-} from "types";
+import { BlockContext, TransactionContext } from 'contexts/ServiceContexts'
+import { AsyncDataProps, BlockType, ResponseType, TransactionType } from 'types'
 
-import useAsyncDataWrapper from "./useAsyncDataWrapper";
+import useAsyncDataWrapper from './useAsyncDataWrapper'
 
 interface SearchResultType<T> {
   label: string;
@@ -55,14 +49,14 @@ const useBlocksSearch = (
             object: "list",
           };
         })
-      );
+      )
     } else {
       wrapper(Promise.resolve({ data: [], object: "list" }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search, limit]);
+  }, [search, limit])
 
-  return result;
-};
+  return result
+}
 
-export default useBlocksSearch;
+export default useBlocksSearch

@@ -1,4 +1,4 @@
-export function truncateHash(hash: string, parts: number = 4, chars: number = 4): string {
+export function truncateHash(hash: string, parts = 4, chars = 4): string {
   const result = []
   if (hash && hash.length > chars) {
     const blockLength = (hash.length - chars) / (parts - 1)

@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { FC, ReactNode } from 'react'
 
 import {
   Box,
@@ -8,14 +8,14 @@ import {
   keyframes,
   useColorModeValue,
   chakra,
-} from "@ironfish/ui-kit";
-import BorderBox from "components/BorderBox";
+} from '@ironfish/ui-kit'
+import BorderBox from 'components/BorderBox'
 
 interface CardProps extends BoxProps {
-  label: ReactNode;
-  value?: ReactNode;
-  icon: ReactNode;
-  isLoading?: boolean;
+  label: ReactNode
+  value?: ReactNode
+  icon: ReactNode
+  isLoading?: boolean
 }
 
 const Card: FC<CardProps> = ({
@@ -40,7 +40,7 @@ const Card: FC<CardProps> = ({
       100% { background-color: ${NAMED_COLORS.GREY} }
     `,
     }
-  );
+  )
 
   const valueContent = isLoading ? (
     <Box
@@ -53,7 +53,7 @@ const Card: FC<CardProps> = ({
     <Box>
       <chakra.h4 wordBreak="break-word">{value}</chakra.h4>
     </Box>
-  );
+  )
   return (
     <BorderBox h="7.5rem" {...rest}>
       <Flex
@@ -71,7 +71,7 @@ const Card: FC<CardProps> = ({
         <Box>{icon}</Box>
       </Flex>
     </BorderBox>
-  );
-};
+  )
+}
 
-export default Card;
+export default Card

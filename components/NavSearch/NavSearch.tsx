@@ -1,8 +1,5 @@
-import { FC, useState } from "react";
+import { FC, useState } from 'react'
 import {
-  InputGroup,
-  InputLeftElement,
-  Input,
   InputProps,
   useBreakpointValue,
   Flex,
@@ -44,12 +41,12 @@ const Option: FC<OptionProps> = ({ label }) => {
         {label}
       </Box>
     </Flex>
-  );
-};
+  )
+}
 
 const SearchInput: FC<InputProps> = () => {
-  const shortSearchPlaceHolder = "Search";
-  const longSearchPlaceHolder = "Search by block height, hash or transaction";
+  const shortSearchPlaceHolder = 'Search'
+  const longSearchPlaceHolder = 'Search by block height, hash or transaction'
   const $placeholder = useBreakpointValue({
     base: longSearchPlaceHolder,
     sm: shortSearchPlaceHolder,
@@ -71,7 +68,7 @@ const SearchInput: FC<InputProps> = () => {
     <SearchAutocomplete
       InputProps={{
         placeholder: $placeholder,
-        onChange: (e) => $setSearch(e.target.value),
+        onChange: e => $setSearch(e.target.value),
       }}
       variant="navSearch"
       inputLeftElement={() => <SearchIcon />}
@@ -85,7 +82,7 @@ const SearchInput: FC<InputProps> = () => {
       }}
       renderOption={(option) => <Option {...option} />}
     />
-  );
-};
+  )
+}
 
-export default SearchInput;
+export default SearchInput
