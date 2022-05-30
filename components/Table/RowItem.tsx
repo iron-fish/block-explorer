@@ -3,19 +3,21 @@ import { Box, Flex, Th } from '@ironfish/ui-kit'
 
 import { RowItemProps } from './types'
 
-const RowItem: FC<RowItemProps> = ({ label = null, children, ...rest }) => (
+const RowItem: FC<RowItemProps> = ({ label = null, children, ...rest }) =>
   (label || children) && (
     <Flex direction="column" {...rest}>
       <Box as="table">
-        {label && <Box as="thead">
-          <Box
-            as="tr"
-            boxShadow="unset !important"
-            display={{ base: 'block', lg: 'none' }}
-          >
-            <Th p="15px 0">{label}</Th>
+        {label && (
+          <Box as="thead">
+            <Box
+              as="tr"
+              boxShadow="unset !important"
+              display={{ base: 'block', lg: 'none' }}
+            >
+              <Th p="15px 0">{label}</Th>
+            </Box>
           </Box>
-        </Box>}
+        )}
         <Box as="tbody">
           <Box as="tr" boxShadow="unset !important">
             <Flex
@@ -36,6 +38,5 @@ const RowItem: FC<RowItemProps> = ({ label = null, children, ...rest }) => (
       </Box>
     </Flex>
   )
-)
 
 export default RowItem

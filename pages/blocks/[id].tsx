@@ -105,9 +105,9 @@ const BlockInfo = ({ id }) => {
         data={
           block.loaded
             ? block.data?.transactions.map(transaction => ({
-              ...transaction,
-              blocks: [block.data],
-            }))
+                ...transaction,
+                blocks: [block.data],
+              }))
             : [null]
         }
       />
