@@ -91,7 +91,10 @@ const Footer: FC = () => {
             <NextLink href={RoutePaths.Home} passHref>
               <Link fontSize="1rem">Block Explorer</Link>
             </NextLink>
-            <NextLink href="https://ironfish.network/docs/whitepaper/1_introduction" passHref>
+            <NextLink
+              href="https://ironfish.network/docs/whitepaper/1_introduction"
+              passHref
+            >
               <Link fontSize="1rem">Whitepaper</Link>
             </NextLink>
             <NextLink href="https://ironfish.network/faq/" passHref>
@@ -99,10 +102,7 @@ const Footer: FC = () => {
             </NextLink>
           </VStack>
           <NextLink href="mailto:contact@ironfish.network" passHref>
-            <Button
-              variant="primary"
-              size="medium"
-            >
+            <Button variant="primary" size="medium">
               Drop us a line!
             </Button>
           </NextLink>
