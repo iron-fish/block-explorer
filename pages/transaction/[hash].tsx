@@ -188,10 +188,20 @@ const TransactionInfo = ({ data, loaded }) => {
         <h3>Transactions</h3>
       </Box>
       <Flex w="100%" wrap="wrap" mb="3.5rem">
-        <Box flex={1} w={$width.listWidth} mr={{ base: 0, md: '1rem' }} mb="1rem">
+        <Box
+          flex={1}
+          w={$width.listWidth}
+          mr={{ base: 0, md: '1rem' }}
+          mb="1rem"
+        >
           <TransactionsDataList data={data?.spends} />
         </Box>
-        <Box flex={1} w={$width.listWidth} ml={{ base: 0, md: '1rem' }} mb="1rem">
+        <Box
+          flex={1}
+          w={$width.listWidth}
+          ml={{ base: 0, md: '1rem' }}
+          mb="1rem"
+        >
           <TransactionsDataList data={data?.notes} isInput={false} />
         </Box>
       </Flex>
