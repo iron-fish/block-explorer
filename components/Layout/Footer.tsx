@@ -18,6 +18,8 @@ import {
   TwitterIcon,
   IronFishLogo,
 } from 'svgx'
+import NextLink from 'next/link'
+import RoutePaths from 'constants/RoutePaths'
 
 const Footer: FC = () => {
   const $colors = useColorModeValue(
@@ -46,9 +48,11 @@ const Footer: FC = () => {
       <Flex direction="column">
         <Flex justify="space-between" w="100%" mb="4rem">
           <Flex direction={'column'}>
-            <Box mb="1.1875rem">
-              <IronFishLogo />
-            </Box>
+            <NextLink href="https://www.ironfish.network/" passHref>
+              <Box mb="1.1875rem" cursor="pointer">
+                <IronFishLogo />
+              </Box>
+            </NextLink>
             <div
               style={{
                 fontSize: '0.6875rem',
@@ -61,30 +65,47 @@ const Footer: FC = () => {
             </div>
           </Flex>
           <VStack spacing="0.5rem" align="baseline">
-            <Link variant="text_link" fontSize="1.25rem" mb="0.125rem">
+            <Box fontSize="1.25rem" mb="0.125rem">
               Company
-            </Link>
-            <Link variant="text_link" fontSize="1rem">
-              About us
-            </Link>
-            <Link variant="text_link" fontSize="1rem">
-              Careers
-            </Link>
-            <Link variant="text_link" fontSize="1rem">
-              Blog
-            </Link>
+            </Box>
+            <NextLink href="https://ironfish.network/about/" passHref>
+              <Link variant="text_link" fontSize="1rem">
+                About us
+              </Link>
+            </NextLink>
+            <NextLink href="https://ironfish.network/careers/" passHref>
+              <Link variant="text_link" fontSize="1rem">
+                Careers
+              </Link>
+            </NextLink>
+            <NextLink href="https://ironfish.network/blog/" passHref>
+              <Link variant="text_link" fontSize="1rem">
+                Blog
+              </Link>
+            </NextLink>
           </VStack>
           <VStack spacing="0.5rem" align="baseline">
-            <Link fontSize="1.25rem" mb="0.125rem">
+            <Box fontSize="1.25rem" mb="0.125rem">
               Product
-            </Link>
-            <Link fontSize="1rem">Block Explorer</Link>
-            <Link fontSize="1rem">Whitepaper</Link>
-            <Link fontSize="1rem">FAQ</Link>
+            </Box>
+            <NextLink href={RoutePaths.Home} passHref>
+              <Link fontSize="1rem">Block Explorer</Link>
+            </NextLink>
+            <NextLink href="https://ironfish.network/docs/whitepaper/1_introduction" passHref>
+              <Link fontSize="1rem">Whitepaper</Link>
+            </NextLink>
+            <NextLink href="https://ironfish.network/faq/" passHref>
+              <Link fontSize="1rem">FAQ</Link>
+            </NextLink>
           </VStack>
-          <Button variant="primary" size="medium">
-            Drop us a line!
-          </Button>
+          <NextLink href="mailto:contact@ironfish.network" passHref>
+            <Button
+              variant="primary"
+              size="medium"
+            >
+              Drop us a line!
+            </Button>
+          </NextLink>
         </Flex>
       </Flex>
       <Flex
@@ -100,11 +121,21 @@ const Footer: FC = () => {
           2021 Iron Fish. All rights reserved.
         </Text>
         <HStack spacing={'1.375rem'} justifyContent="flex-end" flex={1}>
-          <TelegramIcon />
-          <GitHubIcon />
-          <RedditIcon />
-          <TwitterIcon />
-          <DiscordIcon />
+          <NextLink href="https://t.me/ironfishcrypto" passHref>
+            <TelegramIcon cursor="pointer" />
+          </NextLink>
+          <NextLink href="https://github.com/iron-fish" passHref>
+            <GitHubIcon cursor="pointer" />
+          </NextLink>
+          <NextLink href="http://reddit.com/r/ironfish" passHref>
+            <RedditIcon cursor="pointer" />
+          </NextLink>
+          <NextLink href="https://twitter.com/ironfishcrypto" passHref>
+            <TwitterIcon cursor="pointer" />
+          </NextLink>
+          <NextLink href="https://discord.gg/EkQkEcm8DH" passHref>
+            <DiscordIcon cursor="pointer" />
+          </NextLink>
         </HStack>
       </Flex>
     </Box>

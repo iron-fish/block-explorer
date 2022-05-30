@@ -12,6 +12,8 @@ import { IronFishLogo } from 'svgx'
 import { NavSearch } from 'components'
 import NavMenu from './NavMenu'
 import NavListOfLinks from './NavListOfLinks'
+import Link from 'next/link'
+import RoutePaths from 'constants/RoutePaths'
 
 const Navbar: FC = () => {
   const menuRef = useRef(null)
@@ -56,16 +58,20 @@ const Navbar: FC = () => {
         borderColor={$colors.border}
         justifyContent="space-between"
       >
-        <Box
-          order={1}
-          justifySelf="flex-start"
-          flex={{ base: null, sm: 1 }}
-          mr={{ base: 0, sm: '1.5rem' }}
-          w="50%"
-          mb="0.125rem"
-        >
-          <IronFishLogo />
-        </Box>
+        <Link href={RoutePaths.Home} passHref>
+          <Box
+            order={1}
+            justifySelf="flex-start"
+            flex={{ base: null, sm: 1 }}
+            mr={{ base: 0, sm: '1.5rem' }}
+            w="50%"
+            py="1rem"
+            mb="0.125rem"
+            cursor="pointer"
+          >
+            <IronFishLogo />
+          </Box>
+        </Link>
         <Box
           flex={{ base: 1.5, lg: 1 }}
           order={{ base: 10, sm: 2 }}
