@@ -151,7 +151,10 @@ const TRANSACTION_INFO_CARDS = [
     key: 'inputs-outputs-card',
     label: 'Inputs / Outputs',
     value: (transaction: TransactionType) =>
-      `${transaction?.spends.length} / ${transaction?.notes.length}`,
+      `${pathOr(0, ['spends', 'length'])(transaction)} / ${pathOr(0, [
+        'notes',
+        'length',
+      ])(transaction)}`,
     icon: <InOutPutsIcon />,
   },
 ]
