@@ -7,8 +7,7 @@ import unless from 'ramda/src/unless'
 import equals from 'ramda/src/equals'
 import pipe from 'ramda/src/pipe'
 
-import { formatBlockTimestamp } from 'utils/format'
-import { CardContainer, Card } from 'components'
+import { CardContainer, Card, TimeStamp } from 'components'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import useBlockBySeq from 'hooks/useBlockBySeq'
 import {
@@ -23,7 +22,7 @@ import {
 import { truncateHash } from 'utils/hash'
 import safeProp from 'utils/safeProp'
 import { TransactionsTable } from 'components/TransactionsTable'
-// import { BlockType } from 'types'
+import { BlockType } from 'types'
 
 const BLOCK_CARDS = [
   {
@@ -62,7 +61,9 @@ const BLOCK_CARDS = [
   {
     key: 'timestamp-card',
     label: 'Timestamp',
-    value: formatBlockTimestamp,
+    value: (block: BlockType) => (
+      <TimeStamp timestamp={safeProp('timestamp')(block)} />
+    ),
     icon: <BlockInfoTimestampIcon />,
   },
   {
