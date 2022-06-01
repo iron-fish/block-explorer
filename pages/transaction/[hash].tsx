@@ -66,6 +66,8 @@ const TransactionDataBlock = ({ label, value, icon }) => {
           color={NAMED_COLORS.LIGHT_BLUE}
           overflow="hidden"
           w="100%"
+          whiteSpace="nowrap"
+          textOverflow="ellipsis"
         >
           {value}
         </chakra.h4>
@@ -91,7 +93,14 @@ const EmptyDataBlock = () => {
       display={{ base: 'none', md: 'flex' }}
     >
       <Flex align="center">
-        <chakra.h4 ml="1rem" color={$colors.text} overflow="hidden" w="100%">
+        <chakra.h4
+          ml="1rem"
+          color={$colors.text}
+          overflow="hidden"
+          whiteSpace="nowrap"
+          textOverflow="ellipsis"
+          w="100%"
+        >
           There are no input in this transaction
         </chakra.h4>
       </Flex>
@@ -229,6 +238,7 @@ const TransactionInfo = ({ data, loaded }) => {
           w={$width.listWidth}
           mr={{ base: 0, md: '1rem' }}
           mb="1rem"
+          display={{ sm: data?.spends.length ? 'block' : 'none', md: 'block' }}
         >
           <TransactionsDataList data={data?.spends} />
         </Box>
@@ -237,6 +247,7 @@ const TransactionInfo = ({ data, loaded }) => {
           w={$width.listWidth}
           ml={{ base: 0, md: '1rem' }}
           mb="1rem"
+          display={{ sm: data?.notes.length ? 'block' : 'none', md: 'block' }}
         >
           <TransactionsDataList data={data?.notes} isInput={false} />
         </Box>
