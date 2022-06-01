@@ -66,8 +66,6 @@ const TransactionDataBlock = ({ label, value, icon }) => {
           color={NAMED_COLORS.LIGHT_BLUE}
           overflow="hidden"
           w="100%"
-          whiteSpace="nowrap"
-          textOverflow="ellipsis"
         >
           {value}
         </chakra.h4>
@@ -79,7 +77,7 @@ const TransactionDataBlock = ({ label, value, icon }) => {
 
 const EmptyDataBlock = () => {
   const $colors = useColorModeValue(
-    { bg: NAMED_COLORS.LIGHT_GREY, text: NAMED_COLORS.GREY },
+    { bg: NAMED_COLORS.LIGHTER_GREY, text: NAMED_COLORS.GREY },
     { bg: NAMED_COLORS.DARKER_GREY_1, text: NAMED_COLORS.DARKER_GREY_2 }
   )
 
@@ -93,14 +91,7 @@ const EmptyDataBlock = () => {
       display={{ base: 'none', md: 'flex' }}
     >
       <Flex align="center">
-        <chakra.h4
-          ml="1rem"
-          color={$colors.text}
-          overflow="hidden"
-          whiteSpace="nowrap"
-          textOverflow="ellipsis"
-          w="100%"
-        >
+        <chakra.h4 color={$colors.text} overflow="hidden" w="100%">
           There are no input in this transaction
         </chakra.h4>
       </Flex>
@@ -110,6 +101,13 @@ const EmptyDataBlock = () => {
 
 const TransactionsDataList = ({ data = [], isInput = true }) => {
   const $label = isInput ? 'INPUTS' : 'OUTPUTS'
+  const $hashSize = useBreakpointValue({
+    base: 16,
+    md: 9,
+    lg: 10,
+    xl: 12,
+    '2xl': 16,
+  })
   return (
     <>
       <Text
@@ -131,7 +129,7 @@ const TransactionsDataList = ({ data = [], isInput = true }) => {
                 value={truncateHash(
                   item[isInput ? 'nullifier' : 'commitment'],
                   2,
-                  16
+                  $hashSize
                 )}
                 icon={isInput ? <LargeArrowLeftDown /> : <LargeArrowRightUp />}
               />
