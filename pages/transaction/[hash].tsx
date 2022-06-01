@@ -36,26 +36,26 @@ import { formatBlockTimestamp } from 'utils/format'
 
 const TransactionDataBlock = ({ label, value, icon }) => (
   <Flex
-    padding="30px 32px"
-    border="1px solid"
+    padding="1.875rem 2rem"
+    border="0.0625rem solid"
     borderColor={NAMED_COLORS.LIGHT_GREY}
-    borderRadius="4px"
-    boxShadow="0px 4px 11px rgba(0, 0, 0, 0.04)"
+    borderRadius="0.25rem"
+    boxShadow="0 0.25rem 0.6875rem rgba(0, 0, 0, 0.04)"
     direction="column"
   >
     <Text
       color={NAMED_COLORS.GREY}
-      fontSize="12px"
+      fontSize="0.75rem"
       fontFamily="ABC Favorit Trial"
       display={{ base: 'block', md: 'none' }}
-      mb="16px"
+      mb="1rem"
     >
       {label}
     </Text>
     <Flex align="center">
       {icon}
       <chakra.h4
-        ml="16px"
+        ml="1rem"
         color={NAMED_COLORS.LIGHT_BLUE}
         overflow="hidden"
         w="100%"
@@ -73,15 +73,15 @@ const TransactionsDataList = ({ data = [], isInput = true }) => {
     <>
       <Text
         color={NAMED_COLORS.GREY}
-        fontSize="12px"
+        fontSize="0.75rem"
         fontFamily="ABC Favorit Trial"
-        pl="32px"
-        mb="16px"
+        pl="2rem"
+        mb="1rem"
         display={{ base: 'none', md: 'block' }}
       >
         {$label}
       </Text>
-      <List w="100%" spacing={'16px'}>
+      <List w="100%" spacing={'1rem'}>
         {data.map((item, index) => (
           <ListItem key={`list-item-${index}`}>
             <TransactionDataBlock
@@ -188,10 +188,20 @@ const TransactionInfo = ({ data, loaded }) => {
         <h3>Transactions</h3>
       </Box>
       <Flex w="100%" wrap="wrap" mb="3.5rem">
-        <Box w={$width.listWidth} mr={{ base: 0, md: '16px' }} mb="16px">
+        <Box
+          flex={1}
+          w={$width.listWidth}
+          mr={{ base: 0, md: '1rem' }}
+          mb="1rem"
+        >
           <TransactionsDataList data={data?.spends} />
         </Box>
-        <Box w={$width.listWidth} ml={{ base: 0, md: '16px' }} mb="16px">
+        <Box
+          flex={1}
+          w={$width.listWidth}
+          ml={{ base: 0, md: '1rem' }}
+          mb="1rem"
+        >
           <TransactionsDataList data={data?.notes} isInput={false} />
         </Box>
       </Flex>
