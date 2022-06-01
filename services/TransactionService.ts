@@ -11,9 +11,11 @@ class TransactionService extends Service {
   }
 
   transactions(query: TransactionsParameters): Promise<TransactionType[]> {
-    return this.fetcher.get('', {
-      params: query,
-    })
+    return this.fetcher
+      .get('', {
+        params: query,
+      })
+      .then(({ data }) => data)
   }
 
   find(query: FindTransactionParameters): Promise<TransactionType> {

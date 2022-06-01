@@ -6,27 +6,16 @@ import {
   Box,
   NAMED_COLORS,
   SearchAutocomplete,
-} from "@ironfish/ui-kit";
+} from '@ironfish/ui-kit'
 
-import { truncateHash } from "utils/hash";
-import { SearchIcon } from "svgx";
-import useBlocksSearch from "hooks/useBlocksSearch";
-import { BlockType, TransactionType, isBlock } from "types";
-import BlockIcon from "icons/BlockIcon";
-import RoutePaths from "constants/RoutePaths";
+import { SearchIcon } from 'svgx'
+import useBlocksSearch from 'hooks/useBlocksSearch'
+import { BlockType, TransactionType, isBlock } from 'types'
+import BlockIcon from 'icons/BlockIcon'
+import RoutePaths from 'constants/RoutePaths'
 import { useRouter } from 'next/router'
 
-const makeSearchOption = ({ id, hash, ...rest }) => ({
-  label: `${id} - ${hash}`,
-  value: hash,
-  ...rest
-});
-
-interface OptionProps {
-  label: string;
-}
-
-const Option: FC<OptionProps> = ({ label }) => {
+const Option: FC<{ label: string }> = ({ label }) => {
   return (
     <Flex minH="1.875rem" alignItems="center">
       <Box mr="1rem">
@@ -44,6 +33,9 @@ const Option: FC<OptionProps> = ({ label }) => {
   )
 }
 
+const getOptionLabel = (option: BlockType | TransactionType) =>
+  option ? `${option.id} - ${option.hash}` : ''
+
 const SearchInput: FC<InputProps> = () => {
   const shortSearchPlaceHolder = 'Search'
   const longSearchPlaceHolder = 'Search by block height, hash or transaction'
@@ -51,36 +43,44 @@ const SearchInput: FC<InputProps> = () => {
     base: longSearchPlaceHolder,
     sm: shortSearchPlaceHolder,
     xl: longSearchPlaceHolder,
-  });
-  const [$search, $setSearch] = useState<string>();
+  })
+  const [$search, $setSearch] = useState<string>()
   const router = useRouter()
 
-  const { data, loaded } = useBlocksSearch($search, 5);
+  const { data: searchData, loaded } = useBlocksSearch($search, 5)
 
   const options = loaded
-    ? data.data.map(({ label, data }) => ({
+    ? searchData.data.map(({ label, data }) => ({
         label,
-        options: data.map(makeSearchOption),
+        options: data,
       }))
-    : [];
+    : []
 
   return (
-    <SearchAutocomplete
+    <SearchAutocomplete<BlockType | TransactionType>
       InputProps={{
         placeholder: $placeholder,
         onChange: e => $setSearch(e.target.value),
       }}
       variant="navSearch"
-      inputLeftElement={() => <SearchIcon />}
+      inputLeftElement={<SearchIcon />}
       options={options}
-      onSelectOption={option => {
+      getOptionLabel={getOptionLabel}
+      onSelectOption={(option: BlockType | TransactionType) => {
         const isBlockOption = isBlock(option)
-        return router.push({
-          pathname: isBlockOption ? RoutePaths.BlockInfo : RoutePaths.TransactionDetail,
-          query: isBlockOption ? { id: option?.sequence } : { hash: option?.hash },
-        })
+        if (isBlockOption && 'sequence' in option) {
+          return router.push({
+            pathname: RoutePaths.BlockInfo,
+            query: { id: option?.sequence },
+          })
+        } else {
+          return router.push({
+            pathname: RoutePaths.TransactionInfo,
+            query: { hash: option?.hash },
+          })
+        }
       }}
-      renderOption={(option) => <Option {...option} />}
+      renderOption={option => <Option label={getOptionLabel(option)} />}
     />
   )
 }

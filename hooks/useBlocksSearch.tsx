@@ -11,8 +11,8 @@ interface SearchResultType<T> {
 }
 
 const useBlocksSearch = (
-  search: string = '',
-  limit: number = 5
+  search = '',
+  limit = 5
 ): AsyncDataProps<
   ResponseType<
     (SearchResultType<BlockType> | SearchResultType<TransactionType>)[]
@@ -39,11 +39,8 @@ const useBlocksSearch = (
               limit,
             })
             .then(({ data }) => data),
-          transactionService
-            .transactions({ search, with_blocks: true, limit })
-            .then(({ data }) => data),
+          transactionService.transactions({ search, with_blocks: true, limit }),
         ]).then(([blocks, transactions]) => {
-          console.log
           return {
             data: [
               { label: 'Blocks', data: blocks },

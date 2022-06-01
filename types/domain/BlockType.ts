@@ -16,7 +16,7 @@ export interface BlockType {
   transactions?: TransactionType[]
 }
 
-export function isBlock(x: unknown): x is Block {
+export function isBlock(x: unknown): x is BlockType {
   return typeof x === 'object' && !!x && 'transactions' in x && !('block' in x)
 }
 
