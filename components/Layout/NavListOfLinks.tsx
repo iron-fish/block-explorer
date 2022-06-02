@@ -29,6 +29,7 @@ const NavListOfLinks: FC<FlexProps> = props => {
           </Flex>
         </Link>
       </NextLink>
+      {props.children}
     </Flex>
   )
 }
