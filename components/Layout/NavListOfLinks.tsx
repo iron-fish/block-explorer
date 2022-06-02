@@ -4,6 +4,7 @@ import NextLink from 'next/link'
 
 import { OuterReferenceIcon } from 'svgx'
 import RoutePaths from 'constants/RoutePaths'
+import { EXTERNAL_LINKS } from 'constants/ExternalLinks'
 
 const NavListOfLinks: FC<FlexProps> = props => {
   const linkStyle = useConst({
@@ -20,7 +21,7 @@ const NavListOfLinks: FC<FlexProps> = props => {
         <Link sx={linkStyle}>Charts</Link>
       </NextLink>
       <NextLink
-        href="https://www.ironfish.network/docs/whitepaper/1_introduction"
+        href={EXTERNAL_LINKS.IRONFISH_DOCS}
         passHref
       >
         <Link sx={linkStyle}>

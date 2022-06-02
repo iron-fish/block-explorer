@@ -20,6 +20,67 @@ import {
 } from 'svgx'
 import NextLink from 'next/link'
 import RoutePaths from 'constants/RoutePaths'
+import { EXTERNAL_LINKS } from 'constants/ExternalLinks'
+
+const MENU_LINKS = [
+  {
+    name: 'Company',
+    links: [
+      {
+        name: 'About us',
+        href: EXTERNAL_LINKS.IRONFISH_ABOUT
+      },
+      {
+        name: 'Careers',
+        href: EXTERNAL_LINKS.IRONFISH_CAREERS
+      },
+      {
+        name: 'Blog',
+        href: EXTERNAL_LINKS.IRONFISH_BLOG
+      },
+    ]
+  },
+  {
+    name: 'Product',
+    links: [
+      {
+        name: 'Block Explorer',
+        href: RoutePaths.Home
+      },
+      {
+        name: 'Whitepaper',
+        href: EXTERNAL_LINKS.IRONFISH_DOCS
+      },
+      {
+        name: 'FAQ',
+        href: EXTERNAL_LINKS.IRONFISH_DOCS
+      },
+    ]
+  }
+]
+
+const CONTACTS = [
+  {
+    Icon: TelegramIcon,
+    href: EXTERNAL_LINKS.IRONFISH_TELEGRAM
+  },
+  {
+    Icon: GitHubIcon,
+    href: EXTERNAL_LINKS.IRONFISH_GITHUB
+  },
+  {
+    Icon: RedditIcon,
+    href: EXTERNAL_LINKS.IRONFISH_REDDIT
+  },
+  {
+    Icon: TwitterIcon,
+    href: EXTERNAL_LINKS.IRONFISH_TWITTER
+  },
+  {
+    Icon: DiscordIcon,
+    href: EXTERNAL_LINKS.IRONFISH_DISCORD
+  },
+]
 
 const Footer: FC = () => {
   const $colors = useColorModeValue(
@@ -64,43 +125,20 @@ const Footer: FC = () => {
               accessibility
             </div>
           </Flex>
-          <VStack spacing="0.5rem" align="baseline">
-            <Box fontSize="1.25rem" mb="0.125rem">
-              Company
-            </Box>
-            <NextLink href="https://ironfish.network/about/" passHref>
-              <Link variant="text_link" fontSize="1rem">
-                About us
-              </Link>
-            </NextLink>
-            <NextLink href="https://ironfish.network/careers/" passHref>
-              <Link variant="text_link" fontSize="1rem">
-                Careers
-              </Link>
-            </NextLink>
-            <NextLink href="https://ironfish.network/blog/" passHref>
-              <Link variant="text_link" fontSize="1rem">
-                Blog
-              </Link>
-            </NextLink>
-          </VStack>
-          <VStack spacing="0.5rem" align="baseline">
-            <Box fontSize="1.25rem" mb="0.125rem">
-              Product
-            </Box>
-            <NextLink href={RoutePaths.Home} passHref>
-              <Link fontSize="1rem">Block Explorer</Link>
-            </NextLink>
-            <NextLink
-              href="https://ironfish.network/docs/whitepaper/1_introduction"
-              passHref
-            >
-              <Link fontSize="1rem">Whitepaper</Link>
-            </NextLink>
-            <NextLink href="https://ironfish.network/faq/" passHref>
-              <Link fontSize="1rem">FAQ</Link>
-            </NextLink>
-          </VStack>
+          {MENU_LINKS.map(group => (
+            <VStack spacing="0.5rem" align="baseline">
+              <Box fontSize="1.25rem" mb="0.125rem">
+                {group.name}
+              </Box>
+              {group.links.map(link => (
+                <NextLink href={link.href} passHref>
+                  <Link fontSize="1rem">
+                    {link.name}
+                  </Link>
+                </NextLink>
+              ))}
+            </VStack>
+          ))}
           <NextLink href="mailto:contact@ironfish.network" passHref>
             <Button variant="primary" size="medium">
               Drop us a line!
@@ -121,21 +159,11 @@ const Footer: FC = () => {
           2021 Iron Fish. All rights reserved.
         </Text>
         <HStack spacing={'1.375rem'} justifyContent="flex-end" flex={1}>
-          <NextLink href="https://t.me/ironfishcrypto" passHref>
-            <TelegramIcon cursor="pointer" />
-          </NextLink>
-          <NextLink href="https://github.com/iron-fish" passHref>
-            <GitHubIcon cursor="pointer" />
-          </NextLink>
-          <NextLink href="http://reddit.com/r/ironfish" passHref>
-            <RedditIcon cursor="pointer" />
-          </NextLink>
-          <NextLink href="https://twitter.com/ironfishcrypto" passHref>
-            <TwitterIcon cursor="pointer" />
-          </NextLink>
-          <NextLink href="https://discord.gg/EkQkEcm8DH" passHref>
-            <DiscordIcon cursor="pointer" />
-          </NextLink>
+          {CONTACTS.map(contact => (
+            <NextLink href={contact.href} passHref>
+              <contact.Icon cursor="pointer" />
+            </NextLink>
+          ))}
         </HStack>
       </Flex>
     </Box>
