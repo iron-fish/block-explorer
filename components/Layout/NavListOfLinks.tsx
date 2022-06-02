@@ -20,10 +20,7 @@ const NavListOfLinks: FC<FlexProps> = props => {
       <NextLink href={RoutePaths.Charts} passHref>
         <Link sx={linkStyle}>Charts</Link>
       </NextLink>
-      <NextLink
-        href={EXTERNAL_LINKS.IRONFISH_DOCS}
-        passHref
-      >
+      <NextLink href={EXTERNAL_LINKS.IRONFISH_DOCS} passHref>
         <Link sx={linkStyle}>
           <Flex>
             Developer Docs

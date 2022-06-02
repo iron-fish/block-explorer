@@ -28,57 +28,57 @@ const MENU_LINKS = [
     links: [
       {
         name: 'About us',
-        href: EXTERNAL_LINKS.IRONFISH_ABOUT
+        href: EXTERNAL_LINKS.IRONFISH_ABOUT,
       },
       {
         name: 'Careers',
-        href: EXTERNAL_LINKS.IRONFISH_CAREERS
+        href: EXTERNAL_LINKS.IRONFISH_CAREERS,
       },
       {
         name: 'Blog',
-        href: EXTERNAL_LINKS.IRONFISH_BLOG
+        href: EXTERNAL_LINKS.IRONFISH_BLOG,
       },
-    ]
+    ],
   },
   {
     name: 'Product',
     links: [
       {
         name: 'Block Explorer',
-        href: RoutePaths.Home
+        href: RoutePaths.Home,
       },
       {
         name: 'Whitepaper',
-        href: EXTERNAL_LINKS.IRONFISH_DOCS
+        href: EXTERNAL_LINKS.IRONFISH_DOCS,
       },
       {
         name: 'FAQ',
-        href: EXTERNAL_LINKS.IRONFISH_DOCS
+        href: EXTERNAL_LINKS.IRONFISH_DOCS,
       },
-    ]
-  }
+    ],
+  },
 ]
 
 const CONTACTS = [
   {
     Icon: TelegramIcon,
-    href: EXTERNAL_LINKS.IRONFISH_TELEGRAM
+    href: EXTERNAL_LINKS.IRONFISH_TELEGRAM,
   },
   {
     Icon: GitHubIcon,
-    href: EXTERNAL_LINKS.IRONFISH_GITHUB
+    href: EXTERNAL_LINKS.IRONFISH_GITHUB,
   },
   {
     Icon: RedditIcon,
-    href: EXTERNAL_LINKS.IRONFISH_REDDIT
+    href: EXTERNAL_LINKS.IRONFISH_REDDIT,
   },
   {
     Icon: TwitterIcon,
-    href: EXTERNAL_LINKS.IRONFISH_TWITTER
+    href: EXTERNAL_LINKS.IRONFISH_TWITTER,
   },
   {
     Icon: DiscordIcon,
-    href: EXTERNAL_LINKS.IRONFISH_DISCORD
+    href: EXTERNAL_LINKS.IRONFISH_DISCORD,
   },
 ]
 
@@ -126,15 +126,17 @@ const Footer: FC = () => {
             </div>
           </Flex>
           {MENU_LINKS.map(group => (
-            <VStack spacing="0.5rem" align="baseline">
+            <VStack
+              key={`group-${group.name}`}
+              spacing="0.5rem"
+              align="baseline"
+            >
               <Box fontSize="1.25rem" mb="0.125rem">
                 {group.name}
               </Box>
               {group.links.map(link => (
-                <NextLink href={link.href} passHref>
-                  <Link fontSize="1rem">
-                    {link.name}
-                  </Link>
+                <NextLink key={`link-${link.name}`} href={link.href} passHref>
+                  <Link fontSize="1rem">{link.name}</Link>
                 </NextLink>
               ))}
             </VStack>
@@ -159,8 +161,8 @@ const Footer: FC = () => {
           2021 Iron Fish. All rights reserved.
         </Text>
         <HStack spacing={'1.375rem'} justifyContent="flex-end" flex={1}>
-          {CONTACTS.map(contact => (
-            <NextLink href={contact.href} passHref>
+          {CONTACTS.map((contact, index) => (
+            <NextLink key={`contact-${index}`} href={contact.href} passHref>
               <contact.Icon cursor="pointer" />
             </NextLink>
           ))}
