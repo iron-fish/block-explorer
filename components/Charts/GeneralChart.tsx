@@ -18,6 +18,7 @@ import {
 } from '@ironfish/ui-kit'
 import format from 'date-fns/format'
 import getDate from 'date-fns/getDate'
+import { ParentSizeModern } from '@visx/responsive'
 
 import { Metric } from 'types'
 
@@ -72,65 +73,77 @@ const GeneralChart: FC<GeneralChartProps> = ({
   const xAccessor = (metric: Metric): Date => new Date(metric.date)
 
   return (
-    <XYChart
-      theme={$colors.chartTheme}
-      xScale={{ type: 'utc' }}
-      yScale={{ type: 'linear' }}
-      height={340}
-      margin={{ left: marginLeft, right: 0, top: 20, bottom: 35 }}
+    <ParentSizeModern
+      ignoreDimensions={['left', 'top', 'height']}
+      debounceTime={10}
     >
-      <LinearGradient from={NAMED_COLORS.LIGHT_BLUE} to="#2C72FF00" id="area" />
-      <Grid numTicks={8} columns={false} />
-      <AreaSeries
-        dataKey="transactions"
-        data={data}
-        xAccessor={xAccessor}
-        yAccessor={yAccessor}
-      />
-      <LineSeries
-        dataKey="transactionsLine"
-        data={data}
-        xAccessor={xAccessor}
-        yAccessor={yAccessor}
-        strokeWidth={2}
-      />
-      <Axis
-        orientation="left"
-        numTicks={8}
-        tickTransform="translate(-8, 0)"
-        hideAxisLine
-        tickFormat={leftAxisFormatter}
-      />
-      <Axis
-        orientation="bottom"
-        numTicks={$bottomAxisTicks}
-        hideTicks
-        tickLabelProps={() => ({
-          fill: $colors.bottomAxisLabelColor,
-          fontSize: '0.75rem',
-          fontFamily: 'ABC Favorit Trial',
-        })}
-        tickTransform="translate(0, 18)"
-        hideAxisLine
-        tickFormat={d => format(d, getDate(d) > 1 ? 'MMM.d' : 'MMM')}
-      />
-      <Tooltip<Metric>
-        showVerticalCrosshair
-        snapTooltipToDatumX
-        renderTooltip={({ tooltipData }) => {
-          if (!tooltipData?.nearestDatum) {
-            return null
-          }
-          const d = xAccessor(tooltipData.nearestDatum.datum)
-          return (
-            <>
-              {d.toUTCString().split(' ').slice(0, -2).join(' ')}:{' '}
-              {yAccessor(tooltipData.nearestDatum.datum).toString()}
-            </>
-          )
-        }}
-      />
-    </XYChart>
+      {parent => (
+        <XYChart
+          theme={$colors.chartTheme}
+          xScale={{ type: 'utc' }}
+          yScale={{ type: 'linear' }}
+          height={340}
+          width={parent.width}
+          margin={{ left: marginLeft, right: 0, top: 20, bottom: 35 }}
+        >
+          <LinearGradient
+            from={NAMED_COLORS.LIGHT_BLUE}
+            to="#2C72FF00"
+            id="area"
+          />
+          <Grid numTicks={8} columns={false} />
+          <AreaSeries
+            dataKey="transactions"
+            data={data}
+            xAccessor={xAccessor}
+            yAccessor={yAccessor}
+          />
+          <LineSeries
+            dataKey="transactionsLine"
+            data={data}
+            xAccessor={xAccessor}
+            yAccessor={yAccessor}
+            strokeWidth={2}
+          />
+          <Axis
+            orientation="left"
+            numTicks={8}
+            tickTransform="translate(-8, 0)"
+            hideAxisLine
+            tickFormat={leftAxisFormatter}
+          />
+          <Axis
+            orientation="bottom"
+            numTicks={$bottomAxisTicks}
+            hideTicks
+            tickLabelProps={() => ({
+              fill: $colors.bottomAxisLabelColor,
+              fontSize: '0.75rem',
+              fontFamily: 'ABC Favorit Trial',
+            })}
+            tickTransform="translate(0, 18)"
+            hideAxisLine
+            tickFormat={d => format(d, getDate(d) > 1 ? 'MMM.d' : 'MMM')}
+          />
+          <Tooltip<Metric>
+            showVerticalCrosshair
+            snapTooltipToDatumX
+            renderTooltip={({ tooltipData }) => {
+              if (!tooltipData?.nearestDatum) {
+                return null
+              }
+              const d = xAccessor(tooltipData.nearestDatum.datum)
+              return (
+                <>
+                  {format(d, 'iii, dd MMM yyyy')}:{' '}
+                  {yAccessor(tooltipData.nearestDatum.datum).toString()}
+                </>
+              )
+            }}
+          />
+        </XYChart>
+      )}
+    </ParentSizeModern>
   )
 }
 
