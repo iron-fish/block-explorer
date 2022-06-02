@@ -135,7 +135,7 @@ const GeneralChart: FC<GeneralChartProps> = ({
               const d = xAccessor(tooltipData.nearestDatum.datum)
               return (
                 <>
-                  {d.toUTCString().split(' ').slice(0, -2).join(' ')}:{' '}
+                  {format(d, 'iii, dd MMM yyyy')}:{' '}
                   {yAccessor(tooltipData.nearestDatum.datum).toString()}
                 </>
               )
