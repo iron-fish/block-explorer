@@ -20,11 +20,7 @@ import useNodeVersion from 'hooks/useNodeVersion'
 import NextLink from 'next/link'
 
 const NodeVersionButton: FC<StyleProps> = (props: StyleProps) => {
-  const {
-    loaded,
-    data,
-    error
-  } = useNodeVersion()
+  const { loaded, data, error } = useNodeVersion()
 
   const spinAnimation = useColorModeValue(
     keyframes`
@@ -37,9 +33,15 @@ const NodeVersionButton: FC<StyleProps> = (props: StyleProps) => {
     `
   )
 
+  if (error) {
+    return null
+  }
+
   return (
     <NextLink
-      href={`https://github.com/iron-fish/ironfish/releases/${loaded ? 'tag/v' + data.ironfish.version : ''}`}
+      href={`https://github.com/iron-fish/ironfish/releases/${
+        loaded ? 'tag/v' + data.ironfish.version : ''
+      }`}
       passHref
     >
       <Badge
@@ -50,16 +52,14 @@ const NodeVersionButton: FC<StyleProps> = (props: StyleProps) => {
         px="1rem"
         textTransform="none"
         _hover={{
-          bg: NAMED_COLORS.LIGHT_YELLOW
+          bg: NAMED_COLORS.LIGHT_YELLOW,
         }}
         cursor="pointer"
         {...props}
       >
         {loaded ? (
           <Center>
-            <h5>
-              Node {data.ironfish.version}
-            </h5>
+            <h5>Node {data.ironfish.version}</h5>
             <OuterReferenceIcon ml="0.5rem" mb="0.1rem" />
           </Center>
         ) : (
@@ -135,7 +135,10 @@ const Navbar: FC = () => {
           whiteSpace="nowrap"
         >
           <IronFishLogo />
-          <NodeVersionButton mx="1rem" display={{ base: 'none', lg: 'inline-block' }} />
+          <NodeVersionButton
+            mx="1rem"
+            display={{ base: 'none', lg: 'inline-block' }}
+          />
         </Box>
         <Box
           flex={{ base: 1.5, lg: 1 }}
