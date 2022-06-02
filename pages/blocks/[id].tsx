@@ -1,7 +1,7 @@
 import size from 'byte-size'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { Box, useBreakpointValue } from '@ironfish/ui-kit'
+import { Box } from '@ironfish/ui-kit'
 
 import unless from 'ramda/src/unless'
 import equals from 'ramda/src/equals'
@@ -74,11 +74,6 @@ const BLOCK_CARDS = [
 ]
 
 const BlockInfo = ({ id }) => {
-  const cardWidth = useBreakpointValue({
-    base: '100%',
-    sm: 'calc(50% - 1rem)',
-    md: 'calc(33.333333% - 1rem)',
-  })
   const block = useBlockBySeq(id)
 
   return (
@@ -91,7 +86,11 @@ const BlockInfo = ({ id }) => {
           <Card
             key={card.key}
             mb="1rem"
-            w={cardWidth}
+            width={{
+              base: 'max(20rem, 100% - 0.5rem)',
+              md: 'max(20rem, 50% - 1rem)',
+              '2xl': 'max(20rem, 33.333333% - 1rem)',
+            }}
             label={card.label}
             value={card.value(block.data)}
             icon={card.icon}
