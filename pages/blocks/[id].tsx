@@ -1,14 +1,13 @@
 import size from 'byte-size'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { Box, useBreakpointValue } from '@ironfish/ui-kit'
+import { Box } from '@ironfish/ui-kit'
 
 import unless from 'ramda/src/unless'
 import equals from 'ramda/src/equals'
 import pipe from 'ramda/src/pipe'
 
-import { formatBlockTimestamp } from 'utils/format'
-import { CardContainer, Card } from 'components'
+import { CardContainer, Card, TimeStamp } from 'components'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import useBlockBySeq from 'hooks/useBlockBySeq'
 import {
@@ -23,7 +22,7 @@ import {
 import { truncateHash } from 'utils/hash'
 import safeProp from 'utils/safeProp'
 import { TransactionsTable } from 'components/TransactionsTable'
-// import { BlockType } from 'types'
+import { BlockType } from 'types'
 
 const BLOCK_CARDS = [
   {
@@ -62,7 +61,9 @@ const BLOCK_CARDS = [
   {
     key: 'timestamp-card',
     label: 'Timestamp',
-    value: formatBlockTimestamp,
+    value: (block: BlockType) => (
+      <TimeStamp timestamp={safeProp('timestamp')(block)} />
+    ),
     icon: <BlockInfoTimestampIcon />,
   },
   {
@@ -74,11 +75,6 @@ const BLOCK_CARDS = [
 ]
 
 const BlockInfo = ({ id }) => {
-  const cardWidth = useBreakpointValue({
-    base: '100%',
-    sm: 'calc(50% - 1rem)',
-    md: 'calc(33.333333% - 1rem)',
-  })
   const block = useBlockBySeq(id)
 
   return (
@@ -91,7 +87,11 @@ const BlockInfo = ({ id }) => {
           <Card
             key={card.key}
             mb="1rem"
-            w={cardWidth}
+            width={{
+              base: 'max(20rem, 100% - 0.5rem)',
+              md: 'max(20rem, 50% - 1rem)',
+              '2xl': 'max(20rem, 33.333333% - 1rem)',
+            }}
             label={card.label}
             value={card.value(block.data)}
             icon={card.icon}
