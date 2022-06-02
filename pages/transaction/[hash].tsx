@@ -92,7 +92,7 @@ const EmptyDataBlock = () => {
     >
       <Flex align="center">
         <chakra.h4 color={$colors.text} overflow="hidden" w="100%">
-          There are no input in this transaction
+          There are no inputs in this transaction
         </chakra.h4>
       </Flex>
     </Flex>
