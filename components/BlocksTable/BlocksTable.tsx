@@ -63,9 +63,10 @@ const BlocksTable: FC<BlocksTableProps> = props => {
       {...props}
       columns={COLUMNS}
       onRowClick={(block: BlockType) =>
-        router.push(
-          RoutePaths.BlockInfo.replace('[id]', block?.sequence.toString())
-        )
+        router.push({
+          pathname: RoutePaths.BlockInfo,
+          query: { id: block?.sequence.toString() }
+        })
       }
     />
   )

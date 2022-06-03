@@ -85,10 +85,10 @@ const BlockPreview = ({ block, height, onClose }) => {
         </Flex>
         <Flex minW="8rem" p={{ base: '1rem', lg: '1rem 0rem' }} alignSelf="end">
           <Link
-            href={RoutePaths.BlockInfo.replace(
-              '[id]',
-              block?.sequence.toString()
-            )}
+            href={{
+              pathname: RoutePaths.BlockInfo,
+              query: { id: block?.sequence.toString() }
+            }}
             passHref
           >
             <a style={{ color: NAMED_COLORS.LIGHT_BLUE }}>View details &gt;</a>
