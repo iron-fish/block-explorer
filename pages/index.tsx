@@ -68,11 +68,6 @@ const LAST_BLOCK_INFO_CARDS = [
 ]
 
 const LastBlockInfo = () => {
-  const $cardWidth = useBreakpointValue({
-    base: '100%',
-    sm: 'calc(50% - 1rem)',
-    md: 'calc(33.333333333% - 1rem)',
-  })
   const $headBlock = useBlockHead()
 
   return (
@@ -81,7 +76,11 @@ const LastBlockInfo = () => {
         <Card
           key={data.key}
           mb="1rem"
-          w={$cardWidth}
+          width={{
+            base: 'max(20rem, 100% - 0.5rem)',
+            md: 'max(20rem, 50% - 1rem)',
+            '2xl': 'max(20rem, 33.333333% - 1rem)',
+          }}
           label={data.label}
           value={data.value($headBlock.data)}
           icon={data.icon}
