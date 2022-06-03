@@ -13,7 +13,6 @@ import {
   NAMED_COLORS,
   Text,
   useColorModeValue,
-  useBreakpointValue,
 } from '@ironfish/ui-kit'
 import {
   HeightIcon,
