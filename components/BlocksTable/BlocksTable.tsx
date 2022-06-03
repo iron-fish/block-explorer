@@ -65,7 +65,7 @@ const BlocksTable: FC<BlocksTableProps> = props => {
       onRowClick={(block: BlockType) =>
         router.push({
           pathname: RoutePaths.BlockInfo,
-          query: { id: block?.sequence.toString() }
+          query: { id: block?.sequence.toString() },
         })
       }
     />

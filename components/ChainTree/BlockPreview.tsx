@@ -87,7 +87,7 @@ const BlockPreview = ({ block, height, onClose }) => {
           <Link
             href={{
               pathname: RoutePaths.BlockInfo,
-              query: { id: block?.sequence.toString() }
+              query: { id: block?.sequence.toString() },
             }}
             passHref
           >
