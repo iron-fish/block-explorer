@@ -31,6 +31,7 @@ const NavListOfLinks: FC<FlexProps> = props => {
           <OuterReferenceIcon ml="1rem" />
         </Link>
       </NextLink>
+      {props.children}
     </Flex>
   )
 }
