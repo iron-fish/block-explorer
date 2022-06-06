@@ -9,7 +9,7 @@ This is a Next.js project bootstrapped with `create-next-app`.
 Create an `.env.local` file. You can copy the existing template (`cp .env.template .env.local`)
 
 ```
-NEXT_PUBLIC_API_URL=https://api.ironfish.network
+NEXT_PUBLIC_API_BASE_URL=https://api.ironfish.network
 ```
 
 Then, run the development server:

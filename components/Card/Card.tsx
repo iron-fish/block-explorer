@@ -62,13 +62,13 @@ const Card: FC<CardProps> = ({
         w="100%"
         h="100%"
       >
-        <Flex flexDirection="column">
+        <Flex flexDirection="column" whiteSpace="break-spaces">
           <Box color={$colors.label}>
             <h4>{label}</h4>
           </Box>
           {valueContent}
         </Flex>
-        <Box>{icon}</Box>
+        <Box marginLeft="1rem">{icon}</Box>
       </Flex>
     </BorderBox>
   )
