@@ -18,6 +18,69 @@ import {
   TwitterIcon,
   IronFishLogo,
 } from 'svgx'
+import NextLink from 'next/link'
+import RoutePaths from 'constants/RoutePaths'
+import { EXTERNAL_LINKS } from 'constants/ExternalLinks'
+
+const MENU_LINKS = [
+  {
+    name: 'Company',
+    links: [
+      {
+        name: 'About us',
+        href: EXTERNAL_LINKS.IRONFISH_ABOUT,
+      },
+      {
+        name: 'Careers',
+        href: EXTERNAL_LINKS.IRONFISH_CAREERS,
+      },
+      {
+        name: 'Blog',
+        href: EXTERNAL_LINKS.IRONFISH_BLOG,
+      },
+    ],
+  },
+  {
+    name: 'Product',
+    links: [
+      {
+        name: 'Block Explorer',
+        href: RoutePaths.Home,
+      },
+      {
+        name: 'Whitepaper',
+        href: EXTERNAL_LINKS.IRONFISH_DOCS,
+      },
+      {
+        name: 'FAQ',
+        href: EXTERNAL_LINKS.IRONFISH_DOCS,
+      },
+    ],
+  },
+]
+
+const CONTACTS = [
+  {
+    Icon: TelegramIcon,
+    href: EXTERNAL_LINKS.IRONFISH_TELEGRAM,
+  },
+  {
+    Icon: GitHubIcon,
+    href: EXTERNAL_LINKS.IRONFISH_GITHUB,
+  },
+  {
+    Icon: RedditIcon,
+    href: EXTERNAL_LINKS.IRONFISH_REDDIT,
+  },
+  {
+    Icon: TwitterIcon,
+    href: EXTERNAL_LINKS.IRONFISH_TWITTER,
+  },
+  {
+    Icon: DiscordIcon,
+    href: EXTERNAL_LINKS.IRONFISH_DISCORD,
+  },
+]
 
 const Footer: FC = () => {
   const $colors = useColorModeValue(
@@ -46,9 +109,11 @@ const Footer: FC = () => {
       <Flex direction="column">
         <Flex justify="space-between" w="100%" mb="4rem">
           <Flex direction={'column'}>
-            <Box mb="1.1875rem">
-              <IronFishLogo />
-            </Box>
+            <NextLink href="https://www.ironfish.network/" passHref>
+              <Box mb="1.1875rem" cursor="pointer">
+                <IronFishLogo />
+              </Box>
+            </NextLink>
             <div
               style={{
                 fontSize: '0.6875rem',
@@ -60,31 +125,27 @@ const Footer: FC = () => {
               accessibility
             </div>
           </Flex>
-          <VStack spacing="0.5rem" align="baseline">
-            <Link variant="text_link" fontSize="1.25rem" mb="0.125rem">
-              Company
-            </Link>
-            <Link variant="text_link" fontSize="1rem">
-              About us
-            </Link>
-            <Link variant="text_link" fontSize="1rem">
-              Careers
-            </Link>
-            <Link variant="text_link" fontSize="1rem">
-              Blog
-            </Link>
-          </VStack>
-          <VStack spacing="0.5rem" align="baseline">
-            <Link fontSize="1.25rem" mb="0.125rem">
-              Product
-            </Link>
-            <Link fontSize="1rem">Block Explorer</Link>
-            <Link fontSize="1rem">Whitepaper</Link>
-            <Link fontSize="1rem">FAQ</Link>
-          </VStack>
-          <Button variant="primary" size="medium">
-            Drop us a line!
-          </Button>
+          {MENU_LINKS.map(group => (
+            <VStack
+              key={`group-${group.name}`}
+              spacing="0.5rem"
+              align="baseline"
+            >
+              <Box fontSize="1.25rem" mb="0.125rem">
+                {group.name}
+              </Box>
+              {group.links.map(link => (
+                <NextLink key={`link-${link.name}`} href={link.href} passHref>
+                  <Link fontSize="1rem">{link.name}</Link>
+                </NextLink>
+              ))}
+            </VStack>
+          ))}
+          <NextLink href="mailto:contact@ironfish.network" passHref>
+            <Button variant="primary" size="medium">
+              Drop us a line!
+            </Button>
+          </NextLink>
         </Flex>
       </Flex>
       <Flex
@@ -100,11 +161,11 @@ const Footer: FC = () => {
           2021 Iron Fish. All rights reserved.
         </Text>
         <HStack spacing={'1.375rem'} justifyContent="flex-end" flex={1}>
-          <TelegramIcon />
-          <GitHubIcon />
-          <RedditIcon />
-          <TwitterIcon />
-          <DiscordIcon />
+          {CONTACTS.map((contact, index) => (
+            <NextLink key={`contact-${index}`} href={contact.href} passHref>
+              <contact.Icon cursor="pointer" />
+            </NextLink>
+          ))}
         </HStack>
       </Flex>
     </Box>

@@ -4,6 +4,7 @@ import NextLink from 'next/link'
 
 import { OuterReferenceIcon } from 'svgx'
 import RoutePaths from 'constants/RoutePaths'
+import { EXTERNAL_LINKS } from 'constants/ExternalLinks'
 
 const NavListOfLinks: FC<FlexProps> = props => {
   const $spacing = useBreakpointValue({ base: '32px', lg: 0 })
@@ -25,7 +26,7 @@ const NavListOfLinks: FC<FlexProps> = props => {
       <NextLink href={RoutePaths.Charts} passHref>
         <Link sx={$linkStyle}>Charts</Link>
       </NextLink>
-      <NextLink href="#" passHref>
+      <NextLink href={EXTERNAL_LINKS.IRONFISH_DOCS} passHref>
         <Link sx={$linkStyle}>
           Developer Docs
           <OuterReferenceIcon ml="1rem" />

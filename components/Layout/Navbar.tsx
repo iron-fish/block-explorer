@@ -16,8 +16,9 @@ import { IronFishLogo, OuterReferenceIcon } from 'svgx'
 import { NavSearch } from 'components'
 import NavMenu from './NavMenu'
 import NavListOfLinks from './NavListOfLinks'
+import Link from 'next/link'
+import RoutePaths from 'constants/RoutePaths'
 import useNodeVersion from 'hooks/useNodeVersion'
-import NextLink from 'next/link'
 
 const NodeVersionButton: FC<StyleProps> = (props: StyleProps) => {
   const { loaded, data, error } = useNodeVersion()
@@ -38,7 +39,7 @@ const NodeVersionButton: FC<StyleProps> = (props: StyleProps) => {
   }
 
   return (
-    <NextLink
+    <Link
       href={`https://github.com/iron-fish/ironfish/releases/${
         loaded ? 'tag/v' + data.ironfish.version : ''
       }`}
@@ -71,7 +72,7 @@ const NodeVersionButton: FC<StyleProps> = (props: StyleProps) => {
           />
         )}
       </Badge>
-    </NextLink>
+    </Link>
   )
 }
 
@@ -125,21 +126,23 @@ const Navbar: FC = () => {
         borderColor={$colors.border}
         justifyContent="space-between"
       >
-        <Box
-          order={1}
-          justifySelf="flex-start"
-          flex={{ base: null, sm: 1 }}
-          mr={{ base: 0, sm: '1.5rem' }}
-          w="50%"
-          mb="0.125rem"
-          whiteSpace="nowrap"
-        >
-          <IronFishLogo />
-          <NodeVersionButton
-            mx="1rem"
-            display={{ base: 'none', lg: 'inline-block' }}
-          />
-        </Box>
+        <Link href={RoutePaths.Home} passHref>
+          <Box
+            order={1}
+            justifySelf="flex-start"
+            flex={{ base: null, sm: 1 }}
+            mr={{ base: 0, sm: '1.5rem' }}
+            w="50%"
+            mb="0.125rem"
+            whiteSpace="nowrap"
+          >
+            <IronFishLogo />
+            <NodeVersionButton
+              mx="1rem"
+              display={{ base: 'none', lg: 'inline-block' }}
+            />
+          </Box>
+        </Link>
         <Box
           flex={{ base: 1.5, lg: 1 }}
           order={{ base: 10, sm: 2 }}
