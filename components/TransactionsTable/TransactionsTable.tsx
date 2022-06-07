@@ -3,11 +3,13 @@ import size from 'byte-size'
 import { Badge, Box, NAMED_COLORS, useBreakpointValue } from '@ironfish/ui-kit'
 import pipe from 'ramda/src/pipe'
 import pathOr from 'ramda/src/pathOr'
+import { useRouter } from 'next/router'
 
 import BlockIcon from 'icons/BlockIcon'
 import { truncateHash } from 'utils/hash'
 import { formatBlockTimestamp } from 'utils/format'
 import TransactionType from 'types/domain/TransactionType'
+import RoutePaths from 'constants/RoutePaths'
 
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
@@ -78,7 +80,20 @@ const TransactionsTable: FC<TransactionsTableProps> = props => {
     ],
     lg: [HEIGHT_COLUMN, TAG_COLUMN, HASH_COLUMN, DATE_COLUMN],
   })
-  return <CommonTable {...props} columns={columns} />
+  const router = useRouter()
+
+  return (
+    <CommonTable
+      {...props}
+      columns={columns}
+      onRowClick={(transaction: TransactionType) => {
+        return router.push({
+          pathname: RoutePaths.TransactionInfo,
+          query: { hash: transaction?.hash },
+        })
+      }}
+    />
+  )
 }
 
 export default TransactionsTable

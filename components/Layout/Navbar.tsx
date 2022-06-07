@@ -3,15 +3,78 @@ import {
   Flex,
   Box,
   ColorModeSwitcher,
+  keyframes,
   useColorModeValue,
   NAMED_COLORS,
+  StyleProps,
   useBreakpointValue,
+  Badge,
+  Center,
 } from '@ironfish/ui-kit'
 
-import { IronFishLogo } from 'svgx'
+import { IronFishLogo, OuterReferenceIcon } from 'svgx'
 import { NavSearch } from 'components'
 import NavMenu from './NavMenu'
 import NavListOfLinks from './NavListOfLinks'
+import Link from 'next/link'
+import RoutePaths from 'constants/RoutePaths'
+import useNodeVersion from 'hooks/useNodeVersion'
+
+const NodeVersionButton: FC<StyleProps> = (props: StyleProps) => {
+  const { loaded, data, error } = useNodeVersion()
+
+  const spinAnimation = useColorModeValue(
+    keyframes`
+      0% { background-color: ${NAMED_COLORS.PALE_GREY} }
+      100% { background-color: ${NAMED_COLORS.LIGHT_GREY} }
+    `,
+    keyframes`
+      0% { background-color: ${NAMED_COLORS.DARK_GREY} }
+      100% { background-color: ${NAMED_COLORS.GREY} }
+    `
+  )
+
+  if (error) {
+    return null
+  }
+
+  return (
+    <Link
+      href={`https://github.com/iron-fish/ironfish/releases/${
+        loaded ? 'tag/v' + data.ironfish.version : ''
+      }`}
+      passHref
+    >
+      <Badge
+        bg={NAMED_COLORS.LIGHTER_GREY}
+        color={NAMED_COLORS.BLACK}
+        borderRadius="80px"
+        py="0.25rem"
+        px="1rem"
+        textTransform="none"
+        _hover={{
+          bg: NAMED_COLORS.LIGHT_YELLOW,
+        }}
+        cursor="pointer"
+        {...props}
+      >
+        {loaded ? (
+          <Center>
+            <h5>Node {data.ironfish.version}</h5>
+            <OuterReferenceIcon ml="0.5rem" mb="0.1rem" />
+          </Center>
+        ) : (
+          <Box
+            h="1.375rem"
+            minW="6rem"
+            animation={`${spinAnimation} infinite 0.7s alternate`}
+            borderRadius="0.2rem"
+          />
+        )}
+      </Badge>
+    </Link>
+  )
+}
 
 const Navbar: FC = () => {
   const menuRef = useRef(null)
@@ -37,7 +100,14 @@ const Navbar: FC = () => {
             fontSize: '2.3125rem',
             bgColor: $colors.bg,
           }}
-        />
+        >
+          <NodeVersionButton
+            mt="1rem"
+            display={{ base: 'block', lg: 'none' }}
+            width="9rem"
+            bg={NAMED_COLORS.LIGHT_YELLOW}
+          />
+        </NavListOfLinks>
       </NavMenu>
     ),
     lg: <NavListOfLinks sx={{ fontSize: '0.875rem' }} />,
@@ -56,16 +126,23 @@ const Navbar: FC = () => {
         borderColor={$colors.border}
         justifyContent="space-between"
       >
-        <Box
-          order={1}
-          justifySelf="flex-start"
-          flex={{ base: null, sm: 1 }}
-          mr={{ base: 0, sm: '1.5rem' }}
-          w="50%"
-          mb="0.125rem"
-        >
-          <IronFishLogo />
-        </Box>
+        <Link href={RoutePaths.Home} passHref>
+          <Box
+            order={1}
+            justifySelf="flex-start"
+            flex={{ base: null, sm: 1 }}
+            mr={{ base: 0, sm: '1.5rem' }}
+            w="50%"
+            mb="0.125rem"
+            whiteSpace="nowrap"
+          >
+            <IronFishLogo />
+            <NodeVersionButton
+              mx="1rem"
+              display={{ base: 'none', lg: 'inline-block' }}
+            />
+          </Box>
+        </Link>
         <Box
           flex={{ base: 1.5, lg: 1 }}
           order={{ base: 10, sm: 2 }}

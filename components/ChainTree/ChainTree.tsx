@@ -39,7 +39,7 @@ const ChainTree: FC<ChainTreeProps> = ({ blocks, head }) => {
   return (
     <Box width="100%" height={height} overflow="hidden">
       <svg width="100%" height={totalHeight}>
-        <Group top={30} left={20}>
+        <Group top={30} left={30}>
           {Array.from({ length: head?.sequence | 0 }).map((k, index) => (
             <text
               key={head?.sequence - index}
@@ -61,7 +61,7 @@ const ChainTree: FC<ChainTreeProps> = ({ blocks, head }) => {
             </text>
           ))}
         </Group>
-        <Group top={30} left={120}>
+        <Group top={30} left={130}>
           {chain.links().map(link => (
             <NodeLink
               key={link?.source?.data?.hash + link?.target?.data?.hash}

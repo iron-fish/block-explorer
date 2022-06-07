@@ -2,7 +2,8 @@ import { useContext, useEffect, useCallback, useState } from 'react'
 
 import { BlockContext } from "contexts/ServiceContexts";
 import { AsyncDataProps, BlockType, ResponseType } from "types";
-import { uniqBy, sort } from 'ramda'
+import { uniqBy, sortBy, descend } from 'ramda'
+import safeProp from 'utils/safeProp';
 
 const useInfiniteBlocks = (
   limit: number = 20,
@@ -26,9 +27,8 @@ const useInfiniteBlocks = (
         .then(data =>
           setBlocksData(prevData => ({
             ...data,
-            data: sort(
-              (blockA: BlockType, blockB: BlockType) => blockB.sequence - blockA.sequence, 
-              uniqBy(block => block.id, prevData.data.concat(data.data))
+            data: sortBy(descend(safeProp('sequence')))(
+              uniqBy(safeProp('id'), prevData.data.concat(data.data))
             ),
           }))
         )
@@ -50,7 +50,7 @@ const useInfiniteBlocks = (
 
   useEffect(() => {
     loadBlocks({ limit, with_transactions, main: only_main });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [limit, with_transactions]);
 
   return [
