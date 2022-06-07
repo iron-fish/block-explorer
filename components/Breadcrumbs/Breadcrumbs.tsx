@@ -7,11 +7,12 @@ import {
   NAMED_COLORS,
 } from '@ironfish/ui-kit'
 import { useRouter } from 'next/router'
+import { ParsedUrlQuery } from 'node:querystring'
 
 import RoutePaths from 'constants/RoutePaths'
 import BreadcrumbLink from './BreadcrumbLink'
 
-const resolvePath = (path: string) => {
+const resolvePath = (path: string, queryParams: ParsedUrlQuery | null) => {
   switch (path) {
     case RoutePaths.Home:
       return [
@@ -57,11 +58,41 @@ const resolvePath = (path: string) => {
           link: <BreadcrumbLink.Charts isCurrent={true} />,
         },
       ]
+    case RoutePaths.TransactionInfo:
+      return [
+        {
+          key: 'breadcrumb-home',
+          link: <BreadcrumbLink.Home />,
+        },
+        {
+          key: 'breadcrumb-explorer',
+          link: <BreadcrumbLink.Explorer />,
+        },
+        {
+          key: 'breadcrumb-block-details',
+          link: (
+            <BreadcrumbLink.BlockInfo
+              to={{
+                pathname: RoutePaths.BlockInfo,
+                query: { id: queryParams.id },
+              }}
+            />
+          ),
+        },
+        {
+          key: 'breadcrumb-transaction-details',
+          link: <BreadcrumbLink.TransactionInfo isCurrent={true} />,
+        },
+      ]
   }
 }
 
-const Breadcrumbs: FC = () => {
-  const router = useRouter()
+interface BreadCrumbProps {
+  queryParams?: ParsedUrlQuery
+}
+
+const Breadcrumbs: FC<BreadCrumbProps> = ({ queryParams }) => {
+  const { route } = useRouter()
 
   const separatorColor = useColorModeValue(
     NAMED_COLORS.GREY,
@@ -76,7 +107,7 @@ const Breadcrumbs: FC = () => {
       spacing="1rem"
       py="1rem"
     >
-      {resolvePath(router.route).map(breadcrumb => (
+      {resolvePath(route, queryParams).map(breadcrumb => (
         <BreadcrumbItem key={breadcrumb.key}>{breadcrumb.link}</BreadcrumbItem>
       ))}
     </Breadcrumb>
