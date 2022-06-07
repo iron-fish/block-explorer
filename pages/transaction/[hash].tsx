@@ -34,12 +34,21 @@ import { TransactionType } from 'types'
 import { truncateHash } from 'utils/hash'
 import safeProp from 'utils/safeProp'
 import { formatBlockTimestamp } from 'utils/format'
+import ifElse from 'ramda/src/ifElse'
 
 const TransactionDataBlock = ({ label, value, icon }) => {
   const $colors = useColorModeValue(
     { border: NAMED_COLORS.LIGHT_GREY, bg: NAMED_COLORS.WHITE },
     { border: NAMED_COLORS.DARK_GREY, bg: NAMED_COLORS.DARKER_GREY }
   )
+
+  const $hashSize = useBreakpointValue({
+    base: 16,
+    md: 9,
+    lg: 10,
+    xl: 12,
+    '2xl': 16,
+  })
 
   return (
     <Flex
@@ -67,7 +76,7 @@ const TransactionDataBlock = ({ label, value, icon }) => {
           overflow="hidden"
           w="100%"
         >
-          {value}
+          {truncateHash(value, 2, $hashSize)}
         </chakra.h4>
         <CopyToClipboardButton value={value} />
       </Flex>
@@ -101,13 +110,7 @@ const EmptyDataBlock = () => {
 
 const TransactionsDataList = ({ data = [], isInput = true }) => {
   const $label = isInput ? 'INPUTS' : 'OUTPUTS'
-  const $hashSize = useBreakpointValue({
-    base: 16,
-    md: 9,
-    lg: 10,
-    xl: 12,
-    '2xl': 16,
-  })
+
   return (
     <>
       <Text
@@ -126,11 +129,7 @@ const TransactionsDataList = ({ data = [], isInput = true }) => {
             <ListItem key={`list-item-${index}`}>
               <TransactionDataBlock
                 label={$label}
-                value={truncateHash(
-                  item[isInput ? 'nullifier' : 'commitment'],
-                  2,
-                  $hashSize
-                )}
+                value={item[isInput ? 'nullifier' : 'commitment']}
                 icon={isInput ? <LargeArrowLeftDown /> : <LargeArrowRightUp />}
               />
             </ListItem>
