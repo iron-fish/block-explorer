@@ -34,7 +34,6 @@ import { TransactionType } from 'types'
 import { truncateHash } from 'utils/hash'
 import safeProp from 'utils/safeProp'
 import { formatBlockTimestamp } from 'utils/format'
-import ifElse from 'ramda/src/ifElse'
 
 const TransactionDataBlock = ({ label, value, icon }) => {
   const $colors = useColorModeValue(
