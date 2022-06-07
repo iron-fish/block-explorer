@@ -21,7 +21,7 @@ const InfiniteBlocks = () => {
     hasNextPage: metadata?.has_next,
     disabled: !!error,
     onLoadMore: loadNext,
-    rootMargin: '0px 0px 400px 0px',
+    rootMargin: '0 0 25rem 0',
   })
 
   return (

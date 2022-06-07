@@ -42,7 +42,11 @@ const CopyToClipboardButton: FC<CopyToClipboardButtonProps> = ({ value }) => {
           background: 'none',
         }}
         icon={
-          $copied ? <CheckIcon color="green" /> : <CopyIcon w="12px" h="12px" />
+          $copied ? (
+            <CheckIcon color="green" />
+          ) : (
+            <CopyIcon w="0.75rem" h="0.75rem" />
+          )
         }
       />
     </Tooltip>
