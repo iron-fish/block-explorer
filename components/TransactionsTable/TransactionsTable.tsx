@@ -38,7 +38,7 @@ const TAG_COLUMN: ColumnProps<TransactionType> = {
       <Badge
         bg={NAMED_COLORS.LIGHT_YELLOW}
         color={NAMED_COLORS.BLACK}
-        borderRadius="80px"
+        borderRadius="5rem"
         py="0.25rem"
         px="1rem"
         textTransform="none"
