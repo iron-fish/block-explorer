@@ -6,7 +6,6 @@ export interface RowItemProps extends FlexProps {
 }
 
 export interface DataRowProps {
-  items: ReactNode[]
   onClick?: (e) => void
 }
 

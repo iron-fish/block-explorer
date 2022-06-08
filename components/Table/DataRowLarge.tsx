@@ -2,9 +2,9 @@ import { Tr } from '@ironfish/ui-kit'
 import { FC } from 'react'
 import { DataRowProps } from './types'
 
-const DataRowLarge: FC<DataRowProps> = ({ items, onClick }) => (
+const DataRowLarge: FC<DataRowProps> = ({ children, onClick }) => (
   <Tr onClick={onClick} cursor={onClick ? 'pointer' : 'default'}>
-    {items.map(item => item)}
+    {children}
   </Tr>
 )
 
