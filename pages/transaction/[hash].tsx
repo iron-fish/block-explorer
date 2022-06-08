@@ -41,6 +41,14 @@ const TransactionDataBlock = ({ label, value, icon }) => {
     { border: NAMED_COLORS.DARK_GREY, bg: NAMED_COLORS.DARKER_GREY }
   )
 
+  const $hashSize = useBreakpointValue({
+    base: 16,
+    md: 9,
+    lg: 10,
+    xl: 12,
+    '2xl': 16,
+  })
+
   return (
     <Flex
       padding="1.875rem 2rem"
@@ -67,7 +75,7 @@ const TransactionDataBlock = ({ label, value, icon }) => {
           overflow="hidden"
           w="100%"
         >
-          {value}
+          {truncateHash(value, 2, $hashSize)}
         </chakra.h4>
         <CopyToClipboardButton value={value} />
       </Flex>
@@ -101,13 +109,6 @@ const EmptyDataBlock = () => {
 
 const TransactionsDataList = ({ data = [], isInput = true }) => {
   const $label = isInput ? 'INPUTS' : 'OUTPUTS'
-  const $hashSize = useBreakpointValue({
-    base: 16,
-    md: 9,
-    lg: 10,
-    xl: 12,
-    '2xl': 16,
-  })
 
   return (
     <Box
@@ -133,11 +134,7 @@ const TransactionsDataList = ({ data = [], isInput = true }) => {
             <ListItem key={`list-item-${index}`}>
               <TransactionDataBlock
                 label={$label}
-                value={truncateHash(
-                  item[isInput ? 'nullifier' : 'commitment'],
-                  2,
-                  $hashSize
-                )}
+                value={item[isInput ? 'nullifier' : 'commitment']}
                 icon={isInput ? <LargeArrowLeftDown /> : <LargeArrowRightUp />}
               />
             </ListItem>
