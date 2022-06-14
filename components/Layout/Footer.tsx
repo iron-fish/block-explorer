@@ -136,7 +136,9 @@ const Footer: FC = () => {
               </Box>
               {group.links.map(link => (
                 <NextLink key={`link-${link.name}`} href={link.href} passHref>
-                  <Link fontSize="1rem">{link.name}</Link>
+                  <Link variant="underlined" fontSize="1rem">
+                    {link.name}
+                  </Link>
                 </NextLink>
               ))}
             </VStack>
