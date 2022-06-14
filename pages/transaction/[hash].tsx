@@ -41,6 +41,14 @@ const TransactionDataBlock = ({ label, value, icon }) => {
     { border: NAMED_COLORS.DARK_GREY, bg: NAMED_COLORS.DARKER_GREY }
   )
 
+  const $hashSize = useBreakpointValue({
+    base: 16,
+    md: 9,
+    lg: 10,
+    xl: 12,
+    '2xl': 16,
+  })
+
   return (
     <Flex
       padding="1.875rem 2rem"
@@ -67,7 +75,7 @@ const TransactionDataBlock = ({ label, value, icon }) => {
           overflow="hidden"
           w="100%"
         >
-          {value}
+          {truncateHash(value, 2, $hashSize)}
         </chakra.h4>
         <CopyToClipboardButton value={value} />
       </Flex>
@@ -101,15 +109,15 @@ const EmptyDataBlock = () => {
 
 const TransactionsDataList = ({ data = [], isInput = true }) => {
   const $label = isInput ? 'INPUTS' : 'OUTPUTS'
-  const $hashSize = useBreakpointValue({
-    base: 16,
-    md: 9,
-    lg: 10,
-    xl: 12,
-    '2xl': 16,
-  })
+
   return (
-    <>
+    <Box
+      flex={1}
+      w={{ sm: '100%', md: 'calc(50% - 2rem)' }}
+      mr={{ base: 0, md: '1rem' }}
+      mb="1rem"
+      display={{ sm: data?.length ? 'block' : 'none', md: 'block' }}
+    >
       <Text
         color={NAMED_COLORS.GREY}
         fontSize="0.75rem"
@@ -126,11 +134,7 @@ const TransactionsDataList = ({ data = [], isInput = true }) => {
             <ListItem key={`list-item-${index}`}>
               <TransactionDataBlock
                 label={$label}
-                value={truncateHash(
-                  item[isInput ? 'nullifier' : 'commitment'],
-                  2,
-                  $hashSize
-                )}
+                value={item[isInput ? 'nullifier' : 'commitment']}
                 icon={isInput ? <LargeArrowLeftDown /> : <LargeArrowRightUp />}
               />
             </ListItem>
@@ -139,7 +143,7 @@ const TransactionsDataList = ({ data = [], isInput = true }) => {
           <EmptyDataBlock />
         )}
       </List>
-    </>
+    </Box>
   )
 }
 
@@ -203,12 +207,6 @@ const TRANSACTION_INFO_CARDS = [
 ]
 
 const TransactionInfo = ({ data, loaded }) => {
-  const $width = useBreakpointValue({
-    base: { cardWidth: '100%', listWidth: '100%' },
-    sm: { cardWidth: 'calc(50% - 1rem)', listWidth: '100%' },
-    md: { cardWidth: 'calc(33.333333% - 1rem)', listWidth: 'calc(50% - 2rem)' },
-  })
-
   return (
     <>
       <Box mt="0.5rem" mb="2rem">
@@ -219,7 +217,11 @@ const TransactionInfo = ({ data, loaded }) => {
           <Card
             key={card.key}
             mb="1rem"
-            w={$width.cardWidth}
+            width={{
+              base: 'max(20rem, 100% - 0.5rem)',
+              md: 'max(20rem, 50% - 1rem)',
+              '2xl': 'max(20rem, 33.333333% - 1rem)',
+            }}
             label={card.label}
             value={card.value(data)}
             icon={card.icon}
@@ -231,24 +233,8 @@ const TransactionInfo = ({ data, loaded }) => {
         <h3>Transactions</h3>
       </Box>
       <Flex w="100%" wrap="wrap" mb="3.5rem">
-        <Box
-          flex={1}
-          w={$width.listWidth}
-          mr={{ base: 0, md: '1rem' }}
-          mb="1rem"
-          display={{ sm: data?.spends.length ? 'block' : 'none', md: 'block' }}
-        >
-          <TransactionsDataList data={data?.spends} />
-        </Box>
-        <Box
-          flex={1}
-          w={$width.listWidth}
-          ml={{ base: 0, md: '1rem' }}
-          mb="1rem"
-          display={{ sm: data?.notes.length ? 'block' : 'none', md: 'block' }}
-        >
-          <TransactionsDataList data={data?.notes} isInput={false} />
-        </Box>
+        <TransactionsDataList data={data?.spends} />
+        <TransactionsDataList data={data?.notes} isInput={false} />
       </Flex>
     </>
   )

@@ -44,7 +44,7 @@ const GeneralChart: FC<GeneralChartProps> = ({
         gridColorDark: NAMED_COLORS.LIGHT_GREY,
         svgLabelSmall: {
           fill: NAMED_COLORS.GREY,
-          fontSize: '12px',
+          fontSize: '0.75rem',
           fontFamily: 'favorit-regular',
         },
         svgLabelBig: { fill: NAMED_COLORS.BLACK },
@@ -61,7 +61,7 @@ const GeneralChart: FC<GeneralChartProps> = ({
         svgLabelSmall: {
           fill: NAMED_COLORS.PALE_GREY,
           fontSize: '0.75rem',
-          fontFamily: 'ABC Favorit Trial',
+          fontFamily: 'favorit-regular',
         },
         svgLabelBig: { fill: NAMED_COLORS.WHITE },
         tickLength: 0,
