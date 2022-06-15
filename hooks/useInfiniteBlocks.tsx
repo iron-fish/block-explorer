@@ -1,11 +1,14 @@
 import { useContext, useEffect, useCallback, useState } from 'react'
 
-import { BlockContext } from 'contexts/ServiceContexts'
-import { AsyncDataProps, BlockType, ResponseType } from 'types'
+import { BlockContext } from "contexts/ServiceContexts";
+import { AsyncDataProps, BlockType, ResponseType } from "types";
+import { uniqBy, sortBy, descend } from 'ramda'
+import safeProp from 'utils/safeProp';
 
 const useInfiniteBlocks = (
-  limit = 20,
-  with_transactions = false
+  limit: number = 20,
+  with_transactions: boolean = false,
+  only_main: boolean | null = true
 ): [AsyncDataProps<ResponseType<BlockType[]>>, VoidFunction] => {
   const service = useContext(BlockContext)
   const [loaded, setLoaded] = useState<boolean>(false)
@@ -24,7 +27,9 @@ const useInfiniteBlocks = (
         .then(data =>
           setBlocksData(prevData => ({
             ...data,
-            data: prevData.data.concat(data.data),
+            data: sortBy(descend(safeProp('sequence')))(
+              uniqBy(safeProp('id'), prevData.data.concat(data.data))
+            ),
           }))
         )
         .catch(setError)
@@ -44,15 +49,21 @@ const useInfiniteBlocks = (
   }
 
   useEffect(() => {
-    loadBlocks({ limit, with_transactions, main: true })
+    loadBlocks({ limit, with_transactions, main: only_main });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [limit, with_transactions])
+  }, [limit, with_transactions]);
 
   return [
     {
-      data: blocksData,
       loaded,
       error,
+      data: {
+        ...blocksData,
+        metadata: {
+          has_next: blocksData.data[blocksData.data.length - 1]?.id > 0,
+          has_previous: true
+        }
+      },
     },
     loadNext,
   ]

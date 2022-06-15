@@ -31,6 +31,7 @@
     "@typescript-eslint/eslint-plugin": "^5.25.0",
     "@typescript-eslint/parser": "^5.25.0",
     "@visx/visx": "2.10.0",
+    "array-to-tree": "^3.3.2",
     "axios": "0.26.1",
     "byte-size": "^8.1.0",
     "eslint": "^8.12.0",

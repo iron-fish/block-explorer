@@ -34,7 +34,7 @@ const COLUMNS: ColumnProps<BlockType>[] = [
   {
     key: 'block-size',
     label: 'Size',
-    render: pipe(safeProp('size'), x => x.toString()),
+    render: pipe(safeProp('size'), x => size(x).toString()),
   },
   {
     key: 'block-transactions',
@@ -63,9 +63,10 @@ const BlocksTable: FC<BlocksTableProps> = props => {
       {...props}
       columns={COLUMNS}
       onRowClick={(block: BlockType) =>
-        router.push(
-          RoutePaths.BlockInfo.replace('[id]', block?.sequence.toString())
-        )
+        router.push({
+          pathname: RoutePaths.BlockInfo,
+          query: { id: block?.sequence.toString() },
+        })
       }
     />
   )

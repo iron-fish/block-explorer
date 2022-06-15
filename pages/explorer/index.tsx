@@ -1,5 +1,6 @@
-import { Box } from '@ironfish/ui-kit'
+import { Box, Flex } from '@ironfish/ui-kit'
 import { BlocksTable } from 'components'
+import BlocksViewButtons from 'components/BlocksViewButtons'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import useInfiniteBlocks from 'hooks/useInfiniteBlocks'
 import Head from 'next/head'
@@ -51,9 +52,15 @@ export default function Explorer() {
         <title>Iron Fish: Explorer</title>
       </Head>
       <Box mx={{ base: '2rem', lg: '15%' }}>
-        <Box mt="2.5rem">
+        <Flex
+          mt="2.5rem"
+          w="100%"
+          alignItems="center"
+          justifyContent="space-between"
+        >
           <Breadcrumbs />
-        </Box>
+          <BlocksViewButtons />
+        </Flex>
         <Box my="0.5rem">
           <h3>All Blocks</h3>
         </Box>
