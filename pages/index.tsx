@@ -7,6 +7,7 @@ import {
   NAMED_COLORS,
   Text,
   useColorModeValue,
+  useBreakpointValue,
 } from '@ironfish/ui-kit'
 import Head from 'next/head'
 
@@ -84,6 +85,7 @@ const LastBlockInfo = () => {
       {getBlockInfo(t).map(data => (
         <Card
           key={data.key}
+          w={$cardWidth}
           mb="1rem"
           width={{
             base: 'max(20rem, 100% - 0.5rem)',

@@ -8,6 +8,7 @@ import safeProp from 'utils/safeProp'
 import { formatBlockTimestamp } from 'utils/format'
 import { CloseDetailsIcon } from 'svgx/CloseDetailsIcon'
 import RoutePaths from 'constants/RoutePaths'
+import { useTranslation } from 'hooks/useTranslation'
 
 const PREVIEW_BLOCKS = [
   {
@@ -43,6 +44,7 @@ const PREVIEW_BLOCKS = [
 ]
 
 const BlockPreview = ({ block, height, onClose }) => {
+  const { t } = useTranslation('c-blockpreview')
   const $colors = useColorModeValue(
     {
       bg: NAMED_COLORS.WHITE,
@@ -91,7 +93,7 @@ const BlockPreview = ({ block, height, onClose }) => {
             }}
             passHref
           >
-            <a style={{ color: NAMED_COLORS.LIGHT_BLUE }}>View details &gt;</a>
+            <a style={{ color: NAMED_COLORS.LIGHT_BLUE }}>{t('link-view')}</a>
           </Link>
         </Flex>
       </Flex>

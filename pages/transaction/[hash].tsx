@@ -20,6 +20,8 @@ import pipe from 'ramda/src/pipe'
 import { Card, CardContainer, CopyToClipboardButton } from 'components'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import useTransactionByHash from 'hooks/useTransactionByHash'
+import { useTranslation } from 'hooks/useTranslation'
+
 import {
   DifficultyIcon,
   SecondsToBlockIcon,
@@ -84,6 +86,7 @@ const TransactionDataBlock = ({ label, value, icon }) => {
 }
 
 const EmptyDataBlock = () => {
+  const { t } = useTranslation('p-transactioninfo')
   const $colors = useColorModeValue(
     { bg: NAMED_COLORS.LIGHTER_GREY, text: NAMED_COLORS.GREY },
     { bg: NAMED_COLORS.DARKER_GREY_1, text: NAMED_COLORS.DARKER_GREY_2 }
@@ -100,7 +103,7 @@ const EmptyDataBlock = () => {
     >
       <Flex align="center">
         <chakra.h4 color={$colors.text} overflow="hidden" w="100%">
-          There are no inputs in this transaction
+          {t('info-no-transactions')}
         </chakra.h4>
       </Flex>
     </Flex>
@@ -207,10 +210,11 @@ const TRANSACTION_INFO_CARDS = [
 ]
 
 const TransactionInfo = ({ data, loaded }) => {
+  const { t } = useTranslation('p-transactioninfo')
   return (
     <>
       <Box mt="0.5rem" mb="2rem">
-        <h3>Transaction Information</h3>
+        <h3>{t('info-title')}</h3>
       </Box>
       <CardContainer>
         {TRANSACTION_INFO_CARDS.map(card => (
@@ -230,7 +234,7 @@ const TransactionInfo = ({ data, loaded }) => {
         ))}
       </CardContainer>
       <Box my="2rem">
-        <h3>Transactions</h3>
+        <h3>{t('info-transactions')}</h3>
       </Box>
       <Flex w="100%" wrap="wrap" mb="3.5rem">
         <TransactionsDataList data={data?.spends} />
@@ -241,6 +245,7 @@ const TransactionInfo = ({ data, loaded }) => {
 }
 
 export default function TransactionInformationPage() {
+  const { t } = useTranslation('p-transactioninfo')
   const router = useRouter()
   const { hash } = router.query
 
@@ -250,7 +255,7 @@ export default function TransactionInformationPage() {
   return (
     <main style={{ width: '100%', height: '100%' }}>
       <Head>
-        <title>Iron Fish: Transaction {hash}</title>
+        <title>{t('meta-title')}</title>
       </Head>
       <Box mx={{ base: '2rem', lg: '15%' }} mb="6rem" zIndex={1}>
         <Box mt="2.5rem">

@@ -146,7 +146,7 @@ const Footer: FC = () => {
           ))}
           <NextLink href="mailto:contact@ironfish.network" passHref>
             <Button variant="primary" size="medium">
-              Drop us a line!
+              {t('cta-contact')}
             </Button>
           </NextLink>
         </Flex>

@@ -1,5 +1,6 @@
 import { Box, Flex, Skeleton } from '@ironfish/ui-kit'
 
+import { useTranslation } from 'hooks/useTranslation'
 import Head from 'next/head'
 import useInfiniteBlocks from 'hooks/useInfiniteBlocks'
 import useInfiniteScroll from 'react-infinite-scroll-hook'
@@ -44,10 +45,11 @@ const ChainExplorer = () => {
 }
 
 export default function ChainExplorerPage() {
+  const { t } = useTranslation('p-chainexplorer')
   return (
     <main style={{ width: '100%', height: '100%' }}>
       <Head>
-        <title>Iron Fish: Chain Explorer</title>
+        <title>{t('meta-title')}</title>
       </Head>
       <Box mx={{ base: '2rem', lg: '15%' }}>
         <Flex w="100%" justifyContent="end">

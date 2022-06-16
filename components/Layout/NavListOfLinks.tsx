@@ -30,17 +30,17 @@ const NavListOfLinks: FC<FlexProps> = props => {
     <Flex {...props}>
       <NextLink href={RoutePaths.Explorer} passHref>
         <Link variant="underlined" sx={$linkStyle}>
-          All blocks
+          {t('link-all')}
         </Link>
       </NextLink>
       <NextLink href={RoutePaths.Charts} passHref>
         <Link variant="underlined" sx={$linkStyle}>
-          Charts
+          {t('link-charts')}
         </Link>
       </NextLink>
       <NextLink href={EXTERNAL_LINKS.IRONFISH_DOCS} passHref>
         <Link variant="underlined" sx={$linkStyle}>
-          Developer Docs
+          {t('link-docs')}
           <OuterReferenceIcon ml="1rem" />
         </Link>
       </NextLink>
