@@ -19,6 +19,7 @@ import NavMenu from './NavMenu'
 import NavListOfLinks from './NavListOfLinks'
 import RoutePaths from 'constants/RoutePaths'
 import useNodeVersion from 'hooks/useNodeVersion'
+import { useTranslation } from 'hooks/useTranslation'
 
 const NodeVersionButton: FC<StyleProps> = (props: StyleProps) => {
   const { t } = useTranslation('c-navbar')

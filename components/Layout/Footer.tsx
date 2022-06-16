@@ -166,7 +166,9 @@ const Footer: FC = () => {
         <HStack spacing={'1.375rem'} justifyContent="flex-end" flex={1}>
           {CONTACTS.map((contact, index) => (
             <NextLink key={`contact-${index}`} href={contact.href} passHref>
-              <contact.Icon cursor="pointer" />
+              <a>
+                <contact.Icon cursor="pointer" />
+              </a>
             </NextLink>
           ))}
         </HStack>
