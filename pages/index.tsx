@@ -184,7 +184,7 @@ export default function Home() {
             <Text fontSize="1.5rem" mb="2.25rem" color={NAMED_COLORS.WHITE}>
               Blockchain statistics for $IRON
             </Text>
-            <HStack>
+            <HStack spacing="1rem">
               <NextLink href={RoutePaths.Explorer} passHref>
                 <Button variant="secondary" size="medium">
                   View All Blocks
