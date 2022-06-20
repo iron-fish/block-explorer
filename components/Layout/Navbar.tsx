@@ -150,7 +150,7 @@ const Navbar: FC = () => {
         <Box
           flex={{ base: 1.5, lg: 1 }}
           order={{ base: 10, sm: 2 }}
-          p="1.5rem 0rem"
+          p={{ base: '1rem 0rem 1.5rem 0rem', sm: '1.5rem 0rem' }}
         >
           <NavSearch />
         </Box>
