@@ -162,7 +162,7 @@ const Navbar: FC = () => {
           ml={{ base: 0, sm: '1.5rem' }}
           w="50%"
         >
-          <Box mr={{ base: '2rem', lg: 0 }}>{$content}</Box>
+          <Box mr={{ base: '1.5rem', lg: 0 }}>{$content}</Box>
           <ColorModeSwitcher />
         </Flex>
       </Flex>
