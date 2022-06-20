@@ -52,8 +52,12 @@ const NodeVersionButton: FC<StyleProps> = (props: StyleProps) => {
         py="0.25rem"
         px="1rem"
         textTransform="none"
-        _hover={{
-          bg: NAMED_COLORS.LIGHT_YELLOW,
+        sx={{
+          transitionProperty: 'var(--chakra-transition-property-common)',
+          transitionDuration: 'var(--chakra-transition-duration-normal)',
+          _hover: {
+            bg: NAMED_COLORS.LIGHT_YELLOW,
+          },
         }}
         cursor="pointer"
         {...props}
