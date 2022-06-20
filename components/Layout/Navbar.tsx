@@ -140,7 +140,7 @@ const Navbar: FC = () => {
             mb="0.125rem"
             whiteSpace="nowrap"
           >
-            <IronFishLogo />
+            <IronFishLogo cursor="pointer" />
             <NodeVersionButton
               mx="1rem"
               display={{ base: 'none', lg: 'inline-block' }}
