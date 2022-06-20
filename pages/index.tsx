@@ -171,7 +171,7 @@ export default function Home() {
         <Box mx={{ base: '2rem', lg: '15%' }} w="100%" zIndex={1}>
           <Flex direction="column" mb="5.3125rem">
             <Text
-              fontSize="3.25rem"
+              fontSize={{ base: '2.625rem', sm: '3.25rem' }}
               lineHeight="3.8675rem"
               color={NAMED_COLORS.WHITE}
               mb="1.125rem"
