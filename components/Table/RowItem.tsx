@@ -14,7 +14,7 @@ const RowItem: FC<RowItemProps> = ({ label = null, children, ...rest }) =>
               boxShadow="unset !important"
               display={{ base: 'block', lg: 'none' }}
             >
-              <Th p="0.9375rem 0">{label}</Th>
+              <Th p={{ sm: '0 0 0.9375rem', lg: '0.9375rem 0' }}>{label}</Th>
             </Box>
           </Box>
         )}

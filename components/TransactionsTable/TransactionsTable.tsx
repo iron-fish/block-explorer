@@ -41,6 +41,7 @@ const TAG_COLUMN: ColumnProps<TransactionType> = {
         borderRadius="5rem"
         py="0.25rem"
         px="1rem"
+        mt={{ base: '1rem', lg: 0 }}
         textTransform="none"
       >
         <h5>Miner&nbsp;Reward&nbsp;+&nbsp;Fee</h5>
@@ -67,7 +68,7 @@ const TransactionsTable: FC<TransactionsTableProps> = props => {
         ...TAG_COLUMN,
         WrapperProps: {
           w: '100%',
-          pt: '1rem',
+          pt: '0rem',
           pb: '0rem',
         },
         ItemProps: {
