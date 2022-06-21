@@ -103,11 +103,17 @@ const Footer: FC = () => {
       bgColor={$colors.bg}
       borderTop="0.0625rem solid"
       borderColor={$colors.border}
-      p="4rem 7.6875rem 0rem"
-      display={{ base: 'none', xl: 'block' }}
+      p={{ base: '4rem 2rem 0rem', sm: '4rem 7.6875rem 0rem' }}
+      display={{ base: 'block', sm: 'none', xl: 'block' }}
     >
-      <Flex direction="column">
-        <Flex justify="space-between" w="100%" mb="4rem">
+      <Flex direction="column" align={{ base: 'center' }}>
+        <Flex
+          justify="space-between"
+          w={{ base: 'unset', sm: '100%' }}
+          mb="4rem"
+          direction={{ base: 'column', sm: 'row' }}
+          gap={'1.5rem'}
+        >
           <Flex direction={'column'}>
             <NextLink href="https://www.ironfish.network/" passHref>
               <Box mb="1.1875rem" cursor="pointer">
@@ -152,14 +158,18 @@ const Footer: FC = () => {
       </Flex>
       <Flex
         align={'center'}
-        h="4.0625rem"
         w="100%"
         borderTop="0.0625rem solid"
         borderColor={$colors.border}
         color={$colors.color}
-        direction="row"
+        direction={{ base: 'column', sm: 'row' }}
+        p={{ base: '1rem', sm: 0 }}
       >
-        <Text fontSize="0.75rem" pl="0.8125rem">
+        <Text
+          fontSize="0.75rem"
+          pl={{ base: 0, sm: '0.8125rem' }}
+          my={{ base: '0.875rem', sm: '1.5rem' }}
+        >
           2021 Iron Fish. All rights reserved.
         </Text>
         <HStack spacing={'1.375rem'} justifyContent="flex-end" flex={1}>
