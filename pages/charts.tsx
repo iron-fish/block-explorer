@@ -43,12 +43,12 @@ export default function Charts() {
         </Box>
         <Flex align="center">
           {loaded && (
-            <VStack spacing={'2rem'} width={'100%'}>
+            <Flex gap={'2rem'} direction="column" width={'100%'}>
               <UniqueGraffiti data={data} />
               <TransactionVolume data={data} />
               <Difficulty data={data} />
               <BlockTime data={data} />
-            </VStack>
+            </Flex>
           )}
         </Flex>
       </Box>
