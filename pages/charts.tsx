@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import Head from 'next/head'
-import { Flex, Box, VStack } from '@ironfish/ui-kit'
+import { Flex, Box } from '@ironfish/ui-kit'
 
 import useBlocksMetrics from 'hooks/useBlocksMetrics'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
