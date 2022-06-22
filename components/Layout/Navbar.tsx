@@ -52,8 +52,12 @@ const NodeVersionButton: FC<StyleProps> = (props: StyleProps) => {
         py="0.25rem"
         px="1rem"
         textTransform="none"
-        _hover={{
-          bg: NAMED_COLORS.LIGHT_YELLOW,
+        sx={{
+          transitionProperty: 'var(--chakra-transition-property-common)',
+          transitionDuration: 'var(--chakra-transition-duration-normal)',
+          _hover: {
+            bg: NAMED_COLORS.LIGHT_YELLOW,
+          },
         }}
         cursor="pointer"
         {...props}
@@ -136,7 +140,7 @@ const Navbar: FC = () => {
             mb="0.125rem"
             whiteSpace="nowrap"
           >
-            <IronFishLogo />
+            <IronFishLogo cursor="pointer" />
             <NodeVersionButton
               mx="1rem"
               display={{ base: 'none', lg: 'inline-block' }}
@@ -146,7 +150,7 @@ const Navbar: FC = () => {
         <Box
           flex={{ base: 1.5, lg: 1 }}
           order={{ base: 10, sm: 2 }}
-          p="1.5rem 0rem"
+          p={{ base: '1rem 0rem 1.5rem 0rem', sm: '1.5rem 0rem' }}
         >
           <NavSearch />
         </Box>
@@ -158,7 +162,7 @@ const Navbar: FC = () => {
           ml={{ base: 0, sm: '1.5rem' }}
           w="50%"
         >
-          <Box mr={{ base: '2rem', lg: 0 }}>{$content}</Box>
+          <Box mr={{ base: '1.5rem', lg: 0 }}>{$content}</Box>
           <ColorModeSwitcher />
         </Flex>
       </Flex>

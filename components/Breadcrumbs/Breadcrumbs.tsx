@@ -105,7 +105,8 @@ const Breadcrumbs: FC<BreadCrumbProps> = ({ queryParams }) => {
         <h5 style={{ cursor: 'default', color: separatorColor }}>/</h5>
       }
       spacing="1rem"
-      py="1rem"
+      pt="1rem"
+      pb="1.5rem"
     >
       {resolvePath(route, queryParams).map(breadcrumb => (
         <BreadcrumbItem key={breadcrumb.key}>{breadcrumb.link}</BreadcrumbItem>

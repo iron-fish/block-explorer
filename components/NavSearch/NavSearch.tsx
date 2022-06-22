@@ -37,12 +37,10 @@ const getOptionLabel = (option: BlockType | TransactionType) =>
   option ? `${option.id} - ${option.hash}` : ''
 
 const SearchInput: FC<InputProps> = () => {
-  const shortSearchPlaceHolder = 'Search'
-  const longSearchPlaceHolder = 'Search by block height, hash or transaction'
   const $placeholder = useBreakpointValue({
-    base: longSearchPlaceHolder,
-    sm: shortSearchPlaceHolder,
-    xl: longSearchPlaceHolder,
+    base: 'Search by height, hash or txn',
+    sm: 'Search',
+    xl: 'Search by block height, hash or transaction',
   })
   const [$search, $setSearch] = useState<string>()
   const router = useRouter()
