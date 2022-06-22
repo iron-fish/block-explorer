@@ -59,7 +59,7 @@ export const CommonTable: FC<
             borderRadius="0.25rem"
             borderColor="inherit"
             boxShadow="0 0.25rem 0.668rem rgba(0, 0, 0, 0.04)"
-            p="1rem"
+            p={{ sm: '1rem 0', lg: '1rem' }}
             cursor={block && onRowClick ? 'pointer' : 'default'}
             onClick={() => block && onRowClick && onRowClick(block)}
           >
@@ -84,12 +84,14 @@ export const CommonTable: FC<
                   lg: 'inherit !important',
                 }}
                 _first={{
+                  pl: '2rem',
                   borderLeft: {
                     base: 'none !important',
                     lg: 'inherit !important',
                   },
                 }}
                 _last={{
+                  pr: '2rem',
                   borderRight: {
                     base: 'none !important',
                     lg: 'inherit !important',
