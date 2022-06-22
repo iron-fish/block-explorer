@@ -8,6 +8,7 @@ import {
   NAMED_COLORS,
   chakra,
   Text,
+  FONTS,
 } from '@ironfish/ui-kit'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -62,7 +63,7 @@ const TransactionDataBlock = ({ label, value, icon }) => {
       <Text
         color={NAMED_COLORS.GREY}
         fontSize="0.75rem"
-        fontFamily="ABC Favorit Trial"
+        fontFamily={FONTS.FAVORIT}
         display={{ base: 'block', md: 'none' }}
         mb="1rem"
       >
@@ -122,7 +123,7 @@ const TransactionsDataList = ({ data = [], isInput = true }) => {
       <Text
         color={NAMED_COLORS.GREY}
         fontSize="0.75rem"
-        fontFamily="ABC Favorit Trial"
+        fontFamily={FONTS.FAVORIT}
         pl="2rem"
         mb="1rem"
         display={{ base: 'none', md: 'block' }}

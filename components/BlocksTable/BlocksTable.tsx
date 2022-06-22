@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { Box, NAMED_COLORS } from '@ironfish/ui-kit'
-import size from 'byte-size'
+import byteSize from 'byte-size'
 import { useRouter } from 'next/router'
 import pipe from 'ramda/src/pipe'
 
@@ -14,9 +14,7 @@ import RoutePaths from 'constants/RoutePaths'
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
 
-size.defaultOptions({
-  precision: 2,
-})
+const size = value => byteSize(value, { precision: 2 })
 
 const COLUMNS: ColumnProps<BlockType>[] = [
   {
