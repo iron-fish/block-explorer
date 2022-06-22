@@ -42,7 +42,8 @@ const TransactionDataBlock = ({ label, value, icon }) => {
   )
 
   const $hashSize = useBreakpointValue({
-    base: 16,
+    base: 12,
+    sm: 16,
     md: 9,
     lg: 10,
     xl: 12,
@@ -113,10 +114,10 @@ const TransactionsDataList = ({ data = [], isInput = true }) => {
   return (
     <Box
       flex={1}
-      w={{ sm: '100%', md: 'calc(50% - 2rem)' }}
+      w={{ base: '100%', md: 'calc(50% - 2rem)' }}
       mr={{ base: 0, md: '1rem' }}
       mb="1rem"
-      display={{ sm: data?.length ? 'block' : 'none', md: 'block' }}
+      display={{ base: data?.length ? 'block' : 'none', md: 'block' }}
     >
       <Text
         color={NAMED_COLORS.GREY}
