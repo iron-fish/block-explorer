@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import Head from 'next/head'
-import { Flex, Box, VStack } from '@ironfish/ui-kit'
+import { Flex, Box } from '@ironfish/ui-kit'
 
 import useBlocksMetrics from 'hooks/useBlocksMetrics'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
@@ -43,12 +43,12 @@ export default function Charts() {
         </Box>
         <Flex align="center">
           {loaded && (
-            <VStack spacing={'2rem'} width={'100%'}>
+            <Flex gap={'2rem'} direction="column" width={'100%'}>
               <UniqueGraffiti data={data} />
               <TransactionVolume data={data} />
               <Difficulty data={data} />
               <BlockTime data={data} />
-            </VStack>
+            </Flex>
           )}
         </Flex>
       </Box>
