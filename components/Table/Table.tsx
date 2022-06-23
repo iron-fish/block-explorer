@@ -10,15 +10,10 @@ import {
   Tr,
   useColorModeValue,
 } from '@ironfish/ui-kit'
-import size from 'byte-size'
 
 import RowItem from './RowItem'
 import RowItemSpin from './RowItemSpin'
 import { CommonTableProps } from './types'
-
-size.defaultOptions({
-  precision: 2,
-})
 
 export const CommonTable: FC<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

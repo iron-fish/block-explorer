@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import size from 'byte-size'
 import { Badge, Box, NAMED_COLORS, useBreakpointValue } from '@ironfish/ui-kit'
 import pipe from 'ramda/src/pipe'
 import pathOr from 'ramda/src/pathOr'
@@ -13,10 +12,6 @@ import RoutePaths from 'constants/RoutePaths'
 
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
-
-size.defaultOptions({
-  precision: 2,
-})
 
 const HEIGHT_COLUMN: ColumnProps<TransactionType> = {
   key: 'transaction-height',
