@@ -59,7 +59,8 @@ export default function Explorer() {
           justifyContent="space-between"
         >
           <Breadcrumbs />
-          <BlocksViewButtons />
+          {/*Hide chain explorer switch button while its not finished
+           <BlocksViewButtons /> */}
         </Flex>
         <Box my="0.5rem">
           <h3>All Blocks</h3>
