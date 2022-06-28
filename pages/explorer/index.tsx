@@ -1,6 +1,6 @@
 import { Box, Flex } from '@ironfish/ui-kit'
 import { BlocksTable } from 'components'
-import BlocksViewButtons from 'components/BlocksViewButtons'
+// import BlocksViewButtons from 'components/BlocksViewButtons'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import useInfiniteBlocks from 'hooks/useInfiniteBlocks'
 import Head from 'next/head'
