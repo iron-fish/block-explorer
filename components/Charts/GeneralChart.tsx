@@ -71,6 +71,7 @@ const GeneralChart: FC<GeneralChartProps> = ({
     }
   )
   const $bottomAxisTicks = useBreakpointValue({ base: 4, md: 10 })
+  const $isMobile = useBreakpointValue({ base: true, sm: false })
   const xAccessor = (metric: Metric): Date => new Date(metric.date)
 
   return (
@@ -136,7 +137,7 @@ const GeneralChart: FC<GeneralChartProps> = ({
               const d = xAccessor(tooltipData.nearestDatum.datum)
               return (
                 <>
-                  {format(d, 'iii, dd MMM yyyy')}:{' '}
+                  {format(d, 'iii, dd MMM yyyy')}:{$isMobile ? <br /> : ' '}
                   {yAccessor(tooltipData.nearestDatum.datum).toString()}
                 </>
               )
