@@ -190,9 +190,10 @@ export default function Home() {
                   View All Blocks
                 </Button>
               </NextLink>
+              {/* Hide chain explorer switch button while its not finished
               <Button variant="secondary" size="medium">
                 View Chain Explorer
-              </Button>
+              </Button> */}
             </HStack>
           </Flex>
           <LastBlockInfo />
