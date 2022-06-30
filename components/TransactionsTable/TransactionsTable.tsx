@@ -47,7 +47,7 @@ const TAG_COLUMN: ColumnProps<TransactionType> = {
 }
 const HASH_COLUMN: ColumnProps<TransactionType> = {
   key: 'transaction-hash',
-  label: 'Block Hash',
+  label: 'Hash',
   render: transaction => {
     const hash = safeProp('hash')(transaction)
     return <CopyValueToClipboard value={hash} label={truncateHash(hash)} />
