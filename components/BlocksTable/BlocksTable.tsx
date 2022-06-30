@@ -10,6 +10,7 @@ import { safeProp } from 'utils/safeProp'
 import { formatBlockTimestamp } from 'utils/format'
 import { BlockType } from 'types'
 import RoutePaths from 'constants/RoutePaths'
+import { CopyValueToClipboard } from 'components'
 
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
@@ -42,7 +43,10 @@ const COLUMNS: ColumnProps<BlockType>[] = [
   {
     key: 'block-hash',
     label: 'Block Hash',
-    render: pipe(safeProp('hash'), truncateHash),
+    render: block => {
+      const hash = safeProp('hash')(block)
+      return <CopyValueToClipboard value={hash} label={truncateHash(hash)} />
+    },
   },
   {
     key: 'block-timestamp',

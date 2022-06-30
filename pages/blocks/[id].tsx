@@ -3,8 +3,6 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { Box } from '@ironfish/ui-kit'
 
-import unless from 'ramda/src/unless'
-import equals from 'ramda/src/equals'
 import pipe from 'ramda/src/pipe'
 
 import { CardContainer, Card, TimeStamp } from 'components'
@@ -23,6 +21,7 @@ import { truncateHash } from 'utils/hash'
 import safeProp from 'utils/safeProp'
 import { TransactionsTable } from 'components/TransactionsTable'
 import { BlockType } from 'types'
+import { CopyValueToClipboard } from 'components'
 
 const BLOCK_CARDS = [
   {
@@ -34,10 +33,12 @@ const BLOCK_CARDS = [
   {
     key: 'hash-card',
     label: 'Block hash',
-    value: pipe(
-      safeProp('hash'),
-      unless(equals(''), hash => truncateHash(hash, 2, 4))
-    ),
+    value: block => {
+      const hash = safeProp('hash')(block)
+      return (
+        <CopyValueToClipboard value={hash} label={truncateHash(hash, 2, 4)} />
+      )
+    },
     icon: <DifficultyIcon />,
   },
   {
