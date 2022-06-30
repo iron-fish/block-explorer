@@ -49,7 +49,7 @@ const HASH_COLUMN: ColumnProps<TransactionType> = {
   render: transaction => truncateHash(transaction.blocks[0].hash),
 }
 const FEE_COLUMN: ColumnProps<TransactionType> = {
-  key: 'transaction-block-fee',
+  key: 'transaction-fee',
   label: 'Fee',
   render: transaction => `${transaction.fee} Ore`,
 }
