@@ -1,10 +1,10 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 import { HStack, BoxProps, StackProps, Box } from '@ironfish/ui-kit'
 
 import CopyToClipboardButton from './CopyToClipboardButton'
 
 interface CopyValueToClipboardProps {
-  label: string
+  label: ReactNode
   value: string
   labelProps?: BoxProps
   containerProps?: StackProps
