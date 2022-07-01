@@ -48,6 +48,11 @@ const HASH_COLUMN: ColumnProps<TransactionType> = {
   label: 'Block Hash',
   render: transaction => truncateHash(transaction.blocks[0].hash),
 }
+const FEE_COLUMN: ColumnProps<TransactionType> = {
+  key: 'transaction-fee',
+  label: 'Fee',
+  render: transaction => `${transaction.fee} Ore`,
+}
 const DATE_COLUMN = {
   key: 'transaction-timestamp',
   label: 'Timestamp',
@@ -72,9 +77,10 @@ const TransactionsTable: FC<TransactionsTableProps> = props => {
       },
       HEIGHT_COLUMN,
       HASH_COLUMN,
+      FEE_COLUMN,
       DATE_COLUMN,
     ],
-    lg: [HEIGHT_COLUMN, TAG_COLUMN, HASH_COLUMN, DATE_COLUMN],
+    lg: [HEIGHT_COLUMN, TAG_COLUMN, HASH_COLUMN, FEE_COLUMN, DATE_COLUMN],
   })
   const router = useRouter()
 
