@@ -23,7 +23,7 @@ import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import useTransactionByHash from 'hooks/useTransactionByHash'
 import {
   DifficultyIcon,
-  SecondsToBlockIcon,
+  BlockInfoTimestampIcon,
   InOutPutsIcon,
   LargeArrowLeftDown,
   LargeArrowRightUp,
@@ -194,7 +194,7 @@ const TRANSACTION_INFO_CARDS = [
     key: 'timestamp-card',
     label: 'Timestamp',
     value: pipe(pathOr({}, ['blocks', 0]), formatBlockTimestamp),
-    icon: <SecondsToBlockIcon />,
+    icon: <BlockInfoTimestampIcon />,
   },
   {
     key: 'inputs-outputs-card',
