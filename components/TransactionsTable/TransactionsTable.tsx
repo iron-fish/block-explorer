@@ -9,6 +9,8 @@ import { truncateHash } from 'utils/hash'
 import { formatBlockTimestamp } from 'utils/format'
 import TransactionType from 'types/domain/TransactionType'
 import RoutePaths from 'constants/RoutePaths'
+import { safeProp } from 'utils/safeProp'
+import { CopyValueToClipboard } from 'components'
 
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
@@ -44,9 +46,12 @@ const TAG_COLUMN: ColumnProps<TransactionType> = {
     ),
 }
 const HASH_COLUMN: ColumnProps<TransactionType> = {
-  key: 'transaction-block-hash',
-  label: 'Block Hash',
-  render: transaction => truncateHash(transaction.blocks[0].hash),
+  key: 'transaction-hash',
+  label: 'Hash',
+  render: transaction => {
+    const hash = safeProp('hash')(transaction)
+    return <CopyValueToClipboard value={hash} label={truncateHash(hash)} />
+  },
 }
 const FEE_COLUMN: ColumnProps<TransactionType> = {
   key: 'transaction-fee',

@@ -14,11 +14,9 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import size from 'byte-size'
 import pathOr from 'ramda/src/pathOr'
-import unless from 'ramda/src/unless'
-import equals from 'ramda/src/equals'
 import pipe from 'ramda/src/pipe'
 
-import { Card, CardContainer, CopyToClipboardButton } from 'components'
+import { Card, CardContainer, CopyValueToClipboard } from 'components'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import useTransactionByHash from 'hooks/useTransactionByHash'
 import {
@@ -71,15 +69,16 @@ const TransactionDataBlock = ({ label, value, icon }) => {
       </Text>
       <Flex align="center">
         {icon}
-        <chakra.h4
-          ml="1rem"
-          color={NAMED_COLORS.LIGHT_BLUE}
-          overflow="hidden"
-          w="100%"
-        >
-          {truncateHash(value, 2, $hashSize)}
-        </chakra.h4>
-        <CopyToClipboardButton value={value} />
+        <CopyValueToClipboard
+          labelProps={{
+            ml: '1rem',
+            color: NAMED_COLORS.LIGHT_BLUE,
+            overflow: 'hidden',
+            w: '100%',
+          }}
+          value={value}
+          label={truncateHash(value, 2, $hashSize)}
+        />
       </Flex>
     </Flex>
   )
@@ -153,29 +152,19 @@ const TRANSACTION_INFO_CARDS = [
   {
     key: 'block-hash-card',
     label: 'Block Hash',
-    value: (transaction: TransactionType | null) => (
-      <Flex align="center">
-        {pipe(
-          pathOr('', ['blocks', 0, 'hash']),
-          unless(equals(''), hash => truncateHash(hash, 2))
-        )(transaction)}
-        <CopyToClipboardButton value={transaction?.blocks[0]?.hash} />
-      </Flex>
-    ),
+    value: (transaction: TransactionType | null) => {
+      const hash = pathOr('', ['blocks', 0, 'hash'])(transaction)
+      return <CopyValueToClipboard value={hash} label={truncateHash(hash, 2)} />
+    },
     icon: <DifficultyIcon />,
   },
   {
     key: 'transaction-hash-card',
     label: 'Transaction Hash',
-    value: (transaction: TransactionType | null) => (
-      <Flex align="center">
-        {pipe(
-          safeProp('hash'),
-          unless(equals(''), hash => truncateHash(hash, 2))
-        )(transaction)}
-        <CopyToClipboardButton value={transaction?.hash} />
-      </Flex>
-    ),
+    value: (transaction: TransactionType | null) => {
+      const hash = safeProp('hash')(transaction)
+      return <CopyValueToClipboard value={hash} label={truncateHash(hash, 2)} />
+    },
     icon: <DifficultyIcon />,
   },
   {
