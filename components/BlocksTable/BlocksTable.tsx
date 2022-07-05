@@ -31,11 +31,6 @@ const COLUMNS: ColumnProps<BlockType>[] = [
     ),
   },
   {
-    key: 'block-size',
-    label: 'Size',
-    render: pipe(safeProp('size'), x => size(x).toString()),
-  },
-  {
     key: 'block-transactions',
     label: 'TXN',
     render: safeProp('transactions_count'),
@@ -52,6 +47,11 @@ const COLUMNS: ColumnProps<BlockType>[] = [
     key: 'block-timestamp',
     label: 'Timestamp',
     render: formatBlockTimestamp,
+  },
+  {
+    key: 'block-graffiti',
+    label: 'Graffiti',
+    render: safeProp('graffiti'),
   },
 ]
 
