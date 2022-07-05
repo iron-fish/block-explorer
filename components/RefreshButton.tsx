@@ -22,6 +22,7 @@ const RefreshButton: FC<RefreshButtonProps> = ({
         top={offsetTop}
         onClick={onClick}
         sx={{
+          cursor: 'pointer',
           background: NAMED_COLORS.LIGHT_RED,
           color: NAMED_COLORS.DEEP_BLUE,
           boxShadow: '0rem 0.25rem 0.6875rem rgba(0, 0, 0, 0.04)',
@@ -32,9 +33,11 @@ const RefreshButton: FC<RefreshButtonProps> = ({
           margin: 'auto',
           zIndex: 3,
           w: '100%',
+          transition: 'background 300ms ease-out',
           _hover: {
-            background: NAMED_COLORS.WHITE,
+            background: '#F8A0D7',
             color: NAMED_COLORS.BLACK,
+            transition: 'background 300ms ease-in',
           },
         }}
       >
