@@ -9,7 +9,11 @@ const useInfiniteBlocks = (
   limit = 20,
   with_transactions = false,
   only_main: boolean | null = true
-): [AsyncDataProps<ResponseType<BlockType[]>>, VoidFunction] => {
+): [
+  AsyncDataProps<ResponseType<BlockType[]>>,
+  VoidFunction,
+  () => Promise<void>
+] => {
   const service = useContext(BlockContext)
   const [loaded, setLoaded] = useState<boolean>(false)
   const [error, setError] = useState<Error>()

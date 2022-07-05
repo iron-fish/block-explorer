@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from 'react'
+import { useContext, useEffect } from 'react'
 
 import { BlockContext } from 'contexts/ServiceContexts'
 import { BlockType } from 'types'
