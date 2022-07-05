@@ -1,8 +1,6 @@
 import { FC } from 'react'
 import { Box, NAMED_COLORS } from '@ironfish/ui-kit'
-import byteSize from 'byte-size'
 import { useRouter } from 'next/router'
-import pipe from 'ramda/src/pipe'
 
 import BlockIcon from 'icons/BlockIcon'
 import { truncateHash } from 'utils/hash'
@@ -14,8 +12,6 @@ import { CopyValueToClipboard } from 'components'
 
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
-
-const size = value => byteSize(value, { precision: 2 })
 
 const COLUMNS: ColumnProps<BlockType>[] = [
   {
