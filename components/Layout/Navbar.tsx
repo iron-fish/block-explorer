@@ -1,4 +1,4 @@
-import { FC, useRef } from 'react'
+import { FC, useRef, useMemo } from 'react'
 import {
   Flex,
   Box,
@@ -20,6 +20,13 @@ import Link from 'next/link'
 import RoutePaths from 'constants/RoutePaths'
 import useNodeVersion from 'hooks/useNodeVersion'
 
+const openInNewTab = (url: string): void => {
+  const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+  if (newWindow) {
+    newWindow.opener = null
+  }
+}
+
 const NodeVersionButton: FC<StyleProps> = (props: StyleProps) => {
   const { loaded, data, error } = useNodeVersion()
 
@@ -34,49 +41,51 @@ const NodeVersionButton: FC<StyleProps> = (props: StyleProps) => {
     `
   )
 
+  const versionUrl = useMemo(
+    () =>
+      `https://github.com/iron-fish/ironfish/releases/${
+        loaded ? 'tag/v' + data.ironfish.version : ''
+      }`,
+    [loaded, data]
+  )
+
   if (error) {
     return null
   }
 
   return (
-    <Link
-      href={`https://github.com/iron-fish/ironfish/releases/${
-        loaded ? 'tag/v' + data.ironfish.version : ''
-      }`}
-      passHref
+    <Badge
+      onClick={() => openInNewTab(versionUrl)}
+      bg={NAMED_COLORS.LIGHTER_GREY}
+      color={NAMED_COLORS.BLACK}
+      borderRadius="5rem"
+      py="0.25rem"
+      px="1rem"
+      textTransform="none"
+      sx={{
+        transitionProperty: 'var(--chakra-transition-property-common)',
+        transitionDuration: 'var(--chakra-transition-duration-normal)',
+        _hover: {
+          bg: NAMED_COLORS.LIGHT_YELLOW,
+        },
+      }}
+      cursor="pointer"
+      {...props}
     >
-      <Badge
-        bg={NAMED_COLORS.LIGHTER_GREY}
-        color={NAMED_COLORS.BLACK}
-        borderRadius="5rem"
-        py="0.25rem"
-        px="1rem"
-        textTransform="none"
-        sx={{
-          transitionProperty: 'var(--chakra-transition-property-common)',
-          transitionDuration: 'var(--chakra-transition-duration-normal)',
-          _hover: {
-            bg: NAMED_COLORS.LIGHT_YELLOW,
-          },
-        }}
-        cursor="pointer"
-        {...props}
-      >
-        {loaded ? (
-          <Center>
-            <h5>Node {data.ironfish.version}</h5>
-            <OuterReferenceIcon ml="0.5rem" mb="0.1rem" />
-          </Center>
-        ) : (
-          <Box
-            h="1.375rem"
-            minW="6rem"
-            animation={`${spinAnimation} infinite 0.7s alternate`}
-            borderRadius="0.2rem"
-          />
-        )}
-      </Badge>
-    </Link>
+      {loaded ? (
+        <Center>
+          <h5>Node {data.ironfish.version}</h5>
+          <OuterReferenceIcon ml="0.5rem" mb="0.1rem" />
+        </Center>
+      ) : (
+        <Box
+          h="1.375rem"
+          minW="6rem"
+          animation={`${spinAnimation} infinite 0.7s alternate`}
+          borderRadius="0.2rem"
+        />
+      )}
+    </Badge>
   )
 }
 
