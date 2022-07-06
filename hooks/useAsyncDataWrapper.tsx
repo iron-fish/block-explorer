@@ -13,7 +13,7 @@ function useAsyncDataWrapper<T>(): [
   const promiseWrapper = useCallback((promise: Promise<T>) => {
     setLoaded(false)
     setError(undefined)
-    promise
+    return promise
       .then(setData)
       .catch(setError)
       .finally(() => setLoaded(true))
