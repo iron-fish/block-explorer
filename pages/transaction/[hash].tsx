@@ -227,12 +227,7 @@ const TransactionInfo = ({ data, loaded }) => {
       <Box mt="2rem" mb={{ base: '2rem', md: '0.5rem' }}>
         <h3>Transactions</h3>
       </Box>
-      <Text
-        as="h4"
-        color={$subTextColor}
-        display={{ base: 'none', md: 'block' }}
-        mb="2rem"
-      >
+      <Text as="h4" color={$subTextColor} mb="2rem">
         Your transaction details are hidden because $IRON is a privacy chain
       </Text>
       <Flex w="100%" wrap="wrap" mb="3.5rem">
