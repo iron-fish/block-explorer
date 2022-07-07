@@ -71,6 +71,7 @@ const TransactionDataBlock = ({ label, value, icon }) => {
         {icon}
         <CopyValueToClipboard
           labelProps={{
+            wordBreak: { base: 'break-word', sm: 'unset' },
             ml: '1rem',
             color: NAMED_COLORS.LIGHT_BLUE,
             overflow: 'hidden',
