@@ -7,7 +7,6 @@ import pipe from 'ramda/src/pipe'
 
 import { CardContainer, Card, TimeStamp } from 'components'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
-import useBlockBySeq from 'hooks/useBlockBySeq'
 import {
   DifficultyIcon,
   BlockInfoHeightIcon,
@@ -22,6 +21,7 @@ import safeProp from 'utils/safeProp'
 import { TransactionsTable } from 'components/TransactionsTable'
 import { BlockType } from 'types'
 import { CopyValueToClipboard } from 'components'
+import useBlock from 'hooks/useBlock'
 
 const BLOCK_CARDS = [
   {
@@ -76,7 +76,7 @@ const BLOCK_CARDS = [
 ]
 
 const BlockInfo = ({ id }) => {
-  const block = useBlockBySeq(id)
+  const block = useBlock(id)
 
   if (block.error) {
     throw block.error
