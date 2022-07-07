@@ -1,8 +1,6 @@
 import { FC } from 'react'
 import { Box, NAMED_COLORS } from '@ironfish/ui-kit'
-import byteSize from 'byte-size'
 import { useRouter } from 'next/router'
-import pipe from 'ramda/src/pipe'
 
 import BlockIcon from 'icons/BlockIcon'
 import { truncateHash } from 'utils/hash'
@@ -14,8 +12,6 @@ import { CopyValueToClipboard } from 'components'
 
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
-
-const size = value => byteSize(value, { precision: 2 })
 
 const COLUMNS: ColumnProps<BlockType>[] = [
   {
@@ -29,11 +25,6 @@ const COLUMNS: ColumnProps<BlockType>[] = [
         <Box color={NAMED_COLORS.LIGHT_BLUE}>{block.sequence}</Box>
       </>
     ),
-  },
-  {
-    key: 'block-size',
-    label: 'Size',
-    render: pipe(safeProp('size'), x => size(x).toString()),
   },
   {
     key: 'block-transactions',
@@ -52,6 +43,11 @@ const COLUMNS: ColumnProps<BlockType>[] = [
     key: 'block-timestamp',
     label: 'Timestamp',
     render: formatBlockTimestamp,
+  },
+  {
+    key: 'block-graffiti',
+    label: 'Graffiti',
+    render: safeProp('graffiti'),
   },
 ]
 
