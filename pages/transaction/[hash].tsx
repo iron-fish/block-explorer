@@ -231,7 +231,12 @@ const TransactionInfo = ({ data, loaded }) => {
       <Text as="h4" color={$subTextColor} mb="2rem">
         Your transaction details are hidden because $IRON is a privacy chain
       </Text>
-      <Flex w="100%" wrap="wrap" mb="3.5rem">
+      <Flex
+        w="100%"
+        wrap="wrap"
+        direction={{ base: 'column', md: 'row' }}
+        mb="3.5rem"
+      >
         <TransactionsDataList data={data?.spends} />
         <TransactionsDataList data={data?.notes} isInput={false} />
       </Flex>
