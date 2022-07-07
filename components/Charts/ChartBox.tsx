@@ -12,7 +12,7 @@ const ChartBox: FC<ChartBoxProps> = ({ header, average, children }) => {
   return (
     <BorderBox>
       <h4>{header}</h4>
-      <h5>Daily Average: {average}</h5>
+      <h5>Daily Average: {average.toLocaleString()}</h5>
       {children}
     </BorderBox>
   )
