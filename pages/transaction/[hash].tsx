@@ -198,6 +198,10 @@ const TRANSACTION_INFO_CARDS = [
 ]
 
 const TransactionInfo = ({ data, loaded }) => {
+  const $subTextColor = useColorModeValue(
+    NAMED_COLORS.GREY,
+    NAMED_COLORS.PALE_GREY
+  )
   return (
     <>
       <Box mt="0.5rem" mb="2rem">
@@ -220,9 +224,12 @@ const TransactionInfo = ({ data, loaded }) => {
           />
         ))}
       </CardContainer>
-      <Box my="2rem">
+      <Box mt="2rem" mb={{ base: '2rem', md: '0.5rem' }}>
         <h3>Transactions</h3>
       </Box>
+      <Text as="h4" color={$subTextColor} mb="2rem">
+        Your transaction details are hidden because $IRON is a privacy chain
+      </Text>
       <Flex w="100%" wrap="wrap" mb="3.5rem">
         <TransactionsDataList data={data?.spends} />
         <TransactionsDataList data={data?.notes} isInput={false} />
