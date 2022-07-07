@@ -17,7 +17,7 @@ import { useRouter } from 'next/router'
 
 const Option: FC<{ label: string }> = ({ label }) => {
   return (
-    <Flex minH="1.875rem" alignItems="center">
+    <Flex minH="1.875rem" alignItems="center" cursor="pointer">
       <Box mr="1rem">
         <BlockIcon w="1.625rem" h="1.875rem" />
       </Box>
