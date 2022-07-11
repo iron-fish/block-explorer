@@ -225,7 +225,7 @@ const TransactionInfo = ({ data, loaded }) => {
           />
         ))}
       </CardContainer>
-      <Box mt="2rem" mb={{ base: '2rem', md: '0.5rem' }}>
+      <Box mt="2rem" mb="0.5rem">
         <h3>Transactions</h3>
       </Box>
       <Text as="h4" color={$subTextColor} mb="2rem">
