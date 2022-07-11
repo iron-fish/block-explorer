@@ -99,7 +99,7 @@ const Footer: FC = () => {
   return (
     <Box
       w="100%"
-      h="20rem"
+      h={{ base: 'auto', sm: '20rem' }}
       bgColor={$colors.bg}
       borderTop="0.0625rem solid"
       borderColor={$colors.border}
