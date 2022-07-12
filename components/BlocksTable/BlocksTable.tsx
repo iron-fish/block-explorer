@@ -1,8 +1,6 @@
 import { FC } from 'react'
 import { Box, NAMED_COLORS } from '@ironfish/ui-kit'
-import size from 'byte-size'
 import { useRouter } from 'next/router'
-import pipe from 'ramda/src/pipe'
 
 import BlockIcon from 'icons/BlockIcon'
 import { truncateHash } from 'utils/hash'
@@ -10,13 +8,10 @@ import { safeProp } from 'utils/safeProp'
 import { formatBlockTimestamp } from 'utils/format'
 import { BlockType } from 'types'
 import RoutePaths from 'constants/RoutePaths'
+import { CopyValueToClipboard } from 'components'
 
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
-
-size.defaultOptions({
-  precision: 2,
-})
 
 const COLUMNS: ColumnProps<BlockType>[] = [
   {
@@ -32,11 +27,6 @@ const COLUMNS: ColumnProps<BlockType>[] = [
     ),
   },
   {
-    key: 'block-size',
-    label: 'Size',
-    render: pipe(safeProp('size'), x => size(x).toString()),
-  },
-  {
     key: 'block-transactions',
     label: 'TXN',
     render: safeProp('transactions_count'),
@@ -44,12 +34,20 @@ const COLUMNS: ColumnProps<BlockType>[] = [
   {
     key: 'block-hash',
     label: 'Block Hash',
-    render: pipe(safeProp('hash'), truncateHash),
+    render: block => {
+      const hash = safeProp('hash')(block)
+      return <CopyValueToClipboard value={hash} label={truncateHash(hash)} />
+    },
   },
   {
     key: 'block-timestamp',
     label: 'Timestamp',
     render: formatBlockTimestamp,
+  },
+  {
+    key: 'block-graffiti',
+    label: 'Graffiti',
+    render: safeProp('graffiti'),
   },
 ]
 

@@ -10,15 +10,10 @@ import {
   Tr,
   useColorModeValue,
 } from '@ironfish/ui-kit'
-import size from 'byte-size'
 
 import RowItem from './RowItem'
 import RowItemSpin from './RowItemSpin'
 import { CommonTableProps } from './types'
-
-size.defaultOptions({
-  precision: 2,
-})
 
 export const CommonTable: FC<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -59,7 +54,7 @@ export const CommonTable: FC<
             borderRadius="0.25rem"
             borderColor="inherit"
             boxShadow="0 0.25rem 0.668rem rgba(0, 0, 0, 0.04)"
-            p={{ sm: '1rem 0', lg: '1rem' }}
+            p={{ base: '1rem 0', lg: '1rem' }}
             cursor={block && onRowClick ? 'pointer' : 'default'}
             onClick={() => block && onRowClick && onRowClick(block)}
           >

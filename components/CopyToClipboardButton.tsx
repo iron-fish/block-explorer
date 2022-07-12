@@ -25,10 +25,11 @@ const CopyToClipboardButton: FC<CopyToClipboardButtonProps> = ({ value }) => {
       <IconButton
         aria-label="Copy to clipboard"
         h="1.25rem"
-        onClick={() => {
+        onClick={e => {
           if (!$copied) {
             navigator.clipboard.writeText(value)
             $setCopied(true)
+            e.stopPropagation()
           }
         }}
         background="none"

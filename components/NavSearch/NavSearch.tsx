@@ -37,7 +37,7 @@ const Option: FC<{ label: string }> = ({ label }) => {
 const getOptionLabel = (option: BlockType | TransactionType) =>
   option ? `${option.id} - ${option.hash}` : ''
 
-const SearchInput: FC<InputProps> = () => {
+const NavSearch: FC<InputProps> = () => {
   const $placeholder = useBreakpointValue({
     base: 'Search by height, hash or txn',
     sm: 'Search',
@@ -64,6 +64,7 @@ const SearchInput: FC<InputProps> = () => {
       variant="navSearch"
       inputLeftElement={<SearchIcon />}
       options={options}
+      emptyOption="No matches"
       getOptionLabel={getOptionLabel}
       onSelectOption={(option: BlockType | TransactionType) => {
         const isBlockOption = isBlock(option)
@@ -84,4 +85,4 @@ const SearchInput: FC<InputProps> = () => {
   )
 }
 
-export default SearchInput
+export default NavSearch

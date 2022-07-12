@@ -15,6 +15,7 @@ import {
   useColorModeValue,
   NAMED_COLORS,
   useBreakpointValue,
+  FONTS,
 } from '@ironfish/ui-kit'
 import format from 'date-fns/format'
 import getDate from 'date-fns/getDate'
@@ -45,7 +46,7 @@ const GeneralChart: FC<GeneralChartProps> = ({
         svgLabelSmall: {
           fill: NAMED_COLORS.GREY,
           fontSize: '0.75rem',
-          fontFamily: 'favorit-regular',
+          fontFamily: FONTS.FAVORIT,
         },
         svgLabelBig: { fill: NAMED_COLORS.BLACK },
         tickLength: 0,
@@ -61,7 +62,7 @@ const GeneralChart: FC<GeneralChartProps> = ({
         svgLabelSmall: {
           fill: NAMED_COLORS.PALE_GREY,
           fontSize: '0.75rem',
-          fontFamily: 'favorit-regular',
+          fontFamily: FONTS.FAVORIT,
         },
         svgLabelBig: { fill: NAMED_COLORS.WHITE },
         tickLength: 0,
@@ -70,6 +71,7 @@ const GeneralChart: FC<GeneralChartProps> = ({
     }
   )
   const $bottomAxisTicks = useBreakpointValue({ base: 4, md: 10 })
+  const $isMobile = useBreakpointValue({ base: true, sm: false })
   const xAccessor = (metric: Metric): Date => new Date(metric.date)
 
   return (
@@ -119,7 +121,7 @@ const GeneralChart: FC<GeneralChartProps> = ({
             tickLabelProps={() => ({
               fill: $colors.bottomAxisLabelColor,
               fontSize: '0.75rem',
-              fontFamily: 'ABC Favorit Trial',
+              fontFamily: FONTS.FAVORIT,
             })}
             tickTransform="translate(0, 18)"
             hideAxisLine
@@ -135,7 +137,7 @@ const GeneralChart: FC<GeneralChartProps> = ({
               const d = xAccessor(tooltipData.nearestDatum.datum)
               return (
                 <>
-                  {format(d, 'iii, dd MMM yyyy')}:{' '}
+                  {format(d, 'iii, dd MMM yyyy')}:{$isMobile ? <br /> : ' '}
                   {yAccessor(tooltipData.nearestDatum.datum).toString()}
                 </>
               )

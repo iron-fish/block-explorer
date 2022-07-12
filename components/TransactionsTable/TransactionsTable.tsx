@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import size from 'byte-size'
 import { Badge, Box, NAMED_COLORS, useBreakpointValue } from '@ironfish/ui-kit'
 import pipe from 'ramda/src/pipe'
 import pathOr from 'ramda/src/pathOr'
@@ -10,13 +9,11 @@ import { truncateHash } from 'utils/hash'
 import { formatBlockTimestamp } from 'utils/format'
 import TransactionType from 'types/domain/TransactionType'
 import RoutePaths from 'constants/RoutePaths'
+import { safeProp } from 'utils/safeProp'
+import { CopyValueToClipboard } from 'components'
 
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
-
-size.defaultOptions({
-  precision: 2,
-})
 
 const HEIGHT_COLUMN: ColumnProps<TransactionType> = {
   key: 'transaction-height',
@@ -49,9 +46,17 @@ const TAG_COLUMN: ColumnProps<TransactionType> = {
     ),
 }
 const HASH_COLUMN: ColumnProps<TransactionType> = {
-  key: 'transaction-block-hash',
-  label: 'Block Hash',
-  render: transaction => truncateHash(transaction.blocks[0].hash),
+  key: 'transaction-hash',
+  label: 'Hash',
+  render: transaction => {
+    const hash = safeProp('hash')(transaction)
+    return <CopyValueToClipboard value={hash} label={truncateHash(hash)} />
+  },
+}
+const FEE_COLUMN: ColumnProps<TransactionType> = {
+  key: 'transaction-fee',
+  label: 'Fee',
+  render: transaction => `${transaction.fee} Ore`,
 }
 const DATE_COLUMN = {
   key: 'transaction-timestamp',
@@ -77,9 +82,10 @@ const TransactionsTable: FC<TransactionsTableProps> = props => {
       },
       HEIGHT_COLUMN,
       HASH_COLUMN,
+      FEE_COLUMN,
       DATE_COLUMN,
     ],
-    lg: [HEIGHT_COLUMN, TAG_COLUMN, HASH_COLUMN, DATE_COLUMN],
+    lg: [HEIGHT_COLUMN, TAG_COLUMN, HASH_COLUMN, FEE_COLUMN, DATE_COLUMN],
   })
   const router = useRouter()
 

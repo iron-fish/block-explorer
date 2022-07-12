@@ -171,7 +171,7 @@ export default function Home() {
         <Box mx={{ base: '2rem', lg: '15%' }} w="100%" zIndex={1}>
           <Flex direction="column" mb="5.3125rem">
             <Text
-              fontSize={{ base: '2.5rem', sm: '3.25rem' }}
+              fontSize={{ base: '2.3rem', sm: '3.25rem' }}
               lineHeight="3.8675rem"
               color={NAMED_COLORS.WHITE}
               mb="1.125rem"
@@ -181,7 +181,11 @@ export default function Home() {
               <br />
               Iron Fish Block Explorer
             </Text>
-            <Text fontSize="1.5rem" mb="2.25rem" color={NAMED_COLORS.WHITE}>
+            <Text
+              fontSize={{ base: '1.3rem', sm: '1.5rem' }}
+              mb="2.25rem"
+              color={NAMED_COLORS.WHITE}
+            >
               Blockchain statistics for $IRON
             </Text>
             <HStack spacing="1rem">
@@ -190,9 +194,10 @@ export default function Home() {
                   View All Blocks
                 </Button>
               </NextLink>
+              {/* Hide chain explorer switch button while its not finished
               <Button variant="secondary" size="medium">
                 View Chain Explorer
-              </Button>
+              </Button> */}
             </HStack>
           </Flex>
           <LastBlockInfo />
