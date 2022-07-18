@@ -53,7 +53,7 @@ const MENU_LINKS = [
       },
       {
         name: 'FAQ',
-        href: EXTERNAL_LINKS.IRONFISH_DOCS,
+        href: EXTERNAL_LINKS.IRONFISH_FAQ,
       },
     ],
   },
