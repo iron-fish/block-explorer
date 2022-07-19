@@ -248,8 +248,12 @@ export default function TransactionInformationPage() {
   const router = useRouter()
   const { hash } = router.query
 
-  const { data, loaded } = useTransactionByHash(hash as string)
+  const { data, loaded, error } = useTransactionByHash(hash as string)
   const block = pathOr({}, ['blocks', 0])(data)
+
+  if (error) {
+    throw error
+  }
 
   return (
     <main style={{ width: '100%', height: '100%' }}>
