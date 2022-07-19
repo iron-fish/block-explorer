@@ -20,7 +20,7 @@ function Error({ handleReload, error }) {
       }}
     >
       <Flex
-        pt="96px"
+        pt="6rem"
         w="100%"
         align="center"
         direction="column"
@@ -28,10 +28,10 @@ function Error({ handleReload, error }) {
         mb="auto"
         ref={container}
       >
-        <Box maxW="611px" maxH="226px" w="100%" h="100%">
+        <Box maxW="38.1875rem" maxH="14.125rem" w="100%" h="100%">
           <Logo404 />
         </Box>
-        <Box pt="64px" maxW="686px" textAlign="center">
+        <Box pt="4rem" maxW="42.875rem" textAlign="center">
           {error ? (
             <h3>
               This transaction or block either does not exist or hasn’t made it
