@@ -4,7 +4,6 @@ export function Logo404(props: SVGProps) {
   return (
     <svg
       viewBox="0 0 611 226"
-      scale={true}
       preserveAspectRatio="none"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

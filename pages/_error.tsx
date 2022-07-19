@@ -1,8 +1,14 @@
 import { useRef } from 'react'
-import { Flex, Box, useDimensions, Button } from '@ironfish/ui-kit'
+import {
+  Flex,
+  Box,
+  useDimensions,
+  Button,
+  NAMED_COLORS,
+} from '@ironfish/ui-kit'
 import Logo404 from 'svgx/Logo404'
 
-function Error({ onClick, error }) {
+function Error({ handleReload, error }) {
   const container = useRef(null)
   const dimension = useDimensions(container, true)
 
@@ -30,7 +36,11 @@ function Error({ onClick, error }) {
             <h3>
               This transaction or block either does not exist or hasn’t made it
               to the explorer yet.{' '}
-              <Button variant="link" onClick={onClick} color="blue">
+              <Button
+                variant="link"
+                onClick={handleReload}
+                color={NAMED_COLORS.LIGHT_BLUE}
+              >
                 <h3>Refresh to try again.</h3>
               </Button>
             </h3>

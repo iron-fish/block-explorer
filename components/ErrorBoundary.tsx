@@ -1,6 +1,15 @@
-import React from 'react'
+import React, { ReactNode, Component } from 'react'
+import Error from 'pages/_error'
 
-class ErrorBoundary extends React.Component {
+interface ErrorBoundaryProps {
+  children?: ReactNode
+}
+interface ErrorBoundaryState {
+  hasError: boolean
+  error?: Error
+}
+
+class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props) {
     super(props)
 
@@ -11,17 +20,14 @@ class ErrorBoundary extends React.Component {
     // Update state so the next render will show the fallback UI
     return { hasError: true, error }
   }
-  componentDidCatch(error, errorInfo) {
-    // You can use your own error logging service here
-    // console.log({ error, errorInfo })
-  }
+
   render() {
     // Check if the error is thrown
     if (this.state.hasError) {
       // You can render any custom fallback UI
       return (
-        <this.props.FallbackComponent
-          onClick={() => this.setState({ hasError: false })}
+        <Error
+          handleReload={() => this.setState({ hasError: false })}
           error={this.state.error}
         />
       )
