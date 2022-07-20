@@ -78,6 +78,10 @@ const BLOCK_CARDS = [
 const BlockInfo = ({ id }) => {
   const block = useBlockBySeq(id)
 
+  if (block.error) {
+    throw block.error
+  }
+
   return (
     <>
       <Box mt="0.5rem" mb="2rem">
