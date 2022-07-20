@@ -6,11 +6,30 @@ import {
   Button,
   NAMED_COLORS,
 } from '@ironfish/ui-kit'
+import { useRouter } from 'next/router'
+
+import RoutePaths from 'constants/RoutePaths'
 import Logo404 from 'svgx/Logo404'
+
+const getErrorMessage = pathname => {
+  let type = 'transaction or block'
+  switch (pathname) {
+    case RoutePaths.BlockInfo:
+      type = 'block'
+      break
+    case RoutePaths.TransactionInfo:
+      type = 'transaction'
+      break
+    default:
+      break
+  }
+  return `This ${type} either does not exist or hasn’t made it to the explorer yet.`
+}
 
 function Error({ handleReload, error }) {
   const container = useRef(null)
   const dimension = useDimensions(container, true)
+  const { pathname } = useRouter()
 
   return (
     <Flex
@@ -34,8 +53,7 @@ function Error({ handleReload, error }) {
         <Box pt="4rem" maxW="42.875rem" textAlign="center">
           {error ? (
             <h3>
-              This transaction or block either does not exist or hasn’t made it
-              to the explorer yet.{' '}
+              {getErrorMessage(pathname)}{' '}
               <Button
                 variant="link"
                 onClick={handleReload}
