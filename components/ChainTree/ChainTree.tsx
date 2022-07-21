@@ -84,7 +84,7 @@ const ChainTree: FC<ChainTreeProps> = ({ blocks, head }) => {
                 $selectedNode,
                 $detailsHeight
               )}
-              bgTextColor={getBGColorBySeq(head?.sequence, node.data.sequence)}
+              bgTextColor={getBGColorBySeq(node.data.sequence)}
               onSelect={selectedNode => setNode(selectedNode)}
             />
           ))}
