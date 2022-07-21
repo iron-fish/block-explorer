@@ -35,7 +35,7 @@ const ChainExplorer = ({ after = null }) => {
   const [observerTopRef] = useInfiniteScroll({
     loading: !loaded,
     hasNextPage: metadata?.has_previous,
-    disabled: true || (focused && !!error),
+    disabled: focused && !!error,
     onLoadMore: loadPrev,
     rootMargin: '200px 0px 0px 0px',
   })
