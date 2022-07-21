@@ -1,7 +1,7 @@
 import size from 'byte-size'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { Box } from '@ironfish/ui-kit'
+import { Box, Flex } from '@ironfish/ui-kit'
 
 import pipe from 'ramda/src/pipe'
 
@@ -22,6 +22,7 @@ import safeProp from 'utils/safeProp'
 import { TransactionsTable } from 'components/TransactionsTable'
 import { BlockType } from 'types'
 import { CopyValueToClipboard } from 'components'
+import BlocksViewButtons from 'components/BlocksViewButtons'
 
 const BLOCK_CARDS = [
   {
@@ -80,6 +81,9 @@ const BlockInfo = ({ id }) => {
 
   return (
     <>
+      <Box position="fixed" mt="2.5rem">
+        <BlocksViewButtons blockId={block.data?.id} />
+      </Box>
       <Box mt="0.5rem" mb="2rem">
         <h3>Block Information</h3>
       </Box>
@@ -127,9 +131,9 @@ export default function BlockInformationPage() {
         <title>Iron Fish: Block {id}</title>
       </Head>
       <Box mx={{ base: '2rem', lg: '15%' }} mb="6rem" zIndex={1}>
-        <Box mt="2.5rem">
+        <Flex mt="2.5rem">
           <Breadcrumbs />
-        </Box>
+        </Flex>
         <BlockInfo id={id} />
       </Box>
     </main>

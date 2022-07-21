@@ -28,7 +28,7 @@ const Node: FC<NodeProps> = ({
   )
   return (
     node.parent && (
-      <Group top={position.y} left={0}>
+      <Group top={position.y} left={0} id={`chain-tree-node-${node.data.id}`}>
         <Group left={position.x} top={0} onClick={() => onSelect(node)}>
           <rect
             height={40}
