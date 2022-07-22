@@ -54,8 +54,8 @@ const BLOCK_CARDS = [
     icon: <BlockInfoDifficultyIcon />,
   },
   {
-    key: 'txn-card',
-    label: 'Transactions Count',
+    key: 'transactions_count-card',
+    label: 'Transactions',
     value: safeProp('transactions_count'),
     icon: <BlockInfoTxnIcon />,
   },
