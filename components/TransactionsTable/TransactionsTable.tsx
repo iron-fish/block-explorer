@@ -16,8 +16,8 @@ import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
 
 const HEIGHT_COLUMN: ColumnProps<TransactionType> = {
-  key: 'transaction-height',
-  label: 'Height',
+  key: 'transaction-id',
+  label: 'TXN ID',
   render: transaction => (
     <>
       <Box mr="1rem">
