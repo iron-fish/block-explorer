@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Box, Flex, Skeleton } from '@ironfish/ui-kit'
 import { useRouter } from 'next/router'
 
@@ -9,6 +9,15 @@ import { ChainTree } from 'components/ChainTree'
 import BlocksViewButtons from 'components/BlocksViewButtons'
 
 const BLOCKS_LIMIT = 20
+
+const scrollToBlock = blockId => {
+  const component = document.getElementById(`chain-tree-node-${blockId}`)
+  if (component) {
+    component.scrollIntoView({ block: 'center' })
+    return true
+  }
+  return false
+}
 
 const ChainExplorer = ({ after = null }) => {
   const [
@@ -21,13 +30,10 @@ const ChainExplorer = ({ after = null }) => {
     loadPrev,
   ] = useBidirectionalInfiniteScroll(BLOCKS_LIMIT, false, null, after)
 
-  const [focused, setFocused] = useState(!after)
-  const [lastHeadId, setLastHeadId] = useState(null)
-
   const [observerRef] = useInfiniteScroll({
     loading: !loaded,
     hasNextPage: metadata?.has_next,
-    disabled: focused && !!error,
+    disabled: !!error,
     onLoadMore: loadNext,
     rootMargin: '0px 0px 400px 0px',
   })
@@ -35,36 +41,29 @@ const ChainExplorer = ({ after = null }) => {
   const [observerTopRef] = useInfiniteScroll({
     loading: !loaded,
     hasNextPage: metadata?.has_previous,
-    disabled: focused && !!error,
-    onLoadMore: loadPrev,
-    rootMargin: '200px 0px 0px 0px',
-  })
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    if (!focused && loaded && after) {
-      const component = document.getElementById(`chain-tree-node-${after}`)
-      if (component && !focused) {
-        component.scrollIntoView({ block: 'center' })
-        // component.focus()
-        setFocused(true)
-      }
-    }
+    disabled: !!error,
+    onLoadMore: () => {
+      loadPrev().then(() => {
+        const interval = setInterval(() => {
+          if (scrollToBlock(data[0].id)) {
+            clearInterval(interval)
+          }
+        }, 500)
+      })
+    },
+    rootMargin: '-95px 0px 0px 0px',
   })
 
   useEffect(() => {
-    if (data[0]?.id && data?.length > BLOCKS_LIMIT * 2) {
-      if (lastHeadId) {
-        const component = document.getElementById(
-          `chain-tree-node-${lastHeadId}`
-        )
-        if (component) {
-          component.scrollIntoView({ block: 'center' })
+    const interval = setInterval(() => {
+      if (after) {
+        if (scrollToBlock(after)) {
+          clearInterval(interval)
         }
       }
-      setLastHeadId(data[0].id)
-    }
-  }, [data])
+    }, 1000)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   if ((!loaded && (!data || data.length === 0)) || error) {
     return <Skeleton h="calc(100vh - 6rem)" w="100%" />
@@ -109,7 +108,6 @@ export default function ChainExplorerPage() {
             <BlocksViewButtons />
           </Box>
         </Flex>
-        {/* {process.browser && <Minimap of={renderPage()} />} */}
         <ChainExplorer after={router.query?.after || null} />
       </Box>
     </main>
