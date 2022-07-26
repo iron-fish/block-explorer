@@ -1,6 +1,6 @@
 {
   "name": "block-explorer-v2",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -49,9 +49,5 @@
   "peerDependencies": {
     "@babel/core": "^7.0.0-0",
     "@chakra-ui/system": "^1.0.0"
-  },
-  "resolutions": {
-    "@types/react": "17.0.2",
-    "@types/react-dom": "17.0.2"
   }
 }

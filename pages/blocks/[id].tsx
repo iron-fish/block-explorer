@@ -54,8 +54,8 @@ const BLOCK_CARDS = [
     icon: <BlockInfoDifficultyIcon />,
   },
   {
-    key: 'transactions_count-card',
-    label: 'Transactions',
+    key: 'txn-card',
+    label: 'Transactions Count',
     value: safeProp('transactions_count'),
     icon: <BlockInfoTxnIcon />,
   },
@@ -77,10 +77,6 @@ const BLOCK_CARDS = [
 
 const BlockInfo = ({ id }) => {
   const block = useBlock(id)
-
-  if (block.error) {
-    throw block.error
-  }
 
   return (
     <>

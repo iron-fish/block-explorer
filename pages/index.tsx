@@ -18,7 +18,7 @@ import {
   HeightIcon,
   DifficultyIcon,
   LatestBlockHashIcon,
-  BlockInfoTxnIcon,
+  LatestBlockTXNIcon,
   SecondsToBlockIcon,
   TotalSupplyIcon,
 } from 'svgx'
@@ -46,14 +46,14 @@ const LAST_BLOCK_INFO_CARDS = [
     icon: <LatestBlockHashIcon />,
   },
   {
-    key: 'transactions_count-card',
-    label: 'Blocks in last transaction',
+    key: 'txn-card',
+    label: 'Latest Block txn',
     value: (block: BlockType | null) => block?.transactions_count,
-    icon: <BlockInfoTxnIcon />,
+    icon: <LatestBlockTXNIcon />,
   },
   {
     key: 'interval-card',
-    label: 'Last Block Time',
+    label: 'Seconds to block',
     value: (block: BlockType | null) =>
       Math.floor(block?.time_since_last_block_ms / 1000),
     icon: <SecondsToBlockIcon />,
