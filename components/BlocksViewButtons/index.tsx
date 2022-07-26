@@ -48,8 +48,18 @@ const BlocksViewButtons: FC<BlocksViewButtonsProps> = ({ blockId }) => {
       <IconButton
         aria-label="list-button"
         icon={<ListIcon height="24px" width="24px" />}
-        isActive={router.route === RoutePaths.Explorer}
-        onClick={() => router.push(RoutePaths.Explorer)}
+        isActive={
+          router.route === RoutePaths.Explorer ||
+          router.route === RoutePaths.BlockInfo
+        }
+        onClick={() =>
+          blockId
+            ? router.push({
+                pathname: RoutePaths.BlockInfo,
+                query: { id: blockId },
+              })
+            : router.push(RoutePaths.Explorer)
+        }
         sx={$iconStyle}
       />
       <IconButton
@@ -59,7 +69,7 @@ const BlocksViewButtons: FC<BlocksViewButtonsProps> = ({ blockId }) => {
         onClick={() =>
           router.push({
             pathname: RoutePaths.ChainExplorer,
-            query: { after: blockId },
+            query: { blockId },
           })
         }
         sx={$iconStyle}

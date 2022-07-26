@@ -1,9 +1,11 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { Group } from '@visx/group'
 
 import BlockPreview from './BlockPreview'
 import { NodeProps } from './types'
 import { NAMED_COLORS, useColorModeValue } from '@ironfish/ui-kit'
+
+import styles from './Node.module.scss'
 
 const Node: FC<NodeProps> = ({
   node,
@@ -14,6 +16,7 @@ const Node: FC<NodeProps> = ({
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   onSelect = () => {},
 }) => {
+  const [$focused, $setFocused] = useState(false)
   const $colors = useColorModeValue(
     {
       border: NAMED_COLORS.LIGHT_GREY,
@@ -26,9 +29,20 @@ const Node: FC<NodeProps> = ({
       text: NAMED_COLORS.DEEP_BLUE,
     }
   )
+
   return (
     node.parent && (
-      <Group top={position.y} left={0} id={`chain-tree-node-${node.data.id}`}>
+      <Group
+        tabIndex={node.data.id}
+        top={position.y}
+        left={0}
+        id={`chain-tree-node-${node.data.id}`}
+        onFocus={() => $setFocused(true)}
+        onBlur={() => $setFocused(false)}
+        className={`${
+          $focused ? styles.node_group__focused : styles.node_group
+        }`}
+      >
         <Group left={position.x} top={0} onClick={() => onSelect(node)}>
           <rect
             height={40}

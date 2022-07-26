@@ -1,0 +1,37 @@
+.node_group {
+
+  :hover>rect,
+  :focus>rect,
+  :active>rect {
+    stroke: #0d0c22;
+  }
+
+  [data-theme='dark'] :hover>rect,
+  [data-theme='dark'] :focus>rect,
+  [data-theme='dark'] :active>rect {
+    stroke: #ffffff;
+  }
+
+  g {
+    :focus {
+      outline: none;
+    }
+  }
+
+
+  &__focused {
+    rect {
+      stroke: #0d0c22;
+    }
+  }
+
+  [data-theme='dark'] &__focused {
+    rect {
+      stroke: #ffffff;
+    }
+  }
+
+  :focus {
+    outline: none;
+  }
+}

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Box, Flex, Skeleton } from '@ironfish/ui-kit'
 import { useRouter } from 'next/router'
 
@@ -10,16 +10,17 @@ import BlocksViewButtons from 'components/BlocksViewButtons'
 
 const BLOCKS_LIMIT = 20
 
-const scrollToBlock = blockId => {
+const scrollToBlock = (blockId, setFocus = false) => {
   const component = document.getElementById(`chain-tree-node-${blockId}`)
   if (component) {
     component.scrollIntoView({ block: 'center' })
+    setFocus && component.focus()
     return true
   }
   return false
 }
 
-const ChainExplorer = ({ after = null }) => {
+const ChainExplorer = ({ blockId = null }) => {
   const [
     {
       loaded,
@@ -28,20 +29,14 @@ const ChainExplorer = ({ after = null }) => {
     },
     loadNext,
     loadPrev,
-  ] = useBidirectionalInfiniteScroll(BLOCKS_LIMIT, false, null, after)
+  ] = useBidirectionalInfiniteScroll(BLOCKS_LIMIT, false, null, blockId)
 
-  const [observerRef] = useInfiniteScroll({
-    loading: !loaded,
-    hasNextPage: metadata?.has_next,
-    disabled: !!error,
-    onLoadMore: loadNext,
-    rootMargin: '0px 0px 400px 0px',
-  })
+  const targetBlock = useRef(null)
 
   const [observerTopRef] = useInfiniteScroll({
     loading: !loaded,
     hasNextPage: metadata?.has_previous,
-    disabled: !!error,
+    disabled: true || !!error,
     onLoadMore: () => {
       loadPrev().then(() => {
         const interval = setInterval(() => {
@@ -54,14 +49,23 @@ const ChainExplorer = ({ after = null }) => {
     rootMargin: '-95px 0px 0px 0px',
   })
 
+  const [observerRef] = useInfiniteScroll({
+    loading: !loaded,
+    hasNextPage: metadata?.has_next,
+    disabled: !!error,
+    onLoadMore: loadNext,
+    rootMargin: '0px 0px 400px 0px',
+  })
+
   useEffect(() => {
     const interval = setInterval(() => {
-      if (after) {
-        if (scrollToBlock(after)) {
+      if (blockId) {
+        if (scrollToBlock(blockId, true)) {
           clearInterval(interval)
         }
       }
     }, 1000)
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -69,8 +73,17 @@ const ChainExplorer = ({ after = null }) => {
     return <Skeleton h="calc(100vh - 6rem)" w="100%" />
   }
 
+  if (!targetBlock.current) {
+    targetBlock.current = data.find(({ id }) => id.toString() === blockId)
+  }
+
   return (
     <>
+      <Flex w="100%" justifyContent="end">
+        <Box position="fixed" mt="2.5rem">
+          <BlocksViewButtons blockId={targetBlock.current.sequence} />
+        </Box>
+      </Flex>
       <span
         ref={observerTopRef}
         style={{
@@ -103,12 +116,7 @@ export default function ChainExplorerPage() {
         <title>Iron Fish: Chain Explorer</title>
       </Head>
       <Box mx={{ base: '2rem', lg: '15%' }}>
-        <Flex w="100%" justifyContent="end">
-          <Box position="fixed" mt="2.5rem">
-            <BlocksViewButtons />
-          </Box>
-        </Flex>
-        <ChainExplorer after={router.query?.after || null} />
+        <ChainExplorer blockId={router.query?.blockId || null} />
       </Box>
     </main>
   )

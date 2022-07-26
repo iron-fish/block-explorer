@@ -81,9 +81,12 @@ const BlockInfo = ({ id }) => {
 
   return (
     <>
-      <Box position="fixed" mt="2.5rem">
-        <BlocksViewButtons blockId={block.data?.id} />
-      </Box>
+      <Flex mt="2.5rem">
+        <Breadcrumbs />
+        <Box pt="0.6875rem" ml="auto">
+          <BlocksViewButtons blockId={block.data?.id} />
+        </Box>
+      </Flex>
       <Box mt="0.5rem" mb="2rem">
         <h3>Block Information</h3>
       </Box>
@@ -131,9 +134,6 @@ export default function BlockInformationPage() {
         <title>Iron Fish: Block {id}</title>
       </Head>
       <Box mx={{ base: '2rem', lg: '15%' }} mb="6rem" zIndex={1}>
-        <Flex mt="2.5rem">
-          <Breadcrumbs />
-        </Flex>
         <BlockInfo id={id} />
       </Box>
     </main>
