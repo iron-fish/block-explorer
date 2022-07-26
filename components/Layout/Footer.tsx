@@ -53,7 +53,7 @@ const MENU_LINKS = [
       },
       {
         name: 'FAQ',
-        href: EXTERNAL_LINKS.IRONFISH_FAQ,
+        href: EXTERNAL_LINKS.IRONFISH_DOCS,
       },
     ],
   },
@@ -99,18 +99,19 @@ const Footer: FC = () => {
   return (
     <Box
       w="100%"
-      h={{ base: 'auto', md: '20rem' }}
+      h={{ base: 'auto', sm: '20rem' }}
       bgColor={$colors.bg}
       borderTop="0.0625rem solid"
       borderColor={$colors.border}
-      p={{ base: '4rem 2rem 0rem', md: '4rem 7.6875rem 0rem' }}
+      p={{ base: '4rem 2rem 0rem', sm: '4rem 7.6875rem 0rem' }}
+      display={{ base: 'block', sm: 'none', xl: 'block' }}
     >
-      <Flex direction="column" align="center">
+      <Flex direction="column" align={{ base: 'center' }}>
         <Flex
           justify="space-between"
-          w={{ base: 'unset', md: '100%' }}
+          w={{ base: 'unset', sm: '100%' }}
           mb="4rem"
-          direction={{ base: 'column', md: 'row' }}
+          direction={{ base: 'column', sm: 'row' }}
           gap={'1.5rem'}
         >
           <Flex direction={'column'}>
