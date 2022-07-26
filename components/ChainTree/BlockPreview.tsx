@@ -59,7 +59,7 @@ const BlockPreview = ({ block, height, onClose }) => {
   return (
     <Box
       h={`calc(${height}px - 0.5rem)`}
-      m="0.25rem"
+      m="0.25rem 1rem 0.25rem"
       border="0.063rem solid"
       borderColor={$colors.border}
       borderRadius="0.125rem"
@@ -69,7 +69,7 @@ const BlockPreview = ({ block, height, onClose }) => {
     >
       <CloseDetailsIcon
         position="absolute"
-        right="1.5rem"
+        right="2.5rem"
         top="1.5rem"
         cursor="pointer"
         onClick={onClose}
