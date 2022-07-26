@@ -73,7 +73,6 @@ const TransactionDataBlock = ({ label, value, icon }) => {
           labelProps={{
             wordBreak: { base: 'break-word', sm: 'unset' },
             ml: '1rem',
-            color: NAMED_COLORS.LIGHT_BLUE,
             overflow: 'hidden',
             w: '100%',
           }}
@@ -226,7 +225,7 @@ const TransactionInfo = ({ data, loaded }) => {
         ))}
       </CardContainer>
       <Box mt="2rem" mb="0.5rem">
-        <h3>Transactions</h3>
+        <h3>Inputs / Outputs</h3>
       </Box>
       <Text as="h4" color={$subTextColor} mb="2rem">
         Your transaction details are hidden because $IRON is a privacy chain
@@ -248,8 +247,12 @@ export default function TransactionInformationPage() {
   const router = useRouter()
   const { hash } = router.query
 
-  const { data, loaded } = useTransactionByHash(hash as string)
+  const { data, loaded, error } = useTransactionByHash(hash as string)
   const block = pathOr({}, ['blocks', 0])(data)
+
+  if (error) {
+    throw error
+  }
 
   return (
     <main style={{ width: '100%', height: '100%' }}>
