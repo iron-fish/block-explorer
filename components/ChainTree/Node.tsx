@@ -33,7 +33,7 @@ const Node: FC<NodeProps> = ({
   return (
     node.parent && (
       <Group
-        tabIndex={node.data.id}
+        tabIndex={+node.data.id}
         top={position.y}
         left={0}
         id={`chain-tree-node-${node.data.id}`}

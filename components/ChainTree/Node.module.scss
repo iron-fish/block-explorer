@@ -12,13 +12,6 @@
     stroke: #ffffff;
   }
 
-  g {
-    :focus {
-      outline: none;
-    }
-  }
-
-
   &__focused {
     rect {
       stroke: #0d0c22;
@@ -31,7 +24,11 @@
     }
   }
 
-  :focus {
+  g:focus {
+    outline: none;
+  }
+
+  &:focus {
     outline: none;
   }
 }

@@ -36,7 +36,7 @@ const ChainExplorer = ({ blockId = null }) => {
   const [observerTopRef] = useInfiniteScroll({
     loading: !loaded,
     hasNextPage: metadata?.has_previous,
-    disabled: true || !!error,
+    disabled: !!error,
     onLoadMore: () => {
       loadPrev().then(() => {
         const interval = setInterval(() => {
@@ -81,7 +81,7 @@ const ChainExplorer = ({ blockId = null }) => {
     <>
       <Flex w="100%" justifyContent="end">
         <Box position="fixed" mt="2.5rem">
-          <BlocksViewButtons blockId={targetBlock.current.sequence} />
+          <BlocksViewButtons blockId={targetBlock.current?.sequence} />
         </Box>
       </Flex>
       <span
