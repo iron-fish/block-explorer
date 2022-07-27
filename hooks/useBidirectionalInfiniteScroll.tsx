@@ -13,7 +13,7 @@ const useBidirectionalInfiniteScroll = (
 ): [
   AsyncDataProps<ResponseType<BlockType[]>>,
   VoidFunction,
-  () => Promise<void>
+  () => Promise<void | ResponseType<BlockType[]>>
 ] => {
   const loadingQueue = useRef(0)
   const service = useContext(BlockContext)

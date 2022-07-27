@@ -36,7 +36,7 @@ const ChainTree: FC<ChainTreeProps> = ({ blocks, head }) => {
   const height = chain.height * 80 + ($selectedNode ? $detailsHeight : 0) + 30
   const totalHeight = head?.sequence
     ? head?.sequence * 80 + $detailsHeight + 30
-    : '100vh'
+    : 1024
 
   return (
     <Box width="100%" height={height} overflow="hidden">
