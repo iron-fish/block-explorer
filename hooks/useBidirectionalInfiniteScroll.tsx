@@ -15,9 +15,9 @@ const useBidirectionalInfiniteScroll = (
   VoidFunction,
   () => Promise<void>
 ] => {
+  const loadingQueue = useRef(0)
   const service = useContext(BlockContext)
   const [loaded, setLoaded] = useState<boolean>(false)
-  const loadingQueue = useRef<boolean[]>([])
   const [error, setError] = useState<Error>()
   const [blocksData, setBlocksData] = useState<ResponseType<BlockType[]>>({
     data: [],
@@ -28,20 +28,20 @@ const useBidirectionalInfiniteScroll = (
     },
   })
 
-  const pushLoading = useCallback(() => loadingQueue.current.push(true), [])
-
-  const popLoading = useCallback(() => loadingQueue.current.pop(), [])
-
-  useEffect(() => {
-    if (loadingQueue.current.length === 0) {
-      setLoaded(true)
-    }
-  }, [loadingQueue.current.length])
-
   const loadBlocks = useCallback(
     params => {
+      if (loadingQueue.current > 0) {
+        return Promise.resolve({
+          data: [],
+          object: '',
+          metadata: {
+            has_previous: false,
+            has_next: false,
+          },
+        })
+      }
       setLoaded(false)
-      pushLoading()
+      ++loadingQueue.current
       setError(undefined)
       return service
         .blocks(params)
@@ -67,7 +67,12 @@ const useBidirectionalInfiniteScroll = (
           })
         )
         .catch(setError)
-        .finally(() => popLoading())
+        .finally(() => {
+          --loadingQueue.current
+          if (loadingQueue.current === 0) {
+            setLoaded(true)
+          }
+        })
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
@@ -94,7 +99,7 @@ const useBidirectionalInfiniteScroll = (
   useEffect(() => {
     const params = { limit, with_transactions, main: only_main }
     setLoaded(false)
-    pushLoading()
+    ++loadingQueue.current
     setError(undefined)
     const payload = after
       ? Promise.all([
@@ -118,7 +123,12 @@ const useBidirectionalInfiniteScroll = (
           main: true,
         })
 
-    payload.catch(setError).finally(() => popLoading())
+    payload.catch(setError).finally(() => {
+      --loadingQueue.current
+      if (loadingQueue.current === 0) {
+        setLoaded(true)
+      }
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [limit, with_transactions, after])
 

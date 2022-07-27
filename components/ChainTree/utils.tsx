@@ -59,7 +59,7 @@ export const calculateNodePosition = (
   selected: HierarchyNode<Tree<BlockType>> | null,
   detailsHeight = 280
 ): Position => {
-  const height = head.sequence * 80 + 30
+  const height = head?.sequence ? head.sequence * 80 + 30 : 1024
 
   return {
     x: 90 * getNodeXIndex(node),

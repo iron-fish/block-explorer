@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Box, Flex, Skeleton } from '@ironfish/ui-kit'
 import { useRouter } from 'next/router'
 
@@ -32,6 +32,7 @@ const ChainExplorer = ({ blockId = null }) => {
   ] = useBidirectionalInfiniteScroll(BLOCKS_LIMIT, false, null, blockId)
 
   const targetBlock = useRef(null)
+  const [focused, setFocused] = useState(false)
 
   const [observerTopRef] = useInfiniteScroll({
     loading: !loaded,
@@ -39,11 +40,13 @@ const ChainExplorer = ({ blockId = null }) => {
     disabled: !!error,
     onLoadMore: () => {
       loadPrev().then(() => {
-        const interval = setInterval(() => {
-          if (scrollToBlock(data[0].id)) {
-            clearInterval(interval)
-          }
-        }, 500)
+        if (data[0].id) {
+          const interval = setInterval(() => {
+            if (scrollToBlock(data[0].id)) {
+              clearInterval(interval)
+            }
+          }, 500)
+        }
       })
     },
     rootMargin: '-95px 0px 0px 0px',
@@ -58,16 +61,19 @@ const ChainExplorer = ({ blockId = null }) => {
   })
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (blockId) {
-        if (scrollToBlock(blockId, true)) {
-          clearInterval(interval)
+    if (blockId) {
+      const interval = setInterval(() => {
+        if (blockId) {
+          if (scrollToBlock(blockId, true)) {
+            clearInterval(interval)
+            setFocused(true)
+          }
         }
-      }
-    }, 1000)
+      }, 1000)
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [blockId])
 
   if ((!loaded && (!data || data.length === 0)) || error) {
     return <Skeleton h="calc(100vh - 6rem)" w="100%" />
@@ -87,6 +93,7 @@ const ChainExplorer = ({ blockId = null }) => {
       <span
         ref={observerTopRef}
         style={{
+          display: focused ? 'block' : 'none',
           background: 'transparent',
           border: 'none',
           height: '0',
@@ -97,6 +104,7 @@ const ChainExplorer = ({ blockId = null }) => {
       <span
         ref={observerRef}
         style={{
+          display: focused ? 'block' : 'none',
           background: 'transparent',
           border: 'none',
           height: '0',
@@ -109,6 +117,8 @@ const ChainExplorer = ({ blockId = null }) => {
 
 export default function ChainExplorerPage() {
   const router = useRouter()
+
+  console.log('ChainExplorerPage', router.query?.blockId)
 
   return (
     <main style={{ width: '100%', height: '100%' }}>
