@@ -91,11 +91,6 @@ const useBidirectionalInfiniteScroll = (
     })
   }
 
-  const reloadBlocks = () => {
-    setBlocksData({ data: [], object: '' })
-    return loadBlocks({ limit, with_transactions, main: only_main })
-  }
-
   useEffect(() => {
     const params = { limit, with_transactions, main: only_main }
     setLoaded(false)
@@ -141,7 +136,6 @@ const useBidirectionalInfiniteScroll = (
     },
     loadNext,
     loadPrev,
-    reloadBlocks,
   ]
 }
 
