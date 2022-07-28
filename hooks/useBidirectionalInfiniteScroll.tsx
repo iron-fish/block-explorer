@@ -1,4 +1,4 @@
-import { useContext, useEffect, useCallback, useState, useRef } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import { BlockContext } from 'contexts/ServiceContexts'
 import { AsyncDataProps, BlockType, ResponseType } from 'types'
@@ -15,7 +15,6 @@ const useBidirectionalInfiniteScroll = (
   VoidFunction,
   () => Promise<void | ResponseType<BlockType[]>>
 ] => {
-  const loadingQueue = useRef(0)
   const service = useContext(BlockContext)
   const [loaded, setLoaded] = useState<boolean>(false)
   const [error, setError] = useState<Error>()
@@ -28,57 +27,44 @@ const useBidirectionalInfiniteScroll = (
     },
   })
 
-  const loadBlocks = useCallback(
-    params => {
-      if (loadingQueue.current > 0) {
-        return Promise.resolve({
-          data: [],
-          object: '',
+  const setLoading = () => {
+    setLoaded(false)
+    setError(undefined)
+  }
+
+  const finishLoading = promise =>
+    promise.catch(setError).finally(() => setLoaded(true))
+
+  const loadBlocks = params => {
+    const blocksPromise = service.blocks(params).then(data =>
+      setBlocksData(prevData => {
+        return {
+          ...data,
+          data: sortBy(descend(safeProp('sequence')))(
+            uniqBy(
+              safeProp('id'),
+              params.before
+                ? data.data.concat(prevData.data)
+                : prevData.data.concat(data.data)
+            )
+          ),
           metadata: {
-            has_previous: false,
-            has_next: false,
+            has_previous: params.before
+              ? data.metadata.has_previous
+              : prevData.metadata?.has_previous,
+            has_next: data.metadata.has_next,
           },
-        })
-      }
-      setLoaded(false)
-      ++loadingQueue.current
-      setError(undefined)
-      return service
-        .blocks(params)
-        .then(data =>
-          setBlocksData(prevData => {
-            return {
-              ...data,
-              data: sortBy(descend(safeProp('sequence')))(
-                uniqBy(
-                  safeProp('id'),
-                  params.before
-                    ? data.data.concat(prevData.data)
-                    : prevData.data.concat(data.data)
-                )
-              ),
-              metadata: {
-                has_previous: params.before
-                  ? data.metadata.has_previous
-                  : prevData.metadata?.has_previous,
-                has_next: data.metadata.has_next,
-              },
-            }
-          })
-        )
-        .catch(setError)
-        .finally(() => {
-          --loadingQueue.current
-          if (loadingQueue.current === 0) {
-            setLoaded(true)
-          }
-        })
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  )
+        }
+      })
+    )
+    return finishLoading(blocksPromise)
+  }
 
   const loadNext = () => {
+    if (!loaded) {
+      return
+    }
+    setLoading()
     loadBlocks({
       limit,
       with_transactions,
@@ -88,6 +74,17 @@ const useBidirectionalInfiniteScroll = (
   }
 
   const loadPrev = () => {
+    if (!loaded) {
+      return Promise.resolve({
+        data: [],
+        object: '',
+        metadata: {
+          has_previous: false,
+          has_next: false,
+        },
+      })
+    }
+    setLoading()
     return loadBlocks({
       limit,
       with_transactions,
@@ -98,10 +95,8 @@ const useBidirectionalInfiniteScroll = (
 
   useEffect(() => {
     const params = { limit, with_transactions, main: only_main }
-    setLoaded(false)
-    ++loadingQueue.current
-    setError(undefined)
-    const payload = after
+    setLoading()
+    const blocksPromise = after
       ? Promise.all([
           service.blocks({ ...params, before: after - 1 }),
           service.blocks({ ...params, after, limit: limit + 1 }),
@@ -123,12 +118,7 @@ const useBidirectionalInfiniteScroll = (
           main: true,
         })
 
-    payload.catch(setError).finally(() => {
-      --loadingQueue.current
-      if (loadingQueue.current === 0) {
-        setLoaded(true)
-      }
-    })
+    finishLoading(blocksPromise)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [limit, with_transactions, after])
 

@@ -69,7 +69,7 @@ const BlocksViewButtons: FC<BlocksViewButtonsProps> = ({ blockId }) => {
         onClick={() =>
           router.push({
             pathname: RoutePaths.ChainExplorer,
-            query: { blockId },
+            ...(blockId && { query: { blockId } }),
           })
         }
         sx={$iconStyle}

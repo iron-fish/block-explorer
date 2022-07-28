@@ -7,6 +7,7 @@ import useBidirectionalInfiniteScroll from 'hooks/useBidirectionalInfiniteScroll
 import useInfiniteScroll from 'react-infinite-scroll-hook'
 import { ChainTree } from 'components/ChainTree'
 import BlocksViewButtons from 'components/BlocksViewButtons'
+import { BlockType } from 'types'
 
 const BLOCKS_LIMIT = 20
 
@@ -31,13 +32,13 @@ const ChainExplorer = ({ blockId = null }) => {
     loadPrev,
   ] = useBidirectionalInfiniteScroll(BLOCKS_LIMIT, false, null, blockId)
 
-  const targetBlock = useRef(null)
-  const [focused, setFocused] = useState(false)
+  const $focusedBlock = useRef<BlockType>(null)
+  const [$focused, $setFocused] = useState(false)
 
   const [observerTopRef] = useInfiniteScroll({
     loading: !loaded,
     hasNextPage: metadata?.has_previous,
-    disabled: !!error,
+    disabled: !blockId || !!error,
     onLoadMore: () => {
       loadPrev().then(() => {
         if (data[0].id) {
@@ -63,11 +64,9 @@ const ChainExplorer = ({ blockId = null }) => {
   useEffect(() => {
     if (blockId) {
       const interval = setInterval(() => {
-        if (blockId) {
-          if (scrollToBlock(blockId, true)) {
-            clearInterval(interval)
-            setFocused(true)
-          }
+        if (scrollToBlock(blockId, true)) {
+          clearInterval(interval)
+          $setFocused(true)
         }
       }, 1000)
     }
@@ -79,21 +78,21 @@ const ChainExplorer = ({ blockId = null }) => {
     return <Skeleton h="calc(100vh - 6rem)" w="100%" />
   }
 
-  if (!targetBlock.current) {
-    targetBlock.current = data.find(({ id }) => id.toString() === blockId)
+  if (!$focusedBlock.current && blockId) {
+    $focusedBlock.current = data.find(({ id }) => id.toString() === blockId)
   }
 
   return (
     <>
       <Flex w="100%" justifyContent="end">
         <Box position="fixed" mt="2.5rem">
-          <BlocksViewButtons blockId={targetBlock.current?.sequence} />
+          <BlocksViewButtons blockId={$focusedBlock.current?.sequence} />
         </Box>
       </Flex>
       <span
         ref={observerTopRef}
         style={{
-          display: focused ? 'block' : 'none',
+          display: $focused ? 'block' : 'none',
           background: 'transparent',
           border: 'none',
           height: '0',
@@ -104,7 +103,7 @@ const ChainExplorer = ({ blockId = null }) => {
       <span
         ref={observerRef}
         style={{
-          display: focused ? 'block' : 'none',
+          display: !blockId || $focused ? 'block' : 'none',
           background: 'transparent',
           border: 'none',
           height: '0',
@@ -117,8 +116,6 @@ const ChainExplorer = ({ blockId = null }) => {
 
 export default function ChainExplorerPage() {
   const router = useRouter()
-
-  console.log('ChainExplorerPage', router.query?.blockId)
 
   return (
     <main style={{ width: '100%', height: '100%' }}>
