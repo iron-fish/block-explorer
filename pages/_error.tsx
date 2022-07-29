@@ -35,7 +35,10 @@ function Error({ handleReload, error }) {
     <Flex
       style={{
         width: '100%',
-        height: `calc(100vh - ${dimension?.borderBox.height || 0}px)`,
+        height:
+          window.innerHeight > 1024
+            ? `calc(100vh - ${dimension?.borderBox.height || 0}px)`
+            : '100vh',
       }}
     >
       <Flex
