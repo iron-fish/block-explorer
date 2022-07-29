@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { Badge, Box, NAMED_COLORS, useBreakpointValue } from '@ironfish/ui-kit'
+import { Box, NAMED_COLORS, useBreakpointValue } from '@ironfish/ui-kit'
 import pipe from 'ramda/src/pipe'
 import pathOr from 'ramda/src/pathOr'
 import { useRouter } from 'next/router'
@@ -10,14 +10,14 @@ import { formatBlockTimestamp } from 'utils/format'
 import TransactionType from 'types/domain/TransactionType'
 import RoutePaths from 'constants/RoutePaths'
 import { safeProp } from 'utils/safeProp'
-import { CopyValueToClipboard } from 'components'
+import { CopyValueToClipboard, InfoBadge } from 'components'
 
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
 
 const HEIGHT_COLUMN: ColumnProps<TransactionType> = {
-  key: 'transaction-height',
-  label: 'Height',
+  key: 'transaction-id',
+  label: 'TXN ID',
   render: transaction => (
     <>
       <Box mr="1rem">
@@ -32,17 +32,10 @@ const TAG_COLUMN: ColumnProps<TransactionType> = {
   label: '',
   render: transaction =>
     transaction?.spends.length === 0 && (
-      <Badge
-        bg={NAMED_COLORS.LIGHT_YELLOW}
-        color={NAMED_COLORS.BLACK}
-        borderRadius="5rem"
-        py="0.25rem"
-        px="1rem"
+      <InfoBadge
         mt={{ base: '1rem', lg: 0 }}
-        textTransform="none"
-      >
-        <h5>Miner&nbsp;Reward&nbsp;+&nbsp;Fee</h5>
-      </Badge>
+        message={<>Miner&nbsp;Reward&nbsp;+&nbsp;Fee</>}
+      />
     ),
 }
 const HASH_COLUMN: ColumnProps<TransactionType> = {

@@ -29,10 +29,12 @@ export const transformData = (
   return hierarchy<Tree<BlockType>>(tree)
 }
 
-export const getBGColorBySeq = (headSeq: number, seq: number): string => {
-  return `hsl(${255 - Math.floor((255 / headSeq) * seq)}, ${
-    Math.floor((40 / headSeq) * seq) + 20
-  }%, ${100 - Math.floor((30 / headSeq) * seq)}%)`
+export const getBGColorBySeq = (
+  headSeq: number,
+  seq: number,
+  speed = 3
+): string => {
+  return `hsl(${((headSeq - seq) * speed) % 360}, 100%, 75%)`
 }
 
 export const getNodeXIndex = (node: HierarchyNode<Tree<BlockType>>): number => {

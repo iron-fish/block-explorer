@@ -5,9 +5,14 @@ import { Box, Flex } from '@ironfish/ui-kit'
 
 import pipe from 'ramda/src/pipe'
 
-import { CardContainer, Card, TimeStamp } from 'components'
+import {
+  CardContainer,
+  Card,
+  TimeStamp,
+  CopyValueToClipboard,
+  InfoBadge,
+} from 'components'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
-import useBlockBySeq from 'hooks/useBlockBySeq'
 import {
   DifficultyIcon,
   BlockInfoHeightIcon,
@@ -21,8 +26,8 @@ import { truncateHash } from 'utils/hash'
 import safeProp from 'utils/safeProp'
 import { TransactionsTable } from 'components/TransactionsTable'
 import { BlockType } from 'types'
-import { CopyValueToClipboard } from 'components'
 import BlocksViewButtons from 'components/BlocksViewButtons'
+import useBlock from 'hooks/useBlock'
 
 const BLOCK_CARDS = [
   {
@@ -55,8 +60,8 @@ const BLOCK_CARDS = [
     icon: <BlockInfoDifficultyIcon />,
   },
   {
-    key: 'txn-card',
-    label: 'Transactions Count',
+    key: 'transactions_count-card',
+    label: 'Transactions',
     value: safeProp('transactions_count'),
     icon: <BlockInfoTxnIcon />,
   },
@@ -77,7 +82,11 @@ const BLOCK_CARDS = [
 ]
 
 const BlockInfo = ({ id }) => {
-  const block = useBlockBySeq(id)
+  const block = useBlock(id)
+
+  if (block.error) {
+    throw block.error
+  }
 
   return (
     <>
@@ -87,9 +96,12 @@ const BlockInfo = ({ id }) => {
           <BlocksViewButtons blockId={block.data?.id} />
         </Box>
       </Flex>
-      <Box mt="0.5rem" mb="2rem">
+      <Flex mt="0.5rem" mb="2rem">
         <h3>Block Information</h3>
-      </Box>
+        {block.data?.main === false && (
+          <InfoBadge ml={'1rem'} message={'Forked Block'} />
+        )}
+      </Flex>
       <CardContainer>
         {BLOCK_CARDS.map(card => (
           <Card
