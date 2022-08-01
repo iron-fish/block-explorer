@@ -15,18 +15,6 @@ import { CopyValueToClipboard, InfoBadge } from 'components'
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
 
-const HEIGHT_COLUMN: ColumnProps<TransactionType> = {
-  key: 'transaction-id',
-  label: 'TXN ID',
-  render: transaction => (
-    <>
-      <Box mr="1rem">
-        <BlockIcon pb="0.1rem" h="1.875rem" w="1.625rem" />
-      </Box>
-      <Box color={NAMED_COLORS.LIGHT_BLUE}>{transaction.id}</Box>
-    </>
-  ),
-}
 const TAG_COLUMN: ColumnProps<TransactionType> = {
   key: 'transaction-tag',
   label: '',
@@ -43,7 +31,13 @@ const HASH_COLUMN: ColumnProps<TransactionType> = {
   label: 'Hash',
   render: transaction => {
     const hash = safeProp('hash')(transaction)
-    return <CopyValueToClipboard value={hash} label={truncateHash(hash)} />
+    return (
+      <CopyValueToClipboard
+        labelProps={{ color: NAMED_COLORS.LIGHT_BLUE }}
+        value={hash}
+        label={truncateHash(hash)}
+      />
+    )
   },
 }
 const FEE_COLUMN: ColumnProps<TransactionType> = {
@@ -62,6 +56,7 @@ type TransactionsTableProps = Omit<CommonTableProps<TransactionType>, 'columns'>
 const TransactionsTable: FC<TransactionsTableProps> = props => {
   const columns: ColumnProps<TransactionType>[] = useBreakpointValue({
     base: [
+      HASH_COLUMN,
       {
         ...TAG_COLUMN,
         WrapperProps: {
@@ -73,12 +68,10 @@ const TransactionsTable: FC<TransactionsTableProps> = props => {
           flexDirection: 'row',
         },
       },
-      HEIGHT_COLUMN,
-      HASH_COLUMN,
       FEE_COLUMN,
       DATE_COLUMN,
     ],
-    lg: [HEIGHT_COLUMN, TAG_COLUMN, HASH_COLUMN, FEE_COLUMN, DATE_COLUMN],
+    lg: [HASH_COLUMN, TAG_COLUMN, FEE_COLUMN, DATE_COLUMN],
   })
   const router = useRouter()
 
