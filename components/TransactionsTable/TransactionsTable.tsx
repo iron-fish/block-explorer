@@ -1,10 +1,9 @@
 import { FC } from 'react'
-import { Box, NAMED_COLORS, useBreakpointValue } from '@ironfish/ui-kit'
+import { NAMED_COLORS, useBreakpointValue } from '@ironfish/ui-kit'
 import pipe from 'ramda/src/pipe'
 import pathOr from 'ramda/src/pathOr'
 import { useRouter } from 'next/router'
 
-import BlockIcon from 'icons/BlockIcon'
 import { truncateHash } from 'utils/hash'
 import { formatBlockTimestamp } from 'utils/format'
 import TransactionType from 'types/domain/TransactionType'
