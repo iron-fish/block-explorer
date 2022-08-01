@@ -34,7 +34,7 @@ const Option: FC<{ label: string }> = ({ label }) => {
 }
 
 const getOptionLabel = (option: BlockType | TransactionType) =>
-  option ? `${option.id} - ${option.hash}` : ''
+  option ? option.hash : ''
 
 const NavSearch: FC<InputProps> = () => {
   const $placeholder = useBreakpointValue({
