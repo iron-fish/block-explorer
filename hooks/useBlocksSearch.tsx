@@ -42,10 +42,7 @@ const useBlocksSearch = (
           transactionService.transactions({ search, with_blocks: true, limit }),
         ]).then(([blocks, transactions]) => {
           return {
-            data: [
-              { label: 'Blocks', data: blocks },
-              { label: 'Transactions', data: transactions },
-            ],
+            data: [{ label: 'Results', data: blocks.concat(transactions) }],
             object: 'list',
           }
         })
