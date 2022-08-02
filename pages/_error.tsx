@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import {
   Flex,
   Box,
@@ -28,14 +28,32 @@ const getErrorMessage = pathname => {
 
 function Error({ handleReload, error }) {
   const container = useRef(null)
+  const [containerHeight, setContainerHeight] = useState<string>('100vh')
   const dimension = useDimensions(container, true)
   const { pathname } = useRouter()
+
+  useEffect(() => {
+    if (dimension) {
+      const handleResize = () =>
+        setContainerHeight(
+          window.innerHeight > 1024
+            ? `calc(100vh - ${dimension?.borderBox.height || 0}px)`
+            : '100vh'
+        )
+
+      window.addEventListener('resize', handleResize)
+      handleResize()
+      return () => {
+        window.removeEventListener('resize', handleResize)
+      }
+    }
+  }, [dimension])
 
   return (
     <Flex
       style={{
         width: '100%',
-        height: `calc(100vh - ${dimension?.borderBox.height || 0}px)`,
+        height: containerHeight,
       }}
     >
       <Flex
