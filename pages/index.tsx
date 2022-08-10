@@ -41,13 +41,13 @@ const LAST_BLOCK_INFO_CARDS = [
   },
   {
     key: 'hash-card',
-    label: 'Latest block hash',
+    label: 'Latest Block Hash',
     value: (block: BlockType | null) => truncateHash(block?.hash),
     icon: <LatestBlockHashIcon />,
   },
   {
     key: 'transactions_count-card',
-    label: 'Blocks in last transaction',
+    label: 'Transactions in Last Block',
     value: (block: BlockType | null) => block?.transactions_count,
     icon: <BlockInfoTxnIcon />,
   },
