@@ -15,6 +15,7 @@ import { useRouter } from 'next/router'
 import size from 'byte-size'
 import pathOr from 'ramda/src/pathOr'
 import pipe from 'ramda/src/pipe'
+import Error from 'pages/_error'
 
 import { Card, CardContainer, CopyValueToClipboard } from 'components'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
@@ -243,15 +244,24 @@ const TransactionInfo = ({ data, loaded }) => {
   )
 }
 
+const TransactionNotFound = ({ refresh }) => (
+  <>
+    <Head>
+      <title>Iron Fish: Transaction not found</title>
+    </Head>
+    <Error handleReload={refresh} error />
+  </>
+)
+
 export default function TransactionInformationPage() {
   const router = useRouter()
   const { hash } = router.query
 
-  const { data, loaded, error } = useTransactionByHash(hash as string)
+  const { data, loaded, error, refresh } = useTransactionByHash(hash as string)
   const block = pathOr({}, ['blocks', 0])(data)
 
   if (error) {
-    throw error
+    return <TransactionNotFound refresh={refresh} />
   }
 
   return (

@@ -22,6 +22,7 @@ import { TransactionsTable } from 'components/TransactionsTable'
 import { BlockType } from 'types'
 import { CopyValueToClipboard, InfoBadge } from 'components'
 import useBlock from 'hooks/useBlock'
+import Error from 'pages/_error'
 
 const BLOCK_CARDS = [
   {
@@ -75,18 +76,12 @@ const BLOCK_CARDS = [
   },
 ]
 
-const BlockInfo = ({ id }) => {
-  const block = useBlock(id)
-
-  if (block.error) {
-    throw block.error
-  }
-
+const BlockInfo = ({ data, loaded }) => {
   return (
     <>
       <Flex mt="0.5rem" mb="2rem" align="center">
         <h3>Block Information</h3>
-        {block.data?.main === false && (
+        {data?.main === false && (
           <InfoBadge ml={'1rem'} message={'Forked Block'} />
         )}
       </Flex>
@@ -101,9 +96,9 @@ const BlockInfo = ({ id }) => {
               '2xl': 'max(20rem, 33.333333% - 1rem)',
             }}
             label={card.label}
-            value={card.value(block.data)}
+            value={card.value(data)}
             icon={card.icon}
-            isLoading={!block.loaded}
+            isLoading={!loaded}
           />
         ))}
       </CardContainer>
@@ -112,10 +107,10 @@ const BlockInfo = ({ id }) => {
       </Box>
       <TransactionsTable
         data={
-          block.loaded
-            ? block.data?.transactions.map(transaction => ({
+          loaded
+            ? data?.transactions.map(transaction => ({
                 ...transaction,
-                blocks: [block.data],
+                blocks: [data],
               }))
             : [null]
         }
@@ -124,20 +119,34 @@ const BlockInfo = ({ id }) => {
   )
 }
 
+const BlockNotFound = ({ refresh }) => (
+  <>
+    <Head>
+      <title>Iron Fish: Block not found</title>
+    </Head>
+    <Error handleReload={refresh} error />
+  </>
+)
+
 export default function BlockInformationPage() {
   const router = useRouter()
   const { id } = router.query
+  const { error, loaded, data, refresh } = useBlock(id as string)
+
+  if (error) {
+    return <BlockNotFound refresh={refresh} />
+  }
 
   return (
     <main style={{ width: '100%', height: '100%' }}>
       <Head>
-        <title>Iron Fish: Block {id}</title>
+        <title>Iron Fish: Block {data?.id}</title>
       </Head>
       <Box mx={{ base: '2rem', lg: '15%' }} mb="6rem" zIndex={1}>
         <Box mt="2.5rem">
           <Breadcrumbs />
         </Box>
-        <BlockInfo id={id} />
+        <BlockInfo data={data} loaded={loaded} />
       </Box>
     </main>
   )

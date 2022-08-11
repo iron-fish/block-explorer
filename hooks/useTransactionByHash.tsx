@@ -1,18 +1,23 @@
-import { useContext, useEffect } from "react"
+import { useContext, useEffect } from 'react'
 
-import { TransactionContext } from "contexts/ServiceContexts"
-import { TransactionType } from "types"
-import useAsyncDataWrapper from "./useAsyncDataWrapper"
+import { TransactionContext } from 'contexts/ServiceContexts'
+import { TransactionType } from 'types'
+import useAsyncDataWrapper from './useAsyncDataWrapper'
 
 const useTransactionByHash = (hash: string) => {
   const service = useContext(TransactionContext)
   const [result, wrapper] = useAsyncDataWrapper<TransactionType>()
+  const wrappedServiceCall = () =>
+    wrapper(service.find({ hash, with_blocks: true }))
 
   useEffect(() => {
-    hash && wrapper(service.find({ hash, with_blocks: true }))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    hash && wrappedServiceCall()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hash])
-  return result
+  return {
+    ...result,
+    refresh: () => wrappedServiceCall(),
+  }
 }
 
 export default useTransactionByHash
