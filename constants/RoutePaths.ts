@@ -5,6 +5,7 @@ enum RoutePaths {
   TransactionInfo = '/transaction/[hash]',
   BlockInfo = '/blocks/[id]',
   Charts = '/charts',
+  IronfishNetwork = 'https://ironfish.network/'
 }
 
 export default RoutePaths

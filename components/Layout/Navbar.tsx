@@ -139,7 +139,7 @@ const Navbar: FC = () => {
         borderColor={$colors.border}
         justifyContent="space-between"
       >
-        <Link href={RoutePaths.Home} passHref>
+        <Link href={RoutePaths.IronfishNetwork} passHref>
           <Box
             order={1}
             justifySelf="flex-start"
