@@ -17,8 +17,8 @@ import { NavSearch } from 'components'
 import NavMenu from './NavMenu'
 import NavListOfLinks from './NavListOfLinks'
 import Link from 'next/link'
-import RoutePaths from 'constants/RoutePaths'
 import useNodeVersion from 'hooks/useNodeVersion'
+import { EXTERNAL_LINKS } from 'constants/ExternalLinks'
 
 const openInNewTab = (url: string): void => {
   const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
@@ -139,7 +139,7 @@ const Navbar: FC = () => {
         borderColor={$colors.border}
         justifyContent="space-between"
       >
-        <Link href={RoutePaths.Home} passHref>
+        <Link href={EXTERNAL_LINKS.IRONFISH} passHref>
           <Box
             order={1}
             justifySelf="flex-start"
