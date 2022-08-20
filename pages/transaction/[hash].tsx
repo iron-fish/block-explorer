@@ -16,7 +16,12 @@ import size from 'byte-size'
 import pathOr from 'ramda/src/pathOr'
 import pipe from 'ramda/src/pipe'
 
-import { Card, CardContainer, CopyValueToClipboard } from 'components'
+import {
+  Card,
+  CardContainer,
+  CopyValueToClipboard,
+  InfoBadge,
+} from 'components'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import useTransactionByHash from 'hooks/useTransactionByHash'
 import {
@@ -204,9 +209,13 @@ const TransactionInfo = ({ data, loaded }) => {
   )
   return (
     <>
-      <Box mt="0.5rem" mb="2rem">
+      <Flex mt="0.5rem" mb="2rem" align="center">
         <h3>Transaction Information</h3>
-      </Box>
+        {(data?.blocks?.filter(block => block.main === true) === undefined ||
+          data?.blocks?.filter(block => block.main === true).length === 0) && (
+          <InfoBadge ml={'1rem'} message={'Forked Transaction'} />
+        )}
+      </Flex>
       <CardContainer>
         {TRANSACTION_INFO_CARDS.map(card => (
           <Card
