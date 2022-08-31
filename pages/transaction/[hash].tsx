@@ -153,7 +153,12 @@ const TRANSACTION_INFO_CARDS = [
     key: 'block-hash-card',
     label: 'Block Hash',
     value: (transaction: TransactionType | null) => {
-      const hash = pathOr('', ['blocks', 0, 'hash'])(transaction)
+      const index = transaction?.blocks.findIndex(block => block.main === true)
+      const hash = pathOr('', [
+        'blocks',
+        index === undefined || index === -1 ? 0 : index,
+        'hash',
+      ])(transaction)
       return <CopyValueToClipboard value={hash} label={truncateHash(hash, 2)} />
     },
     icon: <DifficultyIcon />,
