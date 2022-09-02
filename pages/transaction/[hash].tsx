@@ -115,7 +115,6 @@ const TransactionsDataList = ({ data = [], isInput = true }) => {
     <Box
       flex={1}
       w={{ base: '100%', md: 'calc(50% - 2rem)' }}
-      mr={{ base: 0, md: '1rem' }}
       mb="1rem"
       display={{ base: data?.length ? 'block' : 'none', md: 'block' }}
     >
@@ -239,6 +238,7 @@ const TransactionInfo = ({ data, loaded }) => {
         w="100%"
         wrap="wrap"
         direction={{ base: 'column', md: 'row' }}
+        gap={{ base: 'normal', md: '1.75rem' }}
         mb="3.5rem"
       >
         <TransactionsDataList data={data?.spends} />
