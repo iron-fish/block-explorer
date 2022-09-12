@@ -47,7 +47,7 @@ const LAST_BLOCK_INFO_CARDS = [
   },
   {
     key: 'transactions_count-card',
-    label: 'Blocks in last transaction',
+    label: 'Transactions in last block',
     value: (block: BlockType | null) => block?.transactions_count,
     icon: <BlockInfoTxnIcon />,
   },
