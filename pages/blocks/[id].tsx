@@ -87,7 +87,7 @@ const BlockInfo = ({ id }) => {
       <Flex mt="0.5rem" mb="2rem" align="center">
         <h3>Block Information</h3>
         {block.data?.main === false && (
-          <InfoBadge ml={'1rem'} message={'Forked Block'} />
+          <InfoBadge ml={'1rem'} message={'Forked'} />
         )}
       </Flex>
       <CardContainer>
