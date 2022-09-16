@@ -217,7 +217,7 @@ const TransactionInfo = ({ data, loaded }) => {
         <h3>Transaction Information</h3>
         {(data?.blocks?.filter(block => block.main === true) === undefined ||
           data?.blocks?.filter(block => block.main === true).length === 0) && (
-          <InfoBadge ml={'1rem'} message={'Forked'} />
+          <InfoBadge ml={'1rem'} message={'Forked Transaction'} />
         )}
       </Flex>
       <CardContainer>
