@@ -1,11 +1,5 @@
 import { useRef } from 'react'
-import {
-  Flex,
-  Box,
-  useDimensions,
-  Button,
-  NAMED_COLORS,
-} from '@ironfish/ui-kit'
+import { Flex, Box, Button, NAMED_COLORS } from '@ironfish/ui-kit'
 import { useRouter } from 'next/router'
 
 import RoutePaths from 'constants/RoutePaths'
@@ -28,16 +22,10 @@ const getErrorMessage = pathname => {
 
 function Error({ handleReload, error }) {
   const container = useRef(null)
-  const dimension = useDimensions(container, true)
   const { pathname } = useRouter()
 
   return (
-    <Flex
-      style={{
-        width: '100%',
-        height: `calc(100vh - ${dimension?.borderBox.height || 0}px)`,
-      }}
-    >
+    <Flex w="100%" h="100%">
       <Flex
         pt="6rem"
         w="100%"
@@ -45,7 +33,9 @@ function Error({ handleReload, error }) {
         direction="column"
         mx={{ base: '2rem', lg: '15%' }}
         mb="auto"
+        h="100%"
         ref={container}
+        pb="6rem"
       >
         <Box maxW="38.1875rem" maxH="14.125rem" w="100%" h="100%">
           <Logo404 />

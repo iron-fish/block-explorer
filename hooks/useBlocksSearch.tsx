@@ -5,27 +5,19 @@ import { AsyncDataProps, BlockType, ResponseType, TransactionType } from 'types'
 
 import useAsyncDataWrapper from './useAsyncDataWrapper'
 
-interface SearchResultType<T> {
+interface SearchResultType {
   label: string
-  data: T[]
+  data: (BlockType | TransactionType)[]
 }
 
 const useBlocksSearch = (
   search = '',
   limit = 5
-): AsyncDataProps<
-  ResponseType<
-    (SearchResultType<BlockType> | SearchResultType<TransactionType>)[]
-  >
-> => {
+): AsyncDataProps<ResponseType<SearchResultType[]>> => {
   const blockService = useContext(BlockContext)
   const transactionService = useContext(TransactionContext)
   const [result, wrapper] =
-    useAsyncDataWrapper<
-      ResponseType<
-        (SearchResultType<BlockType> | SearchResultType<TransactionType>)[]
-      >
-    >()
+    useAsyncDataWrapper<ResponseType<SearchResultType[]>>()
 
   useEffect(() => {
     if (search?.trim()) {
@@ -42,10 +34,7 @@ const useBlocksSearch = (
           transactionService.transactions({ search, with_blocks: true, limit }),
         ]).then(([blocks, transactions]) => {
           return {
-            data: [
-              { label: 'Blocks', data: blocks },
-              { label: 'Transactions', data: transactions },
-            ],
+            data: [{ label: 'Results', data: [...blocks, ...transactions] }],
             object: 'list',
           }
         })
