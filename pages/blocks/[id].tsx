@@ -26,7 +26,7 @@ import { truncateHash } from 'utils/hash'
 import safeProp from 'utils/safeProp'
 import { TransactionsTable } from 'components/TransactionsTable'
 import { BlockType } from 'types'
-import BlocksViewButtons from 'components/BlocksViewButtons'
+// import BlocksViewButtons from 'components/BlocksViewButtons'
 import useBlock from 'hooks/useBlock'
 
 const BLOCK_CARDS = [
@@ -92,9 +92,9 @@ const BlockInfo = ({ id }) => {
     <>
       <Flex mt="2.5rem">
         <Breadcrumbs />
-        <Box pt="0.6875rem" ml="auto">
+        {/* <Box pt="0.6875rem" ml="auto">
           <BlocksViewButtons blockId={block.data?.id} />
-        </Box>
+        </Box> */}
       </Flex>
       <Flex mt="0.5rem" mb="2rem">
         <h3>Block Information</h3>

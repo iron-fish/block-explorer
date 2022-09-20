@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react'
 import { Box, Flex } from '@ironfish/ui-kit'
 import { BlocksTable } from 'components'
-import BlocksViewButtons from 'components/BlocksViewButtons'
+// import BlocksViewButtons from 'components/BlocksViewButtons'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import useInfiniteBlocks from 'hooks/useInfiniteBlocks'
 import useBlockHeadWithInterval from 'hooks/useBlockHeadWithInterval'
@@ -97,7 +97,7 @@ export default function Explorer() {
         >
           <Breadcrumbs />
           {/* Hide chain explorer switch button while its not finished */}
-          <BlocksViewButtons />
+          {/* <BlocksViewButtons /> */}
         </Flex>
         <Box my="0.5rem">
           <h3>All Blocks</h3>
