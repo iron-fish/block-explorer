@@ -8,12 +8,12 @@ import ErrorBoundary from 'components/ErrorBoundary'
 import 'styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
-  const { pathname } = useRouter()
+  const { asPath } = useRouter()
   return (
     <IronFishUIProvider>
       <ServiceContexts>
         <Layout>
-          <ErrorBoundary key={pathname}>
+          <ErrorBoundary key={asPath}>
             <Component {...pageProps} />
           </ErrorBoundary>
         </Layout>

@@ -16,7 +16,12 @@ import size from 'byte-size'
 import pathOr from 'ramda/src/pathOr'
 import pipe from 'ramda/src/pipe'
 
-import { Card, CardContainer, CopyValueToClipboard } from 'components'
+import {
+  Card,
+  CardContainer,
+  CopyValueToClipboard,
+  InfoBadge,
+} from 'components'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import useTransactionByHash from 'hooks/useTransactionByHash'
 import {
@@ -115,7 +120,6 @@ const TransactionsDataList = ({ data = [], isInput = true }) => {
     <Box
       flex={1}
       w={{ base: '100%', md: 'calc(50% - 2rem)' }}
-      mr={{ base: 0, md: '1rem' }}
       mb="1rem"
       display={{ base: data?.length ? 'block' : 'none', md: 'block' }}
     >
@@ -153,7 +157,12 @@ const TRANSACTION_INFO_CARDS = [
     key: 'block-hash-card',
     label: 'Block Hash',
     value: (transaction: TransactionType | null) => {
-      const hash = pathOr('', ['blocks', 0, 'hash'])(transaction)
+      const index = transaction?.blocks.findIndex(block => block.main === true)
+      const hash = pathOr('', [
+        'blocks',
+        index === undefined || index === -1 ? 0 : index,
+        'hash',
+      ])(transaction)
       return <CopyValueToClipboard value={hash} label={truncateHash(hash, 2)} />
     },
     icon: <DifficultyIcon />,
@@ -204,9 +213,13 @@ const TransactionInfo = ({ data, loaded }) => {
   )
   return (
     <>
-      <Box mt="0.5rem" mb="2rem">
+      <Flex mt="0.5rem" mb="2rem" align="center">
         <h3>Transaction Information</h3>
-      </Box>
+        {(data?.blocks?.filter(block => block.main === true) === undefined ||
+          data?.blocks?.filter(block => block.main === true).length === 0) && (
+          <InfoBadge ml={'1rem'} message={'Forked'} />
+        )}
+      </Flex>
       <CardContainer>
         {TRANSACTION_INFO_CARDS.map(card => (
           <Card
@@ -234,6 +247,7 @@ const TransactionInfo = ({ data, loaded }) => {
         w="100%"
         wrap="wrap"
         direction={{ base: 'column', md: 'row' }}
+        gap={{ base: 'normal', md: '1.75rem' }}
         mb="3.5rem"
       >
         <TransactionsDataList data={data?.spends} />

@@ -17,8 +17,8 @@ import { NavSearch } from 'components'
 import NavMenu from './NavMenu'
 import NavListOfLinks from './NavListOfLinks'
 import Link from 'next/link'
-import RoutePaths from 'constants/RoutePaths'
 import useNodeVersion from 'hooks/useNodeVersion'
+import RoutePaths from 'constants/RoutePaths'
 
 const openInNewTab = (url: string): void => {
   const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
@@ -43,13 +43,15 @@ const NodeVersionButton: FC<StyleProps> = (props: StyleProps) => {
 
   const versionUrl = useMemo(
     () =>
-      `https://github.com/iron-fish/ironfish/releases/${
-        loaded ? 'tag/v' + data.ironfish.version : ''
-      }`,
-    [loaded, data]
+      'https://github.com/iron-fish/ironfish/releases' +
+      (loaded && !error && data.ironfish
+        ? '/tag/v' + data.ironfish.version
+        : ''),
+    [loaded, error, data]
   )
 
-  if (error) {
+  // If an error or API returns an empty version list
+  if (error || !data?.ironfish) {
     return null
   }
 

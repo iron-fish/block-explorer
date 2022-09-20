@@ -169,12 +169,14 @@ const Footer: FC = () => {
           pl={{ base: 0, sm: '0.8125rem' }}
           my={{ base: '0.875rem', sm: '1.5rem' }}
         >
-          2021 Iron Fish. All rights reserved.
+          {new Date().getFullYear()} Iron Fish. All rights reserved.
         </Text>
         <HStack spacing={'1.375rem'} justifyContent="flex-end" flex={1}>
           {CONTACTS.map((contact, index) => (
             <NextLink key={`contact-${index}`} href={contact.href} passHref>
-              <contact.Icon cursor="pointer" />
+              <a target="_blank" rel="noopener noreferrer">
+                <contact.Icon cursor="pointer" />
+              </a>
             </NextLink>
           ))}
         </HStack>
