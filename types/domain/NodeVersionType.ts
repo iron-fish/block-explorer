@@ -1,5 +1,5 @@
 export interface NodeVersionType {
-  ironfish: {
+  ironfish?: {
     object: string
     version: string
     created_at: string
