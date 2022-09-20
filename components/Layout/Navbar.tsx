@@ -18,7 +18,7 @@ import NavMenu from './NavMenu'
 import NavListOfLinks from './NavListOfLinks'
 import Link from 'next/link'
 import useNodeVersion from 'hooks/useNodeVersion'
-import { EXTERNAL_LINKS } from 'constants/ExternalLinks'
+import RoutePaths from 'constants/RoutePaths'
 
 const openInNewTab = (url: string): void => {
   const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
@@ -141,7 +141,7 @@ const Navbar: FC = () => {
         borderColor={$colors.border}
         justifyContent="space-between"
       >
-        <Link href={EXTERNAL_LINKS.IRONFISH} passHref>
+        <Link href={RoutePaths.Home} passHref>
           <Box
             order={1}
             justifySelf="flex-start"
