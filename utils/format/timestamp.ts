@@ -13,7 +13,7 @@ export const formatBlockTimestamp = ifElse(
     prop('timestamp'),
     parseISO,
     // TODO: figure out a way to deal with this when we do i18n
-    formatInTimeZone(`dd'-'MM'-'yyyy kk':'mm':'ss zzz`, 'UTC')
+    formatInTimeZone(`dd'-'MM'-'yyyy HH':'mm':'ss zzz`, 'UTC')
   ),
   K('')
 )
@@ -34,6 +34,6 @@ export const formatTime = ifElse(
   pipe(
     parseISO,
     // TODO: figure out a way to deal with this when we do i18n
-    formatInTimeZone(`kk':'mm':'ss zzz`, 'UTC')
+    formatInTimeZone(`HH':'mm':'ss zzz`, 'UTC')
   )
 )
