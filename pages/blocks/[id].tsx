@@ -5,7 +5,13 @@ import { Box, Flex } from '@ironfish/ui-kit'
 
 import pipe from 'ramda/src/pipe'
 
-import { CardContainer, Card, TimeStamp } from 'components'
+import {
+  CardContainer,
+  Card,
+  TimeStamp,
+  CopyValueToClipboard,
+  InfoBadge,
+} from 'components'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import {
   DifficultyIcon,
@@ -20,7 +26,7 @@ import { truncateHash } from 'utils/hash'
 import safeProp from 'utils/safeProp'
 import { TransactionsTable } from 'components/TransactionsTable'
 import { BlockType } from 'types'
-import { CopyValueToClipboard, InfoBadge } from 'components'
+// import BlocksViewButtons from 'components/BlocksViewButtons'
 import useBlock from 'hooks/useBlock'
 
 const BLOCK_CARDS = [
@@ -84,7 +90,13 @@ const BlockInfo = ({ id }) => {
 
   return (
     <>
-      <Flex mt="0.5rem" mb="2rem" align="center">
+      <Flex mt="2.5rem">
+        <Breadcrumbs />
+        {/* <Box pt="0.6875rem" ml="auto">
+          <BlocksViewButtons blockId={block.data?.id} />
+        </Box> */}
+      </Flex>
+      <Flex mt="0.5rem" mb="2rem">
         <h3>Block Information</h3>
         {block.data?.main === false && (
           <InfoBadge ml={'1rem'} message={'Forked'} />
@@ -134,9 +146,6 @@ export default function BlockInformationPage() {
         <title>Iron Fish: Block {id}</title>
       </Head>
       <Box mx={{ base: '2rem', lg: '15%' }} mb="6rem" zIndex={1}>
-        <Box mt="2.5rem">
-          <Breadcrumbs />
-        </Box>
         <BlockInfo id={id} />
       </Box>
     </main>
