@@ -13,7 +13,7 @@ import { CopyValueToClipboard, InfoBadge } from 'components'
 
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
-import { BlueHashIcon } from 'svgx/BlueHashIcon'
+import { BlueHashIcon } from 'svgx'
 
 const TAG_COLUMN: ColumnProps<TransactionType> = {
   key: 'transaction-tag',
