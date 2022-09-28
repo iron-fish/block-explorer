@@ -1,6 +1,6 @@
 import { Icon } from '@ironfish/ui-kit'
 
-export function BlueHashIcon(props) {
+export default function BlueHashIcon(props) {
   return (
     <Icon
       width="24px"
