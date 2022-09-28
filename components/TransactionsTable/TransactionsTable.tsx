@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { NAMED_COLORS, useBreakpointValue } from '@ironfish/ui-kit'
+import { NAMED_COLORS, useBreakpointValue, Box } from '@ironfish/ui-kit'
 import pipe from 'ramda/src/pipe'
 import pathOr from 'ramda/src/pathOr'
 import { useRouter } from 'next/router'
@@ -13,6 +13,7 @@ import { CopyValueToClipboard, InfoBadge } from 'components'
 
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
+import { BlueHashIcon } from 'svgx/BlueHashIcon'
 
 const TAG_COLUMN: ColumnProps<TransactionType> = {
   key: 'transaction-tag',
@@ -31,11 +32,16 @@ const HASH_COLUMN: ColumnProps<TransactionType> = {
   render: transaction => {
     const hash = safeProp('hash')(transaction)
     return (
-      <CopyValueToClipboard
-        labelProps={{ color: NAMED_COLORS.LIGHT_BLUE }}
-        value={hash}
-        label={truncateHash(hash)}
-      />
+      <>
+        <Box mr="1rem">
+          <BlueHashIcon pb="0.1rem" h="1.875rem" w="1.625rem" />
+        </Box>
+        <CopyValueToClipboard
+          labelProps={{ color: NAMED_COLORS.LIGHT_BLUE }}
+          value={hash}
+          label={truncateHash(hash)}
+        />
+      </>
     )
   },
 }
