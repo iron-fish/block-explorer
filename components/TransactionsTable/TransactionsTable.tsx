@@ -21,7 +21,7 @@ const TAG_COLUMN: ColumnProps<TransactionType> = {
   render: transaction =>
     transaction?.spends.length === 0 && (
       <InfoBadge
-        mt={{ base: '1rem', lg: 0 }}
+        mt={{ base: 0, sm1: '1rem', lg: 0 }}
         message={<>Miner&nbsp;Reward&nbsp;+&nbsp;Fee</>}
       />
     ),
@@ -61,13 +61,31 @@ type TransactionsTableProps = Omit<CommonTableProps<TransactionType>, 'columns'>
 const TransactionsTable: FC<TransactionsTableProps> = props => {
   const columns: ColumnProps<TransactionType>[] = useBreakpointValue({
     base: [
-      HASH_COLUMN,
       {
         ...TAG_COLUMN,
         WrapperProps: {
           w: '100%',
           pt: '0rem',
           pb: '0rem',
+          w: 'min-content',
+        },
+        ItemProps: {
+          flexDirection: 'row',
+        },
+      },
+      HASH_COLUMN,
+      FEE_COLUMN,
+      DATE_COLUMN,
+    ],
+    sm1: [
+      HASH_COLUMN,
+      {
+        ...TAG_COLUMN,
+        WrapperProps: {
+          w: '100%',
+          pt: '1rem',
+          pb: '0rem',
+          w: 'min-content',
         },
         ItemProps: {
           flexDirection: 'row',
