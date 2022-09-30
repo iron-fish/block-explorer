@@ -12,9 +12,7 @@ import { HashView } from 'components'
 const PREVIEW_BLOCKS = [
   {
     label: 'Hash',
-    value: pipe(safeProp('hash'), hash => (
-      <HashView hash={hash} parts={2} chars={4} />
-    )),
+    value: pipe(safeProp('hash'), hash => <HashView hash={hash} parts={2} />),
   },
   {
     label: 'Height',
@@ -23,7 +21,7 @@ const PREVIEW_BLOCKS = [
   {
     label: 'Prev',
     value: pipe(safeProp('previous_block_hash'), hash => (
-      <HashView hash={hash} parts={2} chars={4} />
+      <HashView hash={hash} parts={2} />
     )),
   },
   {

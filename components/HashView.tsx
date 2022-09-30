@@ -3,14 +3,14 @@ import { Box, Flex, BoxProps } from '@ironfish/ui-kit'
 
 import { truncateHash } from 'utils/hash'
 
-interface HashTextProps {
+interface HashViewProps {
   hash: string
-  parts: number
-  chars: number
-  labelProps: BoxProps
+  parts?: number
+  chars?: number
+  labelProps?: BoxProps
 }
 
-export const HashView: FC<HashTextProps> = ({
+export const HashView: FC<HashViewProps> = ({
   hash,
   parts = 4,
   chars = 4,

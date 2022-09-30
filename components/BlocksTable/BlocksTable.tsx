@@ -36,10 +36,7 @@ const COLUMNS: ColumnProps<BlockType>[] = [
     render: block => {
       const hash = safeProp('hash')(block)
       return (
-        <CopyValueToClipboard
-          value={hash}
-          label={<HashView hash={hash} parts={4} chars={4} />}
-        />
+        <CopyValueToClipboard value={hash} label={<HashView hash={hash} />} />
       )
     },
   },
