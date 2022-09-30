@@ -3,16 +3,18 @@ import { Box, Flex, NAMED_COLORS, useColorModeValue } from '@ironfish/ui-kit'
 import Link from 'next/link'
 import size from 'byte-size'
 import pipe from 'ramda/src/pipe'
-import { truncateHash } from 'utils/hash'
 import safeProp from 'utils/safeProp'
 import { formatBlockTimestamp } from 'utils/format'
 import { CloseDetailsIcon } from 'svgx/CloseDetailsIcon'
 import RoutePaths from 'constants/RoutePaths'
+import { HashView } from 'components'
 
 const PREVIEW_BLOCKS = [
   {
     label: 'Hash',
-    value: pipe(safeProp('hash'), hash => truncateHash(hash, 2, 4)),
+    value: pipe(safeProp('hash'), hash => (
+      <HashView hash={hash} parts={2} chars={4} />
+    )),
   },
   {
     label: 'Height',
@@ -20,9 +22,9 @@ const PREVIEW_BLOCKS = [
   },
   {
     label: 'Prev',
-    value: pipe(safeProp('previous_block_hash'), hash =>
-      truncateHash(hash, 2, 4)
-    ),
+    value: pipe(safeProp('previous_block_hash'), hash => (
+      <HashView hash={hash} parts={2} chars={4} />
+    )),
   },
   {
     label: 'Size',

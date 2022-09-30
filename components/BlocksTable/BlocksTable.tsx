@@ -1,54 +1,16 @@
 import { FC } from 'react'
-import { Box, Flex, BoxProps, NAMED_COLORS } from '@ironfish/ui-kit'
+import { Box, NAMED_COLORS } from '@ironfish/ui-kit'
 import { useRouter } from 'next/router'
 
 import BlockIcon from 'icons/BlockIcon'
-import { truncateHash } from 'utils/hash'
 import { safeProp } from 'utils/safeProp'
 import { formatBlockTimestamp } from 'utils/format'
 import { BlockType } from 'types'
 import RoutePaths from 'constants/RoutePaths'
-import { CopyValueToClipboard } from 'components'
+import { CopyValueToClipboard, HashView } from 'components'
 
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
-
-interface HashTextProps {
-  hash: string
-  parts: number
-  chars: number
-  labelProps: BoxProps
-}
-
-export const HashText: FC<HashTextProps> = ({
-  hash,
-  parts,
-  chars,
-  labelProps,
-}) => {
-  return (
-    <Flex position="relative">
-      <Box as="h5" {...labelProps} position="relative" zIndex={1}>
-        {truncateHash(hash, parts, chars)}
-      </Box>
-      <Box
-        as="h4"
-        {...labelProps}
-        fontSize="96px"
-        mt="-16px"
-        position="absolute"
-        top={0}
-        whiteSpace="nowrap"
-        overflow="hidden"
-        zIndex={0}
-        height="38px"
-        width="100%"
-      >
-        {hash}
-      </Box>
-    </Flex>
-  )
-}
 
 const COLUMNS: ColumnProps<BlockType>[] = [
   {
@@ -76,7 +38,7 @@ const COLUMNS: ColumnProps<BlockType>[] = [
       return (
         <CopyValueToClipboard
           value={hash}
-          label={<HashText hash={hash} parts={4} chars={4} />}
+          label={<HashView hash={hash} parts={4} chars={4} />}
         />
       )
     },

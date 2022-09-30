@@ -22,9 +22,9 @@ import {
   BlockInfoTimestampIcon,
   BlockInfoGraffitiIcon,
 } from 'svgx'
-import { truncateHash } from 'utils/hash'
 import safeProp from 'utils/safeProp'
 import { TransactionsTable } from 'components/TransactionsTable'
+import { HashView } from 'components'
 import { BlockType } from 'types'
 // import BlocksViewButtons from 'components/BlocksViewButtons'
 import useBlock from 'hooks/useBlock'
@@ -42,7 +42,10 @@ const BLOCK_CARDS = [
     value: block => {
       const hash = safeProp('hash')(block)
       return (
-        <CopyValueToClipboard value={hash} label={truncateHash(hash, 2, 4)} />
+        <CopyValueToClipboard
+          value={hash}
+          label={<HashView hash={hash} parts={2} />}
+        />
       )
     },
     icon: <DifficultyIcon />,
