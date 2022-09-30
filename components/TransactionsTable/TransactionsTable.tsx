@@ -21,7 +21,8 @@ const TAG_COLUMN: ColumnProps<TransactionType> = {
   render: transaction =>
     transaction?.spends.length === 0 && (
       <InfoBadge
-        mt={{ base: 0, sm1: '1rem', lg: 0 }}
+        mt={{ base: '1rem', lg: 0 }}
+        mx={{ base: '32px', sm1: 0 }}
         message={<>Miner&nbsp;Reward&nbsp;+&nbsp;Fee</>}
       />
     ),
@@ -64,9 +65,8 @@ const TransactionsTable: FC<TransactionsTableProps> = props => {
       {
         ...TAG_COLUMN,
         WrapperProps: {
-          w: '100%',
-          pt: '0rem',
-          pb: '0rem',
+          p: '0rem',
+          ml: '-2rem',
           w: 'min-content',
         },
         ItemProps: {
@@ -82,7 +82,6 @@ const TransactionsTable: FC<TransactionsTableProps> = props => {
       {
         ...TAG_COLUMN,
         WrapperProps: {
-          w: '100%',
           pt: '1rem',
           pb: '0rem',
           w: 'min-content',
