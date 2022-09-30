@@ -1433,10 +1433,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@ironfish/ui-kit@0.0.13":
-  version "0.0.13"
-  resolved "https://registry.yarnpkg.com/@ironfish/ui-kit/-/ui-kit-0.0.13.tgz#7a71614d826ccefd50c9acef0effefce6d8d8b61"
-  integrity sha512-1EwiGy7v/m3pDPDgkO9jYPIYvENyaylvuKLyA7mD+J11eOU3Kv0JiA7olhgz/cpRnhjjNfzwqx+l6JpGS4fljg==
+"@ironfish/ui-kit@^0.0.14":
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/@ironfish/ui-kit/-/ui-kit-0.0.14.tgz#5da1e7b16dc127bbff7df9bafe96b6c0de124588"
+  integrity sha512-TPr+KttKd82nNEuJsEDWaW6ubyu905YbuKSzY2ayiIzRV5sX0V4IpBCL0yzKyO80ZDaGHSdEd1xwIRyCsIJ2OQ==
   dependencies:
     "@chakra-ui/icons" "1.1.7"
     "@chakra-ui/react" "1.8.6"
