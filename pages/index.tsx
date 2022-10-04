@@ -1,8 +1,7 @@
-import { Card, CardContainer, BlocksTable } from 'components'
+import { Card, CardContainer, BlocksTable, HashView } from 'components'
 import RoutePaths from 'constants/RoutePaths'
 import useBlockHead from 'hooks/useBlockHead'
 import useBlocks from 'hooks/useBlocks'
-import { truncateHash } from 'utils/hash'
 import Head from 'next/head'
 import {
   Flex,
@@ -42,7 +41,7 @@ const LAST_BLOCK_INFO_CARDS = [
   {
     key: 'hash-card',
     label: 'Latest Block Hash',
-    value: (block: BlockType | null) => truncateHash(block?.hash),
+    value: (block: BlockType | null) => <HashView hash={block?.hash} />,
     icon: <LatestBlockHashIcon />,
   },
   {

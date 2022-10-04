@@ -4,12 +4,11 @@ import pipe from 'ramda/src/pipe'
 import pathOr from 'ramda/src/pathOr'
 import { useRouter } from 'next/router'
 
-import { truncateHash } from 'utils/hash'
 import { formatBlockTimestamp } from 'utils/format'
 import TransactionType from 'types/domain/TransactionType'
 import RoutePaths from 'constants/RoutePaths'
 import { safeProp } from 'utils/safeProp'
-import { CopyValueToClipboard, InfoBadge } from 'components'
+import { CopyValueToClipboard, InfoBadge, HashView } from 'components'
 
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
@@ -34,7 +33,7 @@ const HASH_COLUMN: ColumnProps<TransactionType> = {
       <CopyValueToClipboard
         labelProps={{ color: NAMED_COLORS.LIGHT_BLUE }}
         value={hash}
-        label={truncateHash(hash)}
+        label={<HashView hash={hash} />}
       />
     )
   },
