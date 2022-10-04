@@ -3,12 +3,11 @@ import { Box, NAMED_COLORS } from '@ironfish/ui-kit'
 import { useRouter } from 'next/router'
 
 import BlockIcon from 'icons/BlockIcon'
-import { truncateHash } from 'utils/hash'
 import { safeProp } from 'utils/safeProp'
 import { formatBlockTimestamp } from 'utils/format'
 import { BlockType } from 'types'
 import RoutePaths from 'constants/RoutePaths'
-import { CopyValueToClipboard } from 'components'
+import { CopyValueToClipboard, HashView } from 'components'
 
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
@@ -36,7 +35,9 @@ const COLUMNS: ColumnProps<BlockType>[] = [
     label: 'Block Hash',
     render: block => {
       const hash = safeProp('hash')(block)
-      return <CopyValueToClipboard value={hash} label={truncateHash(hash)} />
+      return (
+        <CopyValueToClipboard value={hash} label={<HashView hash={hash} />} />
+      )
     },
   },
   {
