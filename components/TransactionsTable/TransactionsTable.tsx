@@ -22,7 +22,7 @@ const TAG_COLUMN: ColumnProps<TransactionType> = {
     transaction?.spends.length === 0 && (
       <InfoBadge
         mt={{ base: '1rem', lg: 0 }}
-        mx={{ base: '32px', sm1: 0 }}
+        mx={{ base: '2rem', sm1: 0 }}
         message={<>Miner&nbsp;Reward&nbsp;+&nbsp;Fee</>}
       />
     ),
