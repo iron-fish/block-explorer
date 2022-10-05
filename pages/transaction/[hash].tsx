@@ -225,8 +225,7 @@ const TransactionInfo = ({ data, loaded }) => {
     <>
       <Flex mt="0.5rem" mb="2rem" align="center">
         <h3>Transaction Information</h3>
-        {(data?.blocks?.filter(block => block.main === true) === undefined ||
-          data?.blocks?.filter(block => block.main === true).length === 0) && (
+        {data?.blocks?.every(block => block.main === false) && (
           <InfoBadge ml={'1rem'} message={'Forked'} />
         )}
       </Flex>

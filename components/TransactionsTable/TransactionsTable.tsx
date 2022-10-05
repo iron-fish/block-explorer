@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { NAMED_COLORS, useBreakpointValue } from '@ironfish/ui-kit'
+import { NAMED_COLORS, useBreakpointValue, Box } from '@ironfish/ui-kit'
 import pipe from 'ramda/src/pipe'
 import pathOr from 'ramda/src/pathOr'
 import { useRouter } from 'next/router'
@@ -12,6 +12,7 @@ import { CopyValueToClipboard, InfoBadge, HashView } from 'components'
 
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
+import { BlueHashIcon } from 'svgx'
 
 const TAG_COLUMN: ColumnProps<TransactionType> = {
   key: 'transaction-tag',
@@ -20,6 +21,7 @@ const TAG_COLUMN: ColumnProps<TransactionType> = {
     transaction?.spends.length === 0 && (
       <InfoBadge
         mt={{ base: '1rem', lg: 0 }}
+        mx={{ base: '2rem', sm1: 0 }}
         message={<>Miner&nbsp;Reward&nbsp;+&nbsp;Fee</>}
       />
     ),
@@ -30,11 +32,16 @@ const HASH_COLUMN: ColumnProps<TransactionType> = {
   render: transaction => {
     const hash = safeProp('hash')(transaction)
     return (
-      <CopyValueToClipboard
-        labelProps={{ color: NAMED_COLORS.LIGHT_BLUE }}
-        value={hash}
-        label={<HashView hash={hash} />}
-      />
+      <>
+        <Box mr="1rem">
+          <BlueHashIcon pb="0.1rem" h="1.875rem" w="1.625rem" />
+        </Box>
+        <CopyValueToClipboard
+          labelProps={{ color: NAMED_COLORS.LIGHT_BLUE }}
+          value={hash}
+          label={<HashView hash={hash} />}
+        />
+      </>
     )
   },
 }
@@ -54,13 +61,29 @@ type TransactionsTableProps = Omit<CommonTableProps<TransactionType>, 'columns'>
 const TransactionsTable: FC<TransactionsTableProps> = props => {
   const columns: ColumnProps<TransactionType>[] = useBreakpointValue({
     base: [
+      {
+        ...TAG_COLUMN,
+        WrapperProps: {
+          p: '0rem',
+          ml: '-2rem',
+          w: 'min-content',
+        },
+        ItemProps: {
+          flexDirection: 'row',
+        },
+      },
+      HASH_COLUMN,
+      FEE_COLUMN,
+      DATE_COLUMN,
+    ],
+    sm1: [
       HASH_COLUMN,
       {
         ...TAG_COLUMN,
         WrapperProps: {
-          w: '100%',
-          pt: '0rem',
+          pt: '1rem',
           pb: '0rem',
+          w: 'min-content',
         },
         ItemProps: {
           flexDirection: 'row',
