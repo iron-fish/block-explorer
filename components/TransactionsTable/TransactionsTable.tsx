@@ -47,7 +47,7 @@ const HASH_COLUMN: ColumnProps<TransactionType> = {
 }
 const FEE_COLUMN: ColumnProps<TransactionType> = {
   key: 'transaction-fee',
-  label: 'Fee',
+  label: 'Reward',
   render: transaction => `${transaction.fee} Ore`,
 }
 const DATE_COLUMN = {
