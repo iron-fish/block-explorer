@@ -3,20 +3,19 @@ const ORE_TICKER = '$ORE'
 const IRON_TICKER = '$IRON'
 
 export const getIRFAmountWithCurrency = (raw = '0'): string => {
-  const amount = parseInt(raw)
+  const amount = Math.abs(parseInt(raw))
   // const negative = amount < 0
-  const absoluteAmount = Math.abs(amount)
   if (!amount) return '0'
 
   // display $IRON for >=1 IRON
-  if (absoluteAmount > ORE_TO_IRON) {
+  if (amount > ORE_TO_IRON) {
     const div = amount / ORE_TO_IRON
     const displayAmount = getNumberToUnit(div)
     return `${displayAmount.toLocaleString()} ${IRON_TICKER}`
   }
 
   // display $IRON for >=0.01 IRON
-  if (absoluteAmount > ORE_TO_IRON / 100) {
+  if (amount > ORE_TO_IRON / 100) {
     const displayAmount = (amount / ORE_TO_IRON).toFixed(4)
     return `${displayAmount.toLocaleString()} ${IRON_TICKER}`
   }
