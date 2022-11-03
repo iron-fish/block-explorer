@@ -53,7 +53,7 @@ const BLOCK_CARDS = [
   {
     key: 'size-card',
     label: 'Size',
-    value: pipe(safeProp('size'), size, z => z.toString()),
+    value: pipe(safeProp('size'), x => size(x, { precision: 2 }).toString()),
     icon: <BlockInfoSizeIcon />,
   },
   {
