@@ -1,4 +1,4 @@
-import { createContext, FC } from 'react'
+import { createContext, FC, ReactNode } from 'react'
 
 import BlockService from 'services/BlockService'
 import TransactionService from 'services/TransactionService'
@@ -8,7 +8,7 @@ export const BlockContext = createContext<BlockService | null>(null)
 export const TransactionContext = createContext<TransactionService | null>(null)
 export const VersionContext = createContext<VersionService | null>(null)
 
-const ServiceContexts: FC = ({ children }) => (
+const ServiceContexts: FC<{ children: ReactNode }> = ({ children }) => (
   <BlockContext.Provider value={new BlockService()}>
     <TransactionContext.Provider value={new TransactionService()}>
       <VersionContext.Provider value={new VersionService()}>
