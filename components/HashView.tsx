@@ -18,7 +18,7 @@ export const HashView: FC<HashViewProps> = ({
 }) => {
   return (
     <Flex position="relative">
-      <Box as="h5" {...labelProps} position="relative" zIndex={1}>
+      <Box as="h4" {...labelProps} position="relative" zIndex={1}>
         {truncateHash(hash, parts, chars)}
       </Box>
       <Box
