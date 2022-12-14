@@ -15,8 +15,8 @@
     "konva": "^8.3.8",
     "next": "^12.1.6",
     "ramda": "^0.28.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
+    "react": "18.1.0",
+    "react-dom": "18.1.0",
     "react-infinite-scroll-hook": "^4.0.3",
     "react-konva": "^18.1.0",
     "react-native": "^0.68.2",
@@ -28,7 +28,8 @@
   "devDependencies": {
     "@ironfish/ui-kit": "^0.0.14",
     "@types/node": "^17.0.23",
-    "@types/react": "^17.0.43",
+    "@types/react": "17.0.18",
+    "@types/react-dom": "17.0.18",
     "@typescript-eslint/eslint-plugin": "^5.25.0",
     "@typescript-eslint/parser": "^5.25.0",
     "@visx/visx": "2.10.0",
@@ -53,7 +54,7 @@
     "@chakra-ui/system": "^1.0.0"
   },
   "resolutions": {
-    "@types/react": "17.0.2",
-    "@types/react-dom": "17.0.2"
+    "@types/react": "17.0.18",
+    "@types/react-dom": "17.0.18"
   }
 }
