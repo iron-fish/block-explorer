@@ -65,6 +65,7 @@ const BlocksTable: FC<BlocksTableProps> = props => {
         p=".75rem"
         w="100%"
         message="Testnet Phase 2 is complete! Stay tuned for Testnet Phase 3, launching January 18, 2023."
+        whiteSpace={'normal'}
       ></InfoBadge>
       <CommonTable
         {...props}
