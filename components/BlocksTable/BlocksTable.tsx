@@ -57,7 +57,7 @@ const BlocksTable: FC<BlocksTableProps> = props => {
   const router = useRouter()
 
   return (
-    // TODO: Remove container div once the Phase 3 badge is gone
+    // TODO: Remove container once the Phase 3 badge is gone
     // (https://airtable.com/appIXmGgVqP9QdbCf/tblAWSTOQbTq6vh6X/viwVMBWs7bGdpLiOd/reczg8YuO3jIBQ3pj)
     <>
       <InfoBadge
