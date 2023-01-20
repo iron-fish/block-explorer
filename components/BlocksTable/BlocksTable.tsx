@@ -8,7 +8,7 @@ import { safeProp } from 'utils/safeProp'
 import { formatBlockTimestamp } from 'utils/format'
 import { BlockType } from 'types'
 import RoutePaths from 'constants/RoutePaths'
-import { CopyValueToClipboard, InfoBadge } from 'components'
+import { CopyValueToClipboard } from 'components'
 
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
