@@ -57,16 +57,16 @@ const BlocksTable: FC<BlocksTableProps> = props => {
   const router = useRouter()
 
   return (
-      <CommonTable
-        {...props}
-        columns={COLUMNS}
-        onRowClick={(block: BlockType) =>
-          router.push({
-            pathname: RoutePaths.BlockInfo,
-            query: { id: block?.sequence.toString() },
-          })
-        }
-      />
+    <CommonTable
+      {...props}
+      columns={COLUMNS}
+      onRowClick={(block: BlockType) =>
+        router.push({
+          pathname: RoutePaths.BlockInfo,
+          query: { id: block?.sequence.toString() },
+        })
+      }
+    />
   )
 }
 
