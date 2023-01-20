@@ -57,16 +57,6 @@ const BlocksTable: FC<BlocksTableProps> = props => {
   const router = useRouter()
 
   return (
-    // TODO: Remove container once the Phase 3 badge is gone
-    // (https://airtable.com/appIXmGgVqP9QdbCf/tblAWSTOQbTq6vh6X/viwVMBWs7bGdpLiOd/reczg8YuO3jIBQ3pj)
-    <>
-      <InfoBadge
-        mb="1rem"
-        p=".75rem"
-        w="100%"
-        message="Testnet Phase 2 is complete! Stay tuned for Testnet Phase 3, launching January 18, 2023."
-        whiteSpace={'normal'}
-      ></InfoBadge>
       <CommonTable
         {...props}
         columns={COLUMNS}
@@ -77,7 +67,6 @@ const BlocksTable: FC<BlocksTableProps> = props => {
           })
         }
       />
-    </>
   )
 }
 
