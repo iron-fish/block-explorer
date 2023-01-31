@@ -13,8 +13,7 @@ import {
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import size from 'byte-size'
-import pathOr from 'ramda/src/pathOr'
-import pipe from 'ramda/src/pipe'
+import { pipe, pathOr } from 'ramda'
 
 import {
   Card,

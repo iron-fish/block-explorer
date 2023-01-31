@@ -32,6 +32,17 @@ const resolvePath = (path: string, queryParams: ParsedUrlQuery | null) => {
           link: <BreadcrumbLink.Explorer isCurrent={true} />,
         },
       ]
+    case RoutePaths.Assets:
+      return [
+        {
+          key: 'breadcrumb-home',
+          link: <BreadcrumbLink.Home />,
+        },
+        {
+          key: 'breadcrumb-explorer',
+          link: <BreadcrumbLink.Assets isCurrent={true} />,
+        },
+      ]
     case RoutePaths.BlockInfo:
       return [
         {

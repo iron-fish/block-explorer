@@ -1,7 +1,6 @@
 import { FC } from 'react'
 import { NAMED_COLORS, useBreakpointValue, Box } from '@ironfish/ui-kit'
-import pipe from 'ramda/src/pipe'
-import pathOr from 'ramda/src/pathOr'
+import { pipe, pathOr } from 'ramda'
 import { useRouter } from 'next/router'
 
 import { formatBlockTimestamp } from 'utils/format'

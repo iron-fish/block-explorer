@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { Box, Flex } from '@ironfish/ui-kit'
 
-import pipe from 'ramda/src/pipe'
+import { pipe } from 'ramda'
 
 import {
   CardContainer,

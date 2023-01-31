@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import prop from 'ramda/src/prop'
+import { prop } from 'ramda'
 import byteSize from 'byte-size'
 
 import GeneralChart, { GeneralChartProps } from './GeneralChart'

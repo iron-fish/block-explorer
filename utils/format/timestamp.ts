@@ -1,9 +1,4 @@
-import prop from 'ramda/src/prop'
-import propOr from 'ramda/src/propOr'
-import pipe from 'ramda/src/pipe'
-import K from 'ramda/src/always'
-import ifElse from 'ramda/src/ifElse'
-import isNil from 'ramda/src/isNil'
+import { prop, propOr, pipe, ifElse, isNil, always } from 'ramda'
 import { parseISO } from 'date-fns/fp'
 import { formatInTimeZone } from 'date-fns-tz/fp'
 
@@ -15,12 +10,12 @@ export const formatBlockTimestamp = ifElse(
     // TODO: figure out a way to deal with this when we do i18n
     formatInTimeZone(`dd'-'MM'-'yyyy HH':'mm':'ss zzz`, 'UTC')
   ),
-  K('')
+  always('')
 )
 
 export const formatDate = ifElse(
   isNil,
-  K(''),
+  always(''),
   pipe(
     parseISO,
     // TODO: figure out a way to deal with this when we do i18n
@@ -30,7 +25,7 @@ export const formatDate = ifElse(
 
 export const formatTime = ifElse(
   isNil,
-  K(''),
+  always(''),
   pipe(
     parseISO,
     // TODO: figure out a way to deal with this when we do i18n
