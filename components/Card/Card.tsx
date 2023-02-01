@@ -62,7 +62,12 @@ const Card: FC<CardProps> = ({
         w="100%"
         h="100%"
       >
-        <Flex flexDirection="column" whiteSpace="break-spaces">
+        <Flex
+          flexDirection="column"
+          whiteSpace="break-spaces"
+          minWidth={0}
+          flexGrow={1}
+        >
           <Box color={$colors.label}>
             <h4>{label}</h4>
           </Box>

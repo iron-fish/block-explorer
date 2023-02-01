@@ -15,16 +15,18 @@ import RowItem from './RowItem'
 import RowItemSpin from './RowItemSpin'
 import { CommonTableProps } from './types'
 
+const nonInteractiveTbodyStyles = {
+  tr: {
+    _hover: {
+      borderColor: null,
+    },
+  },
+}
+
 export const CommonTable: FC<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   CommonTableProps<any>
-> = ({
-  data = null,
-  columns = [],
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onRowClick,
-  ...rest
-}) => {
+> = ({ data = null, columns = [], onRowClick, ...rest }) => {
   const $bg = useColorModeValue(NAMED_COLORS.WHITE, NAMED_COLORS.DARKER_GREY)
 
   return (
@@ -36,7 +38,7 @@ export const CommonTable: FC<
           ))}
         </Tr>
       </Thead>
-      <Tbody>
+      <Tbody sx={!onRowClick ? nonInteractiveTbodyStyles : null}>
         {data?.map((block, index) => (
           <Tr
             key={block?.id || `load-${index}`}

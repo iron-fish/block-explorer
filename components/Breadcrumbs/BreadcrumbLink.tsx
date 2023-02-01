@@ -88,15 +88,6 @@ const Explorer: FC<CurrentBreadcrumbLink> = ({ isCurrent = false }) => (
   />
 )
 
-const Assets: FC<CurrentBreadcrumbLink> = ({ isCurrent = false }) => (
-  <BaseBreadcrumbLink
-    to={RoutePaths.Explorer}
-    icon={<AssetIcon h="1.25rem" w="1.25rem" color="inherit" />}
-    label="All Assets"
-    isCurrent={isCurrent}
-  />
-)
-
 const BlockInfo: FC<BlockInfoBreadCrumbLink> = ({
   isCurrent = false,
   to = RoutePaths.BlockInfo,
@@ -105,6 +96,24 @@ const BlockInfo: FC<BlockInfoBreadCrumbLink> = ({
     to={to}
     icon={<BlockIcon h="1.25rem" w="1.25rem" color="inherit" />}
     label="Block Info"
+    isCurrent={isCurrent}
+  />
+)
+
+const Assets: FC<CurrentBreadcrumbLink> = ({ isCurrent = false }) => (
+  <BaseBreadcrumbLink
+    to={RoutePaths.Assets}
+    icon={<AssetIcon h="1.25rem" w="1.25rem" color="inherit" />}
+    label="All Assets"
+    isCurrent={isCurrent}
+  />
+)
+
+const AssetsInfo: FC<CurrentBreadcrumbLink> = ({ isCurrent = false }) => (
+  <BaseBreadcrumbLink
+    to={RoutePaths.AssetsInfo}
+    icon={<AssetIcon h="1.25rem" w="1.25rem" color="inherit" />}
+    label="Asset Info"
     isCurrent={isCurrent}
   />
 )
@@ -134,6 +143,7 @@ interface BreadcrumbLinkProps {
   Charts: FC<CurrentBreadcrumbLink>
   TransactionInfo: FC<CurrentBreadcrumbLink>
   Assets: FC<CurrentBreadcrumbLink>
+  AssetsInfo: FC<CurrentBreadcrumbLink>
 }
 
 const BreadcrumbLink: FC<BaseBreadcrumbLinkProps> &
@@ -145,5 +155,6 @@ BreadcrumbLink.BlockInfo = BlockInfo
 BreadcrumbLink.Charts = Charts
 BreadcrumbLink.TransactionInfo = TransactionInfo
 BreadcrumbLink.Assets = Assets
+BreadcrumbLink.AssetsInfo = AssetsInfo
 
 export default BreadcrumbLink

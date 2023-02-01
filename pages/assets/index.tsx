@@ -1,65 +1,22 @@
-import { useRef, useState, useEffect } from 'react'
 import { Box, Flex } from '@ironfish/ui-kit'
-import { BlocksTable } from 'components'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
-import useInfiniteBlocks from 'hooks/useInfiniteBlocks'
 import Head from 'next/head'
-import useInfiniteScroll from 'react-infinite-scroll-hook'
 import { CustomAssetsTable } from 'components/CustomAssets/CustomAssetsTable/CustomAssetsTable'
 
-const BLOCK_CHUNK_SIZE = 20
-
-const InfiniteBlocks = ({ reload, onReloaded }) => {
-  const [
-    {
-      loaded,
-      data: { data, metadata },
-      error,
-    },
-    loadNext,
-    reloadBlocks,
-  ] = useInfiniteBlocks(BLOCK_CHUNK_SIZE)
-  const [observerRef] = useInfiniteScroll({
-    loading: !loaded,
-    hasNextPage: metadata?.has_next,
-    disabled: !!error,
-    onLoadMore: loadNext,
-    rootMargin: '0px 0px 320px 0px',
-  })
-
-  useEffect(() => {
-    if (reload) {
-      reloadBlocks().then(onReloaded)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reload])
-
-  return (
-    <>
-      <BlocksTable
-        data={
-          loaded ? data : data.concat(new Array(BLOCK_CHUNK_SIZE).fill(null))
-        }
-      />
-      <span
-        ref={observerRef}
-        style={{
-          background: 'transparent',
-          border: 'none',
-          height: '0',
-          width: '100%',
-        }}
-      />
-    </>
-  )
-}
+const assets = Array.from({ length: 100 }).map((_, i) => ({
+  id: i.toString(),
+  name: `Mock asset #${i}`,
+  owner: '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef',
+  total_supply: i * 500000 + 1000000,
+  created_at: 0 + i * 1000 * 60 * 60 * 24,
+  metadata: 'Hello world',
+  transaction:
+    '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef',
+}))
 
 export default function Assets() {
-  const containerRef = useRef(null)
-  const [reload, setReload] = useState(false)
-
   return (
-    <main ref={containerRef} style={{ width: '100%', height: '100%' }}>
+    <main style={{ width: '100%', height: '100%' }}>
       <Head>
         <title>Iron Fish: Assets</title>
       </Head>
@@ -75,7 +32,7 @@ export default function Assets() {
         <Box my="0.5rem">
           <h3>All Assets</h3>
         </Box>
-        <CustomAssetsTable />
+        <CustomAssetsTable assets={assets} />
       </Box>
     </main>
   )

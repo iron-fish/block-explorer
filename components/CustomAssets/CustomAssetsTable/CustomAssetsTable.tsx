@@ -11,22 +11,11 @@ type Asset = {
   id: string
   name: string
   owner: string
-  total_supply: string
-  created_at: string
+  total_supply: number
+  created_at: number
   metadata: string
   transaction: string
 }
-
-const assets = Array.from({ length: 100 }).map((_, i) => ({
-  id: i,
-  name: `Mock asset #${i}`,
-  owner: '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef',
-  total_supply: i * 500000 + 1000000,
-  created_at: 0 + i * 1000 * 60 * 60 * 24,
-  metadata: 'Hello world',
-  transaction:
-    '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef',
-}))
 
 const columns: ColumnProps<Asset>[] = [
   {
@@ -60,14 +49,16 @@ const columns: ColumnProps<Asset>[] = [
   },
 ]
 
-type Props = Omit<CommonTableProps<Asset>, 'columns'>
+type Props = {
+  assets: Array<Asset>
+} & Omit<CommonTableProps<Asset>, 'columns'>
 
-export function CustomAssetsTable(props: Props) {
+export function CustomAssetsTable({ assets, ...rest }: Props) {
   const router = useRouter()
 
   return (
     <CommonTable
-      {...props}
+      {...rest}
       data={assets}
       columns={columns}
       onRowClick={(block: Asset) =>

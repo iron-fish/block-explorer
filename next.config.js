@@ -24,6 +24,13 @@ const nextConfig = {
       ...config.resolve.alias,
       react: resolve('./node_modules/react'),
     }
+
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: ['@svgr/webpack'],
+    })
+
     return config
   },
 }

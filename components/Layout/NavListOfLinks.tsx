@@ -36,12 +36,15 @@ const NavListOfLinks: FC<FlexProps> = props => {
         </Link>
       </NextLink>
       <NextLink href={EXTERNAL_LINKS.IRONFISH_DOCS} passHref>
-        <a target="_blank" rel="noreferrer">
-          <Link variant="underlined" sx={$linkStyle}>
-            Docs
-            <OuterReferenceIcon ml="0.5rem" />
-          </Link>
-        </a>
+        <Link
+          variant="underlined"
+          sx={$linkStyle}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Docs
+          <OuterReferenceIcon ml="0.5rem" />
+        </Link>
       </NextLink>
       {props.children}
     </Flex>
