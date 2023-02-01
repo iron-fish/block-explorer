@@ -7,7 +7,7 @@ import { safeProp } from 'utils/safeProp'
 import { formatBlockTimestamp } from 'utils/format'
 import { BlockType } from 'types'
 import RoutePaths from 'constants/RoutePaths'
-import { CopyValueToClipboard, HashView, InfoBadge } from 'components'
+import { CopyValueToClipboard, HashView } from 'components'
 
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
@@ -58,26 +58,16 @@ const BlocksTable: FC<BlocksTableProps> = props => {
   const router = useRouter()
 
   return (
-    // TODO: can remove container div once the Phase 3 badge is gone
-    // (https://airtable.com/appIXmGgVqP9QdbCf/tblAWSTOQbTq6vh6X/viwVMBWs7bGdpLiOd/reczg8YuO3jIBQ3pj)
-    <div>
-      <InfoBadge
-        mb="1rem"
-        p=".75rem"
-        w="100%"
-        message="Testnet Phase 2 is complete! Stay tuned for Testnet Phase 3, launching January 18, 2023."
-      ></InfoBadge>
-      <CommonTable
-        {...props}
-        columns={COLUMNS}
-        onRowClick={(block: BlockType) =>
-          router.push({
-            pathname: RoutePaths.BlockInfo,
-            query: { id: block?.sequence.toString() },
-          })
-        }
-      />
-    </div>
+    <CommonTable
+      {...props}
+      columns={COLUMNS}
+      onRowClick={(block: BlockType) =>
+        router.push({
+          pathname: RoutePaths.BlockInfo,
+          query: { id: block?.sequence.toString() },
+        })
+      }
+    />
   )
 }
 
