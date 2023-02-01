@@ -2,7 +2,7 @@ import { Box, Flex, NAMED_COLORS, useColorModeValue } from '@ironfish/ui-kit'
 
 import Link from 'next/link'
 import size from 'byte-size'
-import pipe from 'ramda/src/pipe'
+import { pipe } from 'ramda'
 import safeProp from 'utils/safeProp'
 import { formatBlockTimestamp } from 'utils/format'
 import { CloseDetailsIcon } from 'svgx/CloseDetailsIcon'

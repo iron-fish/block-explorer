@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import prop from 'ramda/src/prop'
+import { prop } from 'ramda'
 
 import GeneralChart, { GeneralChartProps } from './GeneralChart'
 import ChartBox from './ChartBox'
