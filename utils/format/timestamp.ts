@@ -1,4 +1,4 @@
-import { prop, propOr, pipe, ifElse, isNil, always } from 'ramda'
+import { prop, propOr, pipe, always, ifElse, isNil } from 'ramda'
 import { parseISO } from 'date-fns/fp'
 import { formatInTimeZone } from 'date-fns-tz/fp'
 
