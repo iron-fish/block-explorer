@@ -13,14 +13,14 @@ import {
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import size from 'byte-size'
-import pathOr from 'ramda/src/pathOr'
-import pipe from 'ramda/src/pipe'
+import { pathOr, pipe } from 'ramda'
 
 import {
   Card,
   CardContainer,
   CopyValueToClipboard,
   InfoBadge,
+  HashView,
 } from 'components'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import useTransactionByHash from 'hooks/useTransactionByHash'
@@ -35,7 +35,6 @@ import {
 } from 'svgx'
 import { getIRFAmountWithCurrency } from 'utils/currency'
 import { TransactionType } from 'types'
-import { truncateHash } from 'utils/hash'
 import safeProp from 'utils/safeProp'
 import { formatBlockTimestamp } from 'utils/format'
 
@@ -82,7 +81,7 @@ const TransactionDataBlock = ({ label, value, icon }) => {
             w: '100%',
           }}
           value={value}
-          label={truncateHash(value, 2, $hashSize)}
+          label={<HashView hash={value} parts={2} chars={$hashSize} />}
         />
       </Flex>
     </Flex>
@@ -163,7 +162,12 @@ const TRANSACTION_INFO_CARDS = [
         index === undefined || index === -1 ? 0 : index,
         'hash',
       ])(transaction)
-      return <CopyValueToClipboard value={hash} label={truncateHash(hash, 2)} />
+      return (
+        <CopyValueToClipboard
+          value={hash}
+          label={<HashView hash={hash} parts={2} />}
+        />
+      )
     },
     icon: <DifficultyIcon />,
   },
@@ -172,19 +176,24 @@ const TRANSACTION_INFO_CARDS = [
     label: 'Transaction Hash',
     value: (transaction: TransactionType | null) => {
       const hash = safeProp('hash')(transaction)
-      return <CopyValueToClipboard value={hash} label={truncateHash(hash, 2)} />
+      return (
+        <CopyValueToClipboard
+          value={hash}
+          label={<HashView hash={hash} parts={2} />}
+        />
+      )
     },
     icon: <DifficultyIcon />,
   },
   {
     key: 'size-card',
     label: 'Size',
-    value: pipe(safeProp('size'), size, z => z.toString()),
+    value: pipe(safeProp('size'), x => size(x, { precision: 2 }).toString()),
     icon: <SizeIcon />,
   },
   {
     key: 'fee-card',
-    label: 'Fee',
+    label: 'Reward',
     value: pipe(safeProp('fee'), getIRFAmountWithCurrency),
     icon: <CompassIcon />,
   },

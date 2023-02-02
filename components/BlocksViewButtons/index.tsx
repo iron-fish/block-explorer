@@ -6,10 +6,15 @@ import {
 } from '@ironfish/ui-kit'
 import RoutePaths from 'constants/RoutePaths'
 import { useRouter } from 'next/router'
+import { FC } from 'react'
 import ListIcon from 'svgx/ListIcon'
 import TreeIcon from 'svgx/TreeIcon'
 
-const BlocksViewButtons = () => {
+interface BlocksViewButtonsProps {
+  blockId?: string | number
+}
+
+const BlocksViewButtons: FC<BlocksViewButtonsProps> = ({ blockId }) => {
   const router = useRouter()
   const $iconStyle = useColorModeValue(
     {
@@ -43,15 +48,30 @@ const BlocksViewButtons = () => {
       <IconButton
         aria-label="list-button"
         icon={<ListIcon height="24px" width="24px" />}
-        isActive={router.route === RoutePaths.Explorer}
-        onClick={() => router.push(RoutePaths.Explorer)}
+        isActive={
+          router.route === RoutePaths.Explorer ||
+          router.route === RoutePaths.BlockInfo
+        }
+        onClick={() =>
+          blockId
+            ? router.push({
+                pathname: RoutePaths.BlockInfo,
+                query: { id: blockId },
+              })
+            : router.push(RoutePaths.Explorer)
+        }
         sx={$iconStyle}
       />
       <IconButton
         aria-label="tree-button"
         icon={<TreeIcon height="24px" width="24px" />}
         isActive={router.route === RoutePaths.ChainExplorer}
-        onClick={() => router.push(RoutePaths.ChainExplorer)}
+        onClick={() =>
+          router.push({
+            pathname: RoutePaths.ChainExplorer,
+            ...(blockId && { query: { blockId } }),
+          })
+        }
         sx={$iconStyle}
       />
     </ButtonGroup>

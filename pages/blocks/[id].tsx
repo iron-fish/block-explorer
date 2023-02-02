@@ -3,9 +3,15 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { Box, Flex } from '@ironfish/ui-kit'
 
-import pipe from 'ramda/src/pipe'
+import { pipe } from 'ramda'
 
-import { CardContainer, Card, TimeStamp } from 'components'
+import {
+  CardContainer,
+  Card,
+  TimeStamp,
+  CopyValueToClipboard,
+  InfoBadge,
+} from 'components'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import {
   DifficultyIcon,
@@ -16,11 +22,11 @@ import {
   BlockInfoTimestampIcon,
   BlockInfoGraffitiIcon,
 } from 'svgx'
-import { truncateHash } from 'utils/hash'
 import safeProp from 'utils/safeProp'
 import { TransactionsTable } from 'components/TransactionsTable'
+import { HashView } from 'components'
 import { BlockType } from 'types'
-import { CopyValueToClipboard, InfoBadge } from 'components'
+// import BlocksViewButtons from 'components/BlocksViewButtons'
 import useBlock from 'hooks/useBlock'
 
 const BLOCK_CARDS = [
@@ -36,7 +42,10 @@ const BLOCK_CARDS = [
     value: block => {
       const hash = safeProp('hash')(block)
       return (
-        <CopyValueToClipboard value={hash} label={truncateHash(hash, 2, 4)} />
+        <CopyValueToClipboard
+          value={hash}
+          label={<HashView hash={hash} parts={2} />}
+        />
       )
     },
     icon: <DifficultyIcon />,
@@ -44,7 +53,7 @@ const BLOCK_CARDS = [
   {
     key: 'size-card',
     label: 'Size',
-    value: pipe(safeProp('size'), size, z => z.toString()),
+    value: pipe(safeProp('size'), x => size(x, { precision: 2 }).toString()),
     icon: <BlockInfoSizeIcon />,
   },
   {
@@ -84,7 +93,13 @@ const BlockInfo = ({ id }) => {
 
   return (
     <>
-      <Flex mt="0.5rem" mb="2rem" align="center">
+      <Flex mt="2.5rem">
+        <Breadcrumbs />
+        {/* <Box pt="0.6875rem" ml="auto">
+          <BlocksViewButtons blockId={block.data?.id} />
+        </Box> */}
+      </Flex>
+      <Flex mt="0.5rem" mb="2rem">
         <h3>Block Information</h3>
         {block.data?.main === false && (
           <InfoBadge ml={'1rem'} message={'Forked'} />
@@ -134,9 +149,6 @@ export default function BlockInformationPage() {
         <title>Iron Fish: Block {id}</title>
       </Head>
       <Box mx={{ base: '2rem', lg: '15%' }} mb="6rem" zIndex={1}>
-        <Box mt="2.5rem">
-          <Breadcrumbs />
-        </Box>
         <BlockInfo id={id} />
       </Box>
     </main>
