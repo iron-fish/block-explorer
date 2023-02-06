@@ -12,6 +12,7 @@ import { CopyValueToClipboard, InfoBadge, HashView } from 'components'
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
 import { BlueHashIcon } from 'svgx'
+import { getIRFAmountWithCurrency } from 'utils/currency'
 
 const TAG_COLUMN: ColumnProps<TransactionType> = {
   key: 'transaction-tag',
@@ -47,7 +48,7 @@ const HASH_COLUMN: ColumnProps<TransactionType> = {
 const FEE_COLUMN: ColumnProps<TransactionType> = {
   key: 'transaction-fee',
   label: 'Fee',
-  render: transaction => `${transaction.fee} Ore`,
+  render: transaction => `${getIRFAmountWithCurrency(transaction.fee)}`,
 }
 const DATE_COLUMN = {
   key: 'transaction-timestamp',
