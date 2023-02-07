@@ -143,6 +143,7 @@ const Navbar: FC = () => {
       >
         <Link href={RoutePaths.Home} passHref>
           <Box
+            as="a"
             order={1}
             justifySelf="flex-start"
             flex={{ base: null, sm: 1 }}
