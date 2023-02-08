@@ -20,13 +20,6 @@ import Link from 'next/link'
 import useNodeVersion from 'hooks/useNodeVersion'
 import RoutePaths from 'constants/RoutePaths'
 
-const openInNewTab = (url: string): void => {
-  const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
-  if (newWindow) {
-    newWindow.opener = null
-  }
-}
-
 const NodeVersionButton: FC<StyleProps> = (props: StyleProps) => {
   const { loaded, data, error } = useNodeVersion()
 
@@ -57,7 +50,10 @@ const NodeVersionButton: FC<StyleProps> = (props: StyleProps) => {
 
   return (
     <Badge
-      onClick={() => openInNewTab(versionUrl)}
+      as="a"
+      href={versionUrl}
+      target="_blank"
+      rel="noreferrer"
       bg={NAMED_COLORS.LIGHTER_GREY}
       color={NAMED_COLORS.BLACK}
       borderRadius="5rem"
