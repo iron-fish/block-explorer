@@ -5,6 +5,8 @@ import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import { AssetInformationGrid } from 'components/CustomAssets/AssetInformationGrid/AssetInformationGrid'
 import { AssetHistory } from 'components/CustomAssets/AssetHistory/AssetHistory'
 import { AssetTransactionChart } from 'components/CustomAssets/AssetTransactionChart/AssetTransactionChart'
+import useAsset from 'hooks/useAsset'
+import { useMemo } from 'react'
 
 const asset_details = {
   id: '00000000003ab21806c9a64c1e5cab08a53f8fe61cf1cb42a7dcede286c05ff6',
@@ -58,6 +60,29 @@ export default function AssetInfo() {
   const router = useRouter()
   const { id } = router.query
 
+  const asset = useAsset(id as string)
+
+  if (asset.error) {
+    throw asset.error
+  }
+
+  const assetDetails = useMemo(() => {
+    if (!asset.loaded) {
+      return {
+        created_transaction_hash: '—',
+        id: '—',
+        identifier: '—',
+        metadata: '—',
+        name: 'Loading...',
+        object: 'asset',
+        owner: '—',
+        supply: '—',
+      }
+    }
+
+    return asset.data
+  }, [asset])
+
   return (
     <main style={{ width: '100%', height: '100%' }}>
       <Head>
@@ -70,7 +95,7 @@ export default function AssetInfo() {
         <Flex mt="0.5rem" mb="2rem">
           <h3>Asset Information</h3>
         </Flex>
-        <AssetInformationGrid assetDetails={asset_details} />
+        <AssetInformationGrid assetDetails={assetDetails} />
         <Box my="0.5rem">
           <h3>Asset History</h3>
         </Box>

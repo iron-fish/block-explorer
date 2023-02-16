@@ -1,5 +1,6 @@
 export * from './common/AsyncDataType'
 export * from './domain/BlockType'
+export * from './domain/AssetType'
 export * from './domain/Metric'
 export * from './domain/NodeVersionType'
 export * from './common/ResponseType'

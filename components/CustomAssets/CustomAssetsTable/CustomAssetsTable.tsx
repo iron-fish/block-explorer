@@ -61,10 +61,12 @@ export function CustomAssetsTable({ assets, ...rest }: Props) {
       {...rest}
       data={assets}
       columns={columns}
-      onRowClick={(block: Asset) =>
+      onRowClick={(_asset: Asset) =>
         router.push({
           pathname: RoutePaths.AssetsInfo,
-          query: { id: block?.id },
+          query: {
+            id: '461e0a68a29eefad3baac4ad65ecde5e32112f26b5efb3822738ce6391d35493',
+          },
         })
       }
     />

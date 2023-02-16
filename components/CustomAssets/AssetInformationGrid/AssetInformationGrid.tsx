@@ -12,7 +12,7 @@ const ASSET_CARDS = [
   { label: 'Asset Name', value: safeProp('name'), icon: <NameTag /> },
   {
     label: 'Asset Identifier',
-    value: block => <RenderHash hash={safeProp('id')(block)} />,
+    value: safeProp('id'),
     icon: <DifficultyIcon />,
   },
   {
@@ -22,12 +22,14 @@ const ASSET_CARDS = [
   },
   {
     label: 'Total Supply',
-    value: safeProp('total_supply'),
+    value: safeProp('supply'),
     icon: <TotalSupplyIcon />,
   },
   {
     label: 'Transaction',
-    value: block => <RenderHash hash={safeProp('transaction')(block)} />,
+    value: block => (
+      <RenderHash hash={safeProp('created_transaction_hash')(block)} />
+    ),
     icon: <DifficultyIcon />,
   },
 ]
@@ -137,17 +139,17 @@ function ExpandableText({ text }: { text: string }) {
 
 type Props = {
   assetDetails: {
-    id: string
+    id: number | string
     name: string
     owner: string
-    total_supply: number
-    created_at: number
+    supply: string
     metadata: string
-    transaction: string
+    created_transaction_hash: string
   }
 }
 
 export function AssetInformationGrid({ assetDetails }: Props) {
+  const metadata = safeProp('metadata')(assetDetails) || 'n/a'
   return (
     <CardContainer>
       {ASSET_CARDS.map(card => (
@@ -168,7 +170,7 @@ export function AssetInformationGrid({ assetDetails }: Props) {
       <Card
         label="Asset Metadata"
         icon={<InfoCircle />}
-        value={<ExpandableText text={safeProp('metadata')(assetDetails)} />}
+        value={<ExpandableText text={metadata} />}
         isLoading={false}
         mb="1rem"
         height="auto"
