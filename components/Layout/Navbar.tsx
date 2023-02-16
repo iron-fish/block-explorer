@@ -20,13 +20,6 @@ import Link from 'next/link'
 import useNodeVersion from 'hooks/useNodeVersion'
 import RoutePaths from 'constants/RoutePaths'
 
-const openInNewTab = (url: string): void => {
-  const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
-  if (newWindow) {
-    newWindow.opener = null
-  }
-}
-
 const NodeVersionButton: FC<StyleProps> = (props: StyleProps) => {
   const { loaded, data, error } = useNodeVersion()
 
@@ -57,7 +50,10 @@ const NodeVersionButton: FC<StyleProps> = (props: StyleProps) => {
 
   return (
     <Badge
-      onClick={() => openInNewTab(versionUrl)}
+      as="a"
+      href={versionUrl}
+      target="_blank"
+      rel="noreferrer"
       bg={NAMED_COLORS.LIGHTER_GREY}
       color={NAMED_COLORS.BLACK}
       borderRadius="5rem"
@@ -131,7 +127,7 @@ const Navbar: FC = () => {
   return (
     <Flex w="100%" position="sticky" top={0} zIndex={10} direction="column">
       <Flex
-        align="center"
+        align="stretch"
         w="100%"
         flexWrap="wrap"
         borderBottom="0.0625rem solid"
@@ -141,23 +137,26 @@ const Navbar: FC = () => {
         borderColor={$colors.border}
         justifyContent="space-between"
       >
-        <Link href={RoutePaths.Home} passHref>
-          <Box
-            order={1}
-            justifySelf="flex-start"
-            flex={{ base: null, sm: 1 }}
-            mr={{ base: 0, sm: '1.5rem' }}
-            w="50%"
-            mb="0.125rem"
-            whiteSpace="nowrap"
-          >
-            <IronFishLogo cursor="pointer" />
-            <NodeVersionButton
-              mx="1rem"
-              display={{ base: 'none', lg: 'inline-block' }}
-            />
-          </Box>
-        </Link>
+        <Flex
+          order={1}
+          alignItems="center"
+          justifySelf="flex-start"
+          flex={{ base: null, sm: 1 }}
+          mr={{ base: 0, sm: '1.5rem' }}
+          w="50%"
+          mb="0.125rem"
+          whiteSpace="nowrap"
+        >
+          <Link href={RoutePaths.Home} passHref>
+            <Flex as="a" alignSelf="stretch" alignItems="center">
+              <IronFishLogo cursor="pointer" />
+            </Flex>
+          </Link>
+          <NodeVersionButton
+            mx="1rem"
+            display={{ base: 'none', lg: 'inline-block' }}
+          />
+        </Flex>
         <Box
           flex={{ base: 1.5, lg: 1 }}
           order={{ base: 10, sm: 2 }}
