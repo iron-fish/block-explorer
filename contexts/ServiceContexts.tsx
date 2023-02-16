@@ -7,6 +7,7 @@ import VersionService from 'services/VersionService'
 
 export const BlockContext = createContext<BlockService | null>(null)
 export const AssetContext = createContext<AssetService | null>(null)
+export const AssetDescriptionContext = createContext<AssetService | null>(null)
 export const TransactionContext = createContext<TransactionService | null>(null)
 export const VersionContext = createContext<VersionService | null>(null)
 
