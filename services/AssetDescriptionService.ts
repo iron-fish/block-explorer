@@ -1,13 +1,19 @@
-import { AssetType } from 'types'
+import {
+  AssetDescriptionParameters,
+  AssetDescriptionType,
+  ResponseType,
+} from 'types'
 import Service from './Service'
 
 export default class AssetDescriptionService extends Service {
   constructor() {
-    super('/assets')
+    super('/asset_descriptions')
   }
 
-  find(query: { id: string }): Promise<AssetType> {
-    return this.fetcher.get('/find', {
+  get(
+    query: AssetDescriptionParameters
+  ): Promise<ResponseType<AssetDescriptionType[]>> {
+    return this.fetcher.get('', {
       params: query,
     })
   }
