@@ -28,6 +28,7 @@ import { HashView } from 'components'
 import { BlockType } from 'types'
 // import BlocksViewButtons from 'components/BlocksViewButtons'
 import useBlock from 'hooks/useBlock'
+import { useBlocksFind } from 'api/blocks'
 
 const BLOCK_CARDS = [
   {
@@ -85,11 +86,17 @@ const BLOCK_CARDS = [
 ]
 
 const BlockInfo = ({ id }) => {
-  const block = useBlock(id)
+  const result = useBlocksFind({ sequence: id })
 
-  if (block.error) {
-    throw block.error
+  const { data, error } = result
+
+  if (error) {
+    throw error
   }
+
+  console.log(result, result.data)
+
+  return null
 
   return (
     <>
