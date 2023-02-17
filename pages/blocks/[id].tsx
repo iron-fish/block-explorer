@@ -86,25 +86,18 @@ const BLOCK_CARDS = [
 ]
 
 const BlockInfo = ({ id }) => {
-  const result = useBlocksFind({ sequence: id })
+  const block = useBlock(id)
 
-  const { data, error } = result
+  const { data: _data } = useBlocksFind({ sequence: id })
 
-  if (error) {
-    throw error
+  if (block.error) {
+    throw block.error
   }
-
-  console.log(result, result.data)
-
-  return null
 
   return (
     <>
       <Flex mt="2.5rem">
         <Breadcrumbs />
-        {/* <Box pt="0.6875rem" ml="auto">
-          <BlocksViewButtons blockId={block.data?.id} />
-        </Box> */}
       </Flex>
       <Flex mt="0.5rem" mb="2rem">
         <h3>Block Information</h3>
