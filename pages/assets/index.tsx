@@ -24,6 +24,7 @@ async function fetchAssets(
 
 export default function Assets() {
   const { fetchNextPage, hasNextPage, ...result } = useInfiniteQuery({
+    refetchOnWindowFocus: false,
     queryKey: ['assets-list'],
     queryFn: ({ pageParam }) => fetchAssets(pageParam),
     getNextPageParam: (lastPage, _allPages) => {
