@@ -292,7 +292,7 @@ const TransactionInfo = ({ data, loaded }) => {
         mb="3.5rem"
       >
         <MintsBurnsList type="mints" data={data?.mints || []} />
-        <MintsBurnsList type="burns" data={data?.mints || []} />
+        <MintsBurnsList type="burns" data={data?.burns || []} />
       </Flex>
     </>
   )
