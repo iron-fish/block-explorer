@@ -2,10 +2,11 @@ import { isObject } from 'utils/isObject'
 
 export interface AssetDescriptionType {
   object: 'asset_description'
-  id: number
-  transaction_hash: string
   type: 'BURN' | 'MINT'
+  transaction_hash: string
   value: string
+  id: number
+  block_timestamp: string
 }
 
 export function isAssetDescription(

@@ -2,8 +2,9 @@ import { isObject } from 'utils/isObject'
 
 export interface AssetType {
   object: 'asset'
-  created_transaction_hash: string
   id: number
+  created_transaction_hash: string
+  created_transaction_timestamp: string
   identifier: string
   metadata: string
   name: string

@@ -17,6 +17,7 @@ type Asset = {
   created_at: number
   metadata: string
   created_transaction_hash: string
+  created_transaction_timestamp: string
 }
 
 const columns: ColumnProps<Asset>[] = [
@@ -54,7 +55,11 @@ const columns: ColumnProps<Asset>[] = [
     key: 'created_at',
     label: 'Created',
     render: item => {
-      return formatInTimeZone(item.created_at, 'UTC', 'yyyy/MM/dd hh:mm:ss aa')
+      return formatInTimeZone(
+        item.created_transaction_timestamp,
+        'UTC',
+        'yyyy/MM/dd hh:mm:ss aa'
+      )
     },
   },
 ]
