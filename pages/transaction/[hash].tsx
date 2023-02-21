@@ -37,7 +37,6 @@ import { getIRFAmountWithCurrency } from 'utils/currency'
 import { TransactionType } from 'types'
 import safeProp from 'utils/safeProp'
 import { formatBlockTimestamp } from 'utils/format'
-import AssetIcon from 'icons/AssetIcon'
 import { MintsBurnsList } from 'components/CustomAssets/MintsBurnsList/MintsBurnsList'
 
 const TransactionDataBlock = ({ label, value, icon }) => {
