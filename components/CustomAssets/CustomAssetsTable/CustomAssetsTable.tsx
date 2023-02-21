@@ -6,9 +6,11 @@ import safeProp from 'utils/safeProp'
 import { formatInTimeZone } from 'date-fns-tz'
 import { useRouter } from 'next/router'
 import RoutePaths from 'constants/RoutePaths'
+import { CopyValueToClipboard, HashView } from 'components'
 
 type Asset = {
   id: number
+  identifier: string
   name: string
   owner: string
   supply: string
@@ -38,7 +40,15 @@ const columns: ColumnProps<Asset>[] = [
   {
     key: 'id',
     label: 'Asset Identifier',
-    render: safeProp('id'),
+    render: asset => {
+      const identifier = safeProp('identifier')(asset)
+      return (
+        <CopyValueToClipboard
+          value={identifier}
+          label={<HashView hash={identifier} />}
+        />
+      )
+    },
   },
   {
     key: 'created_at',
@@ -61,11 +71,11 @@ export function CustomAssetsTable({ assets, ...rest }: Props) {
       {...rest}
       data={assets}
       columns={columns}
-      onRowClick={(_asset: Asset) =>
+      onRowClick={(asset: Asset) =>
         router.push({
           pathname: RoutePaths.AssetsInfo,
           query: {
-            id: '461e0a68a29eefad3baac4ad65ecde5e32112f26b5efb3822738ce6391d35493',
+            id: asset.identifier,
           },
         })
       }
