@@ -12,12 +12,12 @@ const ASSET_CARDS = [
   { label: 'Asset Name', value: safeProp('name'), icon: <NameTag /> },
   {
     label: 'Asset Identifier',
-    value: safeProp('id'),
+    value: asset => <RenderHash hash={safeProp('identifier')(asset)} />,
     icon: <DifficultyIcon />,
   },
   {
     label: 'Asset Owner',
-    value: block => <RenderHash hash={safeProp('owner')(block)} />,
+    value: asset => <RenderHash hash={safeProp('owner')(asset)} />,
     icon: <Avatar />,
   },
   {
@@ -27,8 +27,8 @@ const ASSET_CARDS = [
   },
   {
     label: 'Transaction',
-    value: block => (
-      <RenderHash hash={safeProp('created_transaction_hash')(block)} />
+    value: asset => (
+      <RenderHash hash={safeProp('created_transaction_hash')(asset)} />
     ),
     icon: <DifficultyIcon />,
   },
