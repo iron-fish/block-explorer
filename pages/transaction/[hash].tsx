@@ -153,43 +153,6 @@ const TransactionsDataList = ({ data = [], isInput = true }) => {
   )
 }
 
-const AssetDescriptionsDataList = ({ label, data }) => {
-  return (
-    <Box
-      flex={1}
-      w={{ base: '100%', md: 'calc(50% - 2rem)' }}
-      mb="1rem"
-      display={{ base: data?.length ? 'block' : 'none', md: 'block' }}
-    >
-      <Text
-        color={NAMED_COLORS.GREY}
-        fontSize="0.75rem"
-        fontFamily={FONTS.FAVORIT}
-        pl="2rem"
-        mb="1rem"
-        display={{ base: 'none', md: 'block' }}
-      >
-        {label}
-      </Text>
-      <List w="100%" spacing={'1rem'}>
-        {data.length ? (
-          data.map((item, index) => (
-            <ListItem key={`list-item-${index}`}>
-              <TransactionDataBlock
-                label={label}
-                value={item['transaction_hash']}
-                icon={<AssetIcon />}
-              />
-            </ListItem>
-          ))
-        ) : (
-          <EmptyDataBlock />
-        )}
-      </List>
-    </Box>
-  )
-}
-
 const TRANSACTION_INFO_CARDS = [
   {
     key: 'block-hash-card',

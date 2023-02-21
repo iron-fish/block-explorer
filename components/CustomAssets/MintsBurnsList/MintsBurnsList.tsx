@@ -8,7 +8,6 @@ import {
   Flex,
   useColorModeValue,
   chakra,
-  useBreakpointValue,
   HStack,
 } from '@ironfish/ui-kit'
 import { HashView } from 'components'
@@ -25,7 +24,6 @@ type Props = {
 }
 
 export function MintsBurnsList({ type, data }: Props) {
-  console.log({ data })
   return (
     <Box
       flex={1}
