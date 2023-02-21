@@ -4,7 +4,7 @@ import { Box, Flex, HStack, NAMED_COLORS, Spinner } from '@ironfish/ui-kit'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import { AssetInformationGrid } from 'components/CustomAssets/AssetInformationGrid/AssetInformationGrid'
 import { AssetHistory } from 'components/CustomAssets/AssetHistory/AssetHistory'
-import { AssetTransactionChart } from 'components/CustomAssets/AssetTransactionChart/AssetTransactionChart'
+// import { AssetTransactionChart } from 'components/CustomAssets/AssetTransactionChart/AssetTransactionChart'
 import useAsset from 'hooks/useAsset'
 import { useMemo } from 'react'
 import useAssetDescriptions from 'hooks/useAssetDescriptions'
@@ -69,11 +69,11 @@ export default function AssetInfo() {
             />
           </HStack>
         )}
-
-        <Box mt="0.5rem" mb="2rem">
+        <Box mb="8rem" />
+        {/* <Box mt="0.5rem" mb="2rem">
           <h3>Asset History Chart</h3>
         </Box>
-        <AssetTransactionChart />
+        <AssetTransactionChart /> */}
       </Box>
     </main>
   )

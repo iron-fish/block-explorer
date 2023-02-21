@@ -18,6 +18,8 @@ const useAssetDescriptions = (
     useAsyncDataWrapper<ResponseType<AssetDescriptionType[]>>()
 
   useEffect(() => {
+    if (!query.asset) return
+
     wrapper(service.get(query))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query.after, query.before, query.limit, query.asset])
