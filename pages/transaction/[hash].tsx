@@ -37,6 +37,8 @@ import { getIRFAmountWithCurrency } from 'utils/currency'
 import { TransactionType } from 'types'
 import safeProp from 'utils/safeProp'
 import { formatBlockTimestamp } from 'utils/format'
+import AssetIcon from 'icons/AssetIcon'
+import { MintsBurnsList } from 'components/CustomAssets/MintsBurnsList/MintsBurnsList'
 
 const TransactionDataBlock = ({ label, value, icon }) => {
   const $colors = useColorModeValue(
@@ -140,6 +142,43 @@ const TransactionsDataList = ({ data = [], isInput = true }) => {
                 label={$label}
                 value={item[isInput ? 'nullifier' : 'commitment']}
                 icon={isInput ? <LargeArrowLeftDown /> : <LargeArrowRightUp />}
+              />
+            </ListItem>
+          ))
+        ) : (
+          <EmptyDataBlock />
+        )}
+      </List>
+    </Box>
+  )
+}
+
+const AssetDescriptionsDataList = ({ label, data }) => {
+  return (
+    <Box
+      flex={1}
+      w={{ base: '100%', md: 'calc(50% - 2rem)' }}
+      mb="1rem"
+      display={{ base: data?.length ? 'block' : 'none', md: 'block' }}
+    >
+      <Text
+        color={NAMED_COLORS.GREY}
+        fontSize="0.75rem"
+        fontFamily={FONTS.FAVORIT}
+        pl="2rem"
+        mb="1rem"
+        display={{ base: 'none', md: 'block' }}
+      >
+        {label}
+      </Text>
+      <List w="100%" spacing={'1rem'}>
+        {data.length ? (
+          data.map((item, index) => (
+            <ListItem key={`list-item-${index}`}>
+              <TransactionDataBlock
+                label={label}
+                value={item['transaction_hash']}
+                icon={<AssetIcon />}
               />
             </ListItem>
           ))
@@ -290,8 +329,8 @@ const TransactionInfo = ({ data, loaded }) => {
         gap={{ base: 'normal', md: '1.75rem' }}
         mb="3.5rem"
       >
-        <TransactionsDataList data={data?.spends} />
-        <TransactionsDataList data={data?.notes} isInput={false} />
+        <MintsBurnsList type="mints" data={data?.mints || []} />
+        <MintsBurnsList type="burns" data={data?.mints || []} />
       </Flex>
     </>
   )
