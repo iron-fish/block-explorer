@@ -8,13 +8,13 @@ import { useRouter } from 'next/router'
 import RoutePaths from 'constants/RoutePaths'
 
 type Asset = {
-  id: string
+  id: number
   name: string
   owner: string
-  total_supply: number
+  supply: string
   created_at: number
   metadata: string
-  transaction: string
+  created_transaction_hash: string
 }
 
 const columns: ColumnProps<Asset>[] = [
@@ -33,7 +33,7 @@ const columns: ColumnProps<Asset>[] = [
   {
     key: 'supply',
     label: 'Supply',
-    render: safeProp('total_supply'),
+    render: safeProp('supply'),
   },
   {
     key: 'id',
