@@ -7,6 +7,10 @@ export interface AssetDescriptionType {
   value: string
   id: number
   block_timestamp: string
+  asset: {
+    identifier: string
+    name: string
+  }
 }
 
 export function isAssetDescription(

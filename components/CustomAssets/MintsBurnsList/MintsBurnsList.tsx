@@ -10,7 +10,6 @@ import {
   chakra,
   HStack,
 } from '@ironfish/ui-kit'
-import { HashView } from 'components'
 import AssetIcon from 'icons/AssetIcon'
 import CaretRightIcon from 'icons/CaretRightIcon'
 import Link from 'next/link'
@@ -58,8 +57,9 @@ export function MintsBurnsList({ type, data }: Props) {
           data.map((item, index) => (
             <ListItem key={index}>
               <MintBurnItem
+                name={item.asset.name}
+                assetIdentifier={item.asset.identifier}
                 quantity={item.value}
-                transactionHash={item.transaction_hash}
               />
             </ListItem>
           ))
@@ -71,7 +71,15 @@ export function MintsBurnsList({ type, data }: Props) {
   )
 }
 
-function MintBurnItem({ quantity, transactionHash }) {
+function MintBurnItem({
+  name,
+  assetIdentifier,
+  quantity,
+}: {
+  name: string
+  assetIdentifier: string
+  quantity: string
+}) {
   const $colors = useColorModeValue(
     {
       border: NAMED_COLORS.LIGHT_GREY,
@@ -86,8 +94,9 @@ function MintBurnItem({ quantity, transactionHash }) {
   )
 
   return (
-    <Box as={Link} href={`/transaction/${transactionHash}`}>
+    <Box as={Link} href={`/assets/${assetIdentifier}`}>
       <HStack
+        cursor="pointer"
         py="1.875rem"
         pl="2rem"
         pr="1.5rem"
@@ -99,7 +108,7 @@ function MintBurnItem({ quantity, transactionHash }) {
         gap={2}
       >
         <AssetIcon w={7} h={7} />
-        <HashView hash={transactionHash} parts={2} chars={6} />
+        <Text>{name}</Text>
         <Text flexGrow={1} textAlign="right">
           {quantity}
         </Text>
