@@ -282,7 +282,7 @@ const TransactionInfo = ({ data, loaded }) => {
         <h3>Mints / Burns</h3>
       </Box>
       <Text as="h4" color={$subTextColor} mb="2rem">
-        Place used for short explanation of mints and burns
+        Here are the mints and burns that occurred in this transaction
       </Text>
       <Flex
         w="100%"
