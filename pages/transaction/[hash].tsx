@@ -9,6 +9,9 @@ import {
   chakra,
   Text,
   FONTS,
+  Button,
+  HStack,
+  VStack,
 } from '@ironfish/ui-kit'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -38,6 +41,7 @@ import { TransactionType } from 'types'
 import safeProp from 'utils/safeProp'
 import { formatBlockTimestamp } from 'utils/format'
 import { MintsBurnsList } from 'components/CustomAssets/MintsBurnsList/MintsBurnsList'
+import { useMemo, useState } from 'react'
 
 const TransactionDataBlock = ({ label, value, icon }) => {
   const $colors = useColorModeValue(
@@ -233,6 +237,16 @@ const TransactionInfo = ({ data, loaded }) => {
     NAMED_COLORS.GREY,
     NAMED_COLORS.PALE_GREY
   )
+
+  const [showMore, setShowMore] = useState(false)
+  const showMoreLimit = 3
+  const hasMore = useMemo(() => {
+    return (
+      data?.spends?.length > showMoreLimit ||
+      data?.notes?.length > showMoreLimit
+    )
+  }, [data?.notes?.length, data?.spends?.length])
+
   return (
     <>
       <Flex mt="0.5rem" mb="2rem" align="center">
@@ -268,16 +282,35 @@ const TransactionInfo = ({ data, loaded }) => {
       <Text as="h4" color={$subTextColor} mb="2rem">
         Your transaction details are hidden because $IRON is a privacy chain
       </Text>
-      <Flex
-        w="100%"
-        wrap="wrap"
-        direction={{ base: 'column', md: 'row' }}
-        gap={{ base: 'normal', md: '1.75rem' }}
-        mb="3.5rem"
-      >
-        <TransactionsDataList data={data?.spends} />
-        <TransactionsDataList data={data?.notes} isInput={false} />
-      </Flex>
+      <VStack mb="3.5rem" gap="1rem">
+        <Flex
+          w="100%"
+          wrap="wrap"
+          direction={{ base: 'column', md: 'row' }}
+          gap={{ base: 'normal', md: '1.75rem' }}
+        >
+          <TransactionsDataList
+            data={
+              showMore ? data?.spends : data?.spends?.slice(0, showMoreLimit)
+            }
+          />
+          <TransactionsDataList
+            data={showMore ? data?.notes : data?.notes?.slice(0, showMoreLimit)}
+            isInput={false}
+          />
+        </Flex>
+        {!showMore && hasMore && (
+          <HStack justify="center">
+            <Button
+              variant="secondary"
+              size="medium"
+              onClick={() => setShowMore(true)}
+            >
+              Show More
+            </Button>
+          </HStack>
+        )}
+      </VStack>
       <Box mt="2rem" mb="0.5rem">
         <h3>Mints / Burns</h3>
       </Box>
