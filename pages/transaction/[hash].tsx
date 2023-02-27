@@ -315,9 +315,6 @@ const TransactionInfo = ({ data, loaded }) => {
       <Box mt="2rem" mb="0.5rem">
         <h3>Mints / Burns</h3>
       </Box>
-      <Text as="h4" color={$subTextColor} mb="2rem">
-        Here are the mints and burns that occurred in this transaction
-      </Text>
       <Flex
         w="100%"
         wrap="wrap"
