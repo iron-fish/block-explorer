@@ -56,20 +56,9 @@ export default function AssetInfo() {
         <Box my="0.5rem">
           <h3>Asset History</h3>
         </Box>
-        {descriptions.loaded ? (
-          <AssetHistory assetHistory={descriptions.data} />
-        ) : (
-          <HStack justifyContent="center" py="6rem">
-            <Spinner
-              color={NAMED_COLORS.LIGHT_BLUE}
-              emptyColor={NAMED_COLORS.LIGHT_GREY}
-              size="xl"
-              thickness="0.25rem"
-              speed="0.75s"
-            />
-          </HStack>
-        )}
-        <Box mb="8rem" />
+        <AssetHistory
+          assetHistory={descriptions.loaded ? descriptions.data : [null]}
+        />
         {/* <Box mt="0.5rem" mb="2rem">
           <h3>Asset History Chart</h3>
         </Box>

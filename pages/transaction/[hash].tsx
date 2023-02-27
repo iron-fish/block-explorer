@@ -258,21 +258,22 @@ const TransactionInfo = ({ data, loaded }) => {
       <CardContainer>
         {TRANSACTION_INFO_CARDS.map(card => {
           const value = card.value(data)
-          if (value === null) return null
           return (
-            <Card
-              key={card.key}
-              mb="1rem"
-              width={{
-                base: 'max(20rem, 100% - 0.5rem)',
-                md: 'max(20rem, 50% - 1rem)',
-                '2xl': 'max(20rem, 33.333333% - 1rem)',
-              }}
-              label={card.label}
-              value={value}
-              icon={card.icon}
-              isLoading={!loaded}
-            />
+            !!value && (
+              <Card
+                key={card.key}
+                mb="1rem"
+                width={{
+                  base: 'max(20rem, 100% - 0.5rem)',
+                  md: 'max(20rem, 50% - 1rem)',
+                  '2xl': 'max(20rem, 33.333333% - 1rem)',
+                }}
+                label={card.label}
+                value={value}
+                icon={card.icon}
+                isLoading={!loaded}
+              />
+            )
           )
         })}
       </CardContainer>

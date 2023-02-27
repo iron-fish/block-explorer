@@ -1,10 +1,10 @@
 import { HStack, Text, Box } from '@ironfish/ui-kit'
 import { CommonTable, HashView, CopyValueToClipboard } from 'components'
-import { formatInTimeZone } from 'date-fns-tz'
 import { ColumnProps } from 'components/Table/types'
 import BurnAction from 'assets/svg/burn-action.svg'
 import MintAction from 'assets/svg/mint-action.svg'
 import { AssetDescriptionType } from 'types'
+import { formatBlockTimestamp } from 'utils/format'
 
 const upperFirst = (str: string) =>
   str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
@@ -38,8 +38,7 @@ const COLUMNS: Array<ColumnProps<AssetDescriptionType>> = [
   {
     key: 'timestamp',
     label: 'Timestamp',
-    render: item =>
-      formatInTimeZone(item.block_timestamp, 'UTC', 'yyyy/MM/dd hh:mm:ss aa'),
+    render: item => formatBlockTimestamp({ timestamp: item.block_timestamp }),
   },
 ]
 

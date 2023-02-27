@@ -3,10 +3,10 @@ import { Box, NAMED_COLORS } from '@ironfish/ui-kit'
 import { ColumnProps, CommonTableProps } from 'components/Table/types'
 import AssetIcon from 'icons/AssetIcon'
 import safeProp from 'utils/safeProp'
-import { formatInTimeZone } from 'date-fns-tz'
 import { useRouter } from 'next/router'
 import RoutePaths from 'constants/RoutePaths'
 import { CopyValueToClipboard, HashView } from 'components'
+import { formatBlockTimestamp } from 'utils/format'
 
 type Asset = {
   id: number
@@ -55,11 +55,9 @@ const columns: ColumnProps<Asset>[] = [
     key: 'created_at',
     label: 'Created',
     render: item => {
-      return formatInTimeZone(
-        item.created_transaction_timestamp,
-        'UTC',
-        'yyyy/MM/dd hh:mm:ss aa'
-      )
+      return formatBlockTimestamp({
+        timestamp: item.created_transaction_timestamp,
+      })
     },
   },
 ]
