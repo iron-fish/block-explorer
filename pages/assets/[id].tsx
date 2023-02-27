@@ -52,13 +52,27 @@ export default function AssetInfo() {
         <Flex mt="0.5rem" mb="2rem">
           <h3>Asset Information</h3>
         </Flex>
-        <AssetInformationGrid assetDetails={assetDetails} />
+        <AssetInformationGrid
+          loading={!asset.loaded}
+          assetDetails={assetDetails}
+        />
         <Box my="0.5rem">
           <h3>Asset History</h3>
         </Box>
-        <AssetHistory
-          assetHistory={descriptions.loaded ? descriptions.data : [null]}
-        />
+        {descriptions.loaded ? (
+          <AssetHistory assetHistory={descriptions.data} />
+        ) : (
+          <HStack justifyContent="center" py="6rem">
+            <Spinner
+              color={NAMED_COLORS.LIGHT_BLUE}
+              emptyColor={NAMED_COLORS.LIGHT_GREY}
+              size="xl"
+              thickness="0.25rem"
+              speed="0.75s"
+            />
+          </HStack>
+        )}
+        <Box mb="8rem" />
         {/* <Box mt="0.5rem" mb="2rem">
           <h3>Asset History Chart</h3>
         </Box>

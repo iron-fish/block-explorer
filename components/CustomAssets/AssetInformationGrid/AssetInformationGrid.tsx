@@ -138,6 +138,7 @@ function ExpandableText({ text }: { text: string }) {
 }
 
 type Props = {
+  loading: boolean
   assetDetails: {
     id: number | string
     name: string
@@ -148,8 +149,9 @@ type Props = {
   }
 }
 
-export function AssetInformationGrid({ assetDetails }: Props) {
+export function AssetInformationGrid({ loading, assetDetails }: Props) {
   const metadata = safeProp('metadata')(assetDetails) || 'n/a'
+
   return (
     <CardContainer>
       {ASSET_CARDS.map(card => (
@@ -158,7 +160,7 @@ export function AssetInformationGrid({ assetDetails }: Props) {
           label={card.label}
           icon={card.icon}
           value={card.value(assetDetails)}
-          isLoading={false}
+          isLoading={loading}
           mb="1rem"
           width={{
             base: 'max(20rem, 100% - 0.5rem)',
@@ -171,7 +173,7 @@ export function AssetInformationGrid({ assetDetails }: Props) {
         label="Asset Metadata"
         icon={<InfoCircle />}
         value={<ExpandableText text={metadata} />}
-        isLoading={false}
+        isLoading={loading}
         mb="1rem"
         height="auto"
         py="1.25rem"
