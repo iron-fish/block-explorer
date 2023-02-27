@@ -193,6 +193,11 @@ export default function Home() {
                   View All Blocks
                 </Button>
               </NextLink>
+              <NextLink href={RoutePaths.Assets} passHref>
+                <Button variant="secondary" size="medium">
+                  View All Assets
+                </Button>
+              </NextLink>
               {/* Hide chain explorer switch button while its not finished
               <Button variant="secondary" size="medium">
                 View Chain Explorer

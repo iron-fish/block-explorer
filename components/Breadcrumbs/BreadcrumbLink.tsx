@@ -12,6 +12,7 @@ import { UrlObject } from 'url'
 import BlockIcon from 'icons/BlockIcon'
 import RoutePaths from 'constants/RoutePaths'
 import HomeIcon from 'icons/HomeIcon'
+import AssetIcon from 'icons/AssetIcon'
 
 interface BaseBreadcrumbLinkProps {
   icon: ReactNode
@@ -99,6 +100,24 @@ const BlockInfo: FC<BlockInfoBreadCrumbLink> = ({
   />
 )
 
+const Assets: FC<CurrentBreadcrumbLink> = ({ isCurrent = false }) => (
+  <BaseBreadcrumbLink
+    to={RoutePaths.Assets}
+    icon={<AssetIcon h="1.25rem" w="1.25rem" color="inherit" />}
+    label="All Assets"
+    isCurrent={isCurrent}
+  />
+)
+
+const AssetsInfo: FC<CurrentBreadcrumbLink> = ({ isCurrent = false }) => (
+  <BaseBreadcrumbLink
+    to={RoutePaths.AssetsInfo}
+    icon={<AssetIcon h="1.25rem" w="1.25rem" color="inherit" />}
+    label="Asset Info"
+    isCurrent={isCurrent}
+  />
+)
+
 const TransactionInfo: FC<CurrentBreadcrumbLink> = ({ isCurrent = false }) => (
   <BaseBreadcrumbLink
     to={RoutePaths.TransactionInfo}
@@ -123,6 +142,8 @@ interface BreadcrumbLinkProps {
   BlockInfo: FC<BlockInfoBreadCrumbLink>
   Charts: FC<CurrentBreadcrumbLink>
   TransactionInfo: FC<CurrentBreadcrumbLink>
+  Assets: FC<CurrentBreadcrumbLink>
+  AssetsInfo: FC<CurrentBreadcrumbLink>
 }
 
 const BreadcrumbLink: FC<BaseBreadcrumbLinkProps> &
@@ -133,5 +154,7 @@ BreadcrumbLink.Explorer = Explorer
 BreadcrumbLink.BlockInfo = BlockInfo
 BreadcrumbLink.Charts = Charts
 BreadcrumbLink.TransactionInfo = TransactionInfo
+BreadcrumbLink.Assets = Assets
+BreadcrumbLink.AssetsInfo = AssetsInfo
 
 export default BreadcrumbLink

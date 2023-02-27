@@ -1,8 +1,12 @@
 export * from './common/AsyncDataType'
 export * from './domain/BlockType'
+export * from './domain/AssetType'
+export * from './domain/AssetDescriptionType'
 export * from './domain/Metric'
 export * from './domain/NodeVersionType'
 export * from './common/ResponseType'
 export * from './domain/TransactionType'
+
 export * from './parameters/BlocksApi'
 export * from './parameters/TransactionsApi'
+export * from './parameters/AssetDescriptionApi'

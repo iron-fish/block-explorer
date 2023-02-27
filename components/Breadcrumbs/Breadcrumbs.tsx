@@ -47,6 +47,32 @@ const resolvePath = (path: string, queryParams: ParsedUrlQuery | null) => {
           link: <BreadcrumbLink.BlockInfo isCurrent={true} />,
         },
       ]
+    case RoutePaths.Assets:
+      return [
+        {
+          key: 'breadcrumb-home',
+          link: <BreadcrumbLink.Home />,
+        },
+        {
+          key: 'breadcrumb-explorer',
+          link: <BreadcrumbLink.Assets isCurrent={true} />,
+        },
+      ]
+    case RoutePaths.AssetsInfo:
+      return [
+        {
+          key: 'breadcrumb-home',
+          link: <BreadcrumbLink.Home />,
+        },
+        {
+          key: 'breadcrumb-assets',
+          link: <BreadcrumbLink.Assets />,
+        },
+        {
+          key: 'breadcrumb-assets-info',
+          link: <BreadcrumbLink.AssetsInfo isCurrent={true} />,
+        },
+      ]
     case RoutePaths.Charts:
       return [
         {

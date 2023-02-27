@@ -22,7 +22,12 @@ const NavListOfLinks: FC<FlexProps> = props => {
     <Flex {...props}>
       <NextLink href={RoutePaths.Explorer} passHref>
         <Link variant="underlined" sx={$linkStyle}>
-          All blocks
+          All Blocks
+        </Link>
+      </NextLink>
+      <NextLink href={RoutePaths.Assets} passHref>
+        <Link variant="underlined" sx={$linkStyle}>
+          All Assets
         </Link>
       </NextLink>
       <NextLink href={RoutePaths.Charts} passHref>
