@@ -12,6 +12,7 @@ import { CopyValueToClipboard, InfoBadge, HashView } from 'components'
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
 import { BlueHashIcon } from 'svgx'
+import { ACTIONS_COLUMN } from 'components/Table/Table'
 
 const TAG_COLUMN: ColumnProps<TransactionType> = {
   key: 'transaction-tag',
@@ -74,6 +75,7 @@ const TransactionsTable: FC<TransactionsTableProps> = props => {
       HASH_COLUMN,
       FEE_COLUMN,
       DATE_COLUMN,
+      ACTIONS_COLUMN,
     ],
     sm1: [
       HASH_COLUMN,
@@ -90,8 +92,9 @@ const TransactionsTable: FC<TransactionsTableProps> = props => {
       },
       FEE_COLUMN,
       DATE_COLUMN,
+      ACTIONS_COLUMN,
     ],
-    lg: [HASH_COLUMN, TAG_COLUMN, FEE_COLUMN, DATE_COLUMN],
+    lg: [HASH_COLUMN, TAG_COLUMN, FEE_COLUMN, DATE_COLUMN, ACTIONS_COLUMN],
   })
   const router = useRouter()
 

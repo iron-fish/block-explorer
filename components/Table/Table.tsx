@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
 import {
+  Flex,
   NAMED_COLORS,
   Table,
   Tbody,
@@ -14,6 +15,27 @@ import {
 import RowItem from './RowItem'
 import RowItemSpin from './RowItemSpin'
 import { CommonTableProps } from './types'
+import CaretRightIcon from 'icons/CaretRightIcon'
+
+export const ACTIONS_COLUMN = {
+  key: 'actions-cell',
+  label: '',
+  WrapperProps: {
+    width: 'min-content',
+    alignSelf: 'center',
+  },
+  render: () => (
+    <Flex w="100%">
+      <CaretRightIcon
+        aria-label="actions-cell"
+        mr="-0.8125rem"
+        ml="auto"
+        w={'1.75rem'}
+        h={'1.75rem'}
+      />
+    </Flex>
+  ),
+}
 
 const nonInteractiveTbodyStyles = {
   tr: {
@@ -27,7 +49,18 @@ export const CommonTable: FC<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   CommonTableProps<any>
 > = ({ data = null, columns = [], onRowClick, ...rest }) => {
-  const $bg = useColorModeValue(NAMED_COLORS.WHITE, NAMED_COLORS.DARKER_GREY)
+  const colors = useColorModeValue(
+    {
+      bg: NAMED_COLORS.WHITE,
+      hoverBorder: NAMED_COLORS.DEEP_BLUE,
+      caretColor: NAMED_COLORS.PALE_GREY,
+    },
+    {
+      bg: NAMED_COLORS.DARKER_GREY,
+      hoverBorder: NAMED_COLORS.WHITE,
+      caretColor: NAMED_COLORS.PALE_GREY,
+    }
+  )
 
   return (
     <Table {...rest} variant="blocks">
@@ -50,7 +83,7 @@ export const CommonTable: FC<
               base: 'wrap',
               lg: 'nowrap',
             }}
-            bg={$bg}
+            bg={colors.bg}
             mb="1rem"
             border="0.063rem solid"
             borderRadius="0.25rem"
@@ -59,6 +92,17 @@ export const CommonTable: FC<
             p={{ base: '1rem 0', lg: '1rem' }}
             cursor={block && onRowClick ? 'pointer' : 'default'}
             onClick={() => block && onRowClick && onRowClick(block)}
+            sx={{
+              '[aria-label="actions-cell"]': {
+                transition: 'color 300ms ease-in-out',
+                color: colors.caretColor,
+              },
+              _hover: {
+                '[aria-label="actions-cell"]': {
+                  color: colors.hoverBorder,
+                },
+              },
+            }}
           >
             {columns.map(column => (
               <Td

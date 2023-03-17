@@ -11,6 +11,7 @@ import { CopyValueToClipboard, HashView } from 'components'
 
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
+import { ACTIONS_COLUMN } from 'components/Table/Table'
 
 const COLUMNS: ColumnProps<BlockType>[] = [
   {
@@ -48,8 +49,12 @@ const COLUMNS: ColumnProps<BlockType>[] = [
   {
     key: 'block-graffiti',
     label: 'Graffiti',
+    WrapperProps: {
+      wordBreak: 'break-all',
+    },
     render: safeProp('graffiti'),
   },
+  ACTIONS_COLUMN,
 ]
 
 type BlocksTableProps = Omit<CommonTableProps<BlockType>, 'columns'>
