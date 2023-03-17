@@ -1,3 +1,4 @@
+import AssetDescriptionType from './AssetDescriptionType'
 import BlockType from './BlockType'
 
 export interface NoteType {
@@ -17,6 +18,8 @@ export interface TransactionType {
   size: number
   spends: SpendType[]
   blocks?: BlockType[]
+  burns: AssetDescriptionType[]
+  mints: AssetDescriptionType[]
 }
 
 export default TransactionType

@@ -6,7 +6,7 @@ export interface AssetDescriptionType {
   transaction_hash: string
   value: string
   id: number
-  block_timestamp: string
+  block_timestamp?: string
   asset: {
     identifier: string
     name: string
