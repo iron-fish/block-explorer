@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import RoutePaths from 'constants/RoutePaths'
 import { CopyValueToClipboard, HashView } from 'components'
 import { formatBlockTimestamp } from 'utils/format'
+import { ACTIONS_COLUMN } from 'components/Table/Table'
 
 type Asset = {
   id: number
@@ -60,6 +61,7 @@ const columns: ColumnProps<Asset>[] = [
       })
     },
   },
+  ACTIONS_COLUMN,
 ]
 
 type Props = {
