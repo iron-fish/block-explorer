@@ -37,7 +37,12 @@ const ColumnTable: FC<ColumnTableProps> = ({
       tableHeadProps: {
         display: { base: 'none', md: 'table-header-group' },
       },
-      tableHeadCellProps: { color: header },
+      tableHeadCellProps: {
+        color: header,
+        _notFirst: {
+          pl: '0.25rem',
+        },
+      },
       tableBodyRowProps: {
         ...(!rest?.onRowClick && {
           _hover: {
