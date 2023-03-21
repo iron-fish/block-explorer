@@ -3,5 +3,5 @@ export const formatNumberWithLanguage = (
   language?: string
 ) => {
   const value = Number(number)
-  return value.toLocaleString(language || navigator.language)
+  return value.toLocaleString(language || window.navigator.language)
 }
