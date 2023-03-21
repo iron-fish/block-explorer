@@ -3,6 +3,9 @@ export const formatNumberWithLanguage = (
   language?: string
 ) => {
   const value = Number(number)
-  const localization = language || navigator?.language || 'en-US'
+  let localization = language
+  if (!localization) {
+    localization = typeof navigator !== undefined ? navigator.language : 'en-US'
+  }
   return value.toLocaleString(localization)
 }
