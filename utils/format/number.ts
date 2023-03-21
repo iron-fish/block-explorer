@@ -6,7 +6,7 @@ export const formatNumberWithLanguage = (
   let localization = language
   if (!localization) {
     localization =
-      typeof window !== undefined ? window.navigator.language : 'en-US'
+      typeof window !== 'undefined' ? window.navigator.language : 'en-US'
   }
   return value.toLocaleString(localization)
 }
