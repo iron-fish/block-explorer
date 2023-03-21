@@ -3,7 +3,7 @@ import { NAMED_COLORS, useBreakpointValue, Box } from '@ironfish/ui-kit'
 import { pipe, pathOr } from 'ramda'
 import { useRouter } from 'next/router'
 
-import { formatBlockTimestamp } from 'utils/format'
+import { formatBlockTimestamp, formatNumberWithLanguage } from 'utils/format'
 import TransactionType from 'types/domain/TransactionType'
 import RoutePaths from 'constants/RoutePaths'
 import { safeProp } from 'utils/safeProp'
@@ -48,7 +48,7 @@ const HASH_COLUMN: ColumnProps<TransactionType> = {
 const FEE_COLUMN: ColumnProps<TransactionType> = {
   key: 'transaction-fee',
   label: 'Fee',
-  render: transaction => `${transaction.fee} Ore`,
+  render: transaction => `${formatNumberWithLanguage(transaction.fee)} Ore`,
 }
 const DATE_COLUMN = {
   key: 'transaction-timestamp',

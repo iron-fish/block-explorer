@@ -14,6 +14,7 @@ import AssetIcon from 'icons/AssetIcon'
 import CaretRightIcon from 'icons/CaretRightIcon'
 import Link from 'next/link'
 import { AssetDescriptionType } from 'types'
+import { formatNumberWithLanguage } from 'utils/format'
 
 type DescriptionType = 'mints' | 'burns'
 
@@ -59,7 +60,7 @@ export function MintsBurnsList({ type, data }: Props) {
               <MintBurnItem
                 name={item.asset.name}
                 assetIdentifier={item.asset.identifier}
-                quantity={item.value}
+                quantity={formatNumberWithLanguage(item.value)}
               />
             </ListItem>
           ))
