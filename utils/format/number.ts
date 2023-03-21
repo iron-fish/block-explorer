@@ -5,7 +5,8 @@ export const formatNumberWithLanguage = (
   const value = Number(number)
   let localization = language
   if (!localization) {
-    localization = typeof navigator !== undefined ? navigator.language : 'en-US'
+    localization =
+      typeof window !== undefined ? window.navigator.language : 'en-US'
   }
   return value.toLocaleString(localization)
 }
