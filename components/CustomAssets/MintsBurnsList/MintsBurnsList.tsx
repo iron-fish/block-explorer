@@ -40,21 +40,25 @@ export function MintsBurnsList({ type, data, ...rest }: MintsBurnsListProps) {
           )
         },
       },
-      {
-        key: `column-${type}-quantity`,
-        label: 'Quantity',
-        render: item => {
-          return (
-            <Flex
-              h="1.75rem"
-              align="center"
-              wordBreak={{ base: 'unset', md: 'break-all', lg1: 'unset' }}
-            >
-              {item.value}
-            </Flex>
-          )
-        },
-      },
+      ...(data.length
+        ? [
+            {
+              key: `column-${type}-quantity`,
+              label: 'Quantity',
+              render: item => {
+                return (
+                  <Flex
+                    h="1.75rem"
+                    align="center"
+                    wordBreak={{ base: 'unset', md: 'break-all', lg1: 'unset' }}
+                  >
+                    {item.value}
+                  </Flex>
+                )
+              },
+            },
+          ]
+        : []),
       {
         key: `column-${type}-details`,
         label: '',
@@ -75,7 +79,7 @@ export function MintsBurnsList({ type, data, ...rest }: MintsBurnsListProps) {
         ),
       },
     ],
-    [type]
+    [type, data.length]
   )
 
   const colors = useColorModeValue(
