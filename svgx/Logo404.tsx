@@ -1,6 +1,6 @@
-import { SVGProps } from '@ironfish/ui-kit'
+import { SVGProps } from 'react'
 
-export function Logo404(props: SVGProps) {
+export function Logo404(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       viewBox="0 0 611 226"
