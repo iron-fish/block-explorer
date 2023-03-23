@@ -1,9 +1,6 @@
 export interface NodeVersionType {
-  ironfish?: {
-    object: string
-    version: string
-    created_at: string
-  }
+  name: string
+  html_url: string
 }
 
 export default NodeVersionType

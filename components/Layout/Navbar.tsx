@@ -36,15 +36,14 @@ const NodeVersionButton: FC<StyleProps> = (props: StyleProps) => {
 
   const versionUrl = useMemo(
     () =>
-      'https://github.com/iron-fish/ironfish/releases' +
-      (loaded && !error && data.ironfish
-        ? '/tag/v' + data.ironfish.version
-        : ''),
+      loaded && !error && data.html_url
+        ? data.html_url
+        : 'https://github.com/iron-fish/ironfish/releases',
     [loaded, error, data]
   )
 
   // If an error or API returns an empty version list
-  if (error || !data?.ironfish) {
+  if (error || !data?.html_url || !data?.name) {
     return null
   }
 
@@ -72,7 +71,7 @@ const NodeVersionButton: FC<StyleProps> = (props: StyleProps) => {
     >
       {loaded ? (
         <Center>
-          <h5>Node {data.ironfish.version}</h5>
+          <h5>Node {data.name}</h5>
           <OuterReferenceIcon ml="0.5rem" mb="0.1rem" />
         </Center>
       ) : (
