@@ -1,125 +1,136 @@
 import {
-  Box,
-  List,
-  ListItem,
   NAMED_COLORS,
-  Text,
-  FONTS,
   Flex,
   useColorModeValue,
   chakra,
-  HStack,
+  FlexProps,
+  TableProps,
 } from '@ironfish/ui-kit'
+import { useMemo } from 'react'
+import { useRouter } from 'next/router'
 import AssetIcon from 'icons/AssetIcon'
 import CaretRightIcon from 'icons/CaretRightIcon'
-import Link from 'next/link'
 import { AssetDescriptionType } from 'types'
+import ColumnTable from 'components/ColumnTable'
+import RoutePaths from 'constants/RoutePaths'
 import { formatNumberWithLanguage } from 'utils/format'
 
-type DescriptionType = 'mints' | 'burns'
+type DescriptionType = 'mints' | 'burns' | 'mints or burns'
 
-type Props = {
+interface MintsBurnsListProps extends TableProps {
   type: DescriptionType
   data: Array<AssetDescriptionType>
 }
 
-export function MintsBurnsList({ type, data }: Props) {
-  return (
-    <Box
-      flex={1}
-      w={{ base: '100%', md: 'calc(50% - 2rem)' }}
-      mb="1rem"
-      display={{ base: data?.length ? 'block' : 'none', md: 'block' }}
-    >
-      <HStack align="center" justify="space-between" mb="1rem">
-        <Text
-          color={NAMED_COLORS.GREY}
-          fontSize="0.75rem"
-          fontFamily={FONTS.FAVORIT}
-          pl="2rem"
-          display={{ base: 'none', md: 'block' }}
-          textTransform="uppercase"
-        >
-          {type === 'mints' ? 'Mints' : 'Burns'}
-        </Text>
-        <Text
-          color={NAMED_COLORS.GREY}
-          fontSize="0.75rem"
-          fontFamily={FONTS.FAVORIT}
-          pr="2rem"
-          display={{ base: 'none', md: 'block' }}
-          textTransform="uppercase"
-        >
-          Quantity
-        </Text>
-      </HStack>
-      <List w="100%" spacing={'1rem'}>
-        {data.length ? (
-          data.map((item, index) => (
-            <ListItem key={index}>
-              <MintBurnItem
-                name={item.asset.name}
-                assetIdentifier={item.asset.identifier}
-                quantity={formatNumberWithLanguage(item.value)}
-              />
-            </ListItem>
-          ))
-        ) : (
-          <EmptyDataBlock type={type} />
-        )}
-      </List>
-    </Box>
+export function MintsBurnsList({ type, data, ...rest }: MintsBurnsListProps) {
+  const router = useRouter()
+  const columns = useMemo(
+    () => [
+      {
+        key: `column-${type}`,
+        label: type,
+        render: item => {
+          return (
+            <Flex
+              align="center"
+              wordBreak={{ base: 'unset', md: 'break-all', lg1: 'unset' }}
+            >
+              <AssetIcon w={7} h={7} mr="1rem" />
+              {item.asset.name}
+            </Flex>
+          )
+        },
+      },
+      ...(data.length
+        ? [
+            {
+              key: `column-${type}-quantity`,
+              label: 'Quantity',
+              render: item => {
+                return (
+                  <Flex
+                    h="1.75rem"
+                    align="center"
+                    wordBreak={{ base: 'unset', md: 'break-all', lg1: 'unset' }}
+                  >
+                    {formatNumberWithLanguage(item.value)}
+                  </Flex>
+                )
+              },
+            },
+          ]
+        : []),
+      {
+        key: `column-${type}-details`,
+        label: '',
+        WrapperProps: {
+          width: 'min-content',
+          alignSelf: 'center',
+        },
+        render: () => (
+          <Flex justify={'center'}>
+            <CaretRightIcon
+              aria-label="item-details"
+              mr="-0.75rem"
+              ml="-0.625rem"
+              w={'1.75rem'}
+              h={'1.75rem'}
+            />
+          </Flex>
+        ),
+      },
+    ],
+    [type, data.length]
   )
-}
 
-function MintBurnItem({
-  name,
-  assetIdentifier,
-  quantity,
-}: {
-  name: string
-  assetIdentifier: string
-  quantity: string
-}) {
-  const $colors = useColorModeValue(
+  const colors = useColorModeValue(
     {
-      border: NAMED_COLORS.LIGHT_GREY,
-      bg: NAMED_COLORS.WHITE,
-      icon: NAMED_COLORS.BLACK,
+      hoverBorder: NAMED_COLORS.DEEP_BLUE,
+      caretColor: NAMED_COLORS.PALE_GREY,
     },
     {
-      border: NAMED_COLORS.DARK_GREY,
-      bg: NAMED_COLORS.DARKER_GREY,
-      icon: NAMED_COLORS.WHITE,
+      hoverBorder: NAMED_COLORS.WHITE,
+      caretColor: NAMED_COLORS.PALE_GREY,
     }
   )
 
   return (
-    <Box as={Link} href={`/assets/${assetIdentifier}`}>
-      <HStack
-        cursor="pointer"
-        py="1.875rem"
-        pl="2rem"
-        pr="1.5rem"
-        border={`0.0625rem solid ${$colors.border}`}
-        bg={$colors.bg}
-        borderRadius="0.25rem"
-        boxShadow="0 0.25rem 0.6875rem rgba(0, 0, 0, 0.04)"
-        direction="column"
-        gap={2}
-      >
-        <AssetIcon w={7} h={7} />
-        <Text>{name}</Text>
-        <Text flexGrow={1} textAlign="right">
-          {quantity}
-        </Text>
-        <CaretRightIcon color={$colors.icon} w={3} h={3} />
-      </HStack>
-    </Box>
+    <ColumnTable
+      data={data}
+      columns={columns}
+      emptyComponent={<EmptyMintsBurnsBlock type={type} />}
+      onRowClick={item =>
+        router.push({
+          pathname: RoutePaths.AssetsInfo,
+          query: { id: item.asset.identifier },
+        })
+      }
+      {...rest}
+      sx={{
+        tr: {
+          '[aria-label="item-details"]': {
+            transition: 'color 300ms ease-in-out',
+            color: colors.caretColor,
+          },
+          _hover: {
+            '[aria-label="item-details"]': {
+              color: colors.hoverBorder,
+            },
+          },
+        },
+      }}
+    />
   )
 }
 
-function EmptyDataBlock({ type }: { type: DescriptionType }) {
+interface EmptyMintsBurnsBlockProps extends FlexProps {
+  type: DescriptionType
+}
+
+export function EmptyMintsBurnsBlock({
+  type,
+  ...rest
+}: EmptyMintsBurnsBlockProps) {
   const $colors = useColorModeValue(
     { bg: NAMED_COLORS.LIGHTER_GREY, text: NAMED_COLORS.GREY },
     { bg: NAMED_COLORS.DARKER_GREY_1, text: NAMED_COLORS.DARKER_GREY_2 }
@@ -127,12 +138,14 @@ function EmptyDataBlock({ type }: { type: DescriptionType }) {
 
   return (
     <Flex
-      padding="1.875rem 2rem"
+      w="100%"
+      padding="1.75rem 2rem"
       border={`0.0625rem solid ${$colors.bg}`}
       bg={$colors.bg}
       borderRadius="0.25rem"
       direction="column"
       display={{ base: 'none', md: 'flex' }}
+      {...rest}
     >
       <Flex align="center">
         <chakra.h4 color={$colors.text} overflow="hidden" w="100%">
