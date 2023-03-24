@@ -53,9 +53,6 @@ const FEE_COLUMN: ColumnProps<TransactionType> = {
 const DATE_COLUMN = {
   key: 'transaction-timestamp',
   label: 'Timestamp',
-  WrapperProps: {
-    wordBreak: 'keep-all',
-  },
   render: pipe(pathOr({}, ['blocks', 0]), formatBlockTimestamp),
 }
 
