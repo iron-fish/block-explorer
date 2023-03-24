@@ -24,7 +24,7 @@ export const HashView: FC<HashViewProps> = ({
       <Box
         as="h4"
         {...labelProps}
-        fontSize="96px"
+        fontSize="97px"
         mt="-16px"
         position="absolute"
         top={0}

@@ -1,17 +1,16 @@
+import { useMemo, useState, FC } from 'react'
 import {
   Box,
   Flex,
   useBreakpointValue,
   useColorModeValue,
-  List,
-  ListItem,
   NAMED_COLORS,
   chakra,
   Text,
-  FONTS,
   Button,
   HStack,
   VStack,
+  TableProps,
 } from '@ironfish/ui-kit'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -37,63 +36,22 @@ import {
   CompassIcon,
 } from 'svgx'
 import { getIRFAmountWithCurrency } from 'utils/currency'
-import { TransactionType } from 'types'
+import { NoteType, SpendType, TransactionType } from 'types'
 import safeProp from 'utils/safeProp'
 import { formatBlockTimestamp } from 'utils/format'
-import { MintsBurnsList } from 'components/CustomAssets/MintsBurnsList/MintsBurnsList'
-import { useMemo, useState } from 'react'
+import {
+  MintsBurnsList,
+  EmptyMintsBurnsBlock,
+} from 'components/CustomAssets/MintsBurnsList/MintsBurnsList'
+import ColumnTable from 'components/ColumnTable'
 
-const TransactionDataBlock = ({ label, value, icon }) => {
-  const $colors = useColorModeValue(
-    { border: NAMED_COLORS.LIGHT_GREY, bg: NAMED_COLORS.WHITE },
-    { border: NAMED_COLORS.DARK_GREY, bg: NAMED_COLORS.DARKER_GREY }
-  )
+type TransactionDescriptionType = 'inputs' | 'outputs'
 
-  const $hashSize = useBreakpointValue({
-    base: 12,
-    sm: 16,
-    md: 9,
-    lg: 10,
-    xl: 12,
-    '2xl': 16,
-  })
-
-  return (
-    <Flex
-      padding="1.875rem 2rem"
-      border={`0.0625rem solid ${$colors.border}`}
-      bg={$colors.bg}
-      borderRadius="0.25rem"
-      boxShadow="0 0.25rem 0.6875rem rgba(0, 0, 0, 0.04)"
-      direction="column"
-    >
-      <Text
-        color={NAMED_COLORS.GREY}
-        fontSize="0.75rem"
-        fontFamily={FONTS.FAVORIT}
-        display={{ base: 'block', md: 'none' }}
-        mb="1rem"
-      >
-        {label}
-      </Text>
-      <Flex align="center">
-        {icon}
-        <CopyValueToClipboard
-          labelProps={{
-            wordBreak: { base: 'break-word', sm: 'unset' },
-            ml: '1rem',
-            overflow: 'hidden',
-            w: '100%',
-          }}
-          value={value}
-          label={<HashView hash={value} parts={2} chars={$hashSize} />}
-        />
-      </Flex>
-    </Flex>
-  )
-}
-
-const EmptyDataBlock = () => {
+const EmptyInputsOutPutsBlock = ({
+  type,
+}: {
+  type: TransactionDescriptionType
+}) => {
   const $colors = useColorModeValue(
     { bg: NAMED_COLORS.LIGHTER_GREY, text: NAMED_COLORS.GREY },
     { bg: NAMED_COLORS.DARKER_GREY_1, text: NAMED_COLORS.DARKER_GREY_2 }
@@ -101,7 +59,7 @@ const EmptyDataBlock = () => {
 
   return (
     <Flex
-      padding="1.875rem 2rem"
+      padding="1.75rem 2rem"
       border={`0.0625rem solid ${$colors.bg}`}
       bg={$colors.bg}
       borderRadius="0.25rem"
@@ -110,49 +68,71 @@ const EmptyDataBlock = () => {
     >
       <Flex align="center">
         <chakra.h4 color={$colors.text} overflow="hidden" w="100%">
-          There are no inputs in this transaction
+          There are no {type} in this transaction
         </chakra.h4>
       </Flex>
     </Flex>
   )
 }
 
-const TransactionsDataList = ({ data = [], isInput = true }) => {
-  const $label = isInput ? 'INPUTS' : 'OUTPUTS'
+interface TransactionsDataListProps extends TableProps {
+  data: Array<NoteType | SpendType>
+  type: TransactionDescriptionType
+}
+
+const TransactionsDataList: FC<TransactionsDataListProps> = ({
+  data = [],
+  type,
+  ...rest
+}) => {
+  const columns = useMemo(
+    () => [
+      {
+        key: `column-${type}`,
+        label: type,
+        render: function Render(item) {
+          const hashSize = useBreakpointValue({
+            base: 12,
+            sm: 16,
+            md: 9,
+            lg: 10,
+            xl: 12,
+            '2xl': 16,
+          })
+
+          const value = item[type === 'inputs' ? 'nullifier' : 'commitment']
+          return (
+            <Flex align="center">
+              {type === 'inputs' ? (
+                <LargeArrowLeftDown />
+              ) : (
+                <LargeArrowRightUp />
+              )}
+              <CopyValueToClipboard
+                labelProps={{
+                  wordBreak: { base: 'break-word', sm: 'unset' },
+                  ml: '1rem',
+                  overflow: 'hidden',
+                  w: '100%',
+                }}
+                value={value}
+                label={<HashView hash={value} parts={2} chars={hashSize} />}
+              />
+            </Flex>
+          )
+        },
+      },
+    ],
+    [type]
+  )
 
   return (
-    <Box
-      flex={1}
-      w={{ base: '100%', md: 'calc(50% - 2rem)' }}
-      mb="1rem"
-      display={{ base: data?.length ? 'block' : 'none', md: 'block' }}
-    >
-      <Text
-        color={NAMED_COLORS.GREY}
-        fontSize="0.75rem"
-        fontFamily={FONTS.FAVORIT}
-        pl="2rem"
-        mb="1rem"
-        display={{ base: 'none', md: 'block' }}
-      >
-        {$label}
-      </Text>
-      <List w="100%" spacing={'1rem'}>
-        {data.length ? (
-          data.map((item, index) => (
-            <ListItem key={`list-item-${index}`}>
-              <TransactionDataBlock
-                label={$label}
-                value={item[isInput ? 'nullifier' : 'commitment']}
-                icon={isInput ? <LargeArrowLeftDown /> : <LargeArrowRightUp />}
-              />
-            </ListItem>
-          ))
-        ) : (
-          <EmptyDataBlock />
-        )}
-      </List>
-    </Box>
+    <ColumnTable
+      data={data}
+      columns={columns}
+      emptyComponent={<EmptyInputsOutPutsBlock type={type} />}
+      {...rest}
+    />
   )
 }
 
@@ -232,7 +212,12 @@ const TRANSACTION_INFO_CARDS = [
   },
 ]
 
-const TransactionInfo = ({ data, loaded }) => {
+interface TransactionInfoProps {
+  data: TransactionType
+  loaded: boolean
+}
+
+const TransactionInfo: FC<TransactionInfoProps> = ({ data, loaded }) => {
   const $subTextColor = useColorModeValue(
     NAMED_COLORS.GREY,
     NAMED_COLORS.PALE_GREY
@@ -280,24 +265,26 @@ const TransactionInfo = ({ data, loaded }) => {
       <Box mt="2rem" mb="0.5rem">
         <h3>Inputs / Outputs</h3>
       </Box>
-      <Text as="h4" color={$subTextColor} mb="2rem">
+      <Text as="h4" color={$subTextColor} mb="1rem">
         Your transaction details are hidden because $IRON is a privacy chain
       </Text>
       <VStack mb="3.5rem" gap="1rem">
         <Flex
           w="100%"
-          wrap="wrap"
-          direction={{ base: 'column', md: 'row' }}
-          gap={{ base: 'normal', md: '1.75rem' }}
+          justifyContent="space-between"
+          flexDirection={{ base: 'column', md: 'row' }}
+          gap={{ base: 0, md: '1.75rem' }}
         >
           <TransactionsDataList
             data={
               showMore ? data?.spends : data?.spends?.slice(0, showMoreLimit)
             }
+            type="inputs"
+            mb={{ base: '-2rem', md: 0 }}
           />
           <TransactionsDataList
             data={showMore ? data?.notes : data?.notes?.slice(0, showMoreLimit)}
-            isInput={false}
+            type="outputs"
           />
         </Flex>
         {!showMore && hasMore && (
@@ -317,14 +304,24 @@ const TransactionInfo = ({ data, loaded }) => {
       </Box>
       <Flex
         w="100%"
-        wrap="wrap"
-        direction={{ base: 'column', md: 'row' }}
-        gap={{ base: 'normal', md: '1.75rem' }}
-        mb="3.5rem"
+        justifyContent="space-between"
+        flexDirection={{ base: 'column', md: 'row' }}
+        gap={{ base: 0, md: '1.75rem' }}
       >
-        <MintsBurnsList type="mints" data={data?.mints || []} />
+        <MintsBurnsList
+          type="mints"
+          data={data?.mints || []}
+          mb={{ base: '-1rem', md: 0 }}
+        />
         <MintsBurnsList type="burns" data={data?.burns || []} />
       </Flex>
+      {!data?.burns.length && !data?.mints.length && (
+        <EmptyMintsBurnsBlock
+          mt="2rem"
+          display={{ base: 'flex', md: 'none' }}
+          type="mints or burns"
+        />
+      )}
     </>
   )
 }
