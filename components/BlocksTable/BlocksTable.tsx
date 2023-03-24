@@ -48,10 +48,14 @@ const COLUMNS: ColumnProps<BlockType>[] = [
   {
     key: 'block-graffiti',
     label: 'Graffiti',
+    WrapperProps: {
+      display: { base: 'flex', lg: 'block' },
+    },
+    ItemProps: {
+      flex: { base: 1, lg: 'unset' },
+    },
     render: block => (
-      <Box wordBreak={{ base: 'unset', lg: 'break-all' }}>
-        {safeProp('graffiti')(block)}
-      </Box>
+      <Box wordBreak="break-all">{safeProp('graffiti')(block)}</Box>
     ),
   },
 ]
