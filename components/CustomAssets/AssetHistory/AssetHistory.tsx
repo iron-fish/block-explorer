@@ -4,7 +4,7 @@ import { ColumnProps } from 'components/Table/types'
 import BurnAction from 'assets/svg/burn-action.svg'
 import MintAction from 'assets/svg/mint-action.svg'
 import { AssetDescriptionType } from 'types'
-import { formatBlockTimestamp } from 'utils/format'
+import { formatBlockTimestamp, formatNumberWithLanguage } from 'utils/format'
 
 const upperFirst = (str: string) =>
   str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
@@ -23,7 +23,7 @@ const COLUMNS: Array<ColumnProps<AssetDescriptionType>> = [
   {
     key: 'quantity',
     label: 'Quantity',
-    render: item => item.value,
+    render: item => formatNumberWithLanguage(item.value),
   },
   {
     key: 'hash',

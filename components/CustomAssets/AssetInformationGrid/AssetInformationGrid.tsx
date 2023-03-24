@@ -7,6 +7,7 @@ import NameTag from 'assets/svg/name-tag.svg'
 import Avatar from 'assets/svg/avatar.svg'
 import InfoCircle from 'assets/svg/info-circle.svg'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { formatNumberWithLanguage } from 'utils/format'
 
 const ASSET_CARDS = [
   { label: 'Asset Name', value: safeProp('name'), icon: <NameTag /> },
@@ -22,7 +23,7 @@ const ASSET_CARDS = [
   },
   {
     label: 'Total Supply',
-    value: safeProp('supply'),
+    value: asset => formatNumberWithLanguage(safeProp('supply')(asset)),
     icon: <TotalSupplyIcon />,
   },
   {

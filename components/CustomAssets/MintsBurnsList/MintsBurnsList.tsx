@@ -13,6 +13,7 @@ import CaretRightIcon from 'icons/CaretRightIcon'
 import { AssetDescriptionType } from 'types'
 import ColumnTable from 'components/ColumnTable'
 import RoutePaths from 'constants/RoutePaths'
+import { formatNumberWithLanguage } from 'utils/format'
 
 type DescriptionType = 'mints' | 'burns' | 'mints or burns'
 
@@ -52,7 +53,7 @@ export function MintsBurnsList({ type, data, ...rest }: MintsBurnsListProps) {
                     align="center"
                     wordBreak={{ base: 'unset', md: 'break-all', lg1: 'unset' }}
                   >
-                    {item.value}
+                    {formatNumberWithLanguage(item.value)}
                   </Flex>
                 )
               },

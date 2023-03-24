@@ -3,7 +3,7 @@ import { NAMED_COLORS, useBreakpointValue, Box } from '@ironfish/ui-kit'
 import { pipe, pathOr } from 'ramda'
 import { useRouter } from 'next/router'
 
-import { formatBlockTimestamp } from 'utils/format'
+import { formatBlockTimestamp, formatNumberWithLanguage } from 'utils/format'
 import TransactionType from 'types/domain/TransactionType'
 import RoutePaths from 'constants/RoutePaths'
 import { safeProp } from 'utils/safeProp'
@@ -12,6 +12,7 @@ import { CopyValueToClipboard, InfoBadge, HashView } from 'components'
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
 import { BlueHashIcon } from 'svgx'
+import { ACTIONS_COLUMN } from 'components/Table/Table'
 
 const TAG_COLUMN: ColumnProps<TransactionType> = {
   key: 'transaction-tag',
@@ -47,7 +48,7 @@ const HASH_COLUMN: ColumnProps<TransactionType> = {
 const FEE_COLUMN: ColumnProps<TransactionType> = {
   key: 'transaction-fee',
   label: 'Fee',
-  render: transaction => `${transaction.fee} Ore`,
+  render: transaction => `${formatNumberWithLanguage(transaction.fee)} Ore`,
 }
 const DATE_COLUMN = {
   key: 'transaction-timestamp',
@@ -74,6 +75,7 @@ const TransactionsTable: FC<TransactionsTableProps> = props => {
       HASH_COLUMN,
       FEE_COLUMN,
       DATE_COLUMN,
+      ACTIONS_COLUMN,
     ],
     sm1: [
       HASH_COLUMN,
@@ -90,8 +92,9 @@ const TransactionsTable: FC<TransactionsTableProps> = props => {
       },
       FEE_COLUMN,
       DATE_COLUMN,
+      ACTIONS_COLUMN,
     ],
-    lg: [HASH_COLUMN, TAG_COLUMN, FEE_COLUMN, DATE_COLUMN],
+    lg: [HASH_COLUMN, TAG_COLUMN, FEE_COLUMN, DATE_COLUMN, ACTIONS_COLUMN],
   })
   const router = useRouter()
 
