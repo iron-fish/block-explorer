@@ -1,10 +1,15 @@
 import { HStack, Text, Box } from '@ironfish/ui-kit'
-import { CommonTable, HashView, CopyValueToClipboard } from 'components'
+import {
+  CommonTable,
+  HashView,
+  CopyValueToClipboard,
+  TableCellTimeStamp,
+} from 'components'
 import { ColumnProps } from 'components/Table/types'
 import BurnAction from 'assets/svg/burn-action.svg'
 import MintAction from 'assets/svg/mint-action.svg'
 import { AssetDescriptionType } from 'types'
-import { formatBlockTimestamp, formatNumberWithLanguage } from 'utils/format'
+import { formatNumberWithLanguage } from 'utils/format'
 
 const upperFirst = (str: string) =>
   str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
@@ -38,10 +43,7 @@ const COLUMNS: Array<ColumnProps<AssetDescriptionType>> = [
   {
     key: 'timestamp',
     label: 'Timestamp',
-    WrapperProps: {
-      wordBreak: 'keep-all',
-    },
-    render: item => formatBlockTimestamp({ timestamp: item.block_timestamp }),
+    render: item => <TableCellTimeStamp timestamp={item.block_timestamp} />,
   },
 ]
 

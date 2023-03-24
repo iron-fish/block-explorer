@@ -1,13 +1,12 @@
 import { FC } from 'react'
-import { Box, NAMED_COLORS } from '@ironfish/ui-kit'
+import { Box, NAMED_COLORS, useBreakpointValue } from '@ironfish/ui-kit'
 import { useRouter } from 'next/router'
 
 import BlockIcon from 'icons/BlockIcon'
 import { safeProp } from 'utils/safeProp'
-import { formatBlockTimestamp } from 'utils/format'
 import { BlockType } from 'types'
 import RoutePaths from 'constants/RoutePaths'
-import { CopyValueToClipboard, HashView } from 'components'
+import { CopyValueToClipboard, HashView, TableCellTimeStamp } from 'components'
 
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
@@ -44,31 +43,32 @@ const COLUMNS: ColumnProps<BlockType>[] = [
   {
     key: 'block-timestamp',
     label: 'Timestamp',
-    WrapperProps: {
-      wordBreak: 'keep-all',
-    },
-    render: formatBlockTimestamp,
+    render: block => <TableCellTimeStamp timestamp={block.timestamp} />,
   },
   {
     key: 'block-graffiti',
     label: 'Graffiti',
-    WrapperProps: {
-      wordBreak: { base: 'unset', md: 'break-all' },
-    },
-    render: safeProp('graffiti'),
+    render: block => (
+      <Box wordBreak={{ base: 'unset', lg: 'break-all' }}>
+        {safeProp('graffiti')(block)}
+      </Box>
+    ),
   },
-  ACTIONS_COLUMN,
 ]
 
 type BlocksTableProps = Omit<CommonTableProps<BlockType>, 'columns'>
 
 const BlocksTable: FC<BlocksTableProps> = props => {
   const router = useRouter()
+  const columns = useBreakpointValue({
+    base: COLUMNS,
+    lg: [...COLUMNS, ACTIONS_COLUMN],
+  })
 
   return (
     <CommonTable
       {...props}
-      columns={COLUMNS}
+      columns={columns}
       onRowClick={(block: BlockType) =>
         router.push({
           pathname: RoutePaths.BlockInfo,
