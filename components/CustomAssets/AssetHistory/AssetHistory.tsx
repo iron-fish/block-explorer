@@ -38,6 +38,9 @@ const COLUMNS: Array<ColumnProps<AssetDescriptionType>> = [
   {
     key: 'timestamp',
     label: 'Timestamp',
+    WrapperProps: {
+      wordBreak: 'keep-all',
+    },
     render: item => formatBlockTimestamp({ timestamp: item.block_timestamp }),
   },
 ]

@@ -44,13 +44,16 @@ const COLUMNS: ColumnProps<BlockType>[] = [
   {
     key: 'block-timestamp',
     label: 'Timestamp',
+    WrapperProps: {
+      wordBreak: 'keep-all',
+    },
     render: formatBlockTimestamp,
   },
   {
     key: 'block-graffiti',
     label: 'Graffiti',
     WrapperProps: {
-      wordBreak: 'break-all',
+      wordBreak: { base: 'unset', md: 'break-all' },
     },
     render: safeProp('graffiti'),
   },
