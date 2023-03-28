@@ -1,13 +1,18 @@
 import { FC } from 'react'
 import { NAMED_COLORS, useBreakpointValue, Box } from '@ironfish/ui-kit'
-import { pipe, pathOr } from 'ramda'
+import { pathOr } from 'ramda'
 import { useRouter } from 'next/router'
 
-import { formatBlockTimestamp, formatNumberWithLanguage } from 'utils/format'
+import { formatNumberWithLanguage } from 'utils/format'
 import TransactionType from 'types/domain/TransactionType'
 import RoutePaths from 'constants/RoutePaths'
 import { safeProp } from 'utils/safeProp'
-import { CopyValueToClipboard, InfoBadge, HashView } from 'components'
+import {
+  CopyValueToClipboard,
+  InfoBadge,
+  HashView,
+  TableCellTimeStamp,
+} from 'components'
 
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
@@ -53,7 +58,11 @@ const FEE_COLUMN: ColumnProps<TransactionType> = {
 const DATE_COLUMN = {
   key: 'transaction-timestamp',
   label: 'Timestamp',
-  render: pipe(pathOr({}, ['blocks', 0]), formatBlockTimestamp),
+  render: transaction => (
+    <TableCellTimeStamp
+      timestamp={pathOr({}, ['blocks', 0])(transaction).timestamp}
+    />
+  ),
 }
 
 type TransactionsTableProps = Omit<CommonTableProps<TransactionType>, 'columns'>
@@ -75,7 +84,6 @@ const TransactionsTable: FC<TransactionsTableProps> = props => {
       HASH_COLUMN,
       FEE_COLUMN,
       DATE_COLUMN,
-      ACTIONS_COLUMN,
     ],
     sm1: [
       HASH_COLUMN,
@@ -92,7 +100,6 @@ const TransactionsTable: FC<TransactionsTableProps> = props => {
       },
       FEE_COLUMN,
       DATE_COLUMN,
-      ACTIONS_COLUMN,
     ],
     lg: [HASH_COLUMN, TAG_COLUMN, FEE_COLUMN, DATE_COLUMN, ACTIONS_COLUMN],
   })

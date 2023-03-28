@@ -1,12 +1,12 @@
 import { CommonTable } from 'components/Table'
-import { Box, NAMED_COLORS } from '@ironfish/ui-kit'
+import { Box, NAMED_COLORS, useBreakpointValue } from '@ironfish/ui-kit'
 import { ColumnProps, CommonTableProps } from 'components/Table/types'
 import AssetIcon from 'icons/AssetIcon'
 import safeProp from 'utils/safeProp'
 import { useRouter } from 'next/router'
 import RoutePaths from 'constants/RoutePaths'
-import { CopyValueToClipboard, HashView } from 'components'
-import { formatBlockTimestamp, formatNumberWithLanguage } from 'utils/format'
+import { CopyValueToClipboard, HashView, TableCellTimeStamp } from 'components'
+import { formatNumberWithLanguage } from 'utils/format'
 import { ACTIONS_COLUMN } from 'components/Table/Table'
 
 type Asset = {
@@ -21,7 +21,7 @@ type Asset = {
   created_transaction_timestamp: string
 }
 
-const columns: ColumnProps<Asset>[] = [
+const COLUMNS: ColumnProps<Asset>[] = [
   {
     key: 'name',
     label: 'Asset Name',
@@ -55,13 +55,10 @@ const columns: ColumnProps<Asset>[] = [
   {
     key: 'created_at',
     label: 'Created',
-    render: item => {
-      return formatBlockTimestamp({
-        timestamp: item.created_transaction_timestamp,
-      })
-    },
+    render: item => (
+      <TableCellTimeStamp timestamp={item.created_transaction_timestamp} />
+    ),
   },
-  ACTIONS_COLUMN,
 ]
 
 type Props = {
@@ -70,6 +67,10 @@ type Props = {
 
 export function CustomAssetsTable({ assets, ...rest }: Props) {
   const router = useRouter()
+  const columns = useBreakpointValue({
+    base: COLUMNS,
+    lg: [...COLUMNS, ACTIONS_COLUMN],
+  })
 
   return (
     <CommonTable
