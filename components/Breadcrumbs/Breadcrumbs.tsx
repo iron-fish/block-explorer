@@ -133,6 +133,9 @@ const Breadcrumbs: FC<BreadCrumbProps> = ({ queryParams }) => {
       spacing="1rem"
       pt="1rem"
       pb="1.5rem"
+      listProps={{
+        flexWrap: 'wrap',
+      }}
     >
       {resolvePath(route, queryParams).map(breadcrumb => (
         <BreadcrumbItem key={breadcrumb.key}>{breadcrumb.link}</BreadcrumbItem>
