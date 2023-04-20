@@ -85,21 +85,21 @@ const TransactionsDataList: FC<TransactionsDataListProps> = ({
   type,
   ...rest
 }) => {
+  const hashSize = useBreakpointValue({
+    base: 12,
+    sm: 16,
+    md: 9,
+    lg: 10,
+    xl: 12,
+    '2xl': 16,
+  })
+
   const columns = useMemo(
     () => [
       {
         key: `column-${type}`,
         label: type,
         render: function Render(item) {
-          const hashSize = useBreakpointValue({
-            base: 12,
-            sm: 16,
-            md: 9,
-            lg: 10,
-            xl: 12,
-            '2xl': 16,
-          })
-
           const value = item[type === 'inputs' ? 'nullifier' : 'commitment']
           return (
             <Flex align="center">
@@ -123,7 +123,7 @@ const TransactionsDataList: FC<TransactionsDataListProps> = ({
         },
       },
     ],
-    [type]
+    [type, hashSize]
   )
 
   return (
