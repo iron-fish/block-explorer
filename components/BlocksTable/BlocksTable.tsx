@@ -48,9 +48,6 @@ const COLUMNS: ColumnProps<BlockType>[] = [
   {
     key: 'block-graffiti',
     label: 'Graffiti',
-    WrapperProps: {
-      display: { base: 'flex', lg: 'block' },
-    },
     ItemProps: {
       flex: { base: 1, lg: 'unset' },
     },

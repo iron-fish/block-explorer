@@ -21,6 +21,7 @@ const InfiniteBlocks = ({ reload, onReloaded }) => {
     loadNext,
     reloadBlocks,
   ] = useInfiniteBlocks(BLOCK_CHUNK_SIZE)
+
   const [observerRef] = useInfiniteScroll({
     loading: !loaded,
     hasNextPage: metadata?.has_next,
