@@ -68,10 +68,7 @@ const useInfiniteBlocks = (
       error,
       data: {
         ...blocksData,
-        metadata: {
-          has_next: blocksData.data[blocksData.data.length - 1]?.id > 0,
-          has_previous: true,
-        },
+        metadata: blocksData.metadata,
       },
     },
     loadNext,

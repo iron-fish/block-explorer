@@ -22,9 +22,6 @@ const InfiniteBlocks = ({ reload, onReloaded }) => {
     reloadBlocks,
   ] = useInfiniteBlocks(BLOCK_CHUNK_SIZE)
 
-  // eslint-disable-next-line
-  console.log({ data, metadata })
-
   const [observerRef] = useInfiniteScroll({
     loading: !loaded,
     hasNextPage: metadata?.has_next,
