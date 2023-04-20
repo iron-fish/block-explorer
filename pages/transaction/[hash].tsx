@@ -178,7 +178,7 @@ const TRANSACTION_INFO_CARDS = [
   },
   {
     key: 'fee-card',
-    label: 'Reward',
+    label: 'Fee',
     value: pipe(safeProp('fee'), getIRFAmountWithCurrency),
     icon: <CompassIcon />,
   },
