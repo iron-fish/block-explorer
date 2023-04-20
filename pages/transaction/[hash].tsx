@@ -178,7 +178,7 @@ const TRANSACTION_INFO_CARDS = [
   },
   {
     key: 'fee-card',
-    label: (data) => {
+    label: data => {
       if (BigInt(data?.fee ?? 0) <= 0) {
         return 'Reward'
       } else {
@@ -259,7 +259,9 @@ const TransactionInfo: FC<TransactionInfoProps> = ({ data, loaded }) => {
                   md: 'max(20rem, 50% - 1rem)',
                   '2xl': 'max(20rem, 33.333333% - 1rem)',
                 }}
-                label={typeof card.label === 'string' ? card.label : card.label(data)}
+                label={
+                  typeof card.label === 'string' ? card.label : card.label(data)
+                }
                 value={value}
                 icon={card.icon}
                 isLoading={!loaded}
