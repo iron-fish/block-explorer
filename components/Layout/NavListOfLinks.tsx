@@ -53,7 +53,7 @@ const NavListOfLinks: FC<FlexProps> = props => {
           target="_blank"
           rel="noreferrer"
         >
-          Developer Docs
+          Docs
           <OuterReferenceIcon ml="0.5rem" />
         </Link>
       </NextLink>
