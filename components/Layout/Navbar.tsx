@@ -129,9 +129,12 @@ const Navbar: FC = () => {
       <Flex
         align="stretch"
         w="100%"
-        flexWrap="wrap"
+        flexWrap={{
+          base: 'wrap',
+          sm: 'nowrap',
+        }}
         borderBottom="0.0625rem solid"
-        p={{ base: '1.125rem 2rem 0rem', sm: '0rem 2rem', md: '0rem 4rem' }}
+        p={{ base: '1.125rem 2rem 0rem', sm: '0rem 2rem' }}
         bgColor={$colors.bg}
         boxShadow="0rem 0.25rem 0.6875rem rgba(0, 0, 0, 0.04)"
         borderColor={$colors.border}
@@ -141,9 +144,7 @@ const Navbar: FC = () => {
           order={1}
           alignItems="center"
           justifySelf="flex-start"
-          flex={{ base: null, sm: 1 }}
           mr={{ base: 0, sm: '1.5rem' }}
-          w="50%"
           mb="0.125rem"
           whiteSpace="nowrap"
         >
@@ -158,19 +159,22 @@ const Navbar: FC = () => {
           />
         </Flex>
         <Box
-          flex={{ base: 1.5, lg: 1 }}
           order={{ base: 10, sm: 2 }}
           p={{ base: '1rem 0rem 1.5rem 0rem', sm: '1.5rem 0rem' }}
+          maxW={{
+            base: '100%',
+            md: '350px',
+            '2xl': '425px',
+          }}
+          w="100%"
         >
           <NavSearch />
         </Box>
         <Flex
           order={3}
-          flex={{ base: null, sm: 1 }}
           justifyContent="flex-end"
           align="center"
           ml={{ base: 0, sm: '1.5rem' }}
-          w="50%"
         >
           <Box mr={{ base: '1.5rem', lg: 0 }}>{$content}</Box>
           <ColorModeSwitcher />

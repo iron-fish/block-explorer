@@ -40,7 +40,7 @@ const NavSearch: FC<InputProps> = () => {
   const $placeholder = useBreakpointValue({
     base: 'Search by height, hash or txn',
     sm: 'Search',
-    xl: 'Search by block height, hash or transaction',
+    '2xl': 'Search by block height, hash or transaction',
   })
   const [$search, $setSearch] = useState<string>()
   const router = useRouter()
