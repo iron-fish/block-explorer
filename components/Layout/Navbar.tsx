@@ -134,7 +134,7 @@ const Navbar: FC = () => {
           sm: 'nowrap',
         }}
         borderBottom="0.0625rem solid"
-        p={{ base: '1.125rem 2rem 0rem', sm: '0rem 2rem', md: '0rem 4rem' }}
+        p={{ base: '1.125rem 2rem 0rem', sm: '0rem 2rem' }}
         bgColor={$colors.bg}
         boxShadow="0rem 0.25rem 0.6875rem rgba(0, 0, 0, 0.04)"
         borderColor={$colors.border}
