@@ -10,4 +10,5 @@ export const EXTERNAL_LINKS = {
   IRONFISH_REDDIT: 'http://reddit.com/r/ironfish',
   IRONFISH_TWITTER: 'https://twitter.com/ironfishcrypto',
   IRONFISH_DISCORD: 'https://discord.gg/EkQkEcm8DH',
+  IRONFISH_STATS: 'https://stats.ironfish.network/',
 }

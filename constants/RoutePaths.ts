@@ -7,6 +7,7 @@ enum RoutePaths {
   TransactionInfo = '/transaction/[hash]',
   BlockInfo = '/blocks/[id]',
   Charts = '/charts',
+  Stats = '/stats',
 }
 
 export default RoutePaths

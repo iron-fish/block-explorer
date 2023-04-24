@@ -9,7 +9,7 @@ import { EXTERNAL_LINKS } from 'constants/ExternalLinks'
 const NavListOfLinks: FC<FlexProps> = props => {
   const $spacing = useBreakpointValue({ base: '2rem', lg: 0 })
   const $linkStyle = {
-    mr: '2rem',
+    mr: '1.5rem',
     whiteSpace: 'nowrap',
     fontSize: 'inherit',
     mb: $spacing,
@@ -22,17 +22,28 @@ const NavListOfLinks: FC<FlexProps> = props => {
     <Flex {...props}>
       <NextLink href={RoutePaths.Explorer} passHref>
         <Link variant="underlined" sx={$linkStyle}>
-          All Blocks
+          Blocks
         </Link>
       </NextLink>
       <NextLink href={RoutePaths.Assets} passHref>
         <Link variant="underlined" sx={$linkStyle}>
-          All Assets
+          Assets
         </Link>
       </NextLink>
       <NextLink href={RoutePaths.Charts} passHref>
         <Link variant="underlined" sx={$linkStyle}>
           Charts
+        </Link>
+      </NextLink>
+      <NextLink href={EXTERNAL_LINKS.IRONFISH_STATS} passHref>
+        <Link
+          variant="underlined"
+          sx={$linkStyle}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Stats
+          <OuterReferenceIcon ml="0.5rem" />
         </Link>
       </NextLink>
       <NextLink href={EXTERNAL_LINKS.IRONFISH_DOCS} passHref>
