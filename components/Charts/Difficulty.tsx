@@ -6,17 +6,17 @@ import Metric from 'types/domain/Metric'
 import { getAverageWithAccessor } from 'utils/getAverageWithAccessor'
 
 const Difficulty: FC<Pick<GeneralChartProps, 'data'>> = ({ data }) => {
-  const valueAccessor = (d: Metric) => d.average_difficulty / 1e12
+  const valueAccessor = (d: Metric) => d.average_difficulty / 1e15
 
   return (
     <ChartBox
-      header="Difficulty (in trillions)"
+      header="Difficulty (in quadrillion)"
       average={getAverageWithAccessor(valueAccessor)(data)}
     >
       <GeneralChart
         yAccessor={valueAccessor}
         data={data}
-        leftAxisFormatter={d => `${d}T`}
+        leftAxisFormatter={d => `${d}P`}
       />
     </ChartBox>
   )

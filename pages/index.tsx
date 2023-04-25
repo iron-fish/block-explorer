@@ -29,7 +29,8 @@ const LAST_BLOCK_INFO_CARDS = [
   {
     key: 'difficulty-card',
     label: 'Difficulty',
-    value: (block: BlockType | null) => block?.difficulty,
+    value: (block: BlockType | null) =>
+      `${(Number(block?.difficulty) / 1e15).toFixed(2)}P`,
     icon: <DifficultyIcon />,
   },
   {
@@ -54,7 +55,7 @@ const LAST_BLOCK_INFO_CARDS = [
     key: 'interval-card',
     label: 'Last Block Time',
     value: (block: BlockType | null) =>
-      Math.floor(block?.time_since_last_block_ms / 1000),
+      `${Math.floor(block?.time_since_last_block_ms / 1000)}s`,
     icon: <SecondsToBlockIcon />,
   },
   {
