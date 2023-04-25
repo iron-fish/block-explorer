@@ -17,6 +17,7 @@ const Difficulty: FC<Pick<GeneralChartProps, 'data'>> = ({ data }) => {
         yAccessor={valueAccessor}
         data={data}
         leftAxisFormatter={d => `${d}T`}
+        marginLeft={10}
       />
     </ChartBox>
   )
