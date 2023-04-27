@@ -28,7 +28,7 @@ import { TransactionsTable } from 'components/TransactionsTable'
 import { HashView } from 'components'
 import { BlockType } from 'types'
 import useBlock from 'hooks/useBlock'
-import { formatMiningTime } from 'utils/format/formatMiningTime'
+import { formatTimeSinceLastBlock } from 'utils/format/formatTimeSinceLastBlock'
 
 const BLOCK_CARDS = [
   {
@@ -86,7 +86,7 @@ const BLOCK_CARDS = [
   {
     key: 'mining-time-card',
     label: 'Mine Time',
-    value: pipe(safeProp('time_since_last_block_ms'), formatMiningTime),
+    value: pipe(safeProp('time_since_last_block_ms'), formatTimeSinceLastBlock),
     icon: <PickIcon />,
   },
   null,
