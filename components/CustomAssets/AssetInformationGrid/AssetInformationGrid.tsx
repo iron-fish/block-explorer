@@ -1,5 +1,5 @@
 import { Box, NAMED_COLORS, Text } from '@ironfish/ui-kit'
-import { Card, CardContainer, CopyValueToClipboard, HashView } from 'components'
+import { CardsView, CopyValueToClipboard, HashView } from 'components'
 import safeProp from 'utils/safeProp'
 import { DifficultyIcon, TotalSupplyIcon } from 'svgx'
 
@@ -32,6 +32,22 @@ const ASSET_CARDS = [
       <RenderHash hash={safeProp('created_transaction_hash')(asset)} />
     ),
     icon: <DifficultyIcon />,
+  },
+  {
+    label: 'Asset Metadata',
+    value: asset => (
+      <ExpandableText
+        text={
+          'Web Workers makes it possible to run a script operation in a background thread separate from the main execution thread of a web application. The advantage of this is that laborious processing can be performed in a separate thread, allowing the main (usually the UI) thread to run without being blocked/slowed down.'
+        }
+      />
+      // <ExpandableText text={safeProp('metadata')(asset) || 'n/a'} />
+    ),
+    icon: <InfoCircle />,
+    cardProps: {
+      height: 'auto',
+      py: '1.25rem',
+    },
   },
 ]
 
@@ -151,39 +167,10 @@ type Props = {
 }
 
 export function AssetInformationGrid({ loading, assetDetails }: Props) {
-  const metadata = safeProp('metadata')(assetDetails) || 'n/a'
-
   return (
-    <CardContainer>
-      {ASSET_CARDS.map(card => (
-        <Card
-          key={card.label}
-          label={card.label}
-          icon={card.icon}
-          value={card.value(assetDetails)}
-          isLoading={loading}
-          mb="1rem"
-          width={{
-            base: 'max(20rem, 100% - 0.5rem)',
-            md: 'max(20rem, 50% - 1rem)',
-            '2xl': 'max(20rem, 33.333333% - 1rem)',
-          }}
-        />
-      ))}
-      <Card
-        label="Asset Metadata"
-        icon={<InfoCircle />}
-        value={<ExpandableText text={metadata} />}
-        isLoading={loading}
-        mb="1rem"
-        height="auto"
-        py="1.25rem"
-        width={{
-          base: 'max(20rem, 100% - 0.5rem)',
-          md: 'max(20rem, 50% - 1rem)',
-          '2xl': 'max(20rem, 33.333333% - 1rem)',
-        }}
-      />
-    </CardContainer>
+    <CardsView
+      cards={ASSET_CARDS}
+      data={{ data: assetDetails, loaded: !loading }}
+    />
   )
 }

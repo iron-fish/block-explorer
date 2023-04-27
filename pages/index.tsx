@@ -1,4 +1,4 @@
-import { Card, CardContainer, BlocksTable, HashView } from 'components'
+import { Card, CardsView, BlocksTable, HashView } from 'components'
 import RoutePaths from 'constants/RoutePaths'
 import useBlockHead from 'hooks/useBlockHead'
 import useBlocks from 'hooks/useBlocks'
@@ -69,25 +69,7 @@ const LAST_BLOCK_INFO_CARDS = [
 const LastBlockInfo = () => {
   const $headBlock = useBlockHead()
 
-  return (
-    <CardContainer>
-      {LAST_BLOCK_INFO_CARDS.map(data => (
-        <Card
-          key={data.key}
-          mb="1rem"
-          width={{
-            base: 'max(20rem, 100% - 0.5rem)',
-            md: 'max(20rem, 50% - 1rem)',
-            '2xl': 'max(20rem, 33.333333% - 1rem)',
-          }}
-          label={data.label}
-          value={data.value($headBlock.data)}
-          icon={data.icon}
-          isLoading={!$headBlock.loaded}
-        />
-      ))}
-    </CardContainer>
-  )
+  return <CardsView cards={LAST_BLOCK_INFO_CARDS} data={$headBlock} />
 }
 
 const LatestBlocks = () => {
