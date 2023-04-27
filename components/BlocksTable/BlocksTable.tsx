@@ -1,6 +1,8 @@
 import { FC } from 'react'
 import { Box, NAMED_COLORS, useBreakpointValue } from '@ironfish/ui-kit'
 import { useRouter } from 'next/router'
+import size from 'byte-size'
+import { pipe } from 'ramda'
 
 import BlockIcon from 'icons/BlockIcon'
 import { safeProp } from 'utils/safeProp'
@@ -24,6 +26,11 @@ const COLUMNS: ColumnProps<BlockType>[] = [
         <Box color={NAMED_COLORS.LIGHT_BLUE}>{block.sequence}</Box>
       </>
     ),
+  },
+  {
+    key: 'block-height',
+    label: 'Size',
+    render: pipe(safeProp('size'), x => size(x, { precision: 2 }).toString()),
   },
   {
     key: 'block-transactions',
