@@ -1,15 +1,15 @@
-import { Flex } from '@ironfish/ui-kit'
+import { Grid } from '@ironfish/ui-kit'
 
 export const CardContainer = ({ children }) => (
-  <Flex
-    w="100%"
-    wrap="wrap"
+  <Grid
+    w="calc(100% - 0.2rem)"
+    templateColumns="repeat(auto-fit, minmax(19rem, 1fr))"
     mb="2.25rem"
-    alignItems="space-between"
-    justifyContent="space-between"
+    autoRows="7.75rem"
+    gap="1.25rem"
   >
     {children}
-  </Flex>
+  </Grid>
 )
 
 export default CardContainer

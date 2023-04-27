@@ -1,5 +1,4 @@
-import { FC, useMemo } from 'react'
-import { Box } from '@ironfish/ui-kit'
+import { FC } from 'react'
 import Card, { CardProps } from '../Card/Card'
 import CardContainer from '../CardContainer'
 
@@ -16,35 +15,14 @@ interface CardsViewProps {
   }
 }
 
-const EmptyCard = () => (
-  <Box
-    width={{
-      base: 'max(20rem, 100% - 0.5rem)',
-      md: 'max(20rem, 50% - 1rem)',
-      '2xl': 'max(20rem, 33.333333% - 1rem)',
-    }}
-  />
-)
-
 const CardsView: FC<CardsViewProps> = ({
   cards,
   data: { data, loaded },
   hideCardsWithoutValue = true,
 }) => {
-  const cardsList = useMemo(() => {
-    const overAmount = cards.length % 3
-    if (overAmount < 2) {
-      return cards
-    }
-    return cards.concat(null)
-  }, [cards])
-
   return (
     <CardContainer>
-      {cardsList?.map(card => {
-        if (!card) {
-          return <EmptyCard />
-        }
+      {cards?.map(card => {
         const value = card.value(data)
         if (!value && hideCardsWithoutValue) {
           return null
@@ -52,12 +30,6 @@ const CardsView: FC<CardsViewProps> = ({
         return (
           <Card
             key={card.key || card.label}
-            mb="1rem"
-            width={{
-              base: 'max(20rem, 100% - 0.5rem)',
-              md: 'max(20rem, 50% - 1rem)',
-              '2xl': 'max(20rem, 33.333333% - 1rem)',
-            }}
             label={
               typeof card.label === 'string' ? card.label : card.label(data)
             }
