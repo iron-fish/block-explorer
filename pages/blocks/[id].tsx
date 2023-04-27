@@ -21,12 +21,14 @@ import {
   BlockInfoTxnIcon,
   BlockInfoTimestampIcon,
   BlockInfoGraffitiIcon,
+  PickIcon,
 } from 'svgx'
 import safeProp from 'utils/safeProp'
 import { TransactionsTable } from 'components/TransactionsTable'
 import { HashView } from 'components'
 import { BlockType } from 'types'
 import useBlock from 'hooks/useBlock'
+import { formatTimeSinceLastBlock } from 'utils/format/formatTimeSinceLastBlock'
 
 const BLOCK_CARDS = [
   {
@@ -81,6 +83,13 @@ const BLOCK_CARDS = [
     value: safeProp('graffiti'),
     icon: <BlockInfoGraffitiIcon />,
   },
+  {
+    key: 'mining-time-card',
+    label: 'Mine Time',
+    value: pipe(safeProp('time_since_last_block_ms'), formatTimeSinceLastBlock),
+    icon: <PickIcon />,
+  },
+  null,
 ]
 
 const BlockInfo = ({ id }) => {
@@ -102,21 +111,31 @@ const BlockInfo = ({ id }) => {
         )}
       </Flex>
       <CardContainer>
-        {BLOCK_CARDS.map(card => (
-          <Card
-            key={card.key}
-            mb="1rem"
-            width={{
-              base: 'max(20rem, 100% - 0.5rem)',
-              md: 'max(20rem, 50% - 1rem)',
-              '2xl': 'max(20rem, 33.333333% - 1rem)',
-            }}
-            label={card.label}
-            value={card.value(block.data)}
-            icon={card.icon}
-            isLoading={!block.loaded}
-          />
-        ))}
+        {BLOCK_CARDS.map(card =>
+          card ? (
+            <Card
+              key={card.key}
+              mb="1rem"
+              width={{
+                base: 'max(20rem, 100% - 0.5rem)',
+                md: 'max(20rem, 50% - 1rem)',
+                '2xl': 'max(20rem, 33.333333% - 1rem)',
+              }}
+              label={card.label}
+              value={card.value(block.data)}
+              icon={card.icon}
+              isLoading={!block.loaded}
+            />
+          ) : (
+            <Box
+              width={{
+                base: 'max(20rem, 100% - 0.5rem)',
+                md: 'max(20rem, 50% - 1rem)',
+                '2xl': 'max(20rem, 33.333333% - 1rem)',
+              }}
+            />
+          )
+        )}
       </CardContainer>
       <Box my="0.5rem">
         <h3>Transactions</h3>
