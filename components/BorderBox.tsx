@@ -26,7 +26,7 @@ const BorderBox: FC<BoxProps> = ({ children, ...rest }) => {
       borderColor={$colors.border}
       borderRadius="0.125rem"
       w={{ base: 'auto', sm: '100%' }}
-      m="0.2rem 0.2rem 0.2rem 0"
+      m="0 0.2rem 0.2rem 0"
       boxShadow={`0.25rem 0.25rem 0 -0.063rem ${$colors.bg}, 0.25rem 0.25rem ${$colors.border}`}
       p="1.5rem"
       {...rest}
