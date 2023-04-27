@@ -26,7 +26,7 @@ const PREVIEW_BLOCKS = [
   },
   {
     label: 'Size',
-    value: pipe(safeProp('size'), x => size(x).toString()),
+    value: pipe(safeProp('size'), x => size(x, , { units: 'iec' }).toString()),
   },
   {
     label: 'Graffiti',

@@ -52,7 +52,13 @@ const BLOCK_CARDS = [
   {
     key: 'size-card',
     label: 'Size',
-    value: pipe(safeProp('size'), x => size(x, { precision: 2 }).toString()),
+    value: pipe(
+      safeProp('size'),
+      x =>
+        size(x, { precision: 2, units: 'iec' }).toString() +
+        '/' +
+        size(524288, { precision: 0, units: 'iec' }).toString()
+    ),
     icon: <BlockInfoSizeIcon />,
   },
   {
