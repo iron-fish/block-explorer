@@ -8,6 +8,7 @@ import UniqueGraffiti from 'components/Charts/UniqueGraffiti'
 import TransactionVolume from 'components/Charts/TransactionVolume'
 import Difficulty from 'components/Charts/Difficulty'
 import BlockTime from 'components/Charts/BlockTime'
+import BlockSize from 'components/Charts/BlockSize'
 import { BlockMetricGranularity } from 'constants/BlockMetricGranularity'
 
 export default function Charts() {
@@ -48,6 +49,7 @@ export default function Charts() {
               <TransactionVolume data={data} />
               <Difficulty data={data} />
               <BlockTime data={data} />
+              <BlockSize data={data} />
             </Flex>
           )}
         </Flex>
