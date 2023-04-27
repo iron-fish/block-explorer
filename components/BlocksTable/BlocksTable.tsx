@@ -30,7 +30,9 @@ const COLUMNS: ColumnProps<BlockType>[] = [
   {
     key: 'block-height',
     label: 'Size',
-    render: pipe(safeProp('size'), x => size(x, { precision: 2 }).toString()),
+    render: pipe(safeProp('size'), x =>
+      size(x, { precision: 2, units: 'iec' }).toString()
+    ),
   },
   {
     key: 'block-transactions',
