@@ -1,7 +1,6 @@
 import { FC } from 'react'
 import { Box, NAMED_COLORS, useBreakpointValue } from '@ironfish/ui-kit'
 import { useRouter } from 'next/router'
-import size from 'byte-size'
 
 import BlockIcon from 'icons/BlockIcon'
 import { safeProp } from 'utils/safeProp'
@@ -46,14 +45,6 @@ const COLUMNS: ColumnProps<BlockType>[] = [
     key: 'block-mining-time',
     label: 'Mined in',
     render: block => formatMiningTime(block.time_since_last_block_ms),
-  },
-  {
-    key: 'block-size',
-    label: 'Size',
-    render: block =>
-      size(safeProp('size')(block), {
-        precision: 2,
-      }).toString(),
   },
   {
     key: 'block-graffiti',
