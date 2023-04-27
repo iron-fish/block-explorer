@@ -11,7 +11,7 @@ const BlockSize: FC<Pick<GeneralChartProps, 'data'>> = ({ data }) => {
   return (
     <ChartBox
       header="Average Block Size"
-      average={`${getAverageWithAccessor(valueAccessor)(data)} B`}
+      average={`${getAverageWithAccessor(valueAccessor)(data)} KB`}
     >
       <GeneralChart yAccessor={valueAccessor} data={data} />
     </ChartBox>
