@@ -9,6 +9,7 @@ import TransactionVolume from 'components/Charts/TransactionVolume'
 import Difficulty from 'components/Charts/Difficulty'
 import BlockTime from 'components/Charts/BlockTime'
 import { BlockMetricGranularity } from 'constants/BlockConstants'
+import BlockSize from 'components/Charts/BlockSize'
 
 export default function Charts() {
   const startDate = useMemo(() => {
@@ -48,6 +49,7 @@ export default function Charts() {
               <TransactionVolume data={data} />
               <Difficulty data={data} />
               <BlockTime data={data} />
+              <BlockSize data={data} />
             </Flex>
           )}
         </Flex>

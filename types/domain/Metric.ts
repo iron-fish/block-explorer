@@ -2,6 +2,8 @@ export interface Metric {
   date: string | Date
   // Average block time for the day
   average_block_time_ms: number
+  // Average block size for the day
+  average_block_size: number
   // Average block difficulty for the day
   average_difficulty: number
   // Number of blocks for the day

@@ -1,16 +1,19 @@
 import { FC } from 'react'
 import { Box, NAMED_COLORS, useBreakpointValue } from '@ironfish/ui-kit'
 import { useRouter } from 'next/router'
+import size from 'byte-size'
+import { pipe } from 'ramda'
 
 import BlockIcon from 'icons/BlockIcon'
 import { safeProp } from 'utils/safeProp'
 import { BlockType } from 'types'
 import RoutePaths from 'constants/RoutePaths'
-import { CopyValueToClipboard, HashView, TableCellTimeStamp } from 'components'
+import { CopyValueToClipboard, HashView } from 'components'
 
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
 import { ACTIONS_COLUMN } from 'components/Table/Table'
+import { formatTimeSinceLastBlock } from 'utils/format/formatTimeSinceLastBlock'
 
 const COLUMNS: ColumnProps<BlockType>[] = [
   {
@@ -23,6 +26,13 @@ const COLUMNS: ColumnProps<BlockType>[] = [
         </Box>
         <Box color={NAMED_COLORS.LIGHT_BLUE}>{block.sequence}</Box>
       </>
+    ),
+  },
+  {
+    key: 'block-height',
+    label: 'Size',
+    render: pipe(safeProp('size'), x =>
+      size(x, { precision: 2, units: 'iec' }).toString()
     ),
   },
   {
@@ -41,9 +51,9 @@ const COLUMNS: ColumnProps<BlockType>[] = [
     },
   },
   {
-    key: 'block-timestamp',
-    label: 'Timestamp',
-    render: block => <TableCellTimeStamp timestamp={block.timestamp} />,
+    key: 'block-mining-time',
+    label: 'Mined in',
+    render: block => formatTimeSinceLastBlock(block.time_since_last_block_ms),
   },
   {
     key: 'block-graffiti',
