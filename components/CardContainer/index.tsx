@@ -5,8 +5,9 @@ export const CardContainer = ({ children }) => (
     w="calc(100% - 0.2rem)"
     templateColumns="repeat(auto-fit, minmax(19rem, 1fr))"
     mb="2.25rem"
-    autoRows="7.75rem"
+    autoRows="minmax(7.75rem, auto)"
     gap="1.25rem"
+    gridAutoFlow="dense"
   >
     {children}
   </Grid>
