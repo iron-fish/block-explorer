@@ -39,10 +39,7 @@ import { getIRFAmountWithCurrency } from 'utils/currency'
 import { NoteType, SpendType, TransactionType } from 'types'
 import safeProp from 'utils/safeProp'
 import { formatBlockTimestamp } from 'utils/format'
-import {
-  MintsBurnsList,
-  EmptyMintsBurnsBlock,
-} from 'components/CustomAssets/MintsBurnsList/MintsBurnsList'
+import { MintsBurnsList } from 'components/CustomAssets/MintsBurnsList/MintsBurnsList'
 import ColumnTable from 'components/ColumnTable'
 
 type TransactionDescriptionType = 'inputs' | 'outputs'
