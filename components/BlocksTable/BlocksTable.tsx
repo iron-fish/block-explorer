@@ -11,7 +11,7 @@ import { CopyValueToClipboard, HashView } from 'components'
 import { CommonTable } from '../Table'
 import { ColumnProps, CommonTableProps } from '../Table/types'
 import { ACTIONS_COLUMN } from 'components/Table/Table'
-import { formatMiningTime } from 'utils/format/formatMiningTime'
+import { formatTimeSinceLastBlock } from 'utils/format/formatTimeSinceLastBlock'
 
 const COLUMNS: ColumnProps<BlockType>[] = [
   {
@@ -44,7 +44,7 @@ const COLUMNS: ColumnProps<BlockType>[] = [
   {
     key: 'block-mining-time',
     label: 'Mined in',
-    render: block => formatMiningTime(block.time_since_last_block_ms),
+    render: block => formatTimeSinceLastBlock(block.time_since_last_block_ms),
   },
   {
     key: 'block-graffiti',

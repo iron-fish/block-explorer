@@ -23,6 +23,7 @@ import {
 } from 'svgx'
 import NextLink from 'next/link'
 import { BlockType } from 'types'
+import { formatTimeSinceLastBlock } from 'utils/format/formatTimeSinceLastBlock'
 
 const BLOCKS_LIMIT = 10
 const LAST_BLOCK_INFO_CARDS = [
@@ -55,7 +56,7 @@ const LAST_BLOCK_INFO_CARDS = [
     key: 'interval-card',
     label: 'Last Block Time',
     value: (block: BlockType | null) =>
-      `${Math.floor(block?.time_since_last_block_ms / 1000)}s`,
+      formatTimeSinceLastBlock(block?.time_since_last_block_ms),
     icon: <SecondsToBlockIcon />,
   },
   {
