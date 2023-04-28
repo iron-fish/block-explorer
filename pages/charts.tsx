@@ -8,8 +8,8 @@ import UniqueGraffiti from 'components/Charts/UniqueGraffiti'
 import TransactionVolume from 'components/Charts/TransactionVolume'
 import Difficulty from 'components/Charts/Difficulty'
 import BlockTime from 'components/Charts/BlockTime'
+import { BlockMetricGranularity } from 'constants/BlockConstants'
 import BlockSize from 'components/Charts/BlockSize'
-import { BlockMetricGranularity } from 'constants/BlockMetricGranularity'
 
 export default function Charts() {
   const startDate = useMemo(() => {

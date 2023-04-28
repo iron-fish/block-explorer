@@ -28,6 +28,7 @@ import { TransactionsTable } from 'components/TransactionsTable'
 import { HashView } from 'components'
 import { BlockType } from 'types'
 import useBlock from 'hooks/useBlock'
+import { MAX_BLOCK_SIZE } from 'constants/BlockConstants'
 import { formatTimeSinceLastBlock } from 'utils/format/formatTimeSinceLastBlock'
 
 const BLOCK_CARDS = [
@@ -54,7 +55,13 @@ const BLOCK_CARDS = [
   {
     key: 'size-card',
     label: 'Size',
-    value: pipe(safeProp('size'), x => size(x, { precision: 2 }).toString()),
+    value: pipe(
+      safeProp('size'),
+      x =>
+        size(x, { precision: 2, units: 'iec' }).toString() +
+        '/' +
+        size(MAX_BLOCK_SIZE, { precision: 0, units: 'iec' }).toString()
+    ),
     icon: <BlockInfoSizeIcon />,
   },
   {

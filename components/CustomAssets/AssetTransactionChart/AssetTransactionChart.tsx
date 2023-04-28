@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import useBlocksMetrics from 'hooks/useBlocksMetrics'
 import TransactionVolume from 'components/Charts/TransactionVolume'
-import { BlockMetricGranularity } from 'constants/BlockMetricGranularity'
+import { BlockMetricGranularity } from 'constants/BlockConstants'
 import { sub, add } from 'date-fns'
 import ChartBox from 'components/Charts/ChartBox'
 import { HStack, NAMED_COLORS, Spinner } from '@ironfish/ui-kit'
