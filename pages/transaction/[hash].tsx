@@ -307,28 +307,26 @@ const TransactionInfo: FC<TransactionInfoProps> = ({ data, loaded }) => {
           </HStack>
         )}
       </VStack>
-      <Box mt="2rem" mb="0.5rem">
-        <h3>Mints / Burns</h3>
-      </Box>
-      <Flex
-        w="100%"
-        justifyContent="space-between"
-        flexDirection={{ base: 'column', md: 'row' }}
-        gap={{ base: 0, md: '1.75rem' }}
-      >
-        <MintsBurnsList
-          type="mints"
-          data={data?.mints || []}
-          mb={{ base: '-1rem', md: 0 }}
-        />
-        <MintsBurnsList type="burns" data={data?.burns || []} />
-      </Flex>
-      {!data?.burns.length && !data?.mints.length && (
-        <EmptyMintsBurnsBlock
-          mt="2rem"
-          display={{ base: 'flex', md: 'none' }}
-          type="mints or burns"
-        />
+      {(!!data?.burns.length || !!data?.mints.length) && (
+        <>
+          <Box mt="2rem" mb="0.5rem">
+            <h3>Mints / Burns</h3>
+          </Box>
+
+          <Flex
+            w="100%"
+            justifyContent="space-between"
+            flexDirection={{ base: 'column', md: 'row' }}
+            gap={{ base: 0, md: '1.75rem' }}
+          >
+            <MintsBurnsList
+              type="mints"
+              data={data?.mints || []}
+              mb={{ base: '-1rem', md: 0 }}
+            />
+            <MintsBurnsList type="burns" data={data?.burns || []} />
+          </Flex>
+        </>
       )}
     </>
   )
