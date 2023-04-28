@@ -27,6 +27,7 @@ import { TransactionsTable } from 'components/TransactionsTable'
 import { HashView } from 'components'
 import { BlockType } from 'types'
 import useBlock from 'hooks/useBlock'
+import { MAX_BLOCK_SIZE } from 'constants/BlockConstants'
 
 const BLOCK_CARDS = [
   {
@@ -57,7 +58,7 @@ const BLOCK_CARDS = [
       x =>
         size(x, { precision: 2, units: 'iec' }).toString() +
         '/' +
-        size(524288, { precision: 0, units: 'iec' }).toString()
+        size(MAX_BLOCK_SIZE, { precision: 0, units: 'iec' }).toString()
     ),
     icon: <BlockInfoSizeIcon />,
   },

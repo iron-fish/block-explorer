@@ -1,4 +1,4 @@
-import { BlockMetricGranularity } from "constants/BlockMetricGranularity"
+import { BlockMetricGranularity } from "constants/BlockConstants"
 
 export interface BlocksParameters {
   after?: number
