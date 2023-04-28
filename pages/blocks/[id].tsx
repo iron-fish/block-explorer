@@ -128,6 +128,7 @@ const BlockInfo = ({ id }) => {
             />
           ) : (
             <Box
+              key={null}
               width={{
                 base: 'max(20rem, 100% - 0.5rem)',
                 md: 'max(20rem, 50% - 1rem)',
