@@ -8,6 +8,7 @@ import { AssetHistory } from 'components/CustomAssets/AssetHistory/AssetHistory'
 import useAsset from 'hooks/useAsset'
 import { useMemo } from 'react'
 import useAssetDescriptions from 'hooks/useAssetDescriptions'
+import { InfoBadge } from 'components'
 
 export default function AssetInfo() {
   const router = useRouter()
@@ -51,16 +52,21 @@ export default function AssetInfo() {
         </Flex>
         <Flex mt="0.5rem" mb="2rem">
           <h3>Asset Information</h3>
+          {assetDetails.name === '$IRON' && (
+            <InfoBadge ml="1rem" message="Verified" />
+          )}
         </Flex>
         <AssetInformationGrid
           loading={!asset.loaded}
           assetDetails={assetDetails}
         />
-        <Box my="0.5rem">
-          <h3>Asset History</h3>
-        </Box>
-        {descriptions.loaded ? (
-          <AssetHistory assetHistory={descriptions.data} />
+        {descriptions.loaded && descriptions.data.length ? (
+          <>
+            <Box my="0.5rem">
+              <h3>Asset History</h3>
+            </Box>
+            <AssetHistory assetHistory={descriptions.data} />
+          </>
         ) : (
           <HStack justifyContent="center" py="6rem">
             <Spinner

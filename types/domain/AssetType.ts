@@ -3,13 +3,14 @@ import { isObject } from 'utils/isObject'
 export interface AssetType {
   object: 'asset'
   id: number
-  created_transaction_hash: string
-  created_transaction_timestamp: string
   identifier: string
-  metadata: string
   name: string
   owner: string
   supply: string
+  created_at: number
+  metadata: string
+  created_transaction_hash: string
+  created_transaction_timestamp: string
 }
 
 export function isAsset(maybeAsset: unknown): maybeAsset is AssetType {

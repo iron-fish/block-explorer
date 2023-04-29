@@ -7,6 +7,7 @@ import useInfiniteScroll from 'react-infinite-scroll-hook'
 import axios, { AxiosResponse } from 'axios'
 import { AssetType, ResponseType } from 'types'
 import { useMemo } from 'react'
+import NativeAsset from 'components/CustomAssets/NativeAsset/NativeAsset'
 
 const PAGE_SIZE = 20
 
@@ -67,6 +68,7 @@ export default function Assets() {
         >
           <Breadcrumbs />
         </Flex>
+        <NativeAsset />
         <Box my="0.5rem">
           <h3>All Assets</h3>
         </Box>
