@@ -29,7 +29,7 @@ const COLUMNS: ColumnProps<BlockType>[] = [
     ),
   },
   {
-    key: 'block-height',
+    key: 'block-size',
     label: 'Size',
     render: pipe(safeProp('size'), x =>
       size(x, { precision: 2, units: 'iec' }).toString()
