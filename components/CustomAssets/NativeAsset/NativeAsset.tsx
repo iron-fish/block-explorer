@@ -7,66 +7,39 @@ import {
   useBreakpointValue,
 } from '@ironfish/ui-kit'
 import { useRouter } from 'next/router'
-import HashView from 'components/HashView'
 import InfoBadge from 'components/InfoBadge'
-import CopyValueToClipboard from 'components/CopyValueToClipboard'
 import { ColumnProps } from 'components/Table/types'
-import TableCellTimeStamp from 'components/TableCellTimeStamp'
 import useAsset from 'hooks/useAsset'
 import { AssetType } from 'types'
-import { formatNumberWithLanguage } from 'utils/format'
-import safeProp from 'utils/safeProp'
 import { FishIcon } from 'svgx'
 import { ACTIONS_COLUMN } from 'components/Table/Table'
 import RoutePaths from 'constants/RoutePaths'
 import { TableComponentProps } from '@ironfish/ui-kit/dist/components/Table/types'
+import { ASSET_COLUMNS } from '../CustomAssetsTable/CustomAssetsTable'
 
-const COLUMNS: ColumnProps<AssetType>[] = [
-  {
-    key: 'name',
-    label: 'Asset Name',
-    render: asset => (
-      <Flex alignItems="center">
-        <Box
-          color={NAMED_COLORS.BLACK}
-          _dark={{
-            color: NAMED_COLORS.WHITE,
-          }}
-          mr="1rem"
-        >
-          <FishIcon pb="0.1rem" h="1.875rem" w="1.625rem" />
-        </Box>
-        <Box>{asset.name}</Box>
-        <InfoBadge message="Verified" ml="2.5rem" />
-      </Flex>
-    ),
+const NATIVE_ASSET_COLUMN: ColumnProps<AssetType> = {
+  key: 'name',
+  label: 'Asset Name',
+  WrapperProps: {
+    minW: { base: 'auto', lg: '16.875rem' },
+    maxW: { base: 'auto', lg: '16.875rem' },
   },
-  {
-    key: 'supply',
-    label: 'Supply',
-    render: asset => formatNumberWithLanguage(safeProp('supply')(asset)),
-  },
-  {
-    key: 'id',
-    label: 'Asset Identifier',
-    render: asset => {
-      const identifier = safeProp('identifier')(asset)
-      return (
-        <CopyValueToClipboard
-          value={identifier}
-          label={<HashView hash={identifier} />}
-        />
-      )
-    },
-  },
-  {
-    key: 'created_at',
-    label: 'Created',
-    render: item => (
-      <TableCellTimeStamp timestamp={item.created_transaction_timestamp} />
-    ),
-  },
-]
+  render: asset => (
+    <Flex alignItems="center">
+      <Box
+        color={NAMED_COLORS.BLACK}
+        _dark={{
+          color: NAMED_COLORS.WHITE,
+        }}
+        mr="1rem"
+      >
+        <FishIcon pb="0.1rem" h="1.875rem" w="1.625rem" />
+      </Box>
+      <Box>{asset.name}</Box>
+      <InfoBadge message="Verified" ml="2.5rem" />
+    </Flex>
+  ),
+}
 
 const DEFAULT_TABLE_PROPS: TableComponentProps = {
   tableHeadProps: {
@@ -75,7 +48,9 @@ const DEFAULT_TABLE_PROPS: TableComponentProps = {
   tableBodyRowProps: {
     layerStyle: 'card',
     borderRadius: '0.25rem',
-    transition: 'color 300ms ease-in-out',
+    _light: {
+      boxShadow: `0.25rem 0.25rem 0 -0.063rem ${NAMED_COLORS.WHITE}, 0.25rem 0.25rem ${NAMED_COLORS.LIGHT_GREY}`,
+    },
     _hover: {
       borderColor: NAMED_COLORS.DEEP_BLUE,
       _dark: {
@@ -90,6 +65,8 @@ const DEFAULT_TABLE_ROW_ITEM_PROPS: TableComponentProps = {
     display: { base: 'block' },
   },
 }
+
+const COLUMNS = [NATIVE_ASSET_COLUMN, ...ASSET_COLUMNS]
 
 const NativeAsset = () => {
   const router = useRouter()

@@ -10,23 +10,31 @@ import { formatNumberWithLanguage } from 'utils/format'
 import { ACTIONS_COLUMN } from 'components/Table/Table'
 import { AssetType } from 'types'
 
-const COLUMNS: ColumnProps<AssetType>[] = [
-  {
-    key: 'name',
-    label: 'Asset Name',
-    render: asset => (
-      <>
-        <Box mr="1rem">
-          <AssetIcon pb="0.1rem" h="1.875rem" w="1.625rem" />
-        </Box>
-        <Box color={NAMED_COLORS.LIGHT_BLUE}>{asset.name}</Box>
-      </>
-    ),
+const ASSET_NAME_COLUMN: ColumnProps<AssetType>[] = {
+  key: 'name',
+  label: 'Asset Name',
+  WrapperProps: {
+    minW: { base: 'auto', lg: '16.875rem' },
+    maxW: { base: 'auto', lg: '16.875rem' },
   },
+  render: asset => (
+    <>
+      <Box mr="1rem">
+        <AssetIcon pb="0.1rem" h="1.875rem" w="1.625rem" />
+      </Box>
+      <Box color={NAMED_COLORS.LIGHT_BLUE}>{asset.name}</Box>
+    </>
+  ),
+}
+
+export const ASSET_COLUMNS: ColumnProps<AssetType>[] = [
   {
     key: 'supply',
     label: 'Supply',
     render: asset => formatNumberWithLanguage(safeProp('supply')(asset)),
+    WrapperProps: {
+      minW: '15rem',
+    },
   },
   {
     key: 'id',
@@ -49,6 +57,8 @@ const COLUMNS: ColumnProps<AssetType>[] = [
     ),
   },
 ]
+
+const COLUMNS = [ASSET_NAME_COLUMN, ...ASSET_COLUMNS]
 
 type Props = {
   assets: Array<AssetType>
