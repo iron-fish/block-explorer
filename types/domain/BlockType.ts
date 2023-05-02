@@ -16,6 +16,11 @@ export interface BlockType {
   transactions?: TransactionType[]
 }
 
+export interface BlockHead extends BlockType {
+  circulating_supply: number;
+  total_supply: number;
+}
+
 export function isBlock(x: unknown): x is BlockType {
   return typeof x === 'object' && !!x && 'transactions' in x && !('block' in x)
 }
