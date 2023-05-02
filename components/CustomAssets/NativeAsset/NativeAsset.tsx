@@ -19,6 +19,7 @@ import safeProp from 'utils/safeProp'
 import { FishIcon } from 'svgx'
 import { ACTIONS_COLUMN } from 'components/Table/Table'
 import RoutePaths from 'constants/RoutePaths'
+import { TableComponentProps } from '@ironfish/ui-kit/dist/components/Table/types'
 
 const COLUMNS: ColumnProps<AssetType>[] = [
   {
@@ -74,6 +75,13 @@ const DEFAULT_TABLE_PROPS: TableComponentProps = {
   tableBodyRowProps: {
     layerStyle: 'card',
     borderRadius: '0.25rem',
+    transition: 'color 300ms ease-in-out',
+    _hover: {
+      borderColor: NAMED_COLORS.DEEP_BLUE,
+      _dark: {
+        borderColor: NAMED_COLORS.WHITE,
+      },
+    },
   },
 }
 
