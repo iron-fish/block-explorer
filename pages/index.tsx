@@ -23,6 +23,7 @@ import {
 import NextLink from 'next/link'
 import { BlockHead } from 'types'
 import { formatTimeSinceLastBlock } from 'utils/format/formatTimeSinceLastBlock'
+import { renderIronWithCurrency } from 'utils/currency'
 
 const BLOCKS_LIMIT = 10
 const LAST_BLOCK_INFO_CARDS = [
@@ -56,13 +57,14 @@ const LAST_BLOCK_INFO_CARDS = [
     key: 'circulating-supply-card',
     label: 'Circulating Supply',
     value: (block: BlockHead | null) =>
-      block?.circulating_supply.toString() ?? '-',
+      renderIronWithCurrency(block?.circulating_supply),
     icon: <SupplyIcon />,
   },
   {
     key: 'total-supply-card',
     label: 'Total Supply',
-    value: (block: BlockHead | null) => block?.total_supply.toString() ?? '-',
+    value: (block: BlockHead | null) =>
+      renderIronWithCurrency(block?.total_supply),
     icon: <SupplyIcon />,
   },
 ]
