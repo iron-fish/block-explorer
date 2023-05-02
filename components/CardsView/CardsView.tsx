@@ -1,3 +1,4 @@
+import { BoxProps } from '@ironfish/ui-kit'
 import { FC } from 'react'
 import Card, { CardProps } from '../Card/Card'
 import CardContainer from '../CardContainer'
@@ -13,6 +14,7 @@ interface CardsViewProps {
     data: any
     loaded: boolean
   }
+  hideCardsWithoutValue?: boolean
 }
 
 const CardsView: FC<CardsViewProps> = ({
