@@ -5,7 +5,7 @@ import { RefreshIcon } from 'svgx'
 interface RefreshButtonProps {
   isVisible: boolean
   onClick: () => unknown
-  offsetTop: string | number
+  offsetTop?: string | number
 }
 
 const RefreshButton: FC<RefreshButtonProps> = ({
