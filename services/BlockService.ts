@@ -1,6 +1,7 @@
 import { formatISO } from 'date-fns'
 
 import {
+  BlockHead,
   BlocksParameters,
   BlocksStatisticParameters,
   BlockType,
@@ -26,7 +27,7 @@ class BlockService extends Service {
     })
   }
 
-  head(): Promise<BlockType> {
+  head(): Promise<BlockHead> {
     return this.fetcher.get('/head')
   }
 

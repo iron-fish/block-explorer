@@ -17,12 +17,11 @@ import {
   HeightIcon,
   DifficultyIcon,
   LatestBlockHashIcon,
-  BlockInfoTxnIcon,
   SecondsToBlockIcon,
-  TotalSupplyIcon,
+  SupplyIcon,
 } from 'svgx'
 import NextLink from 'next/link'
-import { BlockType } from 'types'
+import { BlockHead } from 'types'
 import { formatTimeSinceLastBlock } from 'utils/format/formatTimeSinceLastBlock'
 
 const BLOCKS_LIMIT = 10
@@ -30,40 +29,41 @@ const LAST_BLOCK_INFO_CARDS = [
   {
     key: 'difficulty-card',
     label: 'Difficulty',
-    value: (block: BlockType | null) =>
+    value: (block: BlockHead | null) =>
       `${(Number(block?.difficulty) / 1e15).toFixed(2)}P`,
     icon: <DifficultyIcon />,
   },
   {
     key: 'height-card',
     label: 'Height',
-    value: (block: BlockType | null) => block?.sequence,
+    value: (block: BlockHead | null) => block?.sequence,
     icon: <HeightIcon />,
   },
   {
     key: 'hash-card',
     label: 'Latest Block Hash',
-    value: (block: BlockType | null) => <HashView hash={block?.hash} />,
+    value: (block: BlockHead | null) => <HashView hash={block?.hash} />,
     icon: <LatestBlockHashIcon />,
-  },
-  {
-    key: 'transactions_count-card',
-    label: 'Transactions in Last Block',
-    value: (block: BlockType | null) => block?.transactions_count,
-    icon: <BlockInfoTxnIcon />,
   },
   {
     key: 'interval-card',
     label: 'Last Block Time',
-    value: (block: BlockType | null) =>
+    value: (block: BlockHead | null) =>
       formatTimeSinceLastBlock(block?.time_since_last_block_ms),
     icon: <SecondsToBlockIcon />,
   },
   {
-    key: 'supply-card',
+    key: 'circulating-supply-card',
+    label: 'Circulating Supply',
+    value: (block: BlockHead | null) =>
+      block?.circulating_supply.toString() ?? '-',
+    icon: <SupplyIcon />,
+  },
+  {
+    key: 'total-supply-card',
     label: 'Total Supply',
-    value: () => '-',
-    icon: <TotalSupplyIcon />,
+    value: (block: BlockHead | null) => block?.total_supply.toString() ?? '-',
+    icon: <SupplyIcon />,
   },
 ]
 
