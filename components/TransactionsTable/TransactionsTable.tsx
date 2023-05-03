@@ -2,6 +2,10 @@ import { FC } from 'react'
 import { NAMED_COLORS, useBreakpointValue, Box } from '@ironfish/ui-kit'
 import { pathOr } from 'ramda'
 import { useRouter } from 'next/router'
+import {
+  ColumnProps,
+  CommonTableProps,
+} from '@ironfish/ui-kit/dist/components/Table/types'
 
 import { formatNumberWithLanguage } from 'utils/format'
 import TransactionType from 'types/domain/TransactionType'
@@ -12,12 +16,11 @@ import {
   InfoBadge,
   HashView,
   TableCellTimeStamp,
+  ExplorerCommonTable,
 } from 'components'
 
-import { CommonTable } from '../Table'
-import { ColumnProps, CommonTableProps } from '../Table/types'
 import { BlueHashIcon } from 'svgx'
-import { ACTIONS_COLUMN } from 'components/Table/Table'
+import { ACTIONS_COLUMN } from 'components/ExplorerCommonTable'
 
 const TAG_COLUMN: ColumnProps<TransactionType> = {
   key: 'transaction-tag',
@@ -106,7 +109,7 @@ const TransactionsTable: FC<TransactionsTableProps> = props => {
   const router = useRouter()
 
   return (
-    <CommonTable
+    <ExplorerCommonTable
       {...props}
       columns={columns}
       onRowClick={(transaction: TransactionType) => {

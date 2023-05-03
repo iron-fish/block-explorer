@@ -1,13 +1,21 @@
-import { CommonTable } from 'components/Table'
 import { Box, NAMED_COLORS, useBreakpointValue } from '@ironfish/ui-kit'
-import { ColumnProps, CommonTableProps } from 'components/Table/types'
+import {
+  ColumnProps,
+  CommonTableProps,
+} from '@ironfish/ui-kit/dist/components/Table/types'
+
 import AssetIcon from 'icons/AssetIcon'
 import safeProp from 'utils/safeProp'
 import { useRouter } from 'next/router'
 import RoutePaths from 'constants/RoutePaths'
-import { CopyValueToClipboard, HashView, TableCellTimeStamp } from 'components'
+import {
+  CopyValueToClipboard,
+  HashView,
+  TableCellTimeStamp,
+  ExplorerCommonTable,
+} from 'components'
 import { formatNumberWithLanguage } from 'utils/format'
-import { ACTIONS_COLUMN } from 'components/Table/Table'
+import { ACTIONS_COLUMN } from 'components/ExplorerCommonTable'
 
 type Asset = {
   id: number
@@ -73,7 +81,7 @@ export function CustomAssetsTable({ assets, ...rest }: Props) {
   })
 
   return (
-    <CommonTable
+    <ExplorerCommonTable
       {...rest}
       data={assets}
       columns={columns}

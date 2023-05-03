@@ -1,11 +1,11 @@
 import { HStack, Text, Box } from '@ironfish/ui-kit'
+import { ColumnProps } from '@ironfish/ui-kit/dist/components/Table/types'
 import {
-  CommonTable,
+  ExplorerCommonTable,
   HashView,
   CopyValueToClipboard,
   TableCellTimeStamp,
 } from 'components'
-import { ColumnProps } from 'components/Table/types'
 import BurnAction from 'assets/svg/burn-action.svg'
 import MintAction from 'assets/svg/mint-action.svg'
 import { AssetDescriptionType } from 'types'
@@ -54,7 +54,7 @@ type Props = {
 export function AssetHistory({ assetHistory }: Props) {
   return (
     <Box mb="2.25rem">
-      <CommonTable data={assetHistory} columns={COLUMNS} />
+      <ExplorerCommonTable data={assetHistory} columns={COLUMNS} />
     </Box>
   )
 }
