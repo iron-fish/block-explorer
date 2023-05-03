@@ -138,13 +138,13 @@ export default function BlockInformationPage() {
   const { id } = router.query
 
   return (
-    <>
+    <main style={{ width: '100%', height: '100%' }}>
       <Head>
         <title>Iron Fish: Block {id}</title>
       </Head>
-      <Box mb="6rem" zIndex={1}>
+      <Box mx={{ base: '2rem', lg: '15%' }} mb="6rem" zIndex={1}>
         <BlockInfo id={id} />
       </Box>
-    </>
+    </main>
   )
 }

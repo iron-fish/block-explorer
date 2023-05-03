@@ -54,24 +54,26 @@ export default function Assets() {
   }, [result.data?.pages])
 
   return (
-    <>
+    <main style={{ width: '100%', height: '100%' }}>
       <Head>
         <title>Iron Fish: Assets</title>
       </Head>
-      <Flex
-        pt="2.5rem"
-        w="100%"
-        alignItems="center"
-        justifyContent="space-between"
-      >
-        <Breadcrumbs />
-      </Flex>
-      <Box my="0.5rem">
-        <h3>All Assets</h3>
+      <Box mx={{ base: '2rem', lg: '15%' }}>
+        <Flex
+          pt="2.5rem"
+          w="100%"
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Breadcrumbs />
+        </Flex>
+        <Box my="0.5rem">
+          <h3>All Assets</h3>
+        </Box>
+        <CustomAssetsTable
+          assets={result.isLoading ? new Array(PAGE_SIZE).fill(null) : assets}
+        />
       </Box>
-      <CustomAssetsTable
-        assets={result.isLoading ? new Array(PAGE_SIZE).fill(null) : assets}
-      />
       <span
         ref={observerRef}
         style={{
@@ -81,6 +83,6 @@ export default function Assets() {
           width: '100%',
         }}
       />
-    </>
+    </main>
   )
 }

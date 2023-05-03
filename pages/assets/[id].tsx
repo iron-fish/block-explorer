@@ -41,11 +41,11 @@ export default function AssetInfo() {
   }, [asset])
 
   return (
-    <>
+    <main style={{ width: '100%', height: '100%' }}>
       <Head>
         <title>Iron Fish: Block {id}</title>
       </Head>
-      <Box mb="6rem" zIndex={1}>
+      <Box mx={{ base: '2rem', lg: '15%' }} mb="6rem" zIndex={1}>
         <Flex mt="2.5rem">
           <Breadcrumbs />
         </Flex>
@@ -78,6 +78,6 @@ export default function AssetInfo() {
         </Box>
         <AssetTransactionChart /> */}
       </Box>
-    </>
+    </main>
   )
 }
