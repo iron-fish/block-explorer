@@ -6,8 +6,7 @@ import { Box, Flex } from '@ironfish/ui-kit'
 import { pipe } from 'ramda'
 
 import {
-  CardContainer,
-  Card,
+  CardsView,
   TimeStamp,
   CopyValueToClipboard,
   InfoBadge,
@@ -96,7 +95,6 @@ const BLOCK_CARDS = [
     value: pipe(safeProp('time_since_last_block_ms'), formatTimeSinceLastBlock),
     icon: <PickIcon />,
   },
-  null,
 ]
 
 const BlockInfo = ({ id }) => {
@@ -117,34 +115,7 @@ const BlockInfo = ({ id }) => {
           <InfoBadge ml={'1rem'} message={'Forked'} />
         )}
       </Flex>
-      <CardContainer>
-        {BLOCK_CARDS.map(card =>
-          card ? (
-            <Card
-              key={card.key}
-              mb="1rem"
-              width={{
-                base: 'max(20rem, 100% - 0.5rem)',
-                md: 'max(20rem, 50% - 1rem)',
-                '2xl': 'max(20rem, 33.333333% - 1rem)',
-              }}
-              label={card.label}
-              value={card.value(block.data)}
-              icon={card.icon}
-              isLoading={!block.loaded}
-            />
-          ) : (
-            <Box
-              key={null}
-              width={{
-                base: 'max(20rem, 100% - 0.5rem)',
-                md: 'max(20rem, 50% - 1rem)',
-                '2xl': 'max(20rem, 33.333333% - 1rem)',
-              }}
-            />
-          )
-        )}
-      </CardContainer>
+      <CardsView cards={BLOCK_CARDS} data={block} />
       <Box my="0.5rem">
         <h3>Transactions</h3>
       </Box>
