@@ -15,7 +15,7 @@ import {
   ExplorerCommonTable,
 } from 'components'
 import { formatNumberWithLanguage } from 'utils/format'
-import { ACTIONS_COLUMN } from 'components/Table/Table'
+import { ACTIONS_COLUMN } from 'components/ExplorerCommonTable'
 import { AssetType } from 'types'
 
 const ASSET_NAME_COLUMN: ColumnProps<AssetType> = {
