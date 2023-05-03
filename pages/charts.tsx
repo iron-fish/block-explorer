@@ -31,11 +31,11 @@ export default function Charts() {
   )
 
   return (
-    <main style={{ width: '100%', height: '100%' }}>
+    <>
       <Head>
         <title>Iron Fish: Charts</title>
       </Head>
-      <Box mx={{ base: '2rem', lg: '15%' }} mb="9.375rem">
+      <Box mb="9.375rem">
         <Box mt="2.5rem">
           <Breadcrumbs />
         </Box>
@@ -54,6 +54,6 @@ export default function Charts() {
           )}
         </Flex>
       </Box>
-    </main>
+    </>
   )
 }

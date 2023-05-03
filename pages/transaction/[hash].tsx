@@ -348,16 +348,16 @@ export default function TransactionInformationPage() {
   }
 
   return (
-    <main style={{ width: '100%', height: '100%' }}>
+    <>
       <Head>
         <title>Iron Fish: Transaction {hash}</title>
       </Head>
-      <Box mx={{ base: '2rem', lg: '15%' }} mb="6rem" zIndex={1}>
+      <Box mb="6rem" zIndex={1}>
         <Box mt="2.5rem">
           <Breadcrumbs queryParams={{ id: block.sequence }} />
         </Box>
         <TransactionInfo data={data} loaded={loaded} />
       </Box>
-    </main>
+    </>
   )
 }
