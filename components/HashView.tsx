@@ -12,7 +12,7 @@ interface HashViewProps {
 
 export const HashView: FC<HashViewProps> = ({
   hash,
-  parts = 4,
+  parts = 3,
   chars = 4,
   labelProps,
 }) => {
