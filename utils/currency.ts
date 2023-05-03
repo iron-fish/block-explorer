@@ -29,7 +29,7 @@ export function renderIronWithCurrency(value?: number): string {
     return '-'
   }
 
-  return `${value.toString()} ${IRON_TICKER}`
+  return `${value.toLocaleString()} ${IRON_TICKER}`
 }
 
 export const getNumberToUnit = (value: number): string => {
