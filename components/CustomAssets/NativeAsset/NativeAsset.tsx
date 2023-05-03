@@ -6,14 +6,16 @@ import {
   useBreakpointValue,
 } from '@ironfish/ui-kit'
 import { useRouter } from 'next/router'
+import {
+  ColumnProps,
+  TableComponentProps,
+} from '@ironfish/ui-kit/dist/components/Table/types'
 import InfoBadge from 'components/InfoBadge'
-import { ColumnProps } from 'components/Table/types'
 import useAsset from 'hooks/useAsset'
 import { AssetType } from 'types'
 import { FishIcon } from 'svgx'
 import { ACTIONS_COLUMN } from 'components/ExplorerCommonTable'
 import RoutePaths from 'constants/RoutePaths'
-import { TableComponentProps } from '@ironfish/ui-kit/dist/components/Table/types'
 import { ASSET_COLUMNS } from '../CustomAssetsTable/CustomAssetsTable'
 import { NATIVE_ASSET_ID } from 'constants/AssetConstants'
 
