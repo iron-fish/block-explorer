@@ -1,12 +1,12 @@
 import { useContext, useEffect } from 'react'
 
 import { BlockContext } from 'contexts/ServiceContexts'
-import { BlockType } from 'types'
+import { BlockHead } from 'types'
 import useAsyncDataWrapper from './useAsyncDataWrapper'
 
 const useBlockHead = () => {
   const service = useContext(BlockContext)
-  const [result, wrapper] = useAsyncDataWrapper<BlockType>()
+  const [result, wrapper] = useAsyncDataWrapper<BlockHead>()
 
   useEffect(() => {
     wrapper(service.head())
