@@ -48,6 +48,9 @@ export const ASSET_COLUMNS: ColumnProps<AssetType>[] = [
   {
     key: 'id',
     label: 'Asset Identifier',
+    WrapperProps: {
+      minW: { base: '16.875rem', lg: 'auto' },
+    },
     render: asset => {
       const identifier = safeProp('identifier')(asset)
       return (
