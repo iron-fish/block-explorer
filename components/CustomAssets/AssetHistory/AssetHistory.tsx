@@ -54,7 +54,11 @@ type Props = {
 export function AssetHistory({ assetHistory }: Props) {
   return (
     <Box mb="2.25rem">
-      <ExplorerCommonTable data={assetHistory} columns={COLUMNS} />
+      <ExplorerCommonTable
+        data={assetHistory}
+        columns={COLUMNS}
+        disableHover={true}
+      />
     </Box>
   )
 }
