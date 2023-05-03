@@ -9,15 +9,17 @@ import useAsset from 'hooks/useAsset'
 import { useMemo } from 'react'
 import useAssetDescriptions from 'hooks/useAssetDescriptions'
 import { InfoBadge } from 'components'
+import { NATIVE_ASSET_ID } from 'constants/AssetConstants'
 
 export default function AssetInfo() {
   const router = useRouter()
   const { id } = router.query
 
-  const asset = useAsset(id as string)
+  const assetId = id as string
+  const asset = useAsset(assetId)
 
   const descriptions = useAssetDescriptions({
-    asset: id as string,
+    asset: assetId === NATIVE_ASSET_ID ? null : assetId,
   })
 
   if (asset.error) {
@@ -35,6 +37,7 @@ export default function AssetInfo() {
         object: 'asset',
         owner: '—',
         supply: '—',
+        verified_at: null,
       }
     }
 
@@ -52,32 +55,38 @@ export default function AssetInfo() {
         </Flex>
         <Flex mt="0.5rem" mb="2rem">
           <h3>Asset Information</h3>
-          {assetDetails.name === '$IRON' && (
-            <InfoBadge ml="1rem" message="Verified" />
+          {assetDetails.verified_at && (
+            <InfoBadge
+              ml="1rem"
+              message="Verified"
+              display="flex"
+              alignItems="center"
+            />
           )}
         </Flex>
         <AssetInformationGrid
           loading={!asset.loaded}
           assetDetails={assetDetails}
         />
-        {descriptions.loaded && descriptions.data.length ? (
-          <>
-            <Box my="0.5rem">
-              <h3>Asset History</h3>
-            </Box>
-            <AssetHistory assetHistory={descriptions.data} />
-          </>
-        ) : (
-          <HStack justifyContent="center" py="6rem">
-            <Spinner
-              color={NAMED_COLORS.LIGHT_BLUE}
-              emptyColor={NAMED_COLORS.LIGHT_GREY}
-              size="xl"
-              thickness="0.25rem"
-              speed="0.75s"
-            />
-          </HStack>
-        )}
+        {!assetDetails.verified_at &&
+          (descriptions.loaded ? (
+            <>
+              <Box my="0.5rem">
+                <h3>Asset History</h3>
+              </Box>
+              <AssetHistory assetHistory={descriptions.data} />
+            </>
+          ) : (
+            <HStack justifyContent="center" py="6rem">
+              <Spinner
+                color={NAMED_COLORS.LIGHT_BLUE}
+                emptyColor={NAMED_COLORS.LIGHT_GREY}
+                size="xl"
+                thickness="0.25rem"
+                speed="0.75s"
+              />
+            </HStack>
+          ))}
         <Box mb="8rem" />
         {/* <Box mt="0.5rem" mb="2rem">
           <h3>Asset History Chart</h3>

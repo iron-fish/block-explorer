@@ -2,7 +2,6 @@ import {
   Box,
   Flex,
   NAMED_COLORS,
-  Skeleton,
   CommonTable,
   useBreakpointValue,
 } from '@ironfish/ui-kit'
@@ -16,6 +15,7 @@ import { ACTIONS_COLUMN } from 'components/Table/Table'
 import RoutePaths from 'constants/RoutePaths'
 import { TableComponentProps } from '@ironfish/ui-kit/dist/components/Table/types'
 import { ASSET_COLUMNS } from '../CustomAssetsTable/CustomAssetsTable'
+import { NATIVE_ASSET_ID } from 'constants/AssetConstants'
 
 const NATIVE_ASSET_COLUMN: ColumnProps<AssetType> = {
   key: 'name',
@@ -36,7 +36,7 @@ const NATIVE_ASSET_COLUMN: ColumnProps<AssetType> = {
         <FishIcon pb="0.1rem" h="1.875rem" w="1.625rem" />
       </Box>
       <Box>{asset.name}</Box>
-      <InfoBadge message="Verified" ml="2.5rem" />
+      {asset.verified_at && <InfoBadge message="Verified" ml="2.5rem" />}
     </Flex>
   ),
 }
@@ -70,55 +70,43 @@ const COLUMNS = [NATIVE_ASSET_COLUMN, ...ASSET_COLUMNS]
 
 const NativeAsset = () => {
   const router = useRouter()
-  const { data: nativeAsset, loaded } = useAsset(
-    '2cfc97ecdf906e864e6d977da500857b925144de637d8b8ad6eaae0cd84f8240'
-  )
+  const { data: nativeAsset, loaded } = useAsset(NATIVE_ASSET_ID)
   const columns = useBreakpointValue({
     base: COLUMNS,
     lg: [...COLUMNS, ACTIONS_COLUMN],
   })
 
   return (
-    <Skeleton
-      variant="ironFish"
-      isLoaded={loaded}
-      mb="2.125rem"
-      minH="7.9375rem"
-      w="100%"
-    >
-      {loaded && (
-        <CommonTable
-          columns={columns}
-          data={[nativeAsset]}
-          tableComponentProps={DEFAULT_TABLE_PROPS}
-          tableComponentRowItemProps={DEFAULT_TABLE_ROW_ITEM_PROPS}
-          onRowClick={() => {
-            router.push({
-              pathname: RoutePaths.AssetsInfo,
-              query: {
-                id: nativeAsset.identifier,
-              },
-            })
-          }}
-          sx={{
-            tr: {
-              '[aria-label="actions-cell"]': {
-                color: NAMED_COLORS.PALE_GREY,
-                transition: 'color 300ms ease-in-out',
-              },
-              _hover: {
-                '[aria-label="actions-cell"]': {
-                  color: NAMED_COLORS.DEEP_BLUE,
-                  _dark: {
-                    color: NAMED_COLORS.WHITE,
-                  },
-                },
+    <CommonTable
+      columns={columns}
+      data={loaded ? [nativeAsset] : [null]}
+      tableComponentProps={DEFAULT_TABLE_PROPS}
+      tableComponentRowItemProps={DEFAULT_TABLE_ROW_ITEM_PROPS}
+      onRowClick={() => {
+        router.push({
+          pathname: RoutePaths.AssetsInfo,
+          query: {
+            id: nativeAsset.identifier,
+          },
+        })
+      }}
+      sx={{
+        tr: {
+          '[aria-label="actions-cell"]': {
+            color: NAMED_COLORS.PALE_GREY,
+            transition: 'color 300ms ease-in-out',
+          },
+          _hover: {
+            '[aria-label="actions-cell"]': {
+              color: NAMED_COLORS.DEEP_BLUE,
+              _dark: {
+                color: NAMED_COLORS.WHITE,
               },
             },
-          }}
-        />
-      )}
-    </Skeleton>
+          },
+        },
+      }}
+    />
   )
 }
 
