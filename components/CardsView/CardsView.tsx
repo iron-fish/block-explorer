@@ -1,39 +1,44 @@
 import { BoxProps } from '@ironfish/ui-kit'
-import { FC } from 'react'
-import Card, { CardProps } from '../Card/Card'
+import { FC, ReactNode } from 'react'
+import Card from '../Card/Card'
 import CardContainer from '../CardContainer'
 
-interface CardsType extends CardProps {
+interface CardsType<T> {
+  key?: string
+  label: ReactNode | ((data: T) => ReactNode)
+  value?: (data: T) => ReactNode
+  icon: ReactNode
+  isLoading?: boolean
   cardProps?: BoxProps
 }
 
-interface CardsViewProps {
-  cards: CardsType[]
+interface CardsViewProps<T> {
+  cards: CardsType<T>[]
   data: {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data: any
+    data?: T
     loaded: boolean
   }
   hideCardsWithoutValue?: boolean
 }
 
-const CardsView: FC<CardsViewProps> = ({
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const CardsView: FC<CardsViewProps<any>> = ({
   cards,
   data: { data, loaded },
   hideCardsWithoutValue = true,
 }) => {
   return (
     <CardContainer>
-      {cards?.map(card => {
+      {cards?.map((card, index) => {
         const value = card.value(data)
         if (!value && hideCardsWithoutValue) {
           return null
         }
         return (
           <Card
-            key={card.key || card.label}
+            key={card.key || index}
             label={
-              typeof card.label === 'string' ? card.label : card.label(data)
+              typeof card.label === 'function' ? card.label(data) : card.label
             }
             value={value}
             icon={card.icon}
