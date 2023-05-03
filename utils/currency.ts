@@ -24,6 +24,14 @@ export const getIRFAmountWithCurrency = (raw = '0'): string => {
   return `${amount.toLocaleString()} ${ORE_TICKER}`
 }
 
+export function renderIronWithCurrency(value?: number): string {
+  if (!value) {
+    return '-'
+  }
+
+  return `${value.toString()} ${IRON_TICKER}`
+}
+
 export const getNumberToUnit = (value: number): string => {
   const UNITS = ['M', 'B', 'T', 'Q']
   const neg = value < 0
