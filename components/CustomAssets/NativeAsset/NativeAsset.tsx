@@ -16,16 +16,14 @@ import { AssetType } from 'types'
 import { FishIcon } from 'svgx'
 import { ACTIONS_COLUMN } from 'components/ExplorerCommonTable'
 import RoutePaths from 'constants/RoutePaths'
-import { ASSET_COLUMNS } from '../CustomAssetsTable/CustomAssetsTable'
+import {
+  ASSET_COLUMNS,
+  ASSET_NAME_COLUMN,
+} from '../CustomAssetsTable/CustomAssetsTable'
 import { NATIVE_ASSET_ID } from 'constants/AssetConstants'
 
 const NATIVE_ASSET_COLUMN: ColumnProps<AssetType> = {
-  key: 'name',
-  label: 'Asset Name',
-  WrapperProps: {
-    minW: { base: 'auto', lg: '16.875rem' },
-    maxW: { base: 'auto', lg: '16.875rem' },
-  },
+  ...ASSET_NAME_COLUMN,
   render: asset => (
     <Flex alignItems="center">
       <Box

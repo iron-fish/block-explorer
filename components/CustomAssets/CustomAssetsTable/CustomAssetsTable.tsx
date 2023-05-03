@@ -18,12 +18,12 @@ import { formatNumberWithLanguage } from 'utils/format'
 import { ACTIONS_COLUMN } from 'components/ExplorerCommonTable'
 import { AssetType } from 'types'
 
-const ASSET_NAME_COLUMN: ColumnProps<AssetType> = {
+export const ASSET_NAME_COLUMN: ColumnProps<AssetType> = {
   key: 'name',
   label: 'Asset Name',
   WrapperProps: {
-    minW: { base: 'auto', lg: '16.875rem' },
-    maxW: { base: 'auto', lg: '16.875rem' },
+    minW: '16.875rem',
+    maxW: '16.875rem',
   },
   render: asset => (
     <>
@@ -42,6 +42,7 @@ export const ASSET_COLUMNS: ColumnProps<AssetType>[] = [
     render: asset => formatNumberWithLanguage(safeProp('supply')(asset)),
     WrapperProps: {
       minW: '15rem',
+      maxW: '15rem',
     },
   },
   {
