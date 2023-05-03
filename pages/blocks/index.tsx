@@ -58,7 +58,6 @@ const InfiniteBlocks = ({ reload, onReloaded }) => {
 }
 
 export default function Explorer() {
-  // const containerRef = useRef(null)
   const [reload, setReload] = useState(false)
   const [showReload, setShowReload] = useState(false)
   const $headBlock = useBlockHeadWithInterval(15000)
