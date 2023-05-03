@@ -11,6 +11,7 @@ export interface AssetType {
   metadata: string
   created_transaction_hash: string
   created_transaction_timestamp: string
+  verified_at: Date | null
 }
 
 export function isAsset(maybeAsset: unknown): maybeAsset is AssetType {
