@@ -1,6 +1,6 @@
 import { Icon } from '@ironfish/ui-kit'
 
-export function TotalSupplyIcon() {
+export function SupplyIcon() {
   return (
     <Icon
       w="34px"
@@ -29,4 +29,4 @@ export function TotalSupplyIcon() {
   )
 }
 
-export default TotalSupplyIcon
+export default SupplyIcon

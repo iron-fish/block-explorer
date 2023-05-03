@@ -1,7 +1,7 @@
 import { Box, NAMED_COLORS, Text } from '@ironfish/ui-kit'
 import { Card, CardContainer, CopyValueToClipboard, HashView } from 'components'
 import safeProp from 'utils/safeProp'
-import { DifficultyIcon, TotalSupplyIcon } from 'svgx'
+import { DifficultyIcon, SupplyIcon } from 'svgx'
 
 import NameTag from 'assets/svg/name-tag.svg'
 import Avatar from 'assets/svg/avatar.svg'
@@ -24,7 +24,7 @@ const ASSET_CARDS = [
   {
     label: 'Total Supply',
     value: asset => formatNumberWithLanguage(safeProp('supply')(asset)),
-    icon: <TotalSupplyIcon />,
+    icon: <SupplyIcon />,
   },
   {
     label: 'Transaction',
