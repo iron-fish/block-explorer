@@ -18,8 +18,7 @@ import size from 'byte-size'
 import { pathOr, pipe } from 'ramda'
 
 import {
-  Card,
-  CardContainer,
+  CardsView,
   CopyValueToClipboard,
   InfoBadge,
   HashView,
@@ -248,30 +247,7 @@ const TransactionInfo: FC<TransactionInfoProps> = ({ data, loaded }) => {
           <InfoBadge ml={'1rem'} message={'Forked'} />
         )}
       </Flex>
-      <CardContainer>
-        {TRANSACTION_INFO_CARDS.map(card => {
-          const value = card.value(data)
-          return (
-            !!value && (
-              <Card
-                key={card.key}
-                mb="1rem"
-                width={{
-                  base: 'max(20rem, 100% - 0.5rem)',
-                  md: 'max(20rem, 50% - 1rem)',
-                  '2xl': 'max(20rem, 33.333333% - 1rem)',
-                }}
-                label={
-                  typeof card.label === 'string' ? card.label : card.label(data)
-                }
-                value={value}
-                icon={card.icon}
-                isLoading={!loaded}
-              />
-            )
-          )
-        })}
-      </CardContainer>
+      <CardsView cards={TRANSACTION_INFO_CARDS} data={{ data, loaded }} />
       <Box mt="2rem" mb="0.5rem">
         <h3>Inputs / Outputs</h3>
       </Box>
@@ -348,16 +324,16 @@ export default function TransactionInformationPage() {
   }
 
   return (
-    <main style={{ width: '100%', height: '100%' }}>
+    <>
       <Head>
         <title>Iron Fish: Transaction {hash}</title>
       </Head>
-      <Box mx={{ base: '2rem', lg: '15%' }} mb="6rem" zIndex={1}>
+      <Box mb="6rem" zIndex={1}>
         <Box mt="2.5rem">
           <Breadcrumbs queryParams={{ id: block.sequence }} />
         </Box>
         <TransactionInfo data={data} loaded={loaded} />
       </Box>
-    </main>
+    </>
   )
 }

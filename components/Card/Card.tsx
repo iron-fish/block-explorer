@@ -11,7 +11,7 @@ import {
 } from '@ironfish/ui-kit'
 import BorderBox from 'components/BorderBox'
 
-interface CardProps extends BoxProps {
+export interface CardProps extends BoxProps {
   label: ReactNode
   value?: ReactNode
   icon: ReactNode

@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Box, Flex } from '@ironfish/ui-kit'
 import { BlocksTable } from 'components'
 // import BlocksViewButtons from 'components/BlocksViewButtons'
@@ -58,7 +58,6 @@ const InfiniteBlocks = ({ reload, onReloaded }) => {
 }
 
 export default function Explorer() {
-  const containerRef = useRef(null)
   const [reload, setReload] = useState(false)
   const [showReload, setShowReload] = useState(false)
   const $headBlock = useBlockHeadWithInterval(15000)
@@ -76,10 +75,9 @@ export default function Explorer() {
   }, [$headBlock.data?.id])
 
   return (
-    <main ref={containerRef} style={{ width: '100%', height: '100%' }}>
+    <>
       <RefreshButton
         isVisible={showReload}
-        offsetTop={containerRef.current?.offsetTop}
         onClick={() => {
           setReload(prev => !prev)
           window.scrollTo(0, 0)
@@ -89,22 +87,20 @@ export default function Explorer() {
       <Head>
         <title>Iron Fish: Explorer</title>
       </Head>
-      <Box mx={{ base: '2rem', lg: '15%' }}>
-        <Flex
-          pt="2.5rem"
-          w="100%"
-          alignItems="center"
-          justifyContent="space-between"
-        >
-          <Breadcrumbs />
-          {/* Hide chain explorer switch button while its not finished */}
-          {/* <BlocksViewButtons /> */}
-        </Flex>
-        <Box my="0.5rem">
-          <h3>All Blocks</h3>
-        </Box>
-        <InfiniteBlocks reload={reload} onReloaded={() => setReload(false)} />
+      <Flex
+        pt="2.5rem"
+        w="100%"
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <Breadcrumbs />
+        {/* Hide chain explorer switch button while its not finished */}
+        {/* <BlocksViewButtons /> */}
+      </Flex>
+      <Box my="0.5rem">
+        <h3>All Blocks</h3>
       </Box>
-    </main>
+      <InfiniteBlocks reload={reload} onReloaded={() => setReload(false)} />
+    </>
   )
 }

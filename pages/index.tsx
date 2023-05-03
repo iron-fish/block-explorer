@@ -1,4 +1,4 @@
-import { Card, CardContainer, BlocksTable, HashView } from 'components'
+import { Card, CardsView, BlocksTable, HashView } from 'components'
 import RoutePaths from 'constants/RoutePaths'
 import useBlockHead from 'hooks/useBlockHead'
 import useBlocks from 'hooks/useBlocks'
@@ -72,25 +72,7 @@ const LAST_BLOCK_INFO_CARDS = [
 const LastBlockInfo = () => {
   const $headBlock = useBlockHead()
 
-  return (
-    <CardContainer>
-      {LAST_BLOCK_INFO_CARDS.map(data => (
-        <Card
-          key={data.key}
-          mb="1rem"
-          width={{
-            base: 'max(20rem, 100% - 0.5rem)',
-            md: 'max(20rem, 50% - 1rem)',
-            '2xl': 'max(20rem, 33.333333% - 1rem)',
-          }}
-          label={data.label}
-          value={data.value($headBlock.data)}
-          icon={data.icon}
-          isLoading={!$headBlock.loaded}
-        />
-      ))}
-    </CardContainer>
-  )
+  return <CardsView cards={LAST_BLOCK_INFO_CARDS} data={$headBlock} />
 }
 
 const LatestBlocks = () => {
@@ -149,7 +131,7 @@ export default function Home() {
   )
 
   return (
-    <main style={{ width: '100%', height: '100%' }}>
+    <>
       <Head>
         <title>Iron Fish: Home</title>
       </Head>
@@ -161,6 +143,7 @@ export default function Home() {
           bgImage: { base: null, sm: $colors.bgImage },
           bgRepeat: 'no-repeat',
           pos: 'absolute',
+          left: 0,
           backgroundPositionX: 'right',
           backgroundSize: '55.9375rem',
         }}
@@ -171,7 +154,7 @@ export default function Home() {
         pb="6rem"
         bgColor={$colors.mainBg}
       >
-        <Box mx={{ base: '2rem', lg: '15%' }} w="100%" zIndex={1}>
+        <Box w="100%" zIndex={1}>
           <Flex direction="column" mb="5.3125rem">
             <Text
               fontSize={{ base: '2.3rem', sm: '3.25rem' }}
@@ -224,6 +207,6 @@ export default function Home() {
           </Center>
         </Box>
       </Flex>
-    </main>
+    </>
   )
 }
