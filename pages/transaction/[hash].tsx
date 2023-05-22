@@ -137,6 +137,10 @@ const TRANSACTION_INFO_CARDS = [
     key: 'block-hash-card',
     label: 'Block Hash',
     value: (transaction: TransactionType | null) => {
+      if (transaction?.blocks.length === 0) {
+        return null
+      }
+
       const index = transaction?.blocks.findIndex(block => block.main === true)
       const hash = pathOr('', [
         'blocks',
@@ -236,13 +240,18 @@ const TransactionInfo: FC<TransactionInfoProps> = ({ data, loaded }) => {
     )
   }, [data?.notes?.length, data?.spends?.length])
 
+  const badge =
+    data?.blocks.length === 0
+      ? 'Pending'
+      : data?.blocks?.every(block => block.main === false)
+      ? 'Forked'
+      : null
+
   return (
     <>
       <Flex mt="0.5rem" mb="2rem" align="center">
         <h3>Transaction Information</h3>
-        {data?.blocks?.every(block => block.main === false) && (
-          <InfoBadge ml={'1rem'} message={'Forked'} />
-        )}
+        {badge && <InfoBadge ml={'1rem'} message={badge} />}
       </Flex>
       <CardsView cards={TRANSACTION_INFO_CARDS} data={{ data, loaded }} />
       <Box mt="2rem" mb="0.5rem">

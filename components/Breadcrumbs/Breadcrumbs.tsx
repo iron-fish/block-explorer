@@ -94,22 +94,24 @@ const resolvePath = (path: string, queryParams: ParsedUrlQuery | null) => {
           key: 'breadcrumb-explorer',
           link: <BreadcrumbLink.Explorer />,
         },
-        {
-          key: 'breadcrumb-block-details',
-          link: (
-            <BreadcrumbLink.BlockInfo
-              to={{
-                pathname: RoutePaths.BlockInfo,
-                query: { id: queryParams.id },
-              }}
-            />
-          ),
-        },
+        queryParams.id
+          ? {
+              key: 'breadcrumb-block-details',
+              link: (
+                <BreadcrumbLink.BlockInfo
+                  to={{
+                    pathname: RoutePaths.BlockInfo,
+                    query: { id: queryParams.id },
+                  }}
+                />
+              ),
+            }
+          : null,
         {
           key: 'breadcrumb-transaction-details',
           link: <BreadcrumbLink.TransactionInfo isCurrent={true} />,
         },
-      ]
+      ].filter(breadcrumb => breadcrumb !== null)
   }
 }
 
