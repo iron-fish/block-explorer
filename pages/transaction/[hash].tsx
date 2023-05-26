@@ -33,13 +33,15 @@ import {
   LargeArrowRightUp,
   SizeIcon,
   CompassIcon,
+  BlockInfoHeightIcon,
 } from 'svgx'
 import { getIRFAmountWithCurrency } from 'utils/currency'
-import { NoteType, SpendType, TransactionType } from 'types'
+import { BlockHead, NoteType, SpendType, TransactionType } from 'types'
 import safeProp from 'utils/safeProp'
 import { formatBlockTimestamp } from 'utils/format'
 import { MintsBurnsList } from 'components/CustomAssets/MintsBurnsList/MintsBurnsList'
 import ColumnTable from 'components/ColumnTable'
+import useBlockHead from 'hooks/useBlockHead'
 
 type TransactionDescriptionType = 'inputs' | 'outputs'
 
@@ -191,6 +193,12 @@ const TRANSACTION_INFO_CARDS = [
     icon: <CompassIcon />,
   },
   {
+    key: 'expiration-card',
+    label: 'Expiration',
+    value: safeProp('expiration'),
+    icon: <BlockInfoHeightIcon />,
+  },
+  {
     key: 'timestamp-card',
     label: 'Timestamp',
     value: pipe(pathOr({}, ['blocks', 0]), formatBlockTimestamp),
@@ -222,10 +230,11 @@ const TRANSACTION_INFO_CARDS = [
 
 interface TransactionInfoProps {
   data: TransactionType
+  head: BlockHead
   loaded: boolean
 }
 
-const TransactionInfo: FC<TransactionInfoProps> = ({ data, loaded }) => {
+const TransactionInfo: FC<TransactionInfoProps> = ({ data, loaded, head }) => {
   const $subTextColor = useColorModeValue(
     NAMED_COLORS.GREY,
     NAMED_COLORS.PALE_GREY
@@ -240,12 +249,18 @@ const TransactionInfo: FC<TransactionInfoProps> = ({ data, loaded }) => {
     )
   }, [data?.notes?.length, data?.spends?.length])
 
-  const badge =
-    data?.blocks.length === 0
-      ? 'Pending'
-      : data?.blocks?.every(block => block.main === false)
-      ? 'Forked'
-      : null
+  const isPending = data?.blocks.length === 0
+  const isExpired =
+    isPending && 0 < data?.expiration && data?.expiration <= head?.sequence
+  const isForked = data?.blocks?.every(block => block.main === false)
+
+  const badge = isExpired
+    ? 'Expired'
+    : isPending
+    ? 'Pending'
+    : isForked
+    ? 'Forked'
+    : null
 
   return (
     <>
@@ -322,8 +337,9 @@ export default function TransactionInformationPage() {
 
   const { data, loaded, error } = useTransactionByHash(hash as string)
   const block = pathOr({}, ['blocks', 0])(data)
+  const head = useBlockHead()
 
-  if (error) {
+  if (error || head.error) {
     throw error
   }
 
@@ -336,7 +352,7 @@ export default function TransactionInformationPage() {
         <Box mt="2.5rem">
           <Breadcrumbs queryParams={{ id: block.sequence }} />
         </Box>
-        <TransactionInfo data={data} loaded={loaded} />
+        <TransactionInfo data={data} loaded={loaded} head={head.data} />
       </Box>
     </>
   )
