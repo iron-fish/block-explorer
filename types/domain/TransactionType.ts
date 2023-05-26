@@ -20,6 +20,7 @@ export interface TransactionType {
   blocks?: BlockType[]
   burns: AssetDescriptionType[]
   mints: AssetDescriptionType[]
+  expiration?: number
 }
 
 export default TransactionType

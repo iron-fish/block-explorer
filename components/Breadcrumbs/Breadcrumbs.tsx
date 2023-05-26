@@ -85,31 +85,39 @@ const resolvePath = (path: string, queryParams: ParsedUrlQuery | null) => {
         },
       ]
     case RoutePaths.TransactionInfo:
-      return [
+      const breadcrumbs = [
         {
           key: 'breadcrumb-home',
           link: <BreadcrumbLink.Home />,
         },
-        {
-          key: 'breadcrumb-explorer',
-          link: <BreadcrumbLink.Explorer />,
-        },
-        {
-          key: 'breadcrumb-block-details',
-          link: (
-            <BreadcrumbLink.BlockInfo
-              to={{
-                pathname: RoutePaths.BlockInfo,
-                query: { id: queryParams.id },
-              }}
-            />
-          ),
-        },
-        {
-          key: 'breadcrumb-transaction-details',
-          link: <BreadcrumbLink.TransactionInfo isCurrent={true} />,
-        },
       ]
+
+      if (queryParams.id) {
+        breadcrumbs.push(
+          {
+            key: 'breadcrumb-explorer',
+            link: <BreadcrumbLink.Explorer />,
+          },
+          {
+            key: 'breadcrumb-block-details',
+            link: (
+              <BreadcrumbLink.BlockInfo
+                to={{
+                  pathname: RoutePaths.BlockInfo,
+                  query: { id: queryParams.id },
+                }}
+              />
+            ),
+          }
+        )
+      }
+
+      breadcrumbs.push({
+        key: 'breadcrumb-transaction-details',
+        link: <BreadcrumbLink.TransactionInfo isCurrent={true} />,
+      })
+
+      return breadcrumbs
   }
 }
 
