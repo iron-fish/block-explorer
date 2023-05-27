@@ -374,7 +374,7 @@ export default function TransactionInformationPage() {
 
   const { data, loaded, error } = useTransactionByHash(hash as string)
   const block =
-    data.blocks?.find(({ main }) => main) || pathOr({}, ['blocks', 0])(data)
+    data?.blocks?.find(({ main }) => main) || pathOr({}, ['blocks', 0])(data)
 
   const head = useBlockHead()
 
