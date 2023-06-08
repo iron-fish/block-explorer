@@ -27,7 +27,6 @@ const useBlocksSearch = (
             .blocks({
               search,
               with_transactions: true,
-              main: true,
               limit,
             })
             .then(({ data }) => data),
