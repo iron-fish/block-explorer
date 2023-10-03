@@ -1,34 +1,34 @@
+import { Box, Flex } from '@ironfish/ui-kit'
 import size from 'byte-size'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { Box, Flex } from '@ironfish/ui-kit'
-
 import { pipe } from 'ramda'
 
 import {
   CardsView,
-  TimeStamp,
   CopyValueToClipboard,
+  HashView,
   InfoBadge,
+  TimeStamp
 } from 'components'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
+import { TransactionsTable } from 'components/TransactionsTable'
+import { MAX_BLOCK_SIZE } from 'constants/BlockConstants'
+import useBlock from 'hooks/useBlock'
 import {
-  DifficultyIcon,
+  BlockInfoDifficultyIcon,
+  BlockInfoGraffitiIcon,
   BlockInfoHeightIcon,
   BlockInfoSizeIcon,
-  BlockInfoDifficultyIcon,
-  BlockInfoTxnIcon,
   BlockInfoTimestampIcon,
-  BlockInfoGraffitiIcon,
-  PickIcon,
+  BlockInfoTxnIcon,
+  DifficultyIcon,
+  PickIcon
 } from 'svgx'
-import safeProp from 'utils/safeProp'
-import { TransactionsTable } from 'components/TransactionsTable'
-import { HashView } from 'components'
 import { BlockType } from 'types'
-import useBlock from 'hooks/useBlock'
-import { MAX_BLOCK_SIZE } from 'constants/BlockConstants'
+import { BufferUtils } from 'utils/buffer'
 import { formatTimeSinceLastBlock } from 'utils/format/formatTimeSinceLastBlock'
+import safeProp from 'utils/safeProp'
 
 const BLOCK_CARDS = [
   {
@@ -86,7 +86,13 @@ const BLOCK_CARDS = [
   {
     key: 'graffiti-card',
     label: 'Graffiti',
-    value: safeProp('graffiti'),
+    value: pipe(safeProp('graffiti'), graffiti => {
+      const hexRegex = /^[0-9A-Fa-f]+$/g
+      if (hexRegex.test(graffiti)) {
+        graffiti = BufferUtils.toHuman(Buffer.from(graffiti, 'hex'))
+      }
+      return <Box wordBreak="break-all">{graffiti}</Box>
+    }),
     icon: <BlockInfoGraffitiIcon />,
   },
   {
