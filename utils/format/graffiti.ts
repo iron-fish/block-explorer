@@ -5,7 +5,7 @@ const sanitizeString = (s: string): string => {
 export function formatGraffiti(graffiti?: string | null): string {
   const hexRegex = /^[0-9A-Fa-f]+$/g
 
-  if (hexRegex.test(graffiti ?? '')) {
+  if (hexRegex.test(graffiti ?? '') && graffiti?.length === 64) {
     const asBuffer = Buffer.from(graffiti, 'hex')
     return sanitizeString(asBuffer.toString('utf8'))
   }

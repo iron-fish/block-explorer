@@ -86,7 +86,7 @@ const BLOCK_CARDS = [
     key: 'graffiti-card',
     label: 'Graffiti',
     value: pipe(safeProp('graffiti'), graffiti => {
-      return <Box wordBreak="break-all">{formatGraffiti(graffiti)}</Box>
+      return formatGraffiti(graffiti)
     }),
     icon: <BlockInfoGraffitiIcon />,
   },

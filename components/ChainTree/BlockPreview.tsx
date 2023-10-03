@@ -34,7 +34,7 @@ const PREVIEW_BLOCKS = [
   {
     label: 'Graffiti',
     value: pipe(safeProp('graffiti'), graffiti => {
-      return <Box wordBreak="break-all">{formatGraffiti(graffiti)}</Box>
+      return formatGraffiti(graffiti)
     }),
   },
   {
