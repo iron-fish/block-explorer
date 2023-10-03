@@ -63,7 +63,7 @@ const COLUMNS: ColumnProps<BlockType>[] = [
       flex: { base: 1, lg: 'unset' },
     },
     render: block => {
-      return formatGraffiti(block.graffiti)
+      return <Box wordBreak="break-all">{formatGraffiti(block.graffiti)}</Box>
     },
   },
 ]
