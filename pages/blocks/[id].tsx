@@ -1,9 +1,5 @@
 import { Box, Flex } from '@ironfish/ui-kit'
 import size from 'byte-size'
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import { pipe } from 'ramda'
-
 import {
   CardsView,
   CopyValueToClipboard,
@@ -15,6 +11,9 @@ import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import { TransactionsTable } from 'components/TransactionsTable'
 import { MAX_BLOCK_SIZE } from 'constants/BlockConstants'
 import useBlock from 'hooks/useBlock'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { pipe } from 'ramda'
 import {
   BlockInfoDifficultyIcon,
   BlockInfoGraffitiIcon,
@@ -26,8 +25,8 @@ import {
   PickIcon
 } from 'svgx'
 import { BlockType } from 'types'
-import { BufferUtils } from 'utils/buffer'
 import { formatTimeSinceLastBlock } from 'utils/format/formatTimeSinceLastBlock'
+import { formatGraffiti } from 'utils/format/graffiti'
 import safeProp from 'utils/safeProp'
 
 const BLOCK_CARDS = [
@@ -87,11 +86,7 @@ const BLOCK_CARDS = [
     key: 'graffiti-card',
     label: 'Graffiti',
     value: pipe(safeProp('graffiti'), graffiti => {
-      const hexRegex = /^[0-9A-Fa-f]+$/g
-      if (hexRegex.test(graffiti)) {
-        graffiti = BufferUtils.toHuman(Buffer.from(graffiti, 'hex'))
-      }
-      return <Box wordBreak="break-all">{graffiti}</Box>
+      return <Box wordBreak="break-all">{formatGraffiti(graffiti)}</Box>
     }),
     icon: <BlockInfoGraffitiIcon />,
   },
