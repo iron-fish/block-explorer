@@ -1,7 +1,7 @@
 import { Box, NAMED_COLORS, useBreakpointValue } from '@ironfish/ui-kit'
 import {
   ColumnProps,
-  CommonTableProps
+  CommonTableProps,
 } from '@ironfish/ui-kit/dist/components/Table/types'
 import size from 'byte-size'
 import { CopyValueToClipboard, ExplorerCommonTable, HashView } from 'components'

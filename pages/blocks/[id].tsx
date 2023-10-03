@@ -5,7 +5,7 @@ import {
   CopyValueToClipboard,
   HashView,
   InfoBadge,
-  TimeStamp
+  TimeStamp,
 } from 'components'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import { TransactionsTable } from 'components/TransactionsTable'
@@ -22,7 +22,7 @@ import {
   BlockInfoTimestampIcon,
   BlockInfoTxnIcon,
   DifficultyIcon,
-  PickIcon
+  PickIcon,
 } from 'svgx'
 import { BlockType } from 'types'
 import { formatTimeSinceLastBlock } from 'utils/format/formatTimeSinceLastBlock'
