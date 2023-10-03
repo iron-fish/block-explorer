@@ -1,20 +1,21 @@
-import { FC } from 'react'
 import { Box, NAMED_COLORS, useBreakpointValue } from '@ironfish/ui-kit'
-import { useRouter } from 'next/router'
-import size from 'byte-size'
-import { pipe } from 'ramda'
 import {
   ColumnProps,
   CommonTableProps,
 } from '@ironfish/ui-kit/dist/components/Table/types'
+import size from 'byte-size'
+import { useRouter } from 'next/router'
+import { pipe } from 'ramda'
+import { FC } from 'react'
 
-import BlockIcon from 'icons/BlockIcon'
-import { safeProp } from 'utils/safeProp'
-import { BlockType } from 'types'
-import RoutePaths from 'constants/RoutePaths'
-import { CopyValueToClipboard, HashView, ExplorerCommonTable } from 'components'
+import { CopyValueToClipboard, ExplorerCommonTable, HashView } from 'components'
 import { ACTIONS_COLUMN } from 'components/ExplorerCommonTable'
+import RoutePaths from 'constants/RoutePaths'
+import BlockIcon from 'icons/BlockIcon'
+import { BlockType } from 'types'
+import { BufferUtils } from 'utils/buffer'
 import { formatTimeSinceLastBlock } from 'utils/format/formatTimeSinceLastBlock'
+import { safeProp } from 'utils/safeProp'
 
 const COLUMNS: ColumnProps<BlockType>[] = [
   {
@@ -62,9 +63,15 @@ const COLUMNS: ColumnProps<BlockType>[] = [
     ItemProps: {
       flex: { base: 1, lg: 'unset' },
     },
-    render: block => (
-      <Box wordBreak="break-all">{safeProp('graffiti')(block)}</Box>
-    ),
+    render: block => {
+      let graffiti = safeProp('graffiti')(block)
+      const hexRegex = /^[0-9A-Fa-f]+$/g
+      if (hexRegex.test(graffiti)) {
+        graffiti = BufferUtils.toHuman(Buffer.from(graffiti, 'hex'))
+      }
+
+      return <Box wordBreak="break-all">{graffiti}</Box>
+    },
   },
 ]
 
