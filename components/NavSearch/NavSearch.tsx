@@ -67,10 +67,10 @@ const NavSearch: FC<InputProps> = () => {
       getOptionLabel={getOptionLabel}
       onSelectOption={(option: BlockType | TransactionType) => {
         const isBlockOption = isBlock(option)
-        if (isBlockOption && 'sequence' in option) {
+        if (isBlockOption) {
           return router.push({
             pathname: RoutePaths.BlockInfo,
-            query: { id: option?.sequence },
+            query: { id: option?.hash },
           })
         } else {
           return router.push({

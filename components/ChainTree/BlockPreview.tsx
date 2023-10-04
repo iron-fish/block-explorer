@@ -1,13 +1,14 @@
 import { Box, Flex, NAMED_COLORS, useColorModeValue } from '@ironfish/ui-kit'
 
-import Link from 'next/link'
 import size from 'byte-size'
-import { pipe } from 'ramda'
-import safeProp from 'utils/safeProp'
-import { formatBlockTimestamp } from 'utils/format'
-import { CloseDetailsIcon } from 'svgx/CloseDetailsIcon'
-import RoutePaths from 'constants/RoutePaths'
 import { HashView } from 'components'
+import RoutePaths from 'constants/RoutePaths'
+import Link from 'next/link'
+import { pipe } from 'ramda'
+import { CloseDetailsIcon } from 'svgx/CloseDetailsIcon'
+import { formatBlockTimestamp } from 'utils/format'
+import { formatGraffiti } from 'utils/format/graffiti'
+import safeProp from 'utils/safeProp'
 
 const PREVIEW_BLOCKS = [
   {
@@ -32,7 +33,9 @@ const PREVIEW_BLOCKS = [
   },
   {
     label: 'Graffiti',
-    value: safeProp('graffiti'),
+    value: pipe(safeProp('graffiti'), graffiti => {
+      return formatGraffiti(graffiti)
+    }),
   },
   {
     label: 'Difficulty',

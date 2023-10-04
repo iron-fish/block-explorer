@@ -1,34 +1,33 @@
-import size from 'byte-size'
-import Head from 'next/head'
-import { useRouter } from 'next/router'
 import { Box, Flex } from '@ironfish/ui-kit'
-
-import { pipe } from 'ramda'
-
+import size from 'byte-size'
 import {
   CardsView,
-  TimeStamp,
   CopyValueToClipboard,
+  HashView,
   InfoBadge,
+  TimeStamp,
 } from 'components'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
+import { TransactionsTable } from 'components/TransactionsTable'
+import { MAX_BLOCK_SIZE } from 'constants/BlockConstants'
+import useBlock from 'hooks/useBlock'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { pipe } from 'ramda'
 import {
-  DifficultyIcon,
+  BlockInfoDifficultyIcon,
+  BlockInfoGraffitiIcon,
   BlockInfoHeightIcon,
   BlockInfoSizeIcon,
-  BlockInfoDifficultyIcon,
-  BlockInfoTxnIcon,
   BlockInfoTimestampIcon,
-  BlockInfoGraffitiIcon,
+  BlockInfoTxnIcon,
+  DifficultyIcon,
   PickIcon,
 } from 'svgx'
-import safeProp from 'utils/safeProp'
-import { TransactionsTable } from 'components/TransactionsTable'
-import { HashView } from 'components'
 import { BlockType } from 'types'
-import useBlock from 'hooks/useBlock'
-import { MAX_BLOCK_SIZE } from 'constants/BlockConstants'
 import { formatTimeSinceLastBlock } from 'utils/format/formatTimeSinceLastBlock'
+import { formatGraffiti } from 'utils/format/graffiti'
+import safeProp from 'utils/safeProp'
 
 const BLOCK_CARDS = [
   {
@@ -86,7 +85,9 @@ const BLOCK_CARDS = [
   {
     key: 'graffiti-card',
     label: 'Graffiti',
-    value: safeProp('graffiti'),
+    value: pipe(safeProp('graffiti'), graffiti => {
+      return formatGraffiti(graffiti)
+    }),
     icon: <BlockInfoGraffitiIcon />,
   },
   {
