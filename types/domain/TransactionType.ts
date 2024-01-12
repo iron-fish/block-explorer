@@ -21,6 +21,7 @@ export interface TransactionType {
   burns: AssetDescriptionType[]
   mints: AssetDescriptionType[]
   expiration?: number
+  serialized?: string
 }
 
 export default TransactionType
