@@ -6,9 +6,7 @@ import {
 import size from 'byte-size'
 import { CopyValueToClipboard, ExplorerCommonTable, HashView } from 'components'
 import { ACTIONS_COLUMN } from 'components/ExplorerCommonTable'
-import RoutePaths from 'constants/RoutePaths'
 import BlockIcon from 'icons/BlockIcon'
-import { useRouter } from 'next/router'
 import { pipe } from 'ramda'
 import { FC } from 'react'
 import { BlockType } from 'types'
@@ -71,23 +69,17 @@ const COLUMNS: ColumnProps<BlockType>[] = [
 type BlocksTableProps = Omit<CommonTableProps<BlockType>, 'columns'>
 
 const BlocksTable: FC<BlocksTableProps> = props => {
-  const router = useRouter()
   const columns = useBreakpointValue({
     base: COLUMNS,
     lg: [...COLUMNS, ACTIONS_COLUMN],
   })
 
+  const getBlockUrl = (block: BlockType | null) => {
+    return block ? '/blocks/' + block.sequence.toString() : null
+  }
+
   return (
-    <ExplorerCommonTable
-      {...props}
-      columns={columns}
-      onRowClick={(block: BlockType) =>
-        router.push({
-          pathname: RoutePaths.BlockInfo,
-          query: { id: block?.sequence.toString() },
-        })
-      }
-    />
+    <ExplorerCommonTable {...props} columns={columns} onRowHref={getBlockUrl} />
   )
 }
 
