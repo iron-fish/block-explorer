@@ -373,7 +373,9 @@ export default function TransactionInformationPage() {
   const { hash } = router.query
 
   const { data, loaded, error } = useTransactionByHash(hash as string)
-  const block = pathOr({}, ['blocks', 0])(data)
+  const block =
+    data?.blocks?.find(({ main }) => main) || pathOr({}, ['blocks', 0])(data)
+
   const head = useBlockHead()
 
   if (error || head.error) {
