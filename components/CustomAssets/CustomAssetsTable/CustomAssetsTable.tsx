@@ -6,8 +6,6 @@ import {
 
 import AssetIcon from 'icons/AssetIcon'
 import safeProp from 'utils/safeProp'
-import { useRouter } from 'next/router'
-import RoutePaths from 'constants/RoutePaths'
 import {
   CopyValueToClipboard,
   HashView,
@@ -77,25 +75,21 @@ type Props = {
 } & Omit<CommonTableProps<AssetType>, 'columns'>
 
 export function CustomAssetsTable({ assets, ...rest }: Props) {
-  const router = useRouter()
   const columns = useBreakpointValue({
     base: COLUMNS,
     lg: [...COLUMNS, ACTIONS_COLUMN],
   })
+
+  const getAssetUrl = (asset: AssetType | null) => {
+    return asset ? '/assets/' + asset.identifier : null
+  }
 
   return (
     <ExplorerCommonTable
       {...rest}
       data={assets}
       columns={columns}
-      onRowClick={(asset: AssetType) =>
-        router.push({
-          pathname: RoutePaths.AssetsInfo,
-          query: {
-            id: asset.identifier,
-          },
-        })
-      }
+      onRowHref={getAssetUrl}
     />
   )
 }
