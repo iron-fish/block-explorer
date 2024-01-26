@@ -389,7 +389,7 @@ export default function TransactionInformationPage() {
       </Head>
       <Box mb="6rem" zIndex={1}>
         <Box mt="2.5rem">
-          <Breadcrumbs queryParams={{ id: block.sequence }} />
+          <Breadcrumbs queryParams={{ id: block.hash }} />
         </Box>
         <TransactionInfo data={data} loaded={loaded} head={head.data} />
       </Box>
