@@ -1,3 +1,6 @@
+const STATS_URL =
+  process.env.NEXT_STATS_URL || 'https://stats.ironfish.network/'
+
 export const EXTERNAL_LINKS = {
   IRONFISH: 'https://www.ironfish.network/',
   IRONFISH_ABOUT: 'https://ironfish.network/about/',
@@ -10,5 +13,5 @@ export const EXTERNAL_LINKS = {
   IRONFISH_REDDIT: 'http://reddit.com/r/ironfish',
   IRONFISH_TWITTER: 'https://twitter.com/ironfishcrypto',
   IRONFISH_DISCORD: 'https://discord.gg/EkQkEcm8DH',
-  IRONFISH_STATS: 'https://stats.ironfish.network/',
+  IRONFISH_STATS: STATS_URL,
 }
