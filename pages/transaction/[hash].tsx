@@ -11,6 +11,7 @@ import {
   HStack,
   VStack,
   TableProps,
+  Tooltip,
 } from '@ironfish/ui-kit'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -42,6 +43,7 @@ import { formatBlockTimestamp } from 'utils/format'
 import { MintsBurnsList } from 'components/CustomAssets/MintsBurnsList/MintsBurnsList'
 import ColumnTable from 'components/ColumnTable'
 import useBlockHead from 'hooks/useBlockHead'
+import { getDownloadUrl } from 'utils/downloadUrl'
 
 type TransactionDescriptionType = 'inputs' | 'outputs'
 
@@ -228,6 +230,38 @@ const TRANSACTION_INFO_CARDS = [
   },
 ]
 
+interface TransactionDownloadProps {
+  data: TransactionType
+  loaded: boolean
+}
+
+const TransactionDownload: FC<TransactionDownloadProps> = ({
+  data,
+  loaded,
+}) => {
+  if (!loaded || !data) {
+    return null
+  }
+
+  const tooltip = data.serialized
+    ? null
+    : 'This transaction cannot be downloaded.'
+
+  const download = data.serialized
+    ? getDownloadUrl(data.serialized, 'text/plain')
+    : undefined
+
+  return (
+    <a download={data.hash + '.txt'} href={download}>
+      <Tooltip label={tooltip}>
+        <Button variant="secondary" size="medium" isDisabled={!data.serialized}>
+          Download Transaction
+        </Button>
+      </Tooltip>
+    </a>
+  )
+}
+
 interface TransactionInfoProps {
   data: TransactionType
   head: BlockHead
@@ -269,6 +303,9 @@ const TransactionInfo: FC<TransactionInfoProps> = ({ data, loaded, head }) => {
         {badge && <InfoBadge ml={'1rem'} message={badge} />}
       </Flex>
       <CardsView cards={TRANSACTION_INFO_CARDS} data={{ data, loaded }} />
+      <Box mt="2rem" mb="0.5rem">
+        <TransactionDownload data={data} loaded={loaded} />
+      </Box>
       <Box mt="2rem" mb="0.5rem">
         <h3>Inputs / Outputs</h3>
       </Box>
@@ -336,7 +373,9 @@ export default function TransactionInformationPage() {
   const { hash } = router.query
 
   const { data, loaded, error } = useTransactionByHash(hash as string)
-  const block = pathOr({}, ['blocks', 0])(data)
+  const block =
+    data?.blocks?.find(({ main }) => main) || pathOr({}, ['blocks', 0])(data)
+
   const head = useBlockHead()
 
   if (error || head.error) {
@@ -350,7 +389,7 @@ export default function TransactionInformationPage() {
       </Head>
       <Box mb="6rem" zIndex={1}>
         <Box mt="2.5rem">
-          <Breadcrumbs queryParams={{ id: block.sequence }} />
+          <Breadcrumbs queryParams={{ id: block.hash }} />
         </Box>
         <TransactionInfo data={data} loaded={loaded} head={head.data} />
       </Box>

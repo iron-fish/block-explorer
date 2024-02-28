@@ -1,7 +1,6 @@
 import { FC } from 'react'
 import { NAMED_COLORS, useBreakpointValue, Box } from '@ironfish/ui-kit'
 import { pathOr } from 'ramda'
-import { useRouter } from 'next/router'
 import {
   ColumnProps,
   CommonTableProps,
@@ -9,7 +8,6 @@ import {
 
 import { formatNumberWithLanguage } from 'utils/format'
 import TransactionType from 'types/domain/TransactionType'
-import RoutePaths from 'constants/RoutePaths'
 import { safeProp } from 'utils/safeProp'
 import {
   CopyValueToClipboard,
@@ -106,18 +104,16 @@ const TransactionsTable: FC<TransactionsTableProps> = props => {
     ],
     lg: [HASH_COLUMN, TAG_COLUMN, FEE_COLUMN, DATE_COLUMN, ACTIONS_COLUMN],
   })
-  const router = useRouter()
+
+  const getTransactionUrl = (transaction: TransactionType | null) => {
+    return transaction ? '/transaction/' + transaction.hash : null
+  }
 
   return (
     <ExplorerCommonTable
       {...props}
       columns={columns}
-      onRowClick={(transaction: TransactionType) => {
-        return router.push({
-          pathname: RoutePaths.TransactionInfo,
-          query: { hash: transaction?.hash },
-        })
-      }}
+      onRowHref={getTransactionUrl}
     />
   )
 }

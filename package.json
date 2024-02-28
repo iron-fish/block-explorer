@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix"
   },
   "dependencies": {
     "@react-three/fiber": "^8.0.19",
@@ -28,7 +29,7 @@
   },
   "devDependencies": {
     "@chakra-ui/system": "^2.5.6",
-    "@ironfish/ui-kit": "1.1.9",
+    "@ironfish/ui-kit": "1.1.13",
     "@svgr/webpack": "^6.5.1",
     "@types/node": "18.15.11",
     "@types/react": "18.0.28",
