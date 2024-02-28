@@ -1,5 +1,5 @@
 const STATS_URL =
-  process.env.NEXT_STATS_URL || 'https://stats.ironfish.network/'
+  process.env.NEXT_PUBLIC_STATS_URL || 'NEXT_STATS_URL ENV NOT FOUND'
 
 export const EXTERNAL_LINKS = {
   IRONFISH: 'https://www.ironfish.network/',
