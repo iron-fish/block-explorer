@@ -23,6 +23,7 @@ import {
 import NextLink from 'next/link'
 import { BlockHead } from 'types'
 import { formatTimeSinceLastBlock } from 'utils/format/formatTimeSinceLastBlock'
+import { formatDifficulty } from 'utils/format/units'
 import { renderIronWithCurrency } from 'utils/currency'
 
 const BLOCKS_LIMIT = 10
@@ -31,7 +32,7 @@ const LAST_BLOCK_INFO_CARDS = [
     key: 'difficulty-card',
     label: 'Difficulty',
     value: (block: BlockHead | null) =>
-      `${(Number(block?.difficulty) / 1e15).toFixed(2)}P`,
+      formatDifficulty(Number(block?.difficulty)),
     icon: <DifficultyIcon />,
   },
   {
