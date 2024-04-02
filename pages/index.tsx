@@ -1,4 +1,10 @@
-import { Card, CardsView, BlocksTable, HashView } from 'components'
+import {
+  Card,
+  CardsView,
+  CountdownView,
+  BlocksTable,
+  HashView,
+} from 'components'
 import RoutePaths from 'constants/RoutePaths'
 import useBlockHead from 'hooks/useBlockHead'
 import useBlocks from 'hooks/useBlocks'
@@ -23,6 +29,7 @@ import {
 import NextLink from 'next/link'
 import { BlockHead } from 'types'
 import { formatTimeSinceLastBlock } from 'utils/format/formatTimeSinceLastBlock'
+import { formatCountdown } from 'utils/format/formatCountdown'
 import { formatDifficulty } from 'utils/format/units'
 import { renderIronWithCurrency } from 'utils/currency'
 
@@ -70,10 +77,24 @@ const LAST_BLOCK_INFO_CARDS = [
   },
 ]
 
+const LAST_BLOCK_INFO = [
+  {
+    key: 'hardfork-countdown',
+    label: 'Hardfork-1 Activation In:',
+    value: (block: BlockHead | null) => formatCountdown(block?.sequence),
+    icon: <SecondsToBlockIcon />,
+  },
+]
+
 const LastBlockInfo = () => {
   const $headBlock = useBlockHead()
 
   return <CardsView cards={LAST_BLOCK_INFO_CARDS} data={$headBlock} />
+}
+
+const Hardfork1Countdown = () => {
+  const $headBlock = useBlockHead()
+  return <CountdownView cards={LAST_BLOCK_INFO} data={$headBlock} />
 }
 
 const LatestBlocks = () => {
@@ -168,9 +189,11 @@ export default function Home() {
               <br />
               Iron Fish Block Explorer
             </Text>
+            <Hardfork1Countdown />
             <Text
               fontSize={{ base: '1.3rem', sm: '1.5rem' }}
               mb="2.25rem"
+              pt="1.5rem"
               color={NAMED_COLORS.WHITE}
             >
               Blockchain statistics for $IRON
