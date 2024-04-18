@@ -10,6 +10,7 @@ import { useMemo } from 'react'
 import useAssetDescriptions from 'hooks/useAssetDescriptions'
 import { InfoBadge } from 'components'
 import { NATIVE_ASSET_ID } from 'constants/AssetConstants'
+import { majorSupply } from 'types'
 
 export default function AssetInfo() {
   const router = useRouter()
@@ -18,8 +19,9 @@ export default function AssetInfo() {
   const assetId = id as string
   const asset = useAsset(assetId)
 
+  const isNativeAsset = assetId === NATIVE_ASSET_ID
   const descriptions = useAssetDescriptions({
-    asset: assetId === NATIVE_ASSET_ID ? null : assetId,
+    asset: isNativeAsset ? null : assetId,
   })
 
   if (asset.error) {
@@ -37,11 +39,14 @@ export default function AssetInfo() {
         object: 'asset',
         owner: '—',
         supply: '—',
-        verified_at: null,
+        verified_metadata: null,
       }
     }
 
-    return asset.data
+    return {
+      ...asset.data,
+      supply: majorSupply(asset.data),
+    }
   }, [asset])
 
   return (
@@ -55,7 +60,7 @@ export default function AssetInfo() {
         </Flex>
         <Flex mt="0.5rem" mb="2rem">
           <h3>Asset Information</h3>
-          {assetDetails.verified_at && (
+          {assetDetails.verified_metadata && (
             <InfoBadge
               ml="1rem"
               message="Verified"
@@ -68,7 +73,7 @@ export default function AssetInfo() {
           loading={!asset.loaded}
           assetDetails={assetDetails}
         />
-        {!assetDetails.verified_at &&
+        {!isNativeAsset &&
           (descriptions.loaded ? (
             <>
               <Box my="0.5rem">

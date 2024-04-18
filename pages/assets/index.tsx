@@ -5,7 +5,7 @@ import { CustomAssetsTable } from 'components/CustomAssets/CustomAssetsTable/Cus
 import { useInfiniteQuery } from '@tanstack/react-query'
 import useInfiniteScroll from 'react-infinite-scroll-hook'
 import axios, { AxiosResponse } from 'axios'
-import { AssetType, ResponseType } from 'types'
+import { AssetType, majorSupply, ResponseType } from 'types'
 import { useMemo } from 'react'
 import NativeAsset from 'components/CustomAssets/NativeAsset/NativeAsset'
 
@@ -50,6 +50,7 @@ export default function Assets() {
       return item.data.data.map(asset => ({
         ...asset,
         created_at: 0,
+        supply: majorSupply(asset),
       }))
     })
   }, [result.data?.pages])
