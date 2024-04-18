@@ -36,7 +36,7 @@ const NATIVE_ASSET_COLUMN: ColumnProps<AssetType> = {
         <FishIcon pb="0.1rem" h="1.875rem" w="1.625rem" />
       </Box>
       <Box>{asset.name}</Box>
-      {asset.verified_at && <InfoBadge message="Verified" ml="2.5rem" />}
+      {asset.verified_metadata && <InfoBadge message="Verified" ml="2.5rem" />}
     </Flex>
   ),
 }
