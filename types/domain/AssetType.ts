@@ -36,29 +36,17 @@ export function isAsset(maybeAsset: unknown): maybeAsset is AssetType {
  */
 export function majorSupply(asset: AssetType): string {
   // The native asset supply is already in the major unit
-  if (asset.identifier === NATIVE_ASSET_ID) {
-    return asset.supply
-  }
+  if (asset.identifier === NATIVE_ASSET_ID) return asset.supply
 
-  // If supply is not a number, return the original value
-  let supply: bigint
-  try {
-    supply = BigInt(asset.supply)
-  } catch (e) {
-    return asset.supply
-  }
-
+  const supply = asset.supply
   const decimals = asset.verified_metadata?.decimals || 0
 
-  // Do BigInt division with 3 decimal place precision
-  const precision = 3
-  const major =
-    Number(
-      (BigInt(supply) * BigInt(10 ** precision)) / BigInt(10 ** decimals)
-    ) /
-    10 ** precision
+  if (decimals === 0) return supply
 
-  return major.toString()
+  const before = supply.slice(0, -decimals)
+  const after = supply.slice(-decimals)
+
+  return `${before || 0}.${after.padStart(decimals, '0')}`
 }
 
 export default AssetType
