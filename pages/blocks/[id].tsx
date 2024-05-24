@@ -51,6 +51,20 @@ const BLOCK_CARDS = [
     icon: <DifficultyIcon />,
   },
   {
+    key: 'prev-hash-card',
+    label: 'Previous Block hash',
+    value: block => {
+      const previous_block_hash = safeProp('previous_block_hash')(block)
+      return (
+        <CopyValueToClipboard
+          value={previous_block_hash}
+          label={<HashView hash={previous_block_hash} parts={2} />}
+        />
+      )
+    },
+    icon: <DifficultyIcon />,
+  },
+  {
     key: 'size-card',
     label: 'Size',
     value: pipe(
