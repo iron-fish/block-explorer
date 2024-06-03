@@ -1,7 +1,7 @@
 import { Box, useBreakpointValue } from '@ironfish/ui-kit'
 import {
   ColumnProps,
-  CommonTableProps
+  CommonTableProps,
 } from '@ironfish/ui-kit/dist/components/Table/types'
 import { pathOr } from 'ramda'
 import { FC } from 'react'
@@ -10,7 +10,7 @@ import {
   ExplorerCommonTable,
   HashView,
   InfoBadge,
-  TableCellTimeStamp
+  TableCellTimeStamp,
 } from 'components'
 import TransactionType from 'types/domain/TransactionType'
 import { formatNumberWithLanguage } from 'utils/format'
