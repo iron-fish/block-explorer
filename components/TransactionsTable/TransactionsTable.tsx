@@ -1,24 +1,23 @@
-import { FC } from 'react'
-import { NAMED_COLORS, useBreakpointValue, Box } from '@ironfish/ui-kit'
-import { pathOr } from 'ramda'
+import { Box, useBreakpointValue } from '@ironfish/ui-kit'
 import {
   ColumnProps,
   CommonTableProps,
 } from '@ironfish/ui-kit/dist/components/Table/types'
+import { pathOr } from 'ramda'
+import { FC } from 'react'
 
-import { formatNumberWithLanguage } from 'utils/format'
-import TransactionType from 'types/domain/TransactionType'
-import { safeProp } from 'utils/safeProp'
 import {
-  CopyValueToClipboard,
-  InfoBadge,
-  HashView,
-  TableCellTimeStamp,
   ExplorerCommonTable,
+  HashView,
+  InfoBadge,
+  TableCellTimeStamp,
 } from 'components'
+import TransactionType from 'types/domain/TransactionType'
+import { formatNumberWithLanguage } from 'utils/format'
+import { safeProp } from 'utils/safeProp'
 
-import { BlueHashIcon } from 'svgx'
 import { ACTIONS_COLUMN } from 'components/ExplorerCommonTable'
+import { BlueHashIcon } from 'svgx'
 
 const TAG_COLUMN: ColumnProps<TransactionType> = {
   key: 'transaction-tag',
@@ -42,11 +41,7 @@ const HASH_COLUMN: ColumnProps<TransactionType> = {
         <Box mr="1rem">
           <BlueHashIcon pb="0.1rem" h="1.875rem" w="1.625rem" />
         </Box>
-        <CopyValueToClipboard
-          labelProps={{ color: NAMED_COLORS.LIGHT_BLUE }}
-          value={hash}
-          label={<HashView hash={hash} />}
-        />
+        <HashView hash={hash} />
       </>
     )
   },

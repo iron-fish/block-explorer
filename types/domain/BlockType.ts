@@ -17,8 +17,8 @@ export interface BlockType {
 }
 
 export interface BlockHead extends BlockType {
-  circulating_supply: number;
-  total_supply: number;
+  circulating_supply: number
+  total_supply: number
 }
 
 export function isBlock(x: unknown): x is BlockType {
