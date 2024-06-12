@@ -1,11 +1,11 @@
-import { Box, Flex } from '@ironfish/ui-kit'
+import { Box, Flex, NAMED_COLORS } from '@ironfish/ui-kit'
 import size from 'byte-size'
 import {
   CardsView,
   CopyValueToClipboard,
   HashView,
   InfoBadge,
-  TimeStamp,
+  TimeStamp
 } from 'components'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import { TransactionsTable } from 'components/TransactionsTable'
@@ -22,7 +22,7 @@ import {
   BlockInfoTimestampIcon,
   BlockInfoTxnIcon,
   DifficultyIcon,
-  PickIcon,
+  PickIcon
 } from 'svgx'
 import { BlockType } from 'types'
 import { formatTimeSinceLastBlock } from 'utils/format/formatTimeSinceLastBlock'
@@ -55,10 +55,18 @@ const BLOCK_CARDS = [
     label: 'Previous Block hash',
     value: block => {
       const previous_block_hash = safeProp('previous_block_hash')(block)
+      const sequence = safeProp('sequence')(block)
       return (
         <CopyValueToClipboard
           value={previous_block_hash}
-          label={<HashView hash={previous_block_hash} parts={2} />}
+          label={
+            <a
+              href={`/blocks/${sequence - 1}`}
+              style={{ color: NAMED_COLORS.LIGHT_BLUE }}
+            >
+              <HashView hash={previous_block_hash} parts={2} />
+            </a>
+          }
         />
       )
     },
@@ -138,9 +146,9 @@ const BlockInfo = ({ id }) => {
         data={
           block.loaded
             ? block.data?.transactions.map(transaction => ({
-                ...transaction,
-                blocks: [block.data],
-              }))
+              ...transaction,
+              blocks: [block.data],
+            }))
             : [null]
         }
       />
