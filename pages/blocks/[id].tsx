@@ -1,4 +1,4 @@
-import { Box, Flex } from '@ironfish/ui-kit'
+import { Box, Flex, NAMED_COLORS } from '@ironfish/ui-kit'
 import size from 'byte-size'
 import {
   CardsView,
@@ -45,6 +45,27 @@ const BLOCK_CARDS = [
         <CopyValueToClipboard
           value={hash}
           label={<HashView hash={hash} parts={2} />}
+        />
+      )
+    },
+    icon: <DifficultyIcon />,
+  },
+  {
+    key: 'prev-hash-card',
+    label: 'Previous Block hash',
+    value: block => {
+      const previous_block_hash = safeProp('previous_block_hash')(block)
+      return (
+        <CopyValueToClipboard
+          value={previous_block_hash}
+          label={
+            <a
+              href={`/blocks/${previous_block_hash}`}
+              style={{ color: NAMED_COLORS.LIGHT_BLUE }}
+            >
+              <HashView hash={previous_block_hash} parts={2} />
+            </a>
+          }
         />
       )
     },
