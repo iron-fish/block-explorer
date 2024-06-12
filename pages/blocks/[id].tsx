@@ -55,13 +55,12 @@ const BLOCK_CARDS = [
     label: 'Previous Block hash',
     value: block => {
       const previous_block_hash = safeProp('previous_block_hash')(block)
-      const sequence = safeProp('sequence')(block)
       return (
         <CopyValueToClipboard
           value={previous_block_hash}
           label={
             <a
-              href={`/blocks/${sequence - 1}`}
+              href={`/blocks/${previous_block_hash}`}
               style={{ color: NAMED_COLORS.LIGHT_BLUE }}
             >
               <HashView hash={previous_block_hash} parts={2} />
