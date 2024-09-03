@@ -11,6 +11,7 @@ import {
   HashView,
   TableCellTimeStamp,
   ExplorerCommonTable,
+  InfoBadge,
 } from 'components'
 import { formatNumberWithLanguage } from 'utils/format'
 import { ACTIONS_COLUMN } from 'components/ExplorerCommonTable'
@@ -29,6 +30,7 @@ export const ASSET_NAME_COLUMN: ColumnProps<AssetType> = {
         <AssetIcon pb="0.1rem" h="1.875rem" w="1.625rem" />
       </Box>
       <Box color={NAMED_COLORS.LIGHT_BLUE}>{asset.name}</Box>
+      {asset.verified_metadata && <InfoBadge message="Verified" ml="2.5rem" />}
     </>
   ),
 }
