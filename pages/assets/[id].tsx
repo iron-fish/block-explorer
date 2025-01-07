@@ -52,7 +52,7 @@ export default function AssetInfo() {
   return (
     <>
       <Head>
-        <title>Iron Fish: Block {id}</title>
+        <title>{`Iron Fish: Asset: ${id}`}</title>
       </Head>
       <Box mb="6rem" zIndex={1}>
         <Flex mt="2.5rem">
@@ -74,12 +74,16 @@ export default function AssetInfo() {
           assetDetails={assetDetails}
         />
         {!isNativeAsset &&
+          asset.loaded &&
           (descriptions.loaded ? (
             <>
               <Box my="0.5rem">
                 <h3>Asset History</h3>
               </Box>
-              <AssetHistory assetHistory={descriptions.data} />
+              <AssetHistory
+                assetHistory={descriptions.data}
+                assetData={asset.data}
+              />
             </>
           ) : (
             <HStack justifyContent="center" py="6rem">

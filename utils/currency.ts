@@ -45,3 +45,33 @@ export const getNumberToUnit = (value: number): string => {
   const output = formatted + unit
   return neg ? '-' + output : output
 }
+
+/**
+ * Formats a value in the minor denomination as a human-readable currency value with the
+ * specified number of decimal places.
+ *
+ * Min precision is the minimum number of decimal places to include.
+ */
+export const formatCurrency = (
+  value: bigint | number | string,
+  decimals: number,
+  minPrecision = 0
+): string => {
+  const asBigInt = BigInt(value)
+
+  if (asBigInt < 0) {
+    return `-${formatCurrency(asBigInt * BigInt(-1), decimals, minPrecision)}`
+  }
+
+  const decimalsBigInt = eval(`BigInt(10) ** BigInt(${decimals})`)
+
+  const major = asBigInt / decimalsBigInt
+  const remainder = asBigInt % decimalsBigInt
+  const remainderString = remainder
+    .toString()
+    .padStart(decimals, '0')
+    .replace(/0+$/, '')
+    .padEnd(minPrecision, '0')
+
+  return remainderString ? `${major}.${remainderString}` : major.toString()
+}

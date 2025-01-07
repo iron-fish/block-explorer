@@ -8,8 +8,10 @@ import {
 } from 'components'
 import BurnAction from 'assets/svg/burn-action.svg'
 import MintAction from 'assets/svg/mint-action.svg'
-import { AssetDescriptionType } from 'types'
+import { AssetDescriptionType, AssetType } from 'types'
 import { formatNumberWithLanguage } from 'utils/format'
+import { formatCurrency } from 'utils/currency'
+import { useMemo } from 'react'
 
 const upperFirst = (str: string) =>
   str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
@@ -49,13 +51,23 @@ const COLUMNS: Array<ColumnProps<AssetDescriptionType>> = [
 
 type Props = {
   assetHistory: Array<AssetDescriptionType>
+  assetData: AssetType
 }
 
-export function AssetHistory({ assetHistory }: Props) {
+export function AssetHistory({ assetHistory, assetData }: Props) {
+  const assetHistoryWithDecimals = useMemo(() => {
+    return assetData.verified_metadata?.decimals != null
+      ? assetHistory.map(v => ({
+          ...v,
+          value: formatCurrency(v.value, assetData.verified_metadata.decimals),
+        }))
+      : assetHistory
+  }, [assetHistory, assetData])
+
   return (
     <Box mb="2.25rem">
       <ExplorerCommonTable
-        data={assetHistory}
+        data={assetHistoryWithDecimals}
         columns={COLUMNS}
         disableHover={true}
       />
